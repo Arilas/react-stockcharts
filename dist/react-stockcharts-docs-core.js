@@ -1,4 +1,5193 @@
-!function(e){function t(s){if(a[s])return a[s].exports;var n=a[s]={exports:{},id:s,loaded:!1};return e[s].call(n.exports,n,n.exports,t),n.loaded=!0,n.exports}var s=window.webpackJsonpReStock;window.webpackJsonpReStock=function(r,l){for(var i,o,c=0,p=[];c<r.length;c++)o=r[c],n[o]&&p.push.apply(p,n[o]),n[o]=0;for(i in l)e[i]=l[i];for(s&&s(r,l);p.length;)p.shift().call(null,t);return l[0]?(a[0]=0,t(0)):void 0};var a={},n={2:0};t.e=function(e,s){if(0===n[e])return s.call(null,t);if(void 0!==n[e])n[e].push(s);else{n[e]=[s];var a=document.getElementsByTagName("head")[0],r=document.createElement("script");r.type="text/javascript",r.charset="utf-8",r.async=!0,r.src=t.p+""+e+"."+({0:"react-stockcharts-home",1:"react-stockcharts-dashboard"}[e]||e)+".js",a.appendChild(r)}},t.m=e,t.c=a,t.p="js/"}([,function(e){e.exports=__WEBPACK_EXTERNAL_MODULE_1__},function(e){e.exports=__WEBPACK_EXTERNAL_MODULE_2__},,,,,,,,,,,,,,function(e,t,s){"use strict";var a=s(1),n=s(2),r=s(55),l=r.ChartCanvas,i=r.XAxis,o=r.YAxis,c=r.AreaSeries,p=(r.Translate,r.Chart),h=r.DataSeries,u=r.EventCapture,d=r.MouseCoordinates,m=r.CrossHair,f=r.TooltipContainer,g=r.OHLCTooltip,v=r.OverlaySeries,y=r.LineSeries,j=r.MovingAverageTooltip,b=r.EdgeContainer,C=r.EdgeIndicator,E=r.CurrentCoordinate,x=s(52),S=s(53);e.exports={init:function(e){var t=a.createClass({displayName:"AreaChartWithZoomPan",mixins:[S,x],handleMATooltipClick:function(e){console.log("You clicked on ",e," handle your onclick event here...")},render:function(){if(!this.state.width)return a.createElement("div",null);var t=n.time.format("%Y-%m-%d").parse,s=({from:t("2012-06-01"),to:t("2012-12-31")},n.time.format("%Y-%m-%d"));return a.createElement(l,{width:this.state.width,height:500,margin:{left:65,right:90,top:30,bottom:30},data:e,ref:"eventStore"},a.createElement(p,{id:1},a.createElement(i,{axisAt:"bottom",orient:"bottom",ticks:6}),a.createElement(o,{axisAt:"right",orient:"right"}),a.createElement(h,{yAccessor:function(e){return e.close},xAccessor:function(e){return e.date}},a.createElement(c,null),a.createElement(v,{id:0,type:"sma",options:{period:50}},a.createElement(y,null)),a.createElement(v,{id:1,type:"sma",options:{period:150}},a.createElement(y,null)),a.createElement(v,{id:2,type:"sma",options:{period:250}},a.createElement(y,null)),a.createElement(v,{id:3,type:"sma",options:{period:350}},a.createElement(y,null)),a.createElement(v,{id:4,type:"sma",options:{period:450}},a.createElement(y,null)))),a.createElement(E,{forChart:1}),a.createElement(E,{forChart:1,forOverlay:1}),a.createElement(b,null,a.createElement(C,{className:"horizontal",itemType:"last",orient:"right",edgeAt:"right",forChart:1,forOverlay:0}),a.createElement(C,{className:"horizontal",itemType:"first",orient:"left",edgeAt:"left",forChart:1,forOverlay:1}),a.createElement(C,{className:"horizontal",itemType:"last",orient:"right",edgeAt:"right",forChart:1}),a.createElement(C,{className:"horizontal",itemType:"first",orient:"left",edgeAt:"left",forChart:1}),a.createElement(C,{className:"horizontal",itemType:"last",orient:"right",edgeAt:"right",forChart:1,forOverlay:2}),a.createElement(C,{className:"horizontal",itemType:"last",orient:"right",edgeAt:"right",forChart:1,forOverlay:3})),a.createElement(d,{forChart:1,xDisplayFormat:s,yDisplayFormat:function(e){return e.toFixed(2)}},a.createElement(m,null)),a.createElement(u,{mouseMove:!0,zoom:!0,pan:!0,mainChart:1}),a.createElement(f,null,a.createElement(g,{forChart:1,origin:[-60,-20]}),a.createElement(j,{forChart:1,onClick:this.handleMATooltipClick,origin:[-60,-10]})))}});return t}}},,,,,,,,,,,,,,,,function(e,t,s){var a=s(33);"string"==typeof a&&(a=[[e.id,a,""]]);s(54)(a,{})},function(e,t,s){t=e.exports=s(56)(),t.push([e.id,"aside table{border:1;border-spacing:1px;border-collapse:collapse;max-width:100%;margin-bottom:20px}aside table tbody>tr>td,aside table tbody>tr>th,aside table tfoot>tr>td,aside table tfoot>tr>th,aside table thead>tr>td,aside table thead>tr>th{padding:8px;line-height:1.42857;vertical-align:top;border-top:1px solid #DDD}a.button{background:url("+s(78)+") 0 0 no-repeat;width:203px;height:80px;padding-left:60px;color:#fff!important}a.button small{display:inline;font-size:13px;margin-top:15px}.jumbotron{background:steelblue;padding:0;color:#fff}.jumbotron a{color:#ff0}.top-spacing{padding-top:10px}.navbar{background-color:steelblue}.navbar a{color:#fff}.navbar-fixed-top{border:0}.sidebar{display:none}@media (min-width:768px){.sidebar{position:fixed;top:51px;bottom:0;left:0;z-index:1000;display:block;padding:20px;overflow-x:hidden;overflow-y:auto;background-color:#f5f5f5;border-right:1px solid #eee}}.nav-sidebar{margin-right:-21px;margin-bottom:20px;margin-left:-20px}.nav-sidebar>li>a{padding-right:20px;padding-left:20px}.nav-sidebar>.active a,.nav-sidebar>.active a:hover,.nav-sidebar>.active a:focus{color:#fff;background-color:#428bca}.main{padding:20px}@media (min-width:768px){.main{padding-right:40px;padding-left:40px}}.main .page-header{margin-top:0}",""])},function(e,t,s){var a=s(35);"string"==typeof a&&(a=[[e.id,a,""]]);s(54)(a,{})},function(e,t,s){t=e.exports=s(56)(),t.push([e.id,'body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:13px}.react-stockchart .axis path,.react-stockchart .axis line{fill:none;stroke:#000}.react-stockchart .current-coordinate{fill:none;stroke:steelblue;stroke-width:3px}.react-stockchart .grid.axis path,.react-stockchart .grid.axis line{fill:none;stroke:#000;shape-rendering:crispEdges;opacity:.2}.react-stockchart .y.axis path{display:none}.react-stockchart .candle .up{fill:#6BA583;stroke:#6BA583;stroke-width:1px;shape-rendering:crispEdges}.react-stockchart .candle .down{fill:red;stroke:red;stroke-width:1px;shape-rendering:crispEdges}.react-stockchart .candle line{stroke:#000}.react-stockchart .wick .up,.react-stockchart .wick .down{stroke:#000;stroke-width:1px;shape-rendering:crispEdges}.react-stockchart .line{fill:none;stroke-width:1px}.react-stockchart .line-stroke{shape-rendering:crispEdges;stroke:steelblue}.react-stockchart .overlay-stroke{stroke:steelblue}.react-stockchart .yin{fill:none;stroke:red;stroke-width:2px}.react-stockchart .yang{fill:none;stroke:#6BA583;stroke-width:2px}.react-stockchart .point_figure_up{fill:none;stroke:green;stroke-width:1px}.react-stockchart .point_figure_down{fill:none;stroke:red;stroke-width:1px}.react-stockchart .area{fill:lightsteelblue;opacity:.5}.react-stockchart .backgroundText{text-anchor:middle;fill:#8a8a8a;opacity:.15}.react-stockchart .cross-hair{stroke:#000;stroke-width:1px;shape-rendering:crispEdges;opacity:.2}.react-stockchart .horizontal2 .textbg{opacity:.95;fill:#f0e68c}.react-stockchart .horizontal2 text{fill:#757575}.react-stockchart .horizontal3 .textbg{opacity:.95;fill:#000}.react-stockchart .horizontal3 text{fill:#757575}.react-stockchart .edge-coordinate .textbg{opacity:.95}.react-stockchart .edge-coordinate text{fill:#fff}.react-stockchart .vertical .textbg,.react-stockchart .horizontal .textbg{opacity:.9;fill:#8a8a8a}.react-stockchart .vertical text,.react-stockchart .horizontal text{fill:#fff}.react-stockchart .grab{cursor:grab;cursor:-webkit-grab}.react-stockchart .grabbing{cursor:grabbing;cursor:-webkit-grabbing}.react-stockchart .crosshair{cursor:crosshair}.react-stockchart .toottip-hover{pointer-events:all;cursor:pointer}.react-stockchart .histogram .bar{fill:steelblue;opacity:.3;stroke:none}.react-stockchart .histogram .up{fill:#6BA583;opacity:.3;stroke:none}.react-stockchart .histogram .down{fill:red;opacity:.3;stroke:none}.react-stockchart .histogram line.up{stroke:#6BA583}.react-stockchart .histogram line.down{stroke:red}.react-stockchart .ma-container rect{fill:none;stroke:none}.react-stockchart .ma-container rect:hover{fill:#8a8a8a;opacity:.3}.react-stockchart .ma-container line{stroke-width:4px}.react-stockchart .legend{font-size:11px}.react-stockchart .legend .tooltip-label{fill:steelblue;font-weight:700}',""])},,,,,,,,,,,,,,,,,function(e){"use strict";var t={handleWindowResize:function(){var e=$(this.getDOMNode()).parent().width();console.log("width = ",e),this.setState({width:e})},componentWillUnMount:function(){window.removeEventListener("resize",this.handleWindowResize)},componentDidMount:function(){window.addEventListener("resize",this.handleWindowResize);var e=$(this.getDOMNode()).parent().width();this.setState({width:e})}};e.exports=t},function(e){"use strict";var t={getInitialState:function(){return{}}};e.exports=t},function(e){function t(e,t){for(var s=0;s<e.length;s++){var a=e[s],r=o[a.id];if(r){r.refs++;for(var l=0;l<r.parts.length;l++)r.parts[l](a.parts[l]);for(;l<a.parts.length;l++)r.parts.push(n(a.parts[l],t))}else{for(var i=[],l=0;l<a.parts.length;l++)i.push(n(a.parts[l],t));o[a.id]={id:a.id,refs:1,parts:i}}}}function s(e){for(var t=[],s={},a=0;a<e.length;a++){var n=e[a],r=n[0],l=n[1],i=n[2],o=n[3],c={css:l,media:i,sourceMap:o};s[r]?s[r].parts.push(c):t.push(s[r]={id:r,parts:[c]})}return t}function a(){var e=document.createElement("style"),t=h();return e.type="text/css",t.appendChild(e),e}function n(e,t){var s,n,r;if(t.singleton){var o=d++;s=u||(u=a()),n=l.bind(null,s,o,!1),r=l.bind(null,s,o,!0)}else s=a(),n=i.bind(null,s),r=function(){s.parentNode.removeChild(s)};return n(e),function(t){if(t){if(t.css===e.css&&t.media===e.media&&t.sourceMap===e.sourceMap)return;n(e=t)}else r()}}function r(e,t,s){var a=["/** >>"+t+" **/","/** "+t+"<< **/"],n=e.lastIndexOf(a[0]),r=s?a[0]+s+a[1]:"";if(e.lastIndexOf(a[0])>=0){var l=e.lastIndexOf(a[1])+a[1].length;return e.slice(0,n)+r+e.slice(l)}return e+r}function l(e,t,s,a){var n=s?"":a.css;if(e.styleSheet)e.styleSheet.cssText=r(e.styleSheet.cssText,t,n);else{var l=document.createTextNode(n),i=e.childNodes;i[t]&&e.removeChild(i[t]),i.length?e.insertBefore(l,i[t]):e.appendChild(l)}}function i(e,t){var s=t.css,a=t.media,n=t.sourceMap;if(n&&"function"==typeof btoa)try{s+="\n/*# sourceMappingURL=data:application/json;base64,"+btoa(JSON.stringify(n))+" */",s='@import url("data:text/css;base64,'+btoa(s)+'")'}catch(r){}if(a&&e.setAttribute("media",a),e.styleSheet)e.styleSheet.cssText=s;else{for(;e.firstChild;)e.removeChild(e.firstChild);e.appendChild(document.createTextNode(s))}}var o={},c=function(e){var t;return function(){return"undefined"==typeof t&&(t=e.apply(this,arguments)),t}},p=c(function(){return/msie 9\b/.test(window.navigator.userAgent.toLowerCase())}),h=c(function(){return document.head||document.getElementsByTagName("head")[0]}),u=null,d=0;e.exports=function(e,a){if("object"!=typeof document)throw new Error("The style-loader cannot be used in a non-browser environment");a=a||{},"undefined"==typeof a.singleton&&(a.singleton=p());var n=s(e);return t(n,a),function(e){for(var r=[],l=0;l<n.length;l++){var i=n[l],c=o[i.id];c.refs--,r.push(c)}if(e){var p=s(e);t(p,a)}for(var l=0;l<r.length;l++){var c=r[l];if(0===c.refs){for(var h=0;h<c.parts.length;h++)c.parts[h]();delete o[c.id]}}}}},function(e,t,s){"use strict";t.ChartCanvas=s(62),t.DataTransform=s(57),t.XAxis=s(58),t.YAxis=s(59),t.Chart=s(60),t.DataSeries=s(61),t.AreaSeries=s(63),t.LineSeries=s(64),t.CandlestickSeries=s(65),t.OverlaySeries=s(66),t.HistogramSeries=s(67),t.EventCapture=s(68),t.MouseCoordinates=s(70),t.CrossHair=s(69),t.VerticalMousePointer=s(71),t.CurrentCoordinate=s(72),t.TooltipContainer=s(73),t.OHLCTooltip=s(74),t.MovingAverageTooltip=s(75),t.EdgeContainer=s(76),t.EdgeIndicator=s(77)},function(e){e.exports=function(){var e=[];return e.toString=function(){for(var e=[],t=0;t<this.length;t++){var s=this[t];e.push(s[2]?"@media "+s[2]+"{"+s[1]+"}":s[1])}return e.join("")},e}},function(e,t,s){"use strict";var a=s(1),n=s(80),r=s(81),l=s(82),i=(s(83),["transformType","options","children","namespace"]),o=a.createClass({displayName:"DataTransform",mixins:[l,r,n],propTypes:{_height:a.PropTypes.number,_width:a.PropTypes.number,data:a.PropTypes.any.isRequired,transformType:a.PropTypes.string.isRequired,options:a.PropTypes.object},getInitialState:function(){return{}},getDefaultProps:function(){return{namespace:"ReStock.DataTransform",transformType:"none"}},renderChildren:function(){var e=a.Children.map(this.props.children,function(e){if("string"==typeof e.type)return e;var t=e,s={};return Object.keys(this.props).filter(function(e){return-1===i.indexOf(e)}).forEach(function(e){return s[e]=this.props[e]}.bind(this)),Object.keys(this.state.passThroughProps).forEach(function(e){return s[e]=this.state.passThroughProps[e]}.bind(this)),a.addons.cloneWithProps(t,s)}.bind(this));return this._renderChildren(e)},render:function(){return a.createElement("g",null,this.renderChildren())}});e.exports=o},function(e,t,s){"use strict";var a=s(1),n=s(2),r=s(79),l=a.createClass({displayName:"XAxis",mixins:[r],propTypes:{axisAt:a.PropTypes.oneOfType([a.PropTypes.oneOf(["top","bottom","middle"]),a.PropTypes.number]).isRequired,orient:a.PropTypes.oneOf(["top","bottom"]).isRequired,innerTickSize:a.PropTypes.number,outerTickSize:a.PropTypes.number,tickFormat:a.PropTypes.func,tickPadding:a.PropTypes.number,tickSize:a.PropTypes.number,ticks:a.PropTypes.number,tickValues:a.PropTypes.array},getDefaultProps:function(){return{namespace:"ReStock.XAxis",showGrid:!1}},getInitialState:function(){return{}},componentWillMount:function(){this.state.xAxis=n.svg.axis()},componentDidMount:function(){this.updateAxis()},componentDidUpdate:function(){this.updateAxis()},updateAxis:function(){var e=n.svg.axis().scale(this.props._xScale).orient(this.props.orient);this.props.orient&&e.orient(this.props.orient),this.props.innerTickSize&&e.innerTickSize(this.props.innerTickSize),this.props.outerTickSize&&e.outerTickSize(this.props.outerTickSize),this.props.tickFormat&&(this.props._xScale.isPolyLinear&&this.props._xScale.isPolyLinear()?console.warn("Cannot set tickFormat on a poly linear scale, ignoring tickFormat on XAxis"):e.tickFormat(this.props.tickFormat)),this.props.tickPadding&&e.tickPadding(this.props.tickPadding),this.props.tickSize&&e.tickSize(this.props.tickSize),this.props.ticks&&e.ticks(this.props.ticks),this.props.tickValues&&e.tickValues(this.props.tickValues),n.select(this.getDOMNode()).call(e)},render:function(){var e=this.props.axisAt,t=this.props._yScale.range();return"top"===this.props.axisAt&&(e=Math.min(t[0],t[1])),"bottom"===this.props.axisAt&&(e=Math.max(t[0],t[1])),"middle"===this.props.axisAt&&(e=(t[0]+t[1])/2),a.createElement("g",{className:"x axis",transform:"translate(0, "+e+")"})}});e.exports=l},function(e,t,s){"use strict";var a=s(1),n=s(2),r=s(79),l=a.createClass({displayName:"YAxis",mixins:[r],propTypes:{axisAt:a.PropTypes.oneOfType([a.PropTypes.oneOf(["left","right","middle"]),a.PropTypes.number]).isRequired,orient:a.PropTypes.oneOf(["left","right"]).isRequired,innerTickSize:a.PropTypes.number,outerTickSize:a.PropTypes.number,tickFormat:a.PropTypes.func,tickPadding:a.PropTypes.number,tickSize:a.PropTypes.number,ticks:a.PropTypes.number,tickValues:a.PropTypes.array,percentScale:a.PropTypes.bool,axisPadding:a.PropTypes.number},getDefaultProps:function(){return{namespace:"ReStock.YAxis",showGrid:!1,axisPadding:0}},getInitialState:function(){return{}},componentDidMount:function(){this.updateAxis()},componentDidUpdate:function(){this.updateAxis()},updateAxis:function(){var e=this.props._yScale;this.props.percentScale&&(e=e.copy().domain([0,1]));var t=n.svg.axis().scale(e).orient(this.props.orient);this.props.orient&&t.orient(this.props.orient),this.props.innerTickSize&&t.innerTickSize(this.props.innerTickSize),this.props.outerTickSize&&t.outerTickSize(this.props.outerTickSize),this.props.tickFormat&&t.tickFormat(this.props.tickFormat),this.props.tickPadding&&t.tickPadding(this.props.tickPadding),this.props.tickSize&&t.tickSize(this.props.tickSize),this.props.ticks&&t.ticks(this.props.ticks),this.props.tickValues&&t.tickValues(this.props.tickValues),n.select(this.getDOMNode()).call(t)},render:function(){var e=this.props.axisAt,t=this.props._xScale.range();return"left"===this.props.axisAt&&(e=Math.min(t[0],t[1])+this.props.axisPadding),"right"===this.props.axisAt&&(e=Math.max(t[0],t[1])+this.props.axisPadding),"middle"===this.props.axisAt&&(e=(t[0]+t[1])/2+this.props.axisPadding),a.createElement("g",{className:"y axis",transform:"translate("+e+", 0)"})}});e.exports=l},function(e,t,s){"use strict";var a=s(1),n=(s(2),s(84),s(85),s(86)),r=(n.overlayColors,n.pluck,n.keysAsArray,a.createClass({displayName:"Chart",statics:{getWidth:function(e){return e.width||e._width},getHeight:function(e){return e.height||e._height}},propTypes:{data:a.PropTypes.array.isRequired,height:a.PropTypes.number,width:a.PropTypes.number,origin:a.PropTypes.oneOfType([a.PropTypes.array,a.PropTypes.func]).isRequired,id:a.PropTypes.number.isRequired,_height:a.PropTypes.number,_width:a.PropTypes.number,xScale:a.PropTypes.func,yScale:a.PropTypes.func,xDomainUpdate:a.PropTypes.bool,yDomainUpdate:a.PropTypes.bool,_chartData:a.PropTypes.object.isRequired,_updateMode:a.PropTypes.object.isRequired},mixins:[a.addons.PureRenderMixin],getDefaultProps:function(){return{namespace:"ReStock.Chart",transformDataAs:"none",yDomainUpdate:!0,origin:[0,0]}},renderChildren:function(){return a.Children.map(this.props.children,function(e){if("string"==typeof e.type)return e;if(["ReStock.DataSeries","ReStock.ChartOverlay","ReStock.XAxis","ReStock.YAxis"].indexOf(e.props.namespace)<0)return e;var t=e;return t=a.addons.cloneWithProps(t,{_xScale:this.props._chartData.scales.xScale,_yScale:this.props._chartData.scales.yScale,data:this.props.data,_xAccessor:this.props._indexAccessor}),t=this.updatePropsForDataSeries(t),void 0!==t.props.xAccessor&&this.props._stockScale&&(console.warn("xAccessor defined in DataSeries will override the indexAccessor of the polylinear scale. This might not be the right configuration"),console.warn("Either remove the xAccessor configuration on the DataSeries or change the polyLinear=false in Translate")),t}.bind(this),this)},updatePropsForDataSeries:function(e){return"ReStock.DataSeries"===e.props.namespace?a.addons.cloneWithProps(e,{_overlays:this.props._chartData.overlays,_updateMode:this.props._updateMode,_pan:this.props._pan,_isMainChart:this.props._isMainChart}):e},render:function(){var e=this.props._height,t=this.props._width,s="function"==typeof this.props.origin?this.props.origin(t,e):this.props.origin,n="translate("+s[0]+","+s[1]+")";return this.props._pan&&!this.props._isMainChart?a.createElement("g",null):a.createElement("g",{transform:n},this.renderChildren())}}));e.exports=r},function(e,t,s){"use strict";function a(e,t){return e.map(function(e){return[e.id,e]}).filter(function(e){return e[0]===t}).map(function(e){return e[1]})[0]}var n=s(1),r=s(79),l=s(86),i=(s(2),s(85),l.overlayColors,n.createClass({displayName:"DataSeries",mixins:[r],propTypes:{xAccessor:n.PropTypes.func,_xAccessor:n.PropTypes.func,yAccessor:n.PropTypes.func.isRequired,_xScale:n.PropTypes.func,_yScale:n.PropTypes.func,_overlays:n.PropTypes.array,_updateMode:n.PropTypes.object},getDefaultProps:function(){return{namespace:"ReStock.DataSeries"}},renderChildren:function(){var e=n.Children.map(this.props.children,function(e){var t=e;if("string"==typeof e.type)return t;if(/Series$/.test(t.props.namespace)&&(t=n.addons.cloneWithProps(t,{_xScale:this.props._xScale,_yScale:this.props._yScale,_xAccessor:this.props.xAccessor||this.props._xAccessor,_yAccessor:this.props.yAccessor,data:this.props.data}),/OverlaySeries$/.test(t.props.namespace))){var s=(t.props.id,a(this.props._overlays,t.props.id));t=n.addons.cloneWithProps(t,{_overlay:s,_pan:this.props._pan,_isMainChart:this.props._isMainChart})}return t}.bind(this),this);return e},render:function(){return n.createElement("g",{style:{clipPath:"url(#chart-area-clip)"}},this.renderChildren())}}));e.exports=i},function(e,t,s){"use strict";var a=s(1),n=(s(60),s(80)),r=s(81),l=a.createClass({displayName:"ChartCanvas",mixins:[r,n],propTypes:{width:a.PropTypes.number.isRequired,height:a.PropTypes.number.isRequired,margin:a.PropTypes.object,interval:a.PropTypes.string.isRequired},getAvailableHeight:function(e){return e.height-e.margin.top-e.margin.bottom},getAvailableWidth:function(e){return e.width-e.margin.left-e.margin.right},getInitialState:function(){return{}},getDefaultProps:function(){return{margin:{top:20,right:30,bottom:30,left:80},interval:"D"}},renderChildren:function(){var e=a.Children.map(this.props.children,function(e){if("string"==typeof e.type)return e;var t=e;return"ReStock.DataTransform"===t.props.namespace&&(t=a.addons.cloneWithProps(t,{data:this.props.data,interval:this.props.interval})),a.addons.cloneWithProps(t,{_width:this.getAvailableWidth(this.props),_height:this.getAvailableHeight(this.props)})}.bind(this));return this._renderChildren(e)},render:function(){var e="translate("+this.props.margin.left+","+this.props.margin.top+")",t='<clipPath id="chart-area-clip"><rect x="0" y="0" width="'+this.getAvailableWidth(this.props)+'" height="'+this.getAvailableHeight(this.props)+'" /></clipPath>',s=this.renderChildren();return a.createElement("svg",{width:this.props.width,height:this.props.height},a.createElement("defs",{dangerouslySetInnerHTML:{__html:t}}),a.createElement("g",{transform:e},s))}});e.exports=l},function(e,t,s){"use strict";var a=s(1),n=s(2),r=s(79),l=a.createClass({displayName:"AreaSeries",mixins:[r],propTypes:{_xScale:a.PropTypes.func.isRequired,_yScale:a.PropTypes.func.isRequired,_xAccessor:a.PropTypes.func.isRequired,_yAccessor:a.PropTypes.func.isRequired,data:a.PropTypes.array.isRequired},getDefaultProps:function(){return{namespace:"ReStock.AreaSeries"}},getPath:function(){var e=this.props,t=n.svg.line().defined(function(t){return void 0!==e._yAccessor(t)}).x(function(t){return e._xScale(e._xAccessor(t))}).y(function(t){return e._yScale(e._yAccessor(t))});return t(e.data)},getArea:function(){var e=this.props,t=e._yScale.range()[0],s=n.svg.area().defined(function(t){return void 0!==e._yAccessor(t)}).x(function(t){return e._xScale(e._xAccessor(t))}).y0(t-1).y1(function(t){return e._yScale(e._yAccessor(t))});return s(e.data)},render:function(){return a.createElement("g",null,a.createElement("path",{d:this.getPath(),className:"line line-stroke"}),a.createElement("path",{d:this.getArea(),className:"area"}))}});e.exports=l},function(e,t,s){"use strict";var a=s(1),n=s(2),r=(s(79),a.createClass({displayName:"LineSeries",propTypes:{_xScale:a.PropTypes.func.isRequired,_yScale:a.PropTypes.func.isRequired,_xAccessor:a.PropTypes.func.isRequired,_yAccessor:a.PropTypes.func.isRequired,data:a.PropTypes.array.isRequired,className:a.PropTypes.string,stroke:a.PropTypes.string},getDefaultProps:function(){return{namespace:"ReStock.LineSeries",className:"line "}},getPath:function(){var e=this.props,t=n.svg.line().defined(function(t){return void 0!==e._yAccessor(t)}).x(function(t){return e._xScale(e._xAccessor(t))}).y(function(t){return e._yScale(e._yAccessor(t))});return t(e.data)},render:function(){var e=this.props.className.concat(void 0!==this.props.stroke?"":" line-stroke");return a.createElement("g",null,a.createElement("path",{d:this.getPath(),stroke:this.props.stroke,fill:"none",className:e}))}}));e.exports=r},function(e,t,s){"use strict";var a=s(1),n=(s(2),s(79)),r=a.createClass({displayName:"CandlestickSeries",mixins:[n],propTypes:{_xScale:a.PropTypes.func.isRequired,_yScale:a.PropTypes.func.isRequired,_xAccessor:a.PropTypes.func.isRequired,_yAccessor:a.PropTypes.func.isRequired},statics:{yAccessor:function(e){return{open:e.open,high:e.high,low:e.low,close:e.close}}},getDefaultProps:function(){return{namespace:"ReStock.CandlestickSeries"}},getWicks:function(){var e=this.props.data.filter(function(e){return void 0!==e.close}).map(function(e,t){var s=this.props._yAccessor(e),n=Math.round(this.props._xScale(this.props._xAccessor(e))),r=this.props._yScale(s.high),l=n,i=this.props._yScale(s.low),o=s.open>=s.close?"up":"down";return a.createElement("line",{key:t,className:o,x1:n,y1:r,x2:l,y2:i})},this);return e},getCandles:function(){var e=this.props._xScale(this.props._xAccessor(this.props.data[this.props.data.length-1]))-this.props._xScale(this.props._xAccessor(this.props.data[0])),t=e/this.props.data.length*.5,s=Math.floor(t)%2===0?Math.floor(t):Math.round(t),n=this.props.data.filter(function(e){return void 0!==e.close}).map(function(e,t){var n=this.props._yAccessor(e),r=Math.round(this.props._xScale(this.props._xAccessor(e)))-(1===s?0:.5*s),l=this.props._yScale(Math.max(n.open,n.close)),i=Math.abs(this.props._yScale(n.open)-this.props._yScale(n.close)),o=n.open<=n.close?"up":"down";return n.open===n.close?a.createElement("line",{key:t,x1:r,y1:l,x2:r+s,y2:l}):1>=s?a.createElement("line",{className:o,key:t,x1:r,y1:l,x2:r,y2:l+i}):a.createElement("rect",{key:t,className:o,x:r,y:l,width:s,height:i})},this);return n},render:function(){return a.createElement("g",null,a.createElement("g",{className:"wick",key:"wicks"},this.getWicks()),a.createElement("g",{className:"candle",key:"candles"},this.getCandles()))}});e.exports=r},function(e,t,s){"use strict";var a=s(1),n=s(79),r=(s(86),s(85),a.createClass({displayName:"OverlaySeries",mixins:[n],propTypes:{_xScale:a.PropTypes.func.isRequired,_yScale:a.PropTypes.func.isRequired,_xAccessor:a.PropTypes.func.isRequired,_overlay:a.PropTypes.object.isRequired,data:a.PropTypes.array.isRequired,type:a.PropTypes.oneOf(["sma","ema"]),options:a.PropTypes.object.isRequired,id:a.PropTypes.number.isRequired,stroke:a.PropTypes.string},getDefaultProps:function(){return{namespace:"ReStock.OverlaySeries"}},componentWillUnMount:function(){console.log("componentWillUnMount"),console.log("componentWillUnMount"),console.log("componentWillUnMount"),console.log("componentWillUnMount"),console.log("componentWillUnMount"),this.props._overlay.set(null)},componentWillReceiveProps:function(e){this.props.options!==e.options&&(console.log("updating props....."),this.props._overlay.set("options",e.options))},renderChildren:function(){return a.Children.map(this.props.children,function(e){var t=e;return"string"==typeof e.type?t:(/Series$/.test(t.props.namespace)&&(t=a.addons.cloneWithProps(t,{_xScale:this.props._xScale,_yScale:this.props._yScale,_xAccessor:this.props.xAccessor||this.props._xAccessor,_yAccessor:this.props._overlay.yAccessor,data:this.props.data,stroke:this.props._overlay.stroke,className:"overlay"})),t)}.bind(this),this)},render:function(){return void 0===this.props._overlay.yAccessor?null:this.props._pan&&this.props._isMainChart?a.createElement("g",null):a.createElement("g",null,this.renderChildren())}}));e.exports=r},function(e,t,s){"use strict";var a=s(1),n=(s(2),s(79)),r=a.createClass({displayName:"HistogramSeries",mixins:[n],propTypes:{_xScale:a.PropTypes.func.isRequired,_yScale:a.PropTypes.func.isRequired,_xAccessor:a.PropTypes.func.isRequired,_yAccessor:a.PropTypes.func.isRequired,baseAt:a.PropTypes.oneOfType([a.PropTypes.oneOf(["top","bottom","middle"]),a.PropTypes.number]).isRequired,direction:a.PropTypes.oneOf(["up","down"]).isRequired,className:a.PropTypes.oneOfType([a.PropTypes.func,a.PropTypes.string]).isRequired},getDefaultProps:function(){return{namespace:"ReStock.HistogramSeries",baseAt:"bottom",direction:"up",className:"bar"}},getBars:function(){var e="top"===this.props.baseAt?0:"bottom"===this.props.baseAt?this.props._yScale.range()[0]:"middle"===this.props.baseAt?(this.props._yScale.range()[0]+this.props._yScale.range()[1])/2:this.props.baseAt,t="up"===this.props.direction?-1:1,s=function(){return this.props.className}.bind(this);"function"==typeof this.props.className&&(s=this.props.className);var n=Math.abs(this.props._xScale.range()[0]-this.props._xScale.range()[1]),r=n/this.props.data.length*.5,l=this.props.data.filter(function(e){return void 0!==this.props._yAccessor(e)}.bind(this)).map(function(n,l){var i,o,c=this.props._yAccessor(n),p=Math.round(this.props._xScale(this.props._xAccessor(n)))-.5*r,h=s(n);return t>0?(i=e,o=this.props._yScale.range()[0]-this.props._yScale(c)):(i=this.props._yScale(c),o=e-i),Math.round(r)<=1?a.createElement("line",{key:l,className:h,x1:Math.round(p),y1:Math.round(i),x2:Math.round(p),y2:Math.round(i+o)}):a.createElement("rect",{key:l,className:h,x:Math.round(p),y:Math.round(i),width:Math.round(r),height:Math.round(o)})}.bind(this),this);return l},render:function(){return a.createElement("g",{className:"histogram"},this.getBars())}});e.exports=r},function(e,t,s){"use strict";var a=s(1),n=s(86),r=a.createClass({displayName:"EventCapture",propTypes:{mainChart:a.PropTypes.number.isRequired,mouseMove:a.PropTypes.bool.isRequired,zoom:a.PropTypes.bool.isRequired,zoomMultiplier:a.PropTypes.number.isRequired,pan:a.PropTypes.bool.isRequired,panSpeedMultiplier:a.PropTypes.number.isRequired,defaultFocus:a.PropTypes.bool.isRequired,_chartData:a.PropTypes.object.isRequired,_height:a.PropTypes.number.isRequired,_width:a.PropTypes.number.isRequired,_eventStore:a.PropTypes.object.isRequired,_zoomEventStore:a.PropTypes.object},getInitialState:function(){return{dragOrigin:[0,0],defaultFocus:!1}},componentWillMount:function(){this.setState({className:this.props.className,inFocus:this.props.defaultFocus})},getDefaultProps:function(){return{namespace:"ReStock.EventCapture",mouseMove:!1,zoom:!1,zoomMultiplier:1,pan:!1,panSpeedMultiplier:1,className:"crosshair",defaultFocus:!1}},toggleFocus:function(){this.setFocus(!this.state.defaultFocus)},setFocus:function(e){this.setState({defaultFocus:e})},handleEnter:function(){this.props._eventStore&&this.props._eventStore.get().mouseOver.set({value:!0})},handleLeave:function(){if(this.props._eventStore){{this.props._eventStore.get()}this.props._eventStore.get().mouseOver.set({value:!1}),this.props._eventStore.get().set({pan:!1}),this.setState({dragging:!1,dragOrigin:[0,0],className:this.props.className})}},handleWheel:function(e){if(this.props.zoom&&this.props._eventStore&&this.state.inFocus&&this.props._zoomEventStore){e.stopPropagation(),e.preventDefault();var t=e.deltaY>0?this.props.zoomMultiplier:-this.props.zoomMultiplier;this.props._zoomEventStore.get().set({zoom:t})}},handleMouseMove:function(e){if(this.props._eventStore&&this.props.mouseMove){var t=this.props._eventStore.get(),s=n.mousePosition(e),a=this.state.dragOrigin;(a[0]!==s[0]||a[1]!==s[1])&&(this.state.dragging&&(t=t.set({dx:(s[0]-a[0])*this.props.panSpeedMultiplier,dragOriginDomain:this.state.dragOriginDomain})),t=t.set({mouseXY:s}),t=t.set({pan:this.state.dragging}))}},handleMouseDown:function(e){if(this.props._eventStore){var t=!0;this.setState(this.props.pan&&this.props._zoomEventStore?{dragging:!0,dragOrigin:n.mousePosition(e),dragOriginDomain:this.props._chartData.scales.xScale.domain(),className:"grabbing",inFocus:t}:{inFocus:t})}e.preventDefault()},handleMouseUp:function(e){this.props.pan&&this.props._zoomEventStore&&(this.props._eventStore.get().set({pan:!1}),this.setState({dragging:!1,dragOrigin:[0,0],className:this.props.className})),e.preventDefault()},render:function(){return a.createElement("rect",{className:this.state.className,width:this.props._width,height:this.props._height,style:{opacity:0},onMouseEnter:this.handleEnter,onMouseLeave:this.handleLeave,onMouseMove:this.handleMouseMove,onMouseDown:this.handleMouseDown,onMouseUp:this.handleMouseUp,onWheel:this.handleWheel})}});e.exports=r},function(e,t,s){"use strict";var a=s(1),n=s(87),r=(s(86),a.createClass({displayName:"CrossHair",propTypes:{_height:a.PropTypes.number.isRequired,_width:a.PropTypes.number.isRequired,_mouseXY:a.PropTypes.array.isRequired,_xDisplayValue:a.PropTypes.string.isRequired,_yDisplayValue:a.PropTypes.string.isRequired,yAxisPad:a.PropTypes.number.isRequired},shouldComponentUpdate:function(e){return e._mouseXY!==this.props._mouseXY},getDefaultProps:function(){return{namespace:"ReStock.CrossHair",yAxisPad:5}},render:function(){return a.createElement("g",{className:"crosshair "},a.createElement(n,{type:"horizontal",className:"horizontal",show:!0,x1:0,y1:this.props._mouseXY[1],x2:this.props._width+this.props.yAxisPad,y2:this.props._mouseXY[1],coordinate:this.props._yDisplayValue,edgeAt:this.props._width+this.props.yAxisPad,orient:"right"}),a.createElement(n,{type:"vertical",className:"horizontal",show:!0,x1:this.props._mouseXY[0],y1:0,x2:this.props._mouseXY[0],y2:this.props._height,coordinate:this.props._xDisplayValue,edgeAt:this.props._height,orient:"bottom"}))
-}}));e.exports=r},function(e,t,s){"use strict";var a=s(1),n=(s(87),s(86)),r=a.createClass({displayName:"MouseCoordinates",propTypes:{_height:a.PropTypes.number.isRequired,_width:a.PropTypes.number.isRequired,_show:a.PropTypes.bool.isRequired,_mouseXY:a.PropTypes.array.isRequired,_chartData:a.PropTypes.object.isRequired,_currentItem:a.PropTypes.object.isRequired,forChart:a.PropTypes.number.isRequired,xDisplayFormat:a.PropTypes.func.isRequired,yDisplayFormat:a.PropTypes.func.isRequired},shouldComponentUpdate:function(e){return e._currentItem!=this.props._currentItem||e._mouseXY!==this.props._mouseXY||e._show!==this.props._show},getDefaultProps:function(){return{namespace:"ReStock.MouseCoordinates",_show:!1,snapX:!0,xDisplayFormat:n.displayDateFormat,yDisplayFormat:n.displayNumberFormat}},renderChildren:function(){var e=this.props._chartData,t=this.props._currentItem.data,s=e.accessors.xAccessor(t),n=void 0===this.props._dateAccessor?s:this.props._dateAccessor(t),r=e.scales.yScale.invert(this.props._mouseXY[1]);if(void 0===s||void 0===r)return null;var l=this.props.snapX?Math.round(e.scales.xScale(s)):this.props._mouseXY[0],i=this.props._mouseXY[1];return a.Children.map(this.props.children,function(e){if("string"==typeof e.type)return e;var t=e;return a.addons.cloneWithProps(t,{_width:this.props._width,_height:this.props._height,_mouseXY:[l,i],_xDisplayValue:this.props.xDisplayFormat(n),_yDisplayValue:this.props.yDisplayFormat(r)})}.bind(this),this)},render:function(){var e=null;return this.props._show&&(e=this.renderChildren()),a.createElement("g",{className:this.props._show?"show":"hide"},e)}});e.exports=r},function(e,t,s){"use strict";var a=s(1),n=s(87),r=(s(86),a.createClass({displayName:"VerticalMousePointer",propTypes:{_height:a.PropTypes.number.isRequired,_width:a.PropTypes.number.isRequired,_mouseXY:a.PropTypes.array.isRequired,_xDisplayValue:a.PropTypes.string.isRequired,_yDisplayValue:a.PropTypes.string.isRequired,yAxisPad:a.PropTypes.number.isRequired},shouldComponentUpdate:function(e){return e._mouseXY!==this.props._mouseXY},getDefaultProps:function(){return{namespace:"ReStock.VerticalMousePointer",yAxisPad:10}},render:function(){return a.createElement("g",{className:"crosshair "},a.createElement(n,{type:"vertical",className:"horizontal",show:!0,x1:this.props._mouseXY[0],y1:0,x2:this.props._mouseXY[0],y2:this.props._height,coordinate:this.props._xDisplayValue,edgeAt:this.props._height,orient:"bottom"}))}}));e.exports=r},function(e,t,s){"use strict";var a=s(1),n=s(79),r=(s(86),a.createClass({displayName:"CurrentCoordinate",mixins:[n],propTypes:{forChart:a.PropTypes.number.isRequired,forOverlay:a.PropTypes.number,yAccessor:a.PropTypes.func,r:a.PropTypes.number.isRequired,className:a.PropTypes.string,_show:a.PropTypes.bool.isRequired,_chartData:a.PropTypes.object.isRequired,_currentItem:a.PropTypes.object.isRequired},getDefaultProps:function(){return{namespace:"ReStock.CurrentCoordinate",r:3}},render:function(){var e=this.props._chartData,t=this.props._currentItem.data,s="black";if(!this.props._show||void 0===t)return null;var n=this.props.yAccessor||e.accessors.yAccessor;if(void 0!==this.props.forOverlay){var r=e.overlays.filter(function(e){return e.id===this.props.forOverlay}.bind(this));if(1!=r.length)throw console.warn("Unique overlay with id={%s} not found",this.props.forOverlay),new Error("Unique overlay not found");s=r[0].stroke,n=r[0].yAccessor}var l=e.accessors.xAccessor(t),i=n(t);if(void 0===i)return null;var o=Math.round(e.scales.xScale(l))+e.origin[0],c=Math.round(e.scales.yScale(i))+e.origin[1];return a.createElement("circle",{className:this.props.className,cx:o,cy:c,r:this.props.r,fill:s})}}));e.exports=r},function(e,t,s){"use strict";var a=s(1),n=a.createClass({displayName:"TooltipContainer",propTypes:{_currentItems:a.PropTypes.array.isRequired,_charts:a.PropTypes.array.isRequired},shouldComponentUpdate:function(e){return e._charts!==this.props._charts||e._currentItems!==this.props._currentItems},getDefaultProps:function(){return{namespace:"ReStock.TooltipContainer"}},renderChildren:function(){return a.Children.map(this.props.children,function(e){if("string"==typeof e.type)return e;var t=e,s=this.props._charts.filter(function(e){return e.id===t.props.forChart})[0],n=this.props._currentItems.filter(function(e){return e.id===t.props.forChart})[0];return t=a.addons.cloneWithProps(t,{_currentItem:n.data}),/MovingAverageTooltip$/.test(t.props.namespace)&&(t=a.addons.cloneWithProps(t,{_overlays:s.overlays})),t}.bind(this))},render:function(){return a.createElement("g",{className:"toottip-hover"},this.renderChildren())}});e.exports=n},function(e,t,s){"use strict";var a=s(1),n=s(86),r=1e9,l=1e6,i=1e3,o=a.createClass({displayName:"OHLCTooltip",propTypes:{_currentItem:a.PropTypes.object.isRequired,accessor:a.PropTypes.func.isRequired,xDisplayFormat:a.PropTypes.func.isRequired,origin:a.PropTypes.array.isRequired},shouldComponentUpdate:function(e){return e._currentItem!==this.props._currentItem},getDefaultProps:function(){return{namespace:"ReStock.OHLCTooltip",accessor:function(e){return{date:e.date,open:e.open,high:e.high,low:e.low,close:e.close,volume:e.volume}},xDisplayFormat:n.displayDateFormat,origin:[0,0]}},render:function(){var e,t,s,o,c,p,h,u;e=t=s=o=c=p=h=u="n/a";var d=this.props.accessor(this.props._currentItem);return void 0!==d&&void 0!==d.close&&(u=d.volume/r>1?(d.volume/r).toFixed(2)+"b":d.volume/l>1?(d.volume/l).toFixed(2)+"m":d.volume/i>1?(d.volume/i).toFixed(2)+"k":d.volume,e=this.props.xDisplayFormat(d.date),o=n.displayNumberFormat(d.open),c=n.displayNumberFormat(d.high),p=n.displayNumberFormat(d.low),h=n.displayNumberFormat(d.close)),a.createElement("g",{transform:"translate("+this.props.origin[0]+", "+this.props.origin[1]+")"},a.createElement("text",{x:0,y:0,className:"legend"},a.createElement("tspan",{key:"label",x:0,dy:"5",className:"tooltip-label"},"Date: "),a.createElement("tspan",{key:"value"},e),a.createElement("tspan",{key:"label_O",className:"tooltip-label"}," O: "),a.createElement("tspan",{key:"value_O"},o),a.createElement("tspan",{key:"label_H",className:"tooltip-label"}," H: "),a.createElement("tspan",{key:"value_H"},c),a.createElement("tspan",{key:"label_L",className:"tooltip-label"}," L: "),a.createElement("tspan",{key:"value_L"},p),a.createElement("tspan",{key:"label_C",className:"tooltip-label"}," C: "),a.createElement("tspan",{key:"value_C"},h),a.createElement("tspan",{key:"label_Vol",className:"tooltip-label"}," Vol: "),a.createElement("tspan",{key:"value_Vol"},u)))}});e.exports=o},function(e,t,s){"use strict";var a=s(1),n=s(86),r=a.createClass({displayName:"SingleMAToolTip",propTypes:{origin:a.PropTypes.array.isRequired,color:a.PropTypes.string.isRequired,displayName:a.PropTypes.string.isRequired,value:a.PropTypes.string.isRequired,onClick:a.PropTypes.func},getDefaultProps:function(){},handleClick:function(e){this.props.onClick&&this.props.onClick(e)},render:function(){var e="translate("+this.props.origin[0]+", "+this.props.origin[1]+")";return a.createElement("g",{transform:e},a.createElement("line",{x1:0,y1:2,x2:0,y2:28,stroke:this.props.color}),a.createElement("text",{x:5,y:11,className:"legend"},a.createElement("tspan",{className:"tooltip-label"},this.props.displayName),a.createElement("tspan",{x:"5",dy:"15"},this.props.value)),a.createElement("rect",{x:0,y:0,width:55,height:30,onClick:this.handleClick.bind(this,this.props.overlay)}))}}),l=a.createClass({displayName:"MovingAverageTooltip",propTypes:{_currentItem:a.PropTypes.object.isRequired,_overlays:a.PropTypes.array.isRequired,displayFormat:a.PropTypes.func.isRequired,origin:a.PropTypes.array.isRequired,onClick:a.PropTypes.func},getDefaultProps:function(){return{namespace:"ReStock.MovingAverageTooltip",displayFormat:n.displayNumberFormat,origin:[0,10],width:65}},render:function(){return a.createElement("g",{transform:"translate("+this.props.origin[0]+", "+this.props.origin[1]+")",className:"ma-container"},this.props._overlays.map(function(e,t){var s=e.yAccessor(this.props._currentItem),n=s?this.props.displayFormat(s):"n/a";return a.createElement(r,{key:t,origin:[this.props.width*t,0],color:e.stroke,displayName:e.tooltipLabel,value:n,overlay:e,onClick:this.props.onClick})}.bind(this)))}});e.exports=l},function(e,t,s){"use strict";var a=s(1),n=a.createClass({displayName:"EdgeContainer",propTypes:{_currentItems:a.PropTypes.array.isRequired,_charts:a.PropTypes.array.isRequired,_height:a.PropTypes.number.isRequired,_width:a.PropTypes.number.isRequired},getDefaultProps:function(){return{namespace:"ReStock.EdgeContainer"}},renderChildren:function(){return a.Children.map(this.props.children,function(e){if("string"==typeof e.type)return e;var t=e;if(/EdgeIndicator$/.test(t.props.namespace)){var s=this.props._charts.filter(function(e){return e.id===t.props.forChart})[0],n=this.props._currentItems.filter(function(e){return e.id===t.props.forChart})[0];t=a.addons.cloneWithProps(t,{_width:this.props._width,_chart:s,_currentItem:n})}return t}.bind(this))},render:function(){return a.createElement("g",null,this.renderChildren())}});e.exports=n},function(e,t,s){"use strict";var a=s(1),n=s(86),r=s(87),l=a.createClass({displayName:"EdgeIndicator",propTypes:{type:a.PropTypes.oneOf(["horizontal"]).isRequired,className:a.PropTypes.string,itemType:a.PropTypes.oneOf(["first","last","current"]).isRequired,orient:a.PropTypes.oneOf(["left","right"]),edgeAt:a.PropTypes.oneOf(["left","right"]),forChart:a.PropTypes.number.isRequired,forOverlay:a.PropTypes.number,displayFormat:a.PropTypes.func.isRequired,_width:a.PropTypes.number,_currentItem:a.PropTypes.object.isRequired,_chart:a.PropTypes.object.isRequired},getDefaultProps:function(){return{type:"horizontal",orient:"left",edgeAt:"left",displayFormat:n.displayNumberFormat,yAxisPad:5,namespace:"ReStock.EdgeIndicator"}},renderEdge:function(){var e,t,s=null;if(void 0!==this.props.forOverlay&&this.props._chart.overlays.length>0&&this.props._chart.overlayValues.length>0){var n=this.props._chart.overlays.filter(function(e){return e.id===this.props.forOverlay}.bind(this)),l=this.props._chart.overlayValues.filter(function(e){return e.id===this.props.forOverlay}.bind(this));if(1!==n.length)throw console.warn("%s overlays found with id %s, correct the OverlaySeries so there is exactly one for each id",n.length,newChild.props.forOverlay),new Error("Unable to identify unique Overlay for the id");if(1!==l.length&&1===n.length&&console.warn("Something is wrong!!!, There should be 1 overlayValue, report the issue on github"),e="first"===this.props.itemType?l[0].first:"last"===this.props.itemType?l[0].last:this.props._currentItem,t=n[0].yAccessor,void 0!==e){var i=t(e),o=this.props._chart.accessors.xAccessor(e),c=Math.round(this.props._chart.scales.xScale(o)),p=Math.round(this.props._chart.scales.yScale(i)),h="left"===this.props.edgeAt?0-this.props.yAxisPad:this.props._width+this.props.yAxisPad;s=a.createElement(r,{type:this.props.type,className:"edge-coordinate",fill:n[0].stroke,show:!0,x1:c+this.props._chart.origin[0],y1:p+this.props._chart.origin[1],x2:h+this.props._chart.origin[0],y2:p+this.props._chart.origin[1],coordinate:this.props.displayFormat(i),edgeAt:h,orient:this.props.orient})}}else if(void 0===this.props.forOverlay&&(e="first"===this.props.itemType?this.props._chart.firstItem:"last"===this.props.itemType?this.props._chart.lastItem:this.props._currentItem,t=this.props._chart.accessors.yAccessor,void 0!==e&&null!==t)){var i=t(e),o=this.props._chart.accessors.xAccessor(e),c=Math.round(this.props._chart.scales.xScale(o)),p=Math.round(this.props._chart.scales.yScale(i)),h="left"===this.props.edgeAt?0-this.props.yAxisPad:this.props._width+this.props.yAxisPad;s=a.createElement(r,{type:this.props.type,className:"edge-coordinate",show:!0,x1:c+this.props._chart.origin[0],y1:p+this.props._chart.origin[1],x2:h+this.props._chart.origin[0],y2:p+this.props._chart.origin[1],coordinate:this.props.displayFormat(i),edgeAt:h,orient:this.props.orient})}return s},render:function(){return this.renderEdge()}});e.exports=l},function(e){e.exports="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMoAAABQCAQAAADykSIGAAAF1UlEQVR4Ae3df4zXdR3A8cfnvnccd7i7gwMiCCE6BzlwImVFpqgnykANZ66RawHTQJrnVizJymwENKUcJSBjsEqyJrIEQiHQSoutWBA4BYwLGCi/Tu7O7pDv/fj0R2vfHdx9J3ef7925vR9/v/577j6/vrfXO9IjgrhYkb4K0OR9jc4BEMUATHe7z/mEAkF3anLI3/3e85rbRvm4VSr1pOAV9zmUiXK17cq96+de8IbzChQrkdLihLQgSfmGSmlwRiug0Bh3qjJAjZvsJYoZ5W/KbfZVZ2XkGaifFm9rFiTnI4o1OOVCJdaZ5owJjkYx291sszvELjRYP41OCpJSZIgWx7S6WMomU2x1WxTfbqMaFWpdLM/HpJzUKEhGuRJn1WrfcLuVmxrFq822yCPaV6a/ejWCZAzTx3Fp7etjoflWRPEbPunTdnU4NkzacUEyRoocFmtf5FYv2hfFaQWKvN/h2Eixw4LuiJKnwgFNURwjL8vYCK2OCLrn8jVMNf+LUijdCy5f4UZfpn8mSn+14Ubfk4/EmWfdTJQRmbHwSNwjL4+Zt8IT/48yKuvYSUEuP7O0/X7SlPlLyTbWLElBH0OktKjXqIkLvjTGmRt9trGkBfkGKtLWOWc0k4kSZR0LcqFYscJ2fuTKRMk6FnSnTBQfWiHKEP9W7y+e95y0D6LUvab5jGbDnZcDIcr9nga8bYkVmmVzmW97UAngVtvkQIiy2mwZ/1Sl3kRjXWGoQVJa1Kl1yn67xX5sqIzvWSgHQpQtpuisp82RAyHKq67TWevcKwdClM2m6qxlquRAiLLIAp31davkQIgy0xqd9QdTNUlYiDLCHmU67wnzBQlHedFtuqLFp+wRJBjls3bqqvW+JEgwymqzdVXaEGcFiUU5ariuu9NGQUJRStVKwncsFiQUpcJbkrDUtwQJRRltvyQsN0+QUJThjkrCEgsECUXp65wkPOqHgoSi8I4huu4BKwSJRdlqsq4Lvz8mGuVhi3XdYKcFlxylwGilWuRpViCtSKMydQbbKE/XHDRDpEytYucUapKvRUqdg9KCDqOMV60OQLFhykGeRW7QNcs9q1mk1buOawRQapTdgg6jEBmjVEqMBu84BRjpdf103ikV3gMMMlQpYk1qHRDLKvylcFCD9txlvUjnxKZ7QXv6GS22W9DJ/5D8srX6unSt5lkpyEkUxllpoktz2GwvCxKNUmCsY04DmOwbJiv0Qeyy0q+kBQlHqfQSfukh9QBK3WCiq1UYKaWtFsdUe9NOrzksyEkUbvQbg+11vTptPWSpPG21+qYnBTmOwpV2Krno/xwne0nkYrEptgpyHIW5lqPKMhk73KR9fzJJkPMo+Q65HL/wU3vFRrvHo1IAjuJyAK1KNAhyHIUqTwLS6ANIe8YsrJYyE8+6RwpjHBDkPEqBLSpd6BXbLMYKzMUCU12Hq+wT5DwKhR43RwEyfm3fBVHGmdF9UUIU+KhbXKHASc2W9Y4oIUrGOHtDlA9/lCBECVGe0uLBEKWno3zBn7HO6xZjCR7GAmN9Bdd7VdCx9o8gyETJMpTNGjMxX6nvYoG0pVio1hNYa5b2BfnKFWurUY1mmShZhjpymcfNwT9MskElrhLbhx2m+6NrsNJ8/3Epwsav813Z9zXej5ywzQaft12e5ebhKQ9odYvXzHCjQR6x26UIu/GOJLMZ73cq/MwqMSL3qfKWL+qcsEWyuvftkAz7Vo/0vm2rYTPx2d63lzjs8D7f+zZ4hyMIWgkHEPSuKCXqNETxm8YYb084gKBXXL4m2GV/FK/1NY/5Qa+4fIUb/WO+b00U3+05p1Wo7/EbfXgkLvMv5e6K4iJbTLLB3eIefSQOL4+RjabZoTKKucY25dab5b0ee3kMn1lKPWOaGteqjmLyTfJbA5zxE5sc0BQOIOjWD5L9XOkOcw1Qo9Ieohj6mGCRSYKe9LL7M8fUQr6BprjZtUZJCbrTOdX+apNNkIkiHEDQm/wXb4bZSIeJkMcAAAAASUVORK5CYII="},function(e,t,s){"use strict";var a=s(93),n={shouldComponentUpdate:function(e,t){var s="function"==typeof this.extraShouldComponentUpdate?this.extraShouldComponentUpdate:function(e,t,s){return s},n=!a(this.props,e)||!a(this.state,t);return s(e,t,n)}};e.exports=n},function(e,t,s){"use strict";function a(e){return e instanceof Date?e.getTime():e}var n=s(1),r=(s(68),s(70),s(86)),l=s(90),i={doesContainChart:function(){var e=Array.isArray(this.props.children)?this.props.children:[this.props.children];return e.filter(function(e){return/Chart$/.test(e.props.namespace)}).length>0},componentWillMount:function(){var e={};if(this.isDataDransform&&this.isDataDransform()&&(e=this.transformData(this.props)),this.doesContainChart()){var t,s,a=new l({mouseXY:[0,0],mouseOver:{value:!1},inFocus:{value:!0}}),r=new l({zoom:0}),i=new l({charts:[],updateMode:{immediate:!0}}),o=new l({currentItems:[],viewPortXRange:[],viewPortXDelta:30}),c=e._stockScale||this.props._stockScale;e&&c?(o.get().set({interval:"D"}),t=e.data,s=t[o.get().interval]):(t=this.props.data,s=t),n.Children.forEach(this.props.children,function(a){if("ReStock.Chart"===a.props.namespace){var n=a.props,r=this.getDimensions(this.props,n),l=r.width/4;s.length>l&&(s=s.slice(s.length-l));var o=this.getChartDataFor(this.props,n,s,t,e);o.id=a.props.id,i.get().charts.push(o)}}.bind(this));var p={eventStore:a,chartStore:i,currentItemStore:o,zoomEventStore:r,fullData:t,data:s,passThroughProps:e};console.log(Object.keys(p)),this.setState(p)}else this.setState({passThroughProps:e})},getEventStore:function(){return this.state.eventStore},updateEventStore:function(e,t){this.unListen();var s={eventStore:e,chartStore:this.state.chartStore,currentItemStore:this.state.currentItemStore,zoomEventStore:t||this.state.zoomEventStore};this.setState(s,function(){this.listen(s)}.bind(this))},componentWillUnmount:function(){this.doesContainChart()&&this.unListen()},unListen:function(){void 0!==this.state.eventStore&&this.state.eventStore.off("update",this.eventListener),void 0!==this.state.chartStore&&this.state.chartStore.off("update",this.dataListener),void 0!==this.state.zoomEventStore&&this.state.zoomEventStore.off("update",this.zoomEventListener)},eventListener:function(){this.state.chartStore.get().updateMode.immediate&&(this.state.chartStore.get().charts.forEach(function(e){this.updateCurrentItemForChart(e)}.bind(this)),this.state.eventStore.get().pan?requestAnimationFrame(function(){var e=this.state.currentItemStore.get().mainChart,t=this.getChartForId(e),s=this.state.eventStore.get().dragOriginDomain,r=s[1]-s[0],l=this.state.fullData[this.state.currentItemStore.get().interval],i=l[l.length-1],o=l[0],c=Math.round(a(s[0])-this.state.eventStore.get().dx/t.width*r);c=c<a(t.accessors.xAccessor(o))-Math.floor(r/3)?a(t.accessors.xAccessor(o))-Math.floor(r/3):Math.min(a(t.accessors.xAccessor(i))+Math.ceil(r/3),c+r)-r;var p=c,h=c+r;s[0]instanceof Date&&(p=new Date(p),h=new Date(h)),this.state.currentItemStore.get().viewPortXRange.set([p,h]);var u=this.calculateViewableData();n.Children.forEach(this.props.children,function(e){if("ReStock.Chart"===e.props.namespace){var t=this.getChartForId(e.props.id);t=this.updateChartDataFor(t,u.data),t.scales.xScale.domain([p,h])}}.bind(this)),this.setState({data:u.data})}.bind(this)):this.forceUpdate())},componentWillReceiveProps:function(e){if(this.doesContainChart()){var t;this.isDataDransform&&this.isDataDransform()&&(t=this.transformData(this.props)),n.Children.forEach(e.children,function(s){if("ReStock.Chart"===s.props.namespace){var a=s.props,n=this.getChartDataFor(e,a,e.data,e.data,t);n.id=s.props.id;var r=this.getChartForId(s.props.id);r.reset(n)}}.bind(this))}},calculateViewableData:function(){var e=this.state.currentItemStore.get().viewPortXRange,t=this.getFullData()[this.state.currentItemStore.get().interval],s=this.state.data;if(e.length>0){var n=this.state.currentItemStore.get().mainChart,l=this.getChartForId(n),i=r.getClosestItemIndexes(t,e[0],l.accessors.xAccessor),o=r.getClosestItemIndexes(t,e[1],l.accessors.xAccessor);console.log("whoa whoa whoa");var c=this.state.currentItemStore.get().interval,p=t.slice(i.left,o.right);if(this.state.passThroughProps&&this.state.passThroughProps._stockScale&&p.length>l.width/3)if(this.state.passThroughProps._multiInterval&&"D"===c){var h="W";this.state.currentItemStore.get().set({interval:h}),t=this.state.fullData[h],i=r.getClosestItemIndexes(t,e[0],l.accessors.xAccessor),o=r.getClosestItemIndexes(t,e[1],l.accessors.xAccessor),p=t.slice(i.left,o.right)}else{if(!this.state.passThroughProps._multiInterval||"W"!==c){var u=a(l.accessors.xAccessor(this.state.data[0])),d=a(l.accessors.xAccessor(this.state.data[this.state.data.length-1]));return this.state.currentItemStore.get().set({viewPortXRange:[u,d]}),{data:this.state.data}}var h="M";this.state.currentItemStore.get().set({interval:h}),t=this.state.fullData[h],i=r.getClosestItemIndexes(t,e[0],l.accessors.xAccessor),o=r.getClosestItemIndexes(t,e[1],l.accessors.xAccessor),p=t.slice(i.left,o.right)}else if(this.state.passThroughProps&&this.state.passThroughProps._stockScale&&("W"===c||"M"===c));else if(p.length/l.width<.03){var u=a(l.accessors.xAccessor(this.state.data[0])),d=a(l.accessors.xAccessor(this.state.data[this.state.data.length-1]));return this.state.currentItemStore.get().set({viewPortXRange:[u,d]}),{data:this.state.data}}return{data:p}}return{data:s}},zoomEventListener:function(){if(this.state.chartStore.get().updateMode.immediate){var e=this.state.zoomEventStore.get(),t=e.zoom,s=this.state.currentItemStore.get().mainChart,r=this.getChartForId(s);this.updateCurrentItemForChart(r);var l=this.getCurrentItemForChart(s).data,i=r.scales.xScale.domain(),o=r.accessors.xAccessor(l),c=o-i[0],p=i[1]-o,h=Math.pow(1+Math.abs(t)/2,t),u=a(o)-c*h,d=a(o)+p*h,m=Math.abs(i[1]-i[0]),f=this.state.fullData[this.state.currentItemStore.get().interval],g=f[f.length-1],v=f[0];u=Math.max(a(r.accessors.xAccessor(v))-Math.floor(m/3),u),d=Math.min(a(r.accessors.xAccessor(g))+Math.floor(m/3),d),o instanceof Date&&(u=new Date(u),d=new Date(d)),this.state.currentItemStore.get().viewPortXRange.set([u,d]),requestAnimationFrame(function(){var e=this.calculateViewableData();console.log(u,d);this.state.passThroughProps;n.Children.forEach(this.props.children,function(t){if("ReStock.Chart"===t.props.namespace){var s=this.getChartForId(t.props.id);s=this.updateChartDataFor(s,e.data),s.scales.xScale.domain(this.state.currentItemStore.get().viewPortXRange)}}.bind(this)),this.setState({data:e.data})}.bind(this))}},dataListener:function(){this.state.chartStore.get().updateMode.immediate&&requestAnimationFrame(function(){this.forceUpdate()}.bind(this))},componentDidMount:function(){this.doesContainChart()&&this.listen(this.state)},componentDidUpdate:function(){this.doesContainChart()&&(this.state.chartStore.get().updateMode.immediate||this.state.chartStore.get().updateMode.set({immediate:!0}))},listen:function(e){e.eventStore.on("update",this.eventListener),e.zoomEventStore.on("update",this.zoomEventListener)},updatePropsForEventCapture:function(e){return"ReStock.EventCapture"===e.props.namespace?((void 0===this.state.currentItemStore.get().mainChart||this.state.currentItemStore.get().mainChart!==e.props.mainChart)&&this.state.currentItemStore.get().set({mainChart:e.props.mainChart}),n.addons.cloneWithProps(e,{_eventStore:this.state.eventStore,_zoomEventStore:this.state.zoomEventStore,_chartData:this.getChartForId(e.props.mainChart)})):e},updatePropsForCurrentCoordinate:function(e){if("ReStock.CurrentCoordinate"===e.props.namespace){var t=this.getChartForId(e.props.forChart),s=this.getCurrentItemForChart(e.props.forChart);return n.addons.cloneWithProps(e,{_show:this.state.eventStore.get().mouseOver.value,_chartData:t,_currentItem:s})}return e},updatePropsForMouseCoordinates:function(e){if("ReStock.MouseCoordinates"===e.props.namespace){var t=this.getChartForId(e.props.forChart),s=this.getCurrentItemForChart(e.props.forChart);return n.addons.cloneWithProps(e,{_show:this.state.eventStore.get().mouseOver.value,_mouseXY:this.state.eventStore.get().mouseXY,_chartData:t,_currentItem:s})}return e},updatePropsForTooltipContainer:function(e){return"ReStock.TooltipContainer"===e.props.namespace?n.addons.cloneWithProps(e,{_currentItems:this.state.currentItemStore.get().currentItems,_charts:this.state.chartStore.get().charts}):e},updatePropsForEdgeContainer:function(e){return"ReStock.EdgeContainer"===e.props.namespace?n.addons.cloneWithProps(e,{_currentItems:this.state.currentItemStore.get().currentItems,_charts:this.state.chartStore.get().charts}):e},updatePropsForChart:function(e){var t=e;if(console.log("here here..........."),"ReStock.Chart"===e.props.namespace&&this.state.eventStore&&this.state.chartStore){var s=this.getChartForId(t.props.id);t=n.addons.cloneWithProps(t,{_updateMode:this.state.chartStore.get().updateMode,_chartData:s,data:this.getData()})}return t},getData:function(){return this.state.data},getFullData:function(){return this.state.fullData},getChartForId:function(e){var t=this.state.chartStore.get().charts,s=t.filter(function(t){return t.id===e});if(s.length>1){var a="multiple charts with the same id "+e+" found";throw console.warn(a),new Error(a)}return 0===s.length?(t=t.push(createChartData(e)),this.getChartForId(e)):s[0]},createChartData:function(e){var t={id:e,scales:{xScale:null,yScale:null},accessors:{xAccessor:null,yAccessor:null},lastItem:{},firstItem:{},overlays:[],overlayValues:[]};return t},getCurrentItemForChart:function(e){var t=this.state.currentItemStore.get().currentItems,s=t.filter(function(t){return t.id===e});if(s.length>1){var a="multiple filteredCurrentItems with the same id "+e+" found";throw console.warn(a),new Error(a)}if(0===s.length){var n={id:e,data:{}};return t=t.push(n),this.getCurrentItemForChart(e)}return s[0]},updateCurrentItemForChart:function(e){var t=this.getCurrentItemForChart(e.id),s=this.state.eventStore.get().mouseXY;null===e.scales.xScale&&console.warn("Verify if the the <Chart id=... > matches with the forChart=... This error likely because a Chart defined with id={%s} is not found",e.id);var a=e.scales.xScale.invert(s[0]),n=r.getClosestItem(this.getData(),a,e.accessors.xAccessor);t=t.data.reset(n)},_renderChildren:function(e){return this.doesContainChart()?n.Children.map(e,function(e){if("string"==typeof e.type)return e;var t=e;return t=this.updatePropsForEventCapture(e),t=this.updatePropsForMouseCoordinates(t),t=this.updatePropsForTooltipContainer(t),t=this.updatePropsForEdgeContainer(t),t=this.updatePropsForChart(t),t=this.updatePropsForCurrentCoordinate(t)}.bind(this)):e}};e.exports=i},function(e,t,s){"use strict";var a=s(1),n=s(2),r=s(84),l=s(85),i=s(86),o=(s(60),i.overlayColors),c=i.pluck,p=i.keysAsArray,h={getDimensions:function(e,t){var s=e._width||this.getAvailableWidth(e),a=e._height||this.getAvailableHeight(e),n=t.width||s,r=t.height||a;return{availableWidth:s,availableHeight:a,width:n,height:r}},getChartDataFor:function(e,t,s,a,n){var l=this.getDimensions(e,t),o=this.defineScales(t,s,n),h=this.getXYAccessors(t,n),u=this.identifyOverlaysToAdd(t);this.calculateOverlays(a,u);var d=c(p(u),"yAccessor"),m=r.flattenData(s,[h.xAccessor],[h.yAccessor].concat(d)),f=this.updateOverlayFirstLast(s,u);o=this.updateScales(m,o,s,l.width,l.height);var g=i.cloneMe(s[s.length-1]),v=i.cloneMe(s[0]),y="function"==typeof t.origin?t.origin(l.availableWidth,l.availableHeight):t.origin,j=o.xScale(h.xAccessor(s[s.length-1]))-o.xScale(h.xAccessor(s[0])),b={width:l.width,height:l.height,drawableWidth:j,origin:y,overlayValues:f,overlays:u,accessors:h,scales:o,lastItem:g,firstItem:v};return b},defineScales:function(e,t,s){var a=e.xScale||e._xScale,r=e.yScale;if(void 0===a&&s&&(a=s._xScale),void 0===a){var l=t[0];"object"==typeof l&&Object.keys(l).forEach(function(e){"[object Date]"===Object.prototype.toString.call(l[e])&&(a=n.time.scale())}),void 0===a&&(a=n.scale.linear())}return void 0===r&&(r=n.scale.linear()),{xScale:a,yScale:r}},getXYAccessors:function(e,t){var s={xAccessor:null,yAccessor:null};return a.Children.forEach(e.children,function(e){if(["ReStock.DataSeries"].indexOf(e.props.namespace)>-1&&e.props){var a=void 0!==t&&t._stockScale?t._indexAccessor:e.props.xAccessor;s.xAccessor=a,s.yAccessor=e.props.yAccessor}}),s},identifyOverlaysToAdd:function(e){var t=[];return a.Children.forEach(e.children,function(s){/DataSeries$/.test(s.props.namespace)&&a.Children.forEach(s.props.children,function(s){if(/OverlaySeries$/.test(s.props.namespace)){var a=l.getYAccessorKey(e.id,s.props),n={id:s.props.id,chartId:e.id,key:a,yAccessor:function(e){return e[a]},options:s.props.options,type:s.props.type,tooltipLabel:l.getToolTipLabel(s.props),stroke:s.stroke||o(s.props.id)};t.push(n)}})}),t},calculateOverlays:function(e,t){Array.isArray(e)?t.filter(function(e){return void 0!==e.id}).forEach(function(t){l.calculateOverlay(e,t)}):Object.keys(e).filter(function(e){return["D","W","M"].indexOf(e)>-1}).forEach(function(s){t.filter(function(e){return void 0!==e.id}).forEach(function(t){l.calculateOverlay(e[s],t)})})},updateOverlayFirstLast:function(e,t){var s=[];return t.forEach(function(t){s.push({id:t.id,first:l.firstDefined(e,t.yAccessor),last:l.lastDefined(e,t.yAccessor)})}),s},updateScales:function(e,t,s,a,r){console.log("updateScales"),t.xScale.range([0,a]),t.xScale.isPolyLinear&&t.xScale.isPolyLinear()?t.xScale.data(s):t.xScale.domain(n.extent(e.xValues)),t.yScale.range([r,0]);var l=n.extent(e.yValues);return t.yScale.domain(l),{xScale:t.xScale.copy(),yScale:t.yScale.copy()}},updateChartDataFor:function(e,t){console.log("updateChartDataFor");var s=e.scales,a=e.accessors,n=this.updateOverlayFirstLast(t,e.overlays);e=e.set({overlayValues:n});var l=c(p(e.overlays),"yAccessor"),o=r.flattenData(t,[a.xAccessor],[a.yAccessor].concat(l));s=this.updateScales(o,s,t,e.width,e.height),e=e.set({scales:s});var h=i.cloneMe(t[t.length-1]);e=e.set({lastItem:h});var u=i.cloneMe(t[0]);return e=e.set({firstItem:u})}};e.exports=h},function(e,t,s){"use strict";var a=s(88),n={isDataDransform:function(){return!0},transformData:function(e){var t=a.getTransformerFor(e.transformType),s=t(e.data,e.options,e);return s}};e.exports=n},function(e,t,s){"use strict";function a(e,t,s){function r(e){for(var t=0,s=p[t];!s[1](e);)s=p[++t];var a=s[0](e.date);return a}function l(e){return s(e)}var i=[{step:864e5,f:function(e){return void 0!==e.date&&!0}},{step:1728e5,f:function(e,t){return void 0!==e.date&&t%2==0}},{step:838e6,f:function(e,t,s){if(e.startOfMonth)return!0;var a=[];t-2>=0&&a.push(s[t-2]),t-1>=0&&a.push(s[t-1]),a.push(s[t]),t+1<=s.length-1&&a.push(s[t+1]),t+2<=s.length-1&&a.push(s[t+2]);var n=a.map(function(e){return e.startOfMonth}).reduce(function(e,t){return e||t});return n?!1:e.startOfWeek}},{step:3525e6,f:function(e){return e.startOfMonth}},{step:7776e6,f:function(e){return e.startOfQuarter}},{step:31536e6,f:function(e){return e.startOfYear}},{step:91536e15,f:function(e){return void 0!==e.date&&e.startOfYear&&e.date.getFullYear()%2==0}}],o=n.bisector(function(e){return e.step}).left,c=n.bisector(function(e){return t(e)}).left,p=[[n.time.format("%Y"),function(e){return e.startOfYear}],[n.time.format("%b %Y"),function(e){return e.startOfQuarter}],[n.time.format("%b"),function(e){return e.startOfMonth}],[n.time.format("%d %b"),function(e){return e.startOfWeek}],[n.time.format("%a %d "),function(){return!0}]];return l.isPolyLinear=function(){return!0},l.invert=function(e){return s.invert(e)},l.data=function(s){return arguments.length?(e=s,this.domain([t(e[0]),t(e[e.length-1])]),l):e},l.domain=function(e){if(!arguments.length)return s.domain();var t=[Math.floor(e[0]),Math.ceil(e[1])];return s.domain(t),l},l.range=function(e){return arguments.length?(s.range(e),l):s.range()},l.rangeRound=function(e){return s.range(e)},l.clamp=function(e){return arguments.length?(s.clamp(e),l):s.clamp()},l.interpolate=function(e){return arguments.length?(s.interpolate(e),l):s.interpolate()},l.ticks=function(s){var a,n,r=0;e.forEach(function(e){void 0!==e.date&&(void 0===a&&(a=e),n=e,r++)}),s=r/e.length*s;var l=n.date.getTime()-a.date.getTime(),c=l/s,p=e.filter(i[o(i,c)].f).map(function(e){return t(e)});return p},l.tickFormat=function(){return function(t){var s=c(e,t);return r(e[s])}},l.nice=function(e){return s.nice(e),l},l.copy=function(){return a(e,t,s.copy())},l}var n=s(2),r=function(e){return a([0,1],e,n.scale.linear())};e.exports=r},function(e){"use strict";function t(e,t){"object"==typeof t&&Object.keys(t).length>0?Object.keys(t).forEach(function(s){isNaN(t[s])||e.push(t[s])}):isNaN(t)||e.push(t)}var s={flattenData:function(e,s,a){console.log(s,a);var n=[],r=[];return e.forEach(function(e){s.forEach(function(s){var a=s(e);void 0!==a&&t(n,a)}),a.forEach(function(s){var a=s(e);void 0!==a&&t(r,a)})}),{xValues:n,yValues:r}}};e.exports=s},function(e,t,s){"use strict";var a=s(86),n=s(89),r={getToolTipLabel:function(e){if("sma"===e.type||"ema"===e.type){var t=e.type.toUpperCase()+"("+e.options.period+")";return t}return"N/A"},getYAccessorKey:function(e,t){if("sma"===t.type||"ema"===t.type){var s=t.type+t.options.period+"_chart_"+e;return s}return!1},calculateOverlay:function(e,t){return console.log(t),"sma"===t.type?e=n.calculateSMA(e,t.options.period,t.key,t.options.pluck):"ema"===t.type&&(e=n.calculateEMA(e,t.options.period,t.key,t.options.pluck)),e},firstDefined:function(e,t){for(var s,n=0;n<e.length;n++)if(void 0!==t(e[n])){s=e[n];break}return a.cloneMe(s)},lastDefined:function(e,t){for(var s,n=e.length-1;n>=0;n--)if(void 0!==t(e[n])){s=e[n];break}return a.cloneMe(s)}};e.exports=r},function(e,t,s){"use strict";function a(){}var n=s(2),r=n.scale.category10();a.overlayColors=r,a.cloneMe=function(e){if(null==e||"object"!=typeof e)return e;if(e instanceof Date)return new Date(e.getTime());var t={};
-for(var s in e)e.hasOwnProperty(s)&&(t[s]=a.cloneMe(e[s]));return t},a.displayDateFormat=n.time.format("%Y-%m-%d"),a.displayNumberFormat=function(e){return a.numberWithCommas(e.toFixed(2))},a.numberWithCommas=function(e){return e.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")},a.isNumeric=function(e){return!isNaN(parseFloat(e))&&isFinite(e)},a.mousePosition=function(e){var t=e.currentTarget,s=t.getBoundingClientRect(),a=e.clientX-s.left-t.clientLeft,n=e.clientY-s.top-t.clientTop,r=[Math.round(a),Math.round(n)];return r},a.getValue=function(e){return e instanceof Date?e.getTime():e},a.getClosestItem=function(e,t,s){for(var n=0,r=e.length-1;r-n>1;){var l=Math.round((n+r)/2);s(e[l])<=t?n=l:r=l}s(e[n])===t&&(r=n);var i=Math.abs(s(e[n])-t)<Math.abs(s(e[r])-t)?e[n]:e[r];return a.cloneMe(i)},a.getClosestItemIndexes=function(e,t,s){for(var a=0,n=e.length-1;n-a>1;){var r=Math.round((a+n)/2);s(e[r])<=t?a=r:n=r}return s(e[a])===t&&(n=a),{left:a,right:n}},a.pluck=function(e,t){return e.map(function(e){return e[t]})},a.keysAsArray=function(e){return Object.keys(e).filter(function(t){return null!==e[t]}).map(function(t){return e[t]})},a.sum=function(e){return e.reduce(function(e,t){return e+t})},e.exports=a},function(e,t,s){"use strict";var a=s(1),n=a.createClass({displayName:"EdgeCoordinate",propTypes:{type:a.PropTypes.oneOf(["vertical","horizontal"]).isRequired,coordinate:a.PropTypes.any.isRequired,x1:a.PropTypes.number.isRequired,y1:a.PropTypes.number.isRequired,x2:a.PropTypes.number.isRequired,y2:a.PropTypes.number.isRequired,orient:a.PropTypes.oneOf(["bottom","top","left","right"]),rectWidth:a.PropTypes.number},getDefaultProps:function(){return{orient:"left"}},render:function(){if(!this.props.show)return null;var e,t,s,n,r=this.props.coordinate,l=this.props.rectWidth?this.props.rectWidth:"horizontal"===this.props.type?60:100,i=20;"horizontal"===this.props.type?(e="right"===this.props.orient?this.props.edgeAt+1:this.props.edgeAt-l-1,t=this.props.y1-i/2,s="right"===this.props.orient?this.props.edgeAt+l/2:this.props.edgeAt-l/2,n=this.props.y1):(e=this.props.x1-l/2,t="bottom"===this.props.orient?this.props.edgeAt:this.props.edgeAt-i,s=this.props.x1,n="bottom"===this.props.orient?this.props.edgeAt+i/2:this.props.edgeAt-i/2);var o=null,c=null;return void 0!==r&&(o=a.createElement("rect",{key:1,className:"textbg",x:e,y:t,height:i,width:l,fill:this.props.fill}),c=a.createElement("text",{key:2,x:s,y:n,style:{textAnchor:"middle"},dy:".32em"},r)),a.createElement("g",{className:(this.props.show?"show ":"hide ")+this.props.className},a.createElement("line",{className:"cross-hair",x1:this.props.x1,y1:this.props.y1,x2:this.props.x2,y2:this.props.y2}),o,c)}});e.exports=n},function(e,t,s){"use strict";var a=s(91),n=s(92),r={getTransformerFor:function(e){return"none"===e?function(e){return e}:"stockscale"===e?a:"heikinashi"===e?n:!1},filter:function(e,t,s,a){var n=e.filter(function(e){var n=t(e).getTime()>s.getTime()&&t(e).getTime()<a.getTime();return n});return n}};e.exports=r},function(e,t,s){"use strict";function a(){}var n=s(86),r=n.pluck,l=n.sum;a.calculateSMA=function(e,t,s,a){console.log("calculateSMA");var n=e.length-1,i=a||"close";return e.map(function(s,a){return e.slice(a-t,a)}).filter(function(e){return e.length===t&&e.length>0}).map(function(e){return r(e,i)}).map(function(e){return l(e)}).map(function(e){return e/t}).reverse().forEach(function(t,a){e[n-a][s]=t}),"sma53_chart_2"===s&&console.table(e),e},a.calculateEMA=function(){return console.log("calculating EMA"),!1},e.exports=a},function(e,t,s){var a=s(94);e.exports=a},function(e,t,s){"use strict";function a(e,t){void 0===t&&(t=i);var s,a=t.dateAccesor,o=t.dateMutator||function(e,t){e.date=t},c=t.indexMutator,p={};return p.D=e.map(function(e,t){var n=e;c(n,t),n.startOfWeek=!1,n.startOfMonth=!1,n.startOfQuarter=!1,n.startOfYear=!1;var r=a(n);return void 0!==s&&(n.startOfWeek=r.getDay()<s.getDay(),n.startOfMonth=r.getMonth()!=s.getMonth(),n.startOfQuarter=n.startOfMonth&&r.getMonth()%3===0,n.startOfYear=r.getYear()!=s.getYear()),s=r,n}),p.W=n(p.D,c,a,o),p.M=r(p.D,c,a,o),{data:p,_dateAccessor:a,_dateMutator:o,_indexAccessor:t.indexAccessor,_indexMutator:c,_stockScale:!0,_xScale:l(t.indexAccessor),_multiInterval:!0}}function n(e,t,s,a){for(var n,r=[],l={},i=0;i<e.length;i++){var o=e[i];s(l)&&t(l,i),a(l,s(o)),l.startOfWeek=l.startOfWeek||o.startOfWeek,l.startOfMonth=l.startOfMonth||o.startOfMonth,l.startOfQuarter=l.startOfQuarter||o.startOfQuarter,l.startOfYear=l.startOfYear||o.startOfYear,l.open||(l.open=o.open),l.high||(l.high=o.high),l.low||(l.low=o.low),l.close=o.close,l.high=Math.max(l.high,o.high),l.low=Math.min(l.low,o.low),l.volume||(l.volume=0),l.volume+=o.volume,o.startOfWeek&&(n&&(l.trueRange=Math.max(l.high-l.low,l.high-n.close,l.low-n.close)),n=l,r.push(l),l={})}return r}function r(e,t,s){for(var a,n=[],r={},l=0;l<e.length;l++){var i=e[l];r.date||t(r,l),r.date=s(i),r.startOfMonth=r.startOfMonth||i.startOfMonth,r.startOfQuarter=r.startOfQuarter||i.startOfQuarter,r.startOfYear=r.startOfYear||i.startOfYear,r.open||(r.open=i.open),r.high||(r.high=i.high),r.low||(r.low=i.low),r.close=i.close,r.high=Math.max(r.high,i.high),r.low=Math.min(r.low,i.low),r.volume||(r.volume=0),r.volume+=i.volume,i.startOfMonth&&(r.startOfWeek=i.startOfWeek,a&&(r.trueRange=Math.max(r.high-r.low,r.high-a.close,r.low-a.close)),a=r,n.push(r),r={})}return n}var l=s(83),i={dateAccesor:function(e){return e.date},indexAccessor:function(e){return e._idx},indexMutator:function(e,t){e._idx=t}};e.exports=a},function(e){"use strict";function t(e,t,n){void 0===t&&(t={});var r=t.dateAccesor||n._dateAccessor,l=t.dateMutator||n._dateMutator,i=t.indexAccessor||n._indexAccessor,o=t.indexMutator||n._indexMutator;if(n._multiInterval&&n._stockScale){var c={};Object.keys(e).forEach(function(t){return c[t]=s(e[t],i,o,r,l)});var p={};return Object.keys(n).filter(function(e){return a.indexOf(e)<0}).forEach(function(e){return p[e]=n[e]}),p.data=c,p}return{data:e}}function s(e,t,s,a,n){var r,l=e.map(function(e){var l={};return s(l,t(e)),l.close=(e.open+e.high+e.low+e.close)/4,n(l,a(e)),r?(l.open=(r.open+r.close)/2,l.high=Math.max(l.open,e.high,l.close),l.low=Math.min(l.open,e.low,l.close),l.trueRange=Math.max(e.high-e.low,e.high-r.close,e.low-r.close)):(l.open=e.open,l.high=e.high,l.low=e.low),l.volume=e.volume,l.startOfWeek=e.startOfWeek,l.startOfMonth=e.startOfMonth,l.startOfQuarter=e.startOfQuarter,l.startOfYear=e.startOfYear,r=l,l});return l}var a=["transformType","options","children","namespace"];e.exports=t},function(e){"use strict";function t(e,t){if(e===t)return!0;var s;for(s in e)if(e.hasOwnProperty(s)&&(!t.hasOwnProperty(s)||e[s]!==t[s]))return!1;for(s in t)if(t.hasOwnProperty(s)&&!e.hasOwnProperty(s))return!1;return!0}e.exports=t},function(e,t,s){"use strict";var a=s(95),n=s(96),r=(s(97),s(98)),l=function(e){var t,s=this,n=function(e,t,s){if("listener"==e)return r.createListener(t);var n=r.update(e,t,s);return n?n:a.error("Can't udpate. The node is not in the freezer.")};t=r.freeze(e,n);var l=t.getListener(),i=!1;l.on("immediate",function(e,n){e==t&&(t=n,i||(i=!0,a.nextTick(function(){i=!1,s.trigger("update",t)})))}),a.addNE(this,{get:function(){return t},set:function(e){var s=n("reset",t,e);s.__.listener.trigger("immediate",t,s)}}),a.addNE(this,{getData:this.get,setData:this.set}),this._events=[]};l.prototype=a.createNonEnumerable({},n),e.exports=l},function(e){"use strict";var t=new Function("return this")(),s={extend:function(e,t){for(var s in t)e[s]=t[s];return e},createNonEnumerable:function(e,t){var s={};for(var a in e)s[a]={value:e[a]};return Object.create(t||{},s)},error:function(e){var t=new Error(e);if(console)return console.error(t);throw t},each:function(e,t){var s,a,n;if(e&&e.constructor==Array)for(s=0,a=e.length;a>s;s++)t(e[s],s);else for(n=Object.keys(e),s=0,a=n.length;a>s;s++)t(e[n[s]],n[s])},addNE:function(e,t){for(var s in t)Object.defineProperty(e,s,{enumerable:!1,configurable:!0,writable:!0,value:t[s]})},nextTick:function(){function e(){for(;a=n.shift();)a();r=!1}function s(e){n.push(e),r||(r=!0,o())}var a,n=[],r=!1,l=!!t.postMessage,i="nexttick",o=function(){return l?function(){t.postMessage(i,"*")}:function(){setTimeout(function(){c()},0)}}(),c=function(){return l?function(s){s.source===t&&s.data===i&&(s.stopPropagation(),e())}:e}();return l&&t.addEventListener("message",c,!0),s.removeListener=function(){t.removeEventListener("message",c,!0)},s}()};e.exports=s},function(e,t,s){"use strict";var a=s(95),n={on:function(e,t,s){var a=this._events[e]||[];return a.push({callback:t,once:s}),this._events[e]=a,this},once:function(e,t){this.on(e,t,!0)},off:function(e,t){if("undefined"==typeof e)this._events={};else if("undefined"==typeof t)this._events[e]=[];else{var s,a=this._events[e]||[];for(s=a.length-1;s>=0;s--)a[s]===t&&a.splice(s,1)}return this},trigger:function(e){var t,s,a=[].slice.call(arguments,1),n=this._events[e]||[],r=[];for(t=0;t<n.length;t++)s=n[t],s.callback?s.callback.apply(null,a):s.once=!0,s.once&&r.push(t);for(t=r.length-1;t>=0;t--)n.splice(r[t],1);return this}},r=a.createNonEnumerable(n);e.exports=r},function(e,t,s){"use strict";var a=s(95),n=function(e){var t={};for(var s in e)t[s]={writable:!0,configurable:!0,enumerable:!1,value:e[s]};return t},r={set:function(e,t){var s=e;return"undefined"!=typeof t&&(s={},s[e]=t),this.__.notify("merge",this,s)},getListener:function(){return this.__.notify("listener",this)},toJS:function(){var e;return e=this.constructor==Array?new Array(this.length):{},a.each(this,function(t,s){e[s]=t&&t.__?t.toJS():t}),e}},l=a.extend({push:function(e){return this.append([e])},append:function(e){return e&&e.length?this.__.notify("splice",this,[this.length,0].concat(e)):this},pop:function(){return this.length?this.__.notify("splice",this,[this.length-1,1]):this},unshift:function(e){return this.prepend([e])},prepend:function(e){return e&&e.length?this.__.notify("splice",this,[0,0].concat(e)):this},shift:function(){return this.length?this.__.notify("splice",this,[0,1]):this},splice:function(){return this.__.notify("splice",this,arguments)}},r),i=Object.create(Array.prototype,n(l)),o={Hash:Object.create(Object.prototype,n(a.extend({remove:function(e){var t=[],s=e;e.constructor!=Array&&(s=[e]);for(var a=0,n=s.length;n>a;a++)this.hasOwnProperty(s[a])&&t.push(s[a]);return t.length?this.__.notify("remove",this,t):this},reset:function(e){return this.__.notify("replaceself",this,e)}},r))),List:i,arrayMethods:l};e.exports=o},function(e,t,s){"use strict";var a=s(95),n=s(97),r=s(96),l={freeze:function(e,t){if(e&&e.__)return e;var s,r,l=this;return s=e.constructor==Array?this.createArray(e.length):Object.create(n.Hash),a.addNE(s,{__:{listener:!1,parents:[],notify:t,dirty:!1}}),a.each(e,function(e,a){r=e&&e.constructor,(r==Array||r==Object)&&(e=l.freeze(e,t)),e&&e.__&&l.addParent(e,s),s[a]=e}),Object.freeze(s),s},update:function(e,t,s){return this[e]?this[e](t,s):a.error("Unknown update type: "+e)},reset:function(e,t){var s,n=this;return t&&t.__?(s=t,s.__.listener=t.__.listener,s.__.parents=[],this.fixChildren(s,e),a.each(s,function(t){t&&t.__&&(n.removeParent(e),n.addParent(t,s))})):s=this.freeze(e,e.__.notify),s},merge:function(e,t){var s,n,r,l,i=this,o=this.copyMeta(e),c=e.__.notify;a.each(e,function(a,r){return l=a&&a.__,l&&i.removeParent(a,e),(s=t[r])?(n=s&&s.constructor,(n==Array||n==Object)&&(s=i.freeze(s,c)),s&&s.__&&i.addParent(s,o),delete t[r],void(o[r]=s)):(l&&i.addParent(a,o),o[r]=a)});for(r in t)s=t[r],n=s&&s.constructor,(n==Array||n==Object)&&(s=i.freeze(s,c)),s&&s.__&&i.addParent(s,o),o[r]=s;return Object.freeze(o),this.refreshParents(e,o),o},replaceself:function(e,t){var s,a,n,r=this,l=this.copyMeta(e),i=e.__.notify;for(n in t)s=t[n],a=s&&s.constructor,(a==Array||a==Object)&&(s=r.freeze(s,i)),s&&s.__&&r.addParent(s,l),l[n]=s;return Object.freeze(l),this.refreshParents(e,l),l},remove:function(e,t){var s,n=this,r=this.copyMeta(e);return a.each(e,function(a,l){s=a&&a.__,s&&n.removeParent(a,e),-1==t.indexOf(l)&&(s&&n.addParent(a,r),r[l]=a)}),Object.freeze(r),this.refreshParents(e,r),r},splice:function(e,t){var s,n,r=this,l=this.copyMeta(e),i=t[0],o=i+t[1],c=e.__.notify;if(a.each(e,function(t,s){t&&t.__&&(r.removeParent(t,e),(i>s||s>=o)&&r.addParent(t,l)),l[s]=t}),t.length>1)for(var p=t.length-1;p>=2;p--)n=t[p],s=n&&n.constructor,(s==Array||s==Object)&&(n=this.freeze(n,c)),n&&n.__&&this.addParent(n,l),t[p]=n;return Array.prototype.splice.apply(l,t),Object.freeze(l),this.refreshParents(e,l),l},refresh:function(e,t,s,n){var r,l=this,i=this.copyMeta(e);return a.each(e,function(a,n){a==t&&(a=s),a&&(r=a.__)&&(r.dirty&&(a=l.refresh(a,r.dirty[0],r.dirty[1],!0)),l.removeParent(a,e),l.addParent(a,i)),i[n]=a}),Object.freeze(i),e.__.dirty=!1,n?i:void this.refreshParents(e,i)},fixChildren:function(e,t){var s=this;a.each(e,function(a){if(a&&a.__){if(-1!=a.__.parents.indexOf(e))return s.fixChildren(a);if(1==a.__.parents.length)return a.__.parents=[e];t&&s.removeParent(a,t),s.addParent(e)}})},clean:function(e){return this.refresh(e,__.dirty[0],__.dirty[1],!0)},copyMeta:function(e){var t;t=e.constructor==Array?this.createArray(e.length):Object.create(n.Hash);var s=e.__;return a.addNE(t,{__:{notify:s.notify,listener:s.listener,parents:s.parents.slice(0),dirty:!1}}),t},refreshParents:function(e,t){var s,a=e.__;if(a.listener&&this.trigger(t,"update",t),a.parents.length)for(s=a.parents.length-1;s>=0;s--)0==s?this.refresh(a.parents[s],e,t,!1):this.markDirty(a.parents[s],[e,t]);else a.listener&&a.listener.trigger("immediate",e,t)},markDirty:function(e,t){var s,a=e.__;for(a.dirty=t,s=a.parents.length-1;s>=0;s--)this.markDirty(a.parents[s],t)},removeParent:function(e,t){var s=e.__.parents,a=s.indexOf(t);-1!=a&&s.splice(a,1)},addParent:function(e,t){var s=e.__.parents,a=s.indexOf(t);-1==a&&(s[s.length]=t)},trigger:function(e,t,s){var n=e.__.listener,r=n.ticking;n.ticking=s,r||a.nextTick(function(){var e=n.ticking;n.ticking=!1,n.trigger(t,e)})},createListener:function(e){var t=e.__.listener;return t||(t=Object.create(r,{_events:{value:{},writable:!0}}),e.__.listener=t),t},createArray:function(){return[].__proto__?function(e){var t=new Array(e);return t.__proto__=n.List,t}:function(e){var t=new Array(e),s=n.arrayMethods;for(var a in s)t[a]=s[a];return t}}()};e.exports=l}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// install a JSONP callback for chunk loading
+/******/ 	var parentJsonpFunction = window["webpackJsonpReStock"];
+/******/ 	window["webpackJsonpReStock"] = function webpackJsonpCallback(chunkIds, moreModules) {
+/******/ 		// add "moreModules" to the modules object,
+/******/ 		// then flag all "chunkIds" as loaded and fire callback
+/******/ 		var moduleId, chunkId, i = 0, callbacks = [];
+/******/ 		for(;i < chunkIds.length; i++) {
+/******/ 			chunkId = chunkIds[i];
+/******/ 			if(installedChunks[chunkId])
+/******/ 				callbacks.push.apply(callbacks, installedChunks[chunkId]);
+/******/ 			installedChunks[chunkId] = 0;
+/******/ 		}
+/******/ 		for(moduleId in moreModules) {
+/******/ 			modules[moduleId] = moreModules[moduleId];
+/******/ 		}
+/******/ 		if(parentJsonpFunction) parentJsonpFunction(chunkIds, moreModules);
+/******/ 		while(callbacks.length)
+/******/ 			callbacks.shift().call(null, __webpack_require__);
+/******/ 		if(moreModules[0]) {
+/******/ 			installedModules[0] = 0;
+/******/ 			return __webpack_require__(0);
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// object to store loaded and loading chunks
+/******/ 	// "0" means "already loaded"
+/******/ 	// Array means "loading", array contains callbacks
+/******/ 	var installedChunks = {
+/******/ 		2:0
+/******/ 	};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId])
+/******/ 			return installedModules[moduleId].exports;
+/******/
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			exports: {},
+/******/ 			id: moduleId,
+/******/ 			loaded: false
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.loaded = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/ 	// This file contains only the entry chunk.
+/******/ 	// The chunk loading function for additional chunks
+/******/ 	__webpack_require__.e = function requireEnsure(chunkId, callback) {
+/******/ 		// "0" is the signal for "already loaded"
+/******/ 		if(installedChunks[chunkId] === 0)
+/******/ 			return callback.call(null, __webpack_require__);
+/******/
+/******/ 		// an array means "currently loading".
+/******/ 		if(installedChunks[chunkId] !== undefined) {
+/******/ 			installedChunks[chunkId].push(callback);
+/******/ 		} else {
+/******/ 			// start chunk loading
+/******/ 			installedChunks[chunkId] = [callback];
+/******/ 			var head = document.getElementsByTagName('head')[0];
+/******/ 			var script = document.createElement('script');
+/******/ 			script.type = 'text/javascript';
+/******/ 			script.charset = 'utf-8';
+/******/ 			script.async = true;
+/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"0":"react-stockcharts-dashboard","1":"react-stockcharts-home"}[chunkId]||chunkId) + ".js";
+/******/ 			head.appendChild(script);
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "js/";
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */,
+/* 1 */
+/***/ function(module, exports, __webpack_require__) {
+	module.exports = window.React;
+
+/***/ },
+/* 2 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = window.d3;
+
+/***/ },
+/* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var d3 = __webpack_require__(2);
+	
+	var ReStock = __webpack_require__(55);
+	
+	var ChartCanvas = ReStock.ChartCanvas
+		, XAxis = ReStock.XAxis
+		, YAxis = ReStock.YAxis
+		, AreaSeries = ReStock.AreaSeries
+		, Translate = ReStock.Translate
+		, Chart = ReStock.Chart
+		, DataSeries = ReStock.DataSeries
+		, EventCapture = ReStock.EventCapture
+		, MouseCoordinates = ReStock.MouseCoordinates
+		, CrossHair = ReStock.CrossHair
+		, TooltipContainer = ReStock.TooltipContainer
+		, OHLCTooltip = ReStock.OHLCTooltip
+		, OverlaySeries = ReStock.OverlaySeries
+		, LineSeries = ReStock.LineSeries
+		, MovingAverageTooltip = ReStock.MovingAverageTooltip
+		, EdgeContainer = ReStock.EdgeContainer
+		, EdgeIndicator = ReStock.EdgeIndicator
+		, CurrentCoordinate = ReStock.CurrentCoordinate
+		, ChartWidthMixin = __webpack_require__(53)
+		, InitialStateMixin = __webpack_require__(52)
+	;
+	
+	module.exports = {
+		init:function(data) {
+			var AreaChartWithZoomPan = React.createClass({displayName: "AreaChartWithZoomPan",
+				mixins: [InitialStateMixin, ChartWidthMixin],
+				handleMATooltipClick:function(overlay) {
+					console.log('You clicked on ', overlay, ' handle your onclick event here...');
+				},
+				render:function() {
+					if (!this.state.width) return React.createElement("div", null);
+	
+					var parseDate = d3.time.format("%Y-%m-%d").parse
+					var dateRange = { from: parseDate("2012-06-01"), to: parseDate("2012-12-31")}
+					var dateFormat = d3.time.format("%Y-%m-%d");
+	
+					return (
+						React.createElement(ChartCanvas, {
+							width: this.state.width, height: 500, 
+							margin: {left: 65, right: 90, top:30, bottom: 30}, data: data, ref: "eventStore"}, 
+							React.createElement(Chart, {id: 1}, 
+								React.createElement(XAxis, {axisAt: "bottom", orient: "bottom", ticks: 6}), 
+								React.createElement(YAxis, {axisAt: "right", orient: "right"}), 
+								React.createElement(DataSeries, {yAccessor: function(d)  {return d.close;}, xAccessor: function(d)  {return d.date;}}, 
+									React.createElement(AreaSeries, null), 
+									React.createElement(OverlaySeries, {id: 0, type: "sma", options: { period: 50}}, 
+										React.createElement(LineSeries, null)
+									), 
+									React.createElement(OverlaySeries, {id: 1, type: "sma", options: { period: 150}}, 
+										React.createElement(LineSeries, null)
+									), 
+									React.createElement(OverlaySeries, {id: 2, type: "sma", options: { period: 250}}, 
+										React.createElement(LineSeries, null)
+									), 
+									React.createElement(OverlaySeries, {id: 3, type: "sma", options: { period: 350}}, 
+										React.createElement(LineSeries, null)
+									), 
+									React.createElement(OverlaySeries, {id: 4, type: "sma", options: { period: 450}}, 
+										React.createElement(LineSeries, null)
+									)
+								)
+							), 
+							React.createElement(CurrentCoordinate, {forChart: 1}), 
+							React.createElement(CurrentCoordinate, {forChart: 1, forOverlay: 1}), 
+							React.createElement(EdgeContainer, null, 
+								React.createElement(EdgeIndicator, {
+									className: "horizontal", 
+									itemType: "last", 
+									orient: "right", 
+									edgeAt: "right", 
+									forChart: 1, 
+									forOverlay: 0}
+									), 
+								React.createElement(EdgeIndicator, {
+									className: "horizontal", 
+									itemType: "first", 
+									orient: "left", 
+									edgeAt: "left", 
+									forChart: 1, 
+									forOverlay: 1}
+									), 
+								React.createElement(EdgeIndicator, {
+									className: "horizontal", 
+									itemType: "last", 
+									orient: "right", 
+									edgeAt: "right", 
+									forChart: 1}
+									), 
+								React.createElement(EdgeIndicator, {
+									className: "horizontal", 
+									itemType: "first", 
+									orient: "left", 
+									edgeAt: "left", 
+									forChart: 1}
+									), 
+								React.createElement(EdgeIndicator, {
+									className: "horizontal", 
+									itemType: "last", 
+									orient: "right", 
+									edgeAt: "right", 
+									forChart: 1, 
+									forOverlay: 2}
+									), 
+								React.createElement(EdgeIndicator, {
+									className: "horizontal", 
+									itemType: "last", 
+									orient: "right", 
+									edgeAt: "right", 
+									forChart: 1, 
+									forOverlay: 3}
+									)
+							), 
+							React.createElement(MouseCoordinates, {forChart: 1, xDisplayFormat: dateFormat, yDisplayFormat: function(y)  {return y.toFixed(2);}}, 
+								React.createElement(CrossHair, null)
+							), 
+							React.createElement(EventCapture, {mouseMove: true, zoom: true, pan: true, mainChart: 1}), 
+							React.createElement(TooltipContainer, null, 
+								React.createElement(OHLCTooltip, {forChart: 1, origin: [-60, -20]}), 
+								React.createElement(MovingAverageTooltip, {forChart: 1, onClick: this.handleMATooltipClick, origin: [-60, -10]})
+							)
+						)
+					);
+				}
+			});
+	
+			return AreaChartWithZoomPan;
+		}
+	}
+
+
+/***/ },
+/* 4 */,
+/* 5 */,
+/* 6 */,
+/* 7 */,
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */,
+/* 12 */,
+/* 13 */,
+/* 14 */,
+/* 15 */,
+/* 16 */,
+/* 17 */,
+/* 18 */,
+/* 19 */,
+/* 20 */,
+/* 21 */,
+/* 22 */,
+/* 23 */,
+/* 24 */,
+/* 25 */,
+/* 26 */,
+/* 27 */,
+/* 28 */,
+/* 29 */,
+/* 30 */,
+/* 31 */,
+/* 32 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(33);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(54)(content, {});
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		module.hot.accept("!!/c/Ragu/Work/GC/opensource/react-stockcharts/node_modules/css-loader/index.js!/c/Ragu/Work/GC/opensource/react-stockcharts/node_modules/autoprefixer-loader/index.js!/c/Ragu/Work/GC/opensource/react-stockcharts/node_modules/sass-loader/index.js?outputStyle=expanded!/c/Ragu/Work/GC/opensource/react-stockcharts/docs/stylesheets/re-stock.scss", function() {
+			var newContent = require("!!/c/Ragu/Work/GC/opensource/react-stockcharts/node_modules/css-loader/index.js!/c/Ragu/Work/GC/opensource/react-stockcharts/node_modules/autoprefixer-loader/index.js!/c/Ragu/Work/GC/opensource/react-stockcharts/node_modules/sass-loader/index.js?outputStyle=expanded!/c/Ragu/Work/GC/opensource/react-stockcharts/docs/stylesheets/re-stock.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 33 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(56)();
+	exports.push([module.id, "/* Move down content because we have a fixed navbar that is 50px tall */\n/*! normalize.css v3.0.2 | MIT License | git.io/normalize */\n/* #MainContainer {\n   position: fixed;\n   top: 50px;\n   padding-left: 100px;\n} */\naside table {\n  border: 1;\n  border-spacing: 1px;\n  border-collapse: collapse;\n  max-width: 100%;\n  margin-bottom: 20px; }\n  aside table tbody > tr > td, aside table tbody > tr > th, aside table tfoot > tr > td, aside table tfoot > tr > th, aside table thead > tr > td, aside table thead > tr > th {\n    padding: 8px;\n    line-height: 1.42857;\n    vertical-align: top;\n    border-top: 1px solid #DDD; }\n\na.button {\n  background: transparent url("+__webpack_require__(78)+") 0 0 no-repeat;\n  width: 203px;\n  height: 80px;\n  padding-left: 60px;\n  color: #fff !important; }\n  a.button small {\n    display: inline;\n    font-size: 13px;\n    margin-top: 15px; }\n\n.jumbotron {\n  background: steelblue;\n  padding: 0px;\n  color: white; }\n  .jumbotron a {\n    color: yellow; }\n\n.top-spacing {\n  padding-top: 10px; }\n\n.navbar {\n  background-color: steelblue; }\n  .navbar a {\n    color: white; }\n\n/*\n * Top navigation\n * Hide default border to remove 1px line.\n */\n.navbar-fixed-top {\n  border: 0; }\n\n/*\n * Sidebar\n */\n/* Hide for mobile, show later */\n.sidebar {\n  display: none; }\n\n@media (min-width: 768px) {\n  .sidebar {\n    position: fixed;\n    top: 51px;\n    bottom: 0;\n    left: 0;\n    z-index: 1000;\n    display: block;\n    padding: 20px;\n    overflow-x: hidden;\n    overflow-y: auto;\n    /* Scrollable contents if viewport is shorter than content. */\n    background-color: #f5f5f5;\n    border-right: 1px solid #eee; } }\n\n/* Sidebar navigation */\n.nav-sidebar {\n  margin-right: -21px;\n  /* 20px padding + 1px border */\n  margin-bottom: 20px;\n  margin-left: -20px; }\n  .nav-sidebar > li > a {\n    padding-right: 20px;\n    padding-left: 20px; }\n  .nav-sidebar > .active a, .nav-sidebar > .active a:hover, .nav-sidebar > .active a:focus {\n    color: #fff;\n    background-color: #428bca; }\n\n/*\n * Main content\n */\n.main {\n  padding: 20px; }\n\n@media (min-width: 768px) {\n  .main {\n    padding-right: 40px;\n    padding-left: 40px; } }\n\n.main .page-header {\n  margin-top: 0; }\n", ""]);
+
+/***/ },
+/* 34 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(35);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(54)(content, {});
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		module.hot.accept("!!/c/Ragu/Work/GC/opensource/react-stockcharts/node_modules/css-loader/index.js!/c/Ragu/Work/GC/opensource/react-stockcharts/node_modules/autoprefixer-loader/index.js!/c/Ragu/Work/GC/opensource/react-stockcharts/node_modules/sass-loader/index.js?outputStyle=expanded!/c/Ragu/Work/GC/opensource/react-stockcharts/src/styles/react-stockcharts.scss", function() {
+			var newContent = require("!!/c/Ragu/Work/GC/opensource/react-stockcharts/node_modules/css-loader/index.js!/c/Ragu/Work/GC/opensource/react-stockcharts/node_modules/autoprefixer-loader/index.js!/c/Ragu/Work/GC/opensource/react-stockcharts/node_modules/sass-loader/index.js?outputStyle=expanded!/c/Ragu/Work/GC/opensource/react-stockcharts/src/styles/react-stockcharts.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 35 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(56)();
+	exports.push([module.id, "body {\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  font-size: 13px; }\n\n.react-stockchart .axis path, .react-stockchart .axis line {\n  fill: none;\n  stroke: #000000; }\n.react-stockchart .current-coordinate {\n  fill: none;\n  stroke: steelblue;\n  stroke-width: 3px; }\n.react-stockchart .grid.axis path, .react-stockchart .grid.axis line {\n  fill: none;\n  stroke: #000000;\n  shape-rendering: crispEdges;\n  opacity: 0.2; }\n.react-stockchart .y.axis path {\n  display: none; }\n.react-stockchart .candle .up {\n  fill: #6BA583;\n  stroke: #6BA583;\n  stroke-width: 1px;\n  shape-rendering: crispEdges; }\n.react-stockchart .candle .down {\n  fill: #ff0000;\n  stroke: #ff0000;\n  stroke-width: 1px;\n  shape-rendering: crispEdges; }\n.react-stockchart .candle line {\n  stroke: #000000; }\n.react-stockchart .wick .up, .react-stockchart .wick .down {\n  stroke: #000000;\n  stroke-width: 1px;\n  shape-rendering: crispEdges; }\n.react-stockchart .line {\n  fill: none;\n  stroke-width: 1px; }\n.react-stockchart .line-stroke {\n  shape-rendering: crispEdges;\n  stroke: steelblue; }\n.react-stockchart .overlay-stroke {\n  stroke: steelblue; }\n.react-stockchart .yin {\n  fill: none;\n  stroke: #ff0000;\n  stroke-width: 2px; }\n.react-stockchart .yang {\n  fill: none;\n  stroke: #6BA583;\n  stroke-width: 2px; }\n.react-stockchart .point_figure_up {\n  fill: none;\n  stroke: green;\n  stroke-width: 1px; }\n.react-stockchart .point_figure_down {\n  fill: none;\n  stroke: #ff0000;\n  stroke-width: 1px; }\n.react-stockchart .area {\n  fill: lightsteelblue;\n  opacity: 0.5; }\n.react-stockchart .backgroundText {\n  text-anchor: middle;\n  fill: #8a8a8a;\n  opacity: 0.15; }\n.react-stockchart .cross-hair {\n  stroke: #000000;\n  stroke-width: 1px;\n  shape-rendering: crispEdges;\n  opacity: 0.2; }\n.react-stockchart .horizontal2 .textbg {\n  opacity: 0.95;\n  fill: #f0e68c; }\n.react-stockchart .horizontal2 text {\n  fill: #757575; }\n.react-stockchart .horizontal3 .textbg {\n  opacity: 0.95;\n  fill: #000000; }\n.react-stockchart .horizontal3 text {\n  fill: #757575; }\n.react-stockchart .edge-coordinate .textbg {\n  opacity: 0.95; }\n.react-stockchart .edge-coordinate text {\n  fill: #ffffff; }\n.react-stockchart .vertical .textbg, .react-stockchart .horizontal .textbg {\n  opacity: 0.9;\n  fill: #8a8a8a; }\n.react-stockchart .vertical text, .react-stockchart .horizontal text {\n  fill: #ffffff; }\n.react-stockchart .grab {\n  cursor: grab;\n  cursor: -webkit-grab; }\n.react-stockchart .grabbing {\n  cursor: grabbing;\n  cursor: -webkit-grabbing; }\n.react-stockchart .crosshair {\n  cursor: crosshair; }\n.react-stockchart .toottip-hover {\n  pointer-events: all;\n  cursor: pointer; }\n.react-stockchart .histogram .bar {\n  fill: steelblue;\n  opacity: 0.3;\n  stroke: none; }\n.react-stockchart .histogram .up {\n  fill: #6BA583;\n  opacity: 0.3;\n  stroke: none; }\n.react-stockchart .histogram .down {\n  fill: #ff0000;\n  opacity: 0.3;\n  stroke: none; }\n.react-stockchart .histogram line.up {\n  stroke: #6BA583; }\n.react-stockchart .histogram line.down {\n  stroke: #ff0000; }\n.react-stockchart .ma-container rect {\n  fill: none;\n  stroke: none; }\n  .react-stockchart .ma-container rect:hover {\n    fill: #8a8a8a;\n    opacity: 0.3; }\n.react-stockchart .ma-container line {\n  stroke-width: 4px; }\n.react-stockchart .legend {\n  font-size: 11px; }\n  .react-stockchart .legend .tooltip-label {\n    fill: steelblue;\n    font-weight: bold; }\n", ""]);
+
+/***/ },
+/* 36 */,
+/* 37 */,
+/* 38 */,
+/* 39 */,
+/* 40 */,
+/* 41 */,
+/* 42 */,
+/* 43 */,
+/* 44 */,
+/* 45 */,
+/* 46 */,
+/* 47 */,
+/* 48 */,
+/* 49 */,
+/* 50 */,
+/* 51 */,
+/* 52 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var InitialStateMixin = {
+		getInitialState:function() {
+			return {};
+		}
+	};
+	
+	module.exports = InitialStateMixin;
+
+/***/ },
+/* 53 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var ChartWidthMixin = {
+		handleWindowResize:function() {
+			var w = $(this.getDOMNode()).parent().width();
+			console.log('width = ', w);
+	
+			this.setState({
+				width: w
+			});
+		},
+		componentWillUnMount:function() {
+			window.removeEventListener("resize", this.handleWindowResize);
+		},
+		componentDidMount:function() {
+			window.addEventListener("resize", this.handleWindowResize);
+			var w = $(this.getDOMNode()).parent().width();
+			this.setState({
+				width: w
+			});
+		},
+	};
+	
+	module.exports = ChartWidthMixin;
+
+/***/ },
+/* 54 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	var stylesInDom = {},
+		memoize = function(fn) {
+			var memo;
+			return function () {
+				if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+				return memo;
+			};
+		},
+		isIE9 = memoize(function() {
+			return /msie 9\b/.test(window.navigator.userAgent.toLowerCase());
+		}),
+		getHeadElement = memoize(function () {
+			return document.head || document.getElementsByTagName("head")[0];
+		}),
+		singletonElement = null,
+		singletonCounter = 0;
+	
+	module.exports = function(list, options) {
+		if(true) {
+			if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+		}
+	
+		options = options || {};
+		// Force single-tag solution on IE9, which has a hard limit on the # of <style>
+		// tags it will allow on a page
+		if (typeof options.singleton === "undefined") options.singleton = isIE9();
+	
+		var styles = listToStyles(list);
+		addStylesToDom(styles, options);
+	
+		return function update(newList) {
+			var mayRemove = [];
+			for(var i = 0; i < styles.length; i++) {
+				var item = styles[i];
+				var domStyle = stylesInDom[item.id];
+				domStyle.refs--;
+				mayRemove.push(domStyle);
+			}
+			if(newList) {
+				var newStyles = listToStyles(newList);
+				addStylesToDom(newStyles, options);
+			}
+			for(var i = 0; i < mayRemove.length; i++) {
+				var domStyle = mayRemove[i];
+				if(domStyle.refs === 0) {
+					for(var j = 0; j < domStyle.parts.length; j++)
+						domStyle.parts[j]();
+					delete stylesInDom[domStyle.id];
+				}
+			}
+		};
+	}
+	
+	function addStylesToDom(styles, options) {
+		for(var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+			if(domStyle) {
+				domStyle.refs++;
+				for(var j = 0; j < domStyle.parts.length; j++) {
+					domStyle.parts[j](item.parts[j]);
+				}
+				for(; j < item.parts.length; j++) {
+					domStyle.parts.push(addStyle(item.parts[j], options));
+				}
+			} else {
+				var parts = [];
+				for(var j = 0; j < item.parts.length; j++) {
+					parts.push(addStyle(item.parts[j], options));
+				}
+				stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+			}
+		}
+	}
+	
+	function listToStyles(list) {
+		var styles = [];
+		var newStyles = {};
+		for(var i = 0; i < list.length; i++) {
+			var item = list[i];
+			var id = item[0];
+			var css = item[1];
+			var media = item[2];
+			var sourceMap = item[3];
+			var part = {css: css, media: media, sourceMap: sourceMap};
+			if(!newStyles[id])
+				styles.push(newStyles[id] = {id: id, parts: [part]});
+			else
+				newStyles[id].parts.push(part);
+		}
+		return styles;
+	}
+	
+	function createStyleElement() {
+		var styleElement = document.createElement("style");
+		var head = getHeadElement();
+		styleElement.type = "text/css";
+		head.appendChild(styleElement);
+		return styleElement;
+	}
+	
+	function addStyle(obj, options) {
+		var styleElement, update, remove;
+	
+		if (options.singleton) {
+			var styleIndex = singletonCounter++;
+			styleElement = singletonElement || (singletonElement = createStyleElement());
+			update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
+			remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
+		} else {
+			styleElement = createStyleElement();
+			update = applyToTag.bind(null, styleElement);
+			remove = function () {
+				styleElement.parentNode.removeChild(styleElement);
+			};
+		}
+	
+		update(obj);
+	
+		return function updateStyle(newObj) {
+			if(newObj) {
+				if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
+					return;
+				update(obj = newObj);
+			} else {
+				remove();
+			}
+		};
+	}
+	
+	function replaceText(source, id, replacement) {
+		var boundaries = ["/** >>" + id + " **/", "/** " + id + "<< **/"];
+		var start = source.lastIndexOf(boundaries[0]);
+		var wrappedReplacement = replacement
+			? (boundaries[0] + replacement + boundaries[1])
+			: "";
+		if (source.lastIndexOf(boundaries[0]) >= 0) {
+			var end = source.lastIndexOf(boundaries[1]) + boundaries[1].length;
+			return source.slice(0, start) + wrappedReplacement + source.slice(end);
+		} else {
+			return source + wrappedReplacement;
+		}
+	}
+	
+	function applyToSingletonTag(styleElement, index, remove, obj) {
+		var css = remove ? "" : obj.css;
+	
+		if(styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = replaceText(styleElement.styleSheet.cssText, index, css);
+		} else {
+			var cssNode = document.createTextNode(css);
+			var childNodes = styleElement.childNodes;
+			if (childNodes[index]) styleElement.removeChild(childNodes[index]);
+			if (childNodes.length) {
+				styleElement.insertBefore(cssNode, childNodes[index]);
+			} else {
+				styleElement.appendChild(cssNode);
+			}
+		}
+	}
+	
+	function applyToTag(styleElement, obj) {
+		var css = obj.css;
+		var media = obj.media;
+		var sourceMap = obj.sourceMap;
+	
+		if(sourceMap && typeof btoa === "function") {
+			try {
+				css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(JSON.stringify(sourceMap)) + " */";
+				css = "@import url(\"data:text/css;base64," + btoa(css) + "\")";
+			} catch(e) {}
+		}
+	
+		if(media) {
+			styleElement.setAttribute("media", media)
+		}
+	
+		if(styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = css;
+		} else {
+			while(styleElement.firstChild) {
+				styleElement.removeChild(styleElement.firstChild);
+			}
+			styleElement.appendChild(document.createTextNode(css));
+		}
+	}
+
+
+/***/ },
+/* 55 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	// common components
+	exports.ChartCanvas = __webpack_require__(58);
+	exports.DataTransform = __webpack_require__(57);
+	
+	exports.XAxis = __webpack_require__(59);
+	exports.YAxis = __webpack_require__(60);
+	exports.Chart = __webpack_require__(61);
+	exports.DataSeries = __webpack_require__(62);
+	
+	// chart types & Series
+	exports.AreaSeries = __webpack_require__(63);
+	exports.LineSeries = __webpack_require__(64);
+	exports.CandlestickSeries = __webpack_require__(65);
+	exports.OverlaySeries = __webpack_require__(66);
+	exports.HistogramSeries = __webpack_require__(67);
+	// interaction components
+	exports.EventCapture = __webpack_require__(68);
+	exports.MouseCoordinates = __webpack_require__(69);
+	exports.CrossHair = __webpack_require__(70);
+	exports.VerticalMousePointer = __webpack_require__(71);
+	exports.CurrentCoordinate = __webpack_require__(76);
+	
+	// Tooltips
+	exports.TooltipContainer = __webpack_require__(72);
+	exports.OHLCTooltip = __webpack_require__(73);
+	exports.MovingAverageTooltip = __webpack_require__(74);
+	
+	// misc
+	exports.EdgeContainer = __webpack_require__(75);
+	exports.EdgeIndicator = __webpack_require__(77);
+
+
+/***/ },
+/* 56 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = function() {
+		var list = [];
+		list.toString = function toString() {
+			var result = [];
+			for(var i = 0; i < this.length; i++) {
+				var item = this[i];
+				if(item[2]) {
+					result.push("@media " + item[2] + "{" + item[1] + "}");
+				} else {
+					result.push(item[1]);
+				}
+			}
+			return result.join("");
+		};
+		return list;
+	}
+
+/***/ },
+/* 57 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(1);
+	var EventCaptureMixin = __webpack_require__(79);
+	var ChartContainerMixin = __webpack_require__(80);
+	var DataTransformMixin = __webpack_require__(82);
+	
+	var polyLinearTimeScale = __webpack_require__(83);
+	
+	var doNotPassThrough = ['transformType', 'options', 'children', 'namespace'];
+	
+	function updatePropsToChild(child, data, props, from, to) {
+		if (from === undefined) from = Math.max(data.length - 30, 0);
+		if (to === undefined) to = data.length - 1;
+		//child.props.data = data.filter();
+		if (child.type === Chart.type || child.type === DataTransform.type) {
+			child.props.data = data;
+			child.props._width = props.width || props._width;
+			child.props._height = props.height || props._height;
+			child.props._indexAccessor = props._indexAccessor;
+			child.props._polyLinear = props.polyLinear;
+			if (props.polyLinear)
+				child.props._xScale = polyLinearTimeScale(child.props._indexAccessor);
+		}
+	}
+	
+	var DataTransform = React.createClass({displayName: "DataTransform",
+		mixins: [DataTransformMixin, ChartContainerMixin, EventCaptureMixin],
+		propTypes: {
+			_height: React.PropTypes.number,
+			_width: React.PropTypes.number,
+	
+			data: React.PropTypes.any.isRequired,
+			transformType: React.PropTypes.string.isRequired, // stockscale, none
+			options: React.PropTypes.object
+		},
+		getInitialState:function() {
+			return {};
+		},
+		getDefaultProps:function() {
+			return {
+				namespace: "ReStock.DataTransform",
+				transformType: "none"
+			};
+		},
+	
+		renderChildren:function(height, width) {
+			var children = React.Children.map(this.props.children, function(child)  {
+				if (typeof child.type === 'string') return child;
+				var newChild = child;
+				var props = {};
+				Object.keys(this.props)
+					.filter(function(eachProp)  {return doNotPassThrough.indexOf(eachProp) === -1;})
+					.forEach(function(key)  {return props[key] = this.props[key];}.bind(this));
+	
+				Object.keys(this.state.passThroughProps)
+					.forEach(function(key)  {return props[key] = this.state.passThroughProps[key];}.bind(this));
+	
+				// console.log(Object.keys(props));
+				return React.addons.cloneWithProps(newChild, props);
+			}.bind(this));
+			return this._renderChildren(children);
+		},
+		render:function() {
+			return (
+				React.createElement("g", null, this.renderChildren())
+			);
+		}
+	});
+	
+	module.exports = DataTransform;
+
+
+/***/ },
+/* 58 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(1);
+	// var TestUtils = React.addons.TestUtils;
+	
+	var Chart = __webpack_require__(61);
+	var EventCaptureMixin = __webpack_require__(79);
+	var ChartContainerMixin = __webpack_require__(80);
+	
+	var ChartCanvas = React.createClass({displayName: "ChartCanvas",
+		mixins: [ChartContainerMixin, EventCaptureMixin],
+		propTypes: {
+			width: React.PropTypes.number.isRequired
+			, height: React.PropTypes.number.isRequired
+			, margin: React.PropTypes.object
+			, interval: React.PropTypes.string.isRequired
+		},
+		getAvailableHeight:function(props) {
+			return props.height - props.margin.top - props.margin.bottom;
+		},
+		getAvailableWidth:function(props) {
+			return props.width - props.margin.left - props.margin.right;
+		},
+		getInitialState:function() {
+			return {};
+		},
+		getDefaultProps:function() {
+			return {
+				margin: {top: 20, right: 30, bottom: 30, left: 80},
+				interval: "D"
+			};
+		},
+		renderChildren:function() {
+	
+			var children = React.Children.map(this.props.children, function(child)  {
+				if (typeof child.type === 'string') return child;
+				var newChild = child;
+				if ('ReStock.DataTransform' === newChild.props.namespace) {
+					newChild = React.addons.cloneWithProps(newChild, {
+						data: this.props.data,
+						interval: this.props.interval
+					});
+				}
+				return React.addons.cloneWithProps(newChild, {
+					_width: this.getAvailableWidth(this.props)
+					, _height: this.getAvailableHeight(this.props)
+				});
+			}.bind(this));
+			return this._renderChildren(children);
+		},
+		render:function() {
+	
+			var transform = 'translate(' + this.props.margin.left + ',' +  this.props.margin.top + ')';
+			var clipPath = '<clipPath id="chart-area-clip">'
+								+ '<rect x="0" y="0" width="' + this.getAvailableWidth(this.props) + '" height="' + this.getAvailableHeight(this.props) + '" />'
+							+ '</clipPath>';
+	
+			var children = this.renderChildren();
+	
+			return (
+				React.createElement("svg", {width: this.props.width, height: this.props.height}, 
+					React.createElement("defs", {dangerouslySetInnerHTML: { __html: clipPath}}), 
+					React.createElement("g", {transform: transform}, children)
+				)
+			);
+		}
+	});
+	
+	module.exports = ChartCanvas;
+
+
+/***/ },
+/* 59 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(1),
+		d3 = __webpack_require__(2),
+		PureRenderMixin = __webpack_require__(81);
+	
+	var XAxis = React.createClass({displayName: "XAxis",
+		mixins: [PureRenderMixin],
+		propTypes: {
+			axisAt: React.PropTypes.oneOfType([
+						React.PropTypes.oneOf(['top', 'bottom', 'middle'])
+						, React.PropTypes.number
+					]).isRequired,
+			orient: React.PropTypes.oneOf(['top', 'bottom']).isRequired,
+			innerTickSize: React.PropTypes.number,
+			outerTickSize: React.PropTypes.number,
+			tickFormat: React.PropTypes.func,
+			tickPadding: React.PropTypes.number,
+			tickSize: React.PropTypes.number,
+			ticks: React.PropTypes.number,
+			tickValues: React.PropTypes.array
+		},
+		getDefaultProps:function() {
+			return {
+				namespace: "ReStock.XAxis",
+				showGrid: false
+			};
+		},
+		getInitialState:function() {
+			return {};
+		},
+		componentWillMount:function() {
+			this.state.xAxis = d3.svg.axis();
+		},
+		componentDidMount:function() {
+			this.updateAxis();
+		},
+		componentDidUpdate:function() {
+			this.updateAxis();
+		},
+		updateAxis:function() {
+			var axis = d3.svg.axis()
+				.scale(this.props._xScale)
+				.orient(this.props.orient)
+				//.innerTickSize(this.props.showGrid ? this.props.innerTickSize : 5)
+				//.outerTickSize(this.props.showGrid ? this.props.outerTickSize : 5)
+				//.tickPadding(this.props.showGrid ? 5 : 10)
+				;
+			if (this.props.orient) axis.orient(this.props.orient);
+			if (this.props.innerTickSize) axis.innerTickSize(this.props.innerTickSize);
+			if (this.props.outerTickSize) axis.outerTickSize(this.props.outerTickSize);
+			if (this.props.tickFormat) {
+				if (this.props._xScale.isPolyLinear && this.props._xScale.isPolyLinear())
+					console.warn('Cannot set tickFormat on a poly linear scale, ignoring tickFormat on XAxis');
+				else
+					axis.tickFormat(this.props.tickFormat)
+			};
+			if (this.props.tickPadding) axis.tickPadding(this.props.tickPadding);
+			if (this.props.tickSize) axis.tickSize(this.props.tickSize);
+			if (this.props.ticks) axis.ticks(this.props.ticks);
+			if (this.props.tickValues) axis.tickValues(this.props.tickValues);
+			d3.select(this.getDOMNode()).call(axis);
+		},
+		render:function() {
+			var axisAt = this.props.axisAt
+				, range = this.props._yScale.range();
+			if (this.props.axisAt === 'top') axisAt = Math.min(range[0], range[1]);
+			if (this.props.axisAt === 'bottom') axisAt = Math.max(range[0], range[1]);
+			if (this.props.axisAt === 'middle') axisAt = (range[0] + range[1]) / 2;
+	
+			return (
+				React.createElement("g", {className: "x axis", transform: 'translate(0, ' + axisAt + ')'})
+			);
+		}
+	});
+	
+	module.exports = XAxis;
+
+
+/***/ },
+/* 60 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(1)
+		, d3 = __webpack_require__(2),
+		PureRenderMixin = __webpack_require__(81);
+	
+	
+	var YAxis = React.createClass({displayName: "YAxis",
+		mixins: [PureRenderMixin],
+		propTypes: {
+			axisAt: React.PropTypes.oneOfType([
+						React.PropTypes.oneOf(['left', 'right', 'middle'])
+						, React.PropTypes.number
+					]).isRequired,
+			orient: React.PropTypes.oneOf(['left', 'right']).isRequired,
+			innerTickSize: React.PropTypes.number,
+			outerTickSize: React.PropTypes.number,
+			tickFormat: React.PropTypes.func,
+			tickPadding: React.PropTypes.number,
+			tickSize: React.PropTypes.number,
+			ticks: React.PropTypes.number,
+			tickValues: React.PropTypes.array,
+			percentScale: React.PropTypes.bool,
+			axisPadding: React.PropTypes.number
+		},
+		getDefaultProps:function() {
+			return {
+				namespace: "ReStock.YAxis",
+				showGrid: false,
+				axisPadding: 0
+			};
+		},
+		getInitialState:function() {
+			return {};
+		},
+	
+		componentDidMount:function() {
+			this.updateAxis();
+		},
+		componentDidUpdate:function() {
+			this.updateAxis();
+		},
+		updateAxis:function() {
+			var scale = this.props._yScale;
+			if (this.props.percentScale) scale = scale.copy().domain([0, 1]);
+	
+			var axis = d3.svg.axis()
+				.scale(scale)
+				.orient(this.props.orient)
+				//.innerTickSize(this.props.showGrid ? this.props.innerTickSize : 5)
+				//.outerTickSize(this.props.showGrid ? this.props.outerTickSize : 5)
+				//.tickPadding(this.props.showGrid ? 5 : 10)
+				;
+			if (this.props.orient) axis.orient(this.props.orient);
+			if (this.props.innerTickSize) axis.innerTickSize(this.props.innerTickSize);
+			if (this.props.outerTickSize) axis.outerTickSize(this.props.outerTickSize);
+			if (this.props.tickFormat) axis.tickFormat(this.props.tickFormat);
+			if (this.props.tickPadding) axis.tickPadding(this.props.tickPadding);
+			if (this.props.tickSize) axis.tickSize(this.props.tickSize);
+			if (this.props.ticks) axis.ticks(this.props.ticks);
+			if (this.props.tickValues) axis.tickValues(this.props.tickValues);
+	
+			d3.select(this.getDOMNode()).call(axis);
+		},
+		render:function() {
+			var axisAt = this.props.axisAt
+				, range = this.props._xScale.range();
+			if (this.props.axisAt === 'left') axisAt = Math.min(range[0], range[1]) + this.props.axisPadding;
+			if (this.props.axisAt === 'right') axisAt = Math.max(range[0], range[1]) + this.props.axisPadding;
+			if (this.props.axisAt === 'middle') axisAt = (range[0] + range[1]) / 2 + this.props.axisPadding;
+	
+			return (
+				React.createElement("g", {className: "y axis", transform: 'translate(' + axisAt + ', 0)'})
+			);
+		}
+	});
+	
+	module.exports = YAxis;
+
+
+/***/ },
+/* 61 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	// Overlays have to be calculated here so scales can be modified according to that
+	
+	var React = __webpack_require__(1),
+		d3 = __webpack_require__(2),
+		ScaleUtils = __webpack_require__(84),
+		OverlayUtils = __webpack_require__(85),
+		Utils = __webpack_require__(86),
+		overlayColors = Utils.overlayColors;
+		// logger = require('./utils/logger')
+	
+	var pluck = Utils.pluck;
+	var keysAsArray = Utils.keysAsArray;
+	
+	function getOverlayFromList(overlays, id) {
+		return overlays.map(function(each)  {return [each.id, each];})
+			.filter(function(eachMap)  {return eachMap[0] === id;})
+			.map(function(eachMap)  {return eachMap[1];})[0];
+	}
+	
+	var Chart = React.createClass({displayName: "Chart",
+		statics: {
+			getWidth:function(props) { return props.width || props._width; },
+			getHeight:function(props) { return props.height || props._height; }
+		},
+		propTypes: {
+			data: React.PropTypes.array.isRequired,
+			height: React.PropTypes.number,
+			width: React.PropTypes.number,
+			origin: React.PropTypes.oneOfType([
+						React.PropTypes.array
+						, React.PropTypes.func
+					]).isRequired,
+			id: React.PropTypes.number.isRequired,
+			_height: React.PropTypes.number,
+			_width: React.PropTypes.number,
+			// _showCurrent: React.PropTypes.bool,
+			// if xScale and/or yScale is passed as props
+			// the user needs to set 
+			// xDomainUpdate=false and yDomainUpdate=false
+			// in order for this component to NOT update the scale on change of data
+			xScale: React.PropTypes.func,
+			yScale: React.PropTypes.func,
+			xDomainUpdate: React.PropTypes.bool,
+			yDomainUpdate: React.PropTypes.bool,
+			// _mouseXY: React.PropTypes.array,
+			_chartData: React.PropTypes.object.isRequired,
+			_updateMode: React.PropTypes.object.isRequired
+			/*,
+			_currentItem: React.PropTypes.object,
+			_lastItem: React.PropTypes.object,
+			_currentMouseXY: React.PropTypes.array,
+			_currentXYValue: React.PropTypes.array*/
+		},
+		mixins: [React.addons.PureRenderMixin],
+		getDefaultProps:function() {
+			return {
+				namespace: "ReStock.Chart",
+				transformDataAs: "none",
+				yDomainUpdate: true,
+				origin: [0, 0]
+			};
+		},/*
+		identifyOverlaysToAdd(props) {
+			var overlaysToAdd = [];
+			React.Children.forEach(props.children, (child) => {
+				if (/DataSeries$/.test(child.props.namespace)) {
+					React.Children.forEach(child.props.children, (grandChild) => {
+						if (/OverlaySeries$/.test(grandChild.props.namespace)) {
+							var overlay = getOverlayFromList(props._chartData.overlays, grandChild.props.id)
+							var yAccessor = OverlayUtils.getYAccessor(grandChild.props);
+							if (overlay === undefined) {
+								overlay = {
+									id: grandChild.props.id,
+									yAccessor: yAccessor,
+									options: grandChild.props.options,
+									type: grandChild.props.type,
+									tooltipLabel: OverlayUtils.getToolTipLabel(grandChild.props),
+									stroke: grandChild.stroke || overlayColors(grandChild.props.id)
+								};
+								overlaysToAdd.push(overlay);
+							}
+						}
+					});
+				}
+			})
+			return overlaysToAdd;
+		},
+		componentWillNOTMount() {
+			var _chartData = this.props._chartData;
+	
+			var scales = this.defineScales(this.props);
+			var accessors = this.getXYAccessors(this.props);
+			// identify overlays
+			var overlaysToAdd = this.identifyOverlaysToAdd(this.props);
+			_chartData = _chartData.set({ overlays: overlaysToAdd });
+			// console.log(overlaysToAdd);
+			// calculate overlays
+			this.calculateOverlays(this.props.fullData, _chartData.overlays);
+	
+			var overlayValues = this.updateOverlayFirstLast(this.props.data, _chartData.overlays)
+			_chartData = _chartData.set( { overlayValues: overlayValues } ); // replace everything
+	
+			var overlayYAccessors = pluck(keysAsArray(_chartData.overlays), 'yAccessor');
+	
+			scales = this.updateScales(this.props
+				, [accessors.xAccessor]
+				, [accessors.yAccessor].concat(overlayYAccessors)
+				, scales.xScale
+				, scales.yScale);
+	
+			_chartData = _chartData.set({ accessors: accessors });
+			_chartData = _chartData.set({ scales: scales });
+	
+			var last = Utils.cloneMe(this.props.data[this.props.data.length - 1]);
+			_chartData = _chartData.set({ lastItem: last });
+	
+			var first = Utils.cloneMe(this.props.data[0]);
+			_chartData = _chartData.set({ firstItem: first });
+	
+			this.setState({ chartData: _chartData });
+		},
+		componentWillNOTReceiveProps(nextProps) {
+			// ignoring  _mouseXY, _currentItem, _lastItem
+	
+			var scaleRecalculationNeeded = (Chart.getWidth(this.props) !== Chart.getWidth(nextProps)
+				|| Chart.getHeight(this.props) !== Chart.getHeight(nextProps)
+				|| this.props.xScale !== nextProps.xScale
+				|| this.props.yScale !== nextProps.yScale
+				|| this.props.xDomainUpdate !== nextProps.xDomainUpdate
+				|| this.props.yDomainUpdate !== nextProps.yDomainUpdate)
+	
+			var _updateMode = nextProps._updateMode;
+			var _chartData = nextProps._chartData;
+			var overlaysToAdd = this.identifyOverlaysToAdd(nextProps);
+	
+			var overlays = _chartData.overlays;
+			if (overlaysToAdd.length > 0)
+				overlays = overlays.push(overlaysToAdd);
+	
+			if (this.props.data !== nextProps.data) {
+				scaleRecalculationNeeded = true;
+			}
+			// console.log(this.props._chartData.overlays !== nextProps._chartData.overlays);
+			if (this.state.chartData.overlays !== overlays) { //or if the data interval changes
+				// TODO
+				// if any overlay.toBeRemoved = true then overlays.splice that one out
+				this.calculateOverlays(nextProps.fullData, overlays);
+	
+				_updateMode = _updateMode.set({ immediate: false });
+	
+	
+				scaleRecalculationNeeded = true;
+			}
+			if (scaleRecalculationNeeded) {
+				var scales = this.defineScales(nextProps, this.state.chartData.scales.xScale, this.state.chartData.scales.yScale);
+				var xyAccessors = this.getXYAccessors(nextProps);
+	
+				_updateMode = _updateMode.set({ immediate: false });
+				var overlayYAccessors = pluck(keysAsArray(overlays), 'yAccessor');
+	
+	
+				var overlayValues = this.updateOverlayFirstLast(nextProps.data, _chartData.overlays)
+				_chartData = _chartData.set( { overlayValues: overlayValues } ); // replace everything
+	
+				// console.log(xyAccessors, overlayYAccessors);
+	
+				scales = this.updateScales(nextProps
+					, [xyAccessors.xAccessor]
+					, [xyAccessors.yAccessor].concat(overlayYAccessors)
+					, scales.xScale
+					, scales.yScale);
+	
+				_chartData = _chartData.set({ accessors: xyAccessors });
+				_chartData = _chartData.set({ scales: scales });
+	
+				var last = Utils.cloneMe(nextProps.data[nextProps.data.length - 1]);
+				_chartData = _chartData.set({ lastItem: last });
+	
+				var first = Utils.cloneMe(nextProps.data[0]);
+				_chartData = _chartData.set({ firstItem: first });
+	
+				this.setState({ chartData: _chartData });
+			} else {
+				this.setState({ chartData: nextProps._chartData });
+			}
+		},
+		calculateOverlays(data, overlays) {
+			overlays
+				.filter((eachOverlay) => eachOverlay.id !== undefined)
+				.forEach((overlay) => {
+					OverlayUtils.calculateOverlay(data, overlay);
+				});
+			// console.table(data);
+			// console.log(overlays);
+		},
+		updateOverlayFirstLast(data,
+			overlays) {
+	
+			console.log('updateOverlayFirstLast');
+	
+			var overlayValues = [];
+	
+			overlays
+				.forEach((eachOverlay, idx) => {
+					// console.log(JSON.stringify(first), Object.keys(first), yAccessor(first));
+					overlayValues.push({
+						id: eachOverlay.id,
+						first: OverlayUtils.firstDefined(data, eachOverlay.yAccessor),
+						last: OverlayUtils.lastDefined(data, eachOverlay.yAccessor)
+					})
+				})
+			// console.log(_overlayValues);
+			return overlayValues;
+		},
+		defineScales(props, xScaleFromState, yScaleFromState) {
+			var xScale = props.xScale || xScaleFromState || props._xScale,
+				yScale = props.yScale || yScaleFromState;
+	
+			if (xScale === undefined) {
+				var each = props.data[0];
+				if (typeof each === 'object') {
+					Object.keys(each).forEach((key) => {
+						if (Object.prototype.toString.call(each[key]) === '[object Date]') {
+							xScale = d3.time.scale();
+						}
+					});
+				}
+				if (xScale === undefined) xScale = d3.scale.linear();
+				//xScale = polyLinearTimeScale();
+			}
+			if (yScale === undefined) {
+				yScale = d3.scale.linear();
+			}
+			return { xScale: xScale, yScale: yScale };
+		},
+		getXYAccessors(props) {
+			var accessor = { xAccessor: null, yAccessor: null };
+	
+			React.Children.forEach(props.children, (child) => {
+				if (['ReStock.DataSeries']
+						.indexOf(child.props.namespace) > -1) {
+					if (child.props) {
+						var xAccesor = props._stockScale ? props._indexAccessor : child.props.xAccessor
+						accessor.xAccessor = xAccesor;
+						accessor.yAccessor = child.props.yAccessor;
+					}
+				}
+			});
+			// yAccessors.push(overlayY);
+	
+			return accessor;
+		},
+		updateScales(props, xAccessors, yAccessors, xScale, yScale) {
+			console.log('updateScales');
+	
+			var result = ScaleUtils.flattenData(props.data, xAccessors, yAccessors);
+	
+			if (props.xScale === undefined || props.xDomainUpdate) {
+				xScale.range([0, Chart.getWidth(props)]);
+				// if polylinear scale then set data
+				if (xScale.data !== undefined) {
+					xScale.data(props.data);
+				} else {
+					// else set the domain
+					xScale.domain(d3.extent(result.xValues));
+				}
+			}
+	
+			if (props.yScale === undefined || props.yDomainUpdate) {
+				yScale.range([Chart.getHeight(props), 0]);
+				var domain = d3.extent(result.yValues);
+				//var extraPadding = Math.abs(domain[0] - domain[1]) * 0.05;
+				//yScale.domain([domain[0] - extraPadding, domain[1] + extraPadding]);
+				yScale.domain(domain);
+			}
+			return {
+				xScale: xScale.copy(),
+				yScale: yScale.copy()
+			};
+		},*/
+		renderChildren:function() {
+			return React.Children.map(this.props.children, function(child)  {
+				if (typeof child.type === 'string') return child;
+				if (['ReStock.DataSeries', 'ReStock.ChartOverlay', 'ReStock.XAxis', 'ReStock.YAxis']
+					.indexOf(child.props.namespace) < 0) return child;
+	
+				var newChild = child;
+				newChild = React.addons.cloneWithProps(newChild, {
+					_xScale: this.props._chartData.scales.xScale,
+					_yScale: this.props._chartData.scales.yScale,
+					data: this.props.data,
+					_xAccessor: this.props._indexAccessor
+				});
+				newChild = this.updatePropsForDataSeries(newChild);
+				if (newChild.props.xAccessor !== undefined && this.props._stockScale) {
+					console.warn('xAccessor defined in DataSeries will override the indexAccessor of the polylinear scale. This might not be the right configuration');
+					console.warn('Either remove the xAccessor configuration on the DataSeries or change the polyLinear=false in Translate');
+				}
+				return newChild;
+			}.bind(this), this);
+		},
+		updatePropsForDataSeries:function(child) {
+			if ("ReStock.DataSeries" === child.props.namespace) {
+				// console.log(this.state.chartData.overlays);
+				return React.addons.cloneWithProps(child, {
+					//_showCurrent: this.props._showCurrent,
+					//_mouseXY: this.props._mouseXY,
+					//_currentItem: this.state.chartData.currentItem,
+					//_lastItem: this.props._chartData.lastItem,
+					//_firstItem: this.props._chartData.firstItem,
+					/*_currentMouseXY: this.props._currentMouseXY,
+					_currentXYValue: this.props._currentXYValue,*/
+					_overlays: this.props._chartData.overlays,
+					_updateMode: this.props._updateMode,
+					_pan: this.props._pan,
+					_isMainChart: this.props._isMainChart
+				});
+			}
+			return child;
+		},
+		render:function() {
+			var height = this.props._height;
+			var width = this.props._width;
+			var origin = typeof this.props.origin === 'function' ? this.props.origin(width, height) : this.props.origin;
+			var transform = 'translate(' + origin[0] + ',' +  origin[1] + ')';
+			if (this.props._pan && !this.props._isMainChart) {
+			// if (this.props._pan) {
+				return React.createElement("g", null)
+			}
+			// console.log(this.props._chartData);
+			return (
+				React.createElement("g", {transform: transform}, this.renderChildren())
+			);
+		}
+	});
+	
+	module.exports = Chart;
+
+
+/***/ },
+/* 62 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	// DataSeries has to hold OverlaySeries since DataSeries might define the xAccessor and it needs to be sent to OverlaySeries
+	// Data series has to pass the current mouse position to the children so this has no benefit
+	//     of PureRenderMixin
+	
+	var React = __webpack_require__(1),
+		PureRenderMixin = __webpack_require__(81),
+		Utils = __webpack_require__(86),
+		d3 = __webpack_require__(2),
+		OverlayUtils = __webpack_require__(85),
+		overlayColors = Utils.overlayColors;
+	
+	function getOverlayFromList(overlays, id) {
+		return overlays.map(function(each)  {return [each.id, each];})
+			.filter(function(eachMap)  {return eachMap[0] === id;})
+			.map(function(eachMap)  {return eachMap[1];})[0];
+	}
+	
+	var DataSeries = React.createClass({displayName: "DataSeries",
+		mixins: [PureRenderMixin],
+		propTypes: {
+			xAccessor: React.PropTypes.func,
+			_xAccessor: React.PropTypes.func,
+			yAccessor: React.PropTypes.func.isRequired,
+	
+			_xScale: React.PropTypes.func,
+			_yScale: React.PropTypes.func,
+	
+			/*_currentItem: React.PropTypes.object,
+			_lastItem: React.PropTypes.object,
+			_firstItem: React.PropTypes.object,*/
+			_overlays: React.PropTypes.array,
+			_updateMode: React.PropTypes.object
+		},
+		getDefaultProps:function() {
+			return {
+				namespace: "ReStock.DataSeries"
+			};
+		},
+		renderChildren:function() {
+			var newChildren = React.Children.map(this.props.children, function(child)  {
+				var newChild = child;
+	
+				if (typeof child.type === 'string') return newChild;
+	
+				if (/Series$/.test(newChild.props.namespace)) {
+					newChild = React.addons.cloneWithProps(newChild, {
+						_xScale: this.props._xScale,
+						_yScale: this.props._yScale,
+						_xAccessor: (this.props.xAccessor || this.props._xAccessor),
+						_yAccessor: this.props.yAccessor,
+						data: this.props.data
+					});
+					if (/OverlaySeries$/.test(newChild.props.namespace)) {
+						var key = newChild.props.id;
+						var overlay = getOverlayFromList(this.props._overlays, newChild.props.id);
+						newChild = React.addons.cloneWithProps(newChild, {
+							_overlay: overlay,
+							_pan: this.props._pan,
+							_isMainChart: this.props._isMainChart
+						});
+					}
+				}
+				return newChild;
+			}.bind(this), this);
+	
+			return newChildren;
+		},
+		render:function() {
+			//throw new Error();
+			// console.log('rendering dataseries...');
+			/*if (this.props._pan) {
+				return <g></g>
+			}*/
+			return (
+				React.createElement("g", {style: { "clipPath": "url(#chart-area-clip)"}}, this.renderChildren())
+			);
+		}
+	});
+	
+	module.exports = DataSeries;
+
+
+/***/ },
+/* 63 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(1),
+		d3 = __webpack_require__(2),
+		PureRenderMixin = __webpack_require__(81);
+	
+	var AreaSeries = React.createClass({displayName: "AreaSeries",
+		mixins: [PureRenderMixin],
+		propTypes: {
+			_xScale: React.PropTypes.func.isRequired,
+			_yScale: React.PropTypes.func.isRequired,
+			_xAccessor: React.PropTypes.func.isRequired,
+			_yAccessor: React.PropTypes.func.isRequired,
+			data: React.PropTypes.array.isRequired
+		},
+		getDefaultProps:function() {
+			return {
+				namespace: "ReStock.AreaSeries"
+			}
+		},
+		getPath:function() {
+			var props = this.props;
+			var dataSeries = d3.svg.line()
+				.defined(function(d, i) {
+						return (props._yAccessor(d) !== undefined);
+						//nreturn false;
+					})
+				.x(function(d) { return props._xScale(props._xAccessor(d)); })
+				.y(function(d) { return props._yScale(props._yAccessor(d)); });
+			return dataSeries(props.data);
+		},
+		getArea:function() {
+			var props = this.props, height = props._yScale.range()[0];
+			var areaSeries = d3.svg.area()
+				.defined(function(d, i) {
+						return (props._yAccessor(d) !== undefined);
+						// return false;
+					})
+				.x(function(d) { return props._xScale(props._xAccessor(d)); })
+				.y0(height - 1)
+				.y1(function(d) { return props._yScale(props._yAccessor(d)); });
+	
+			return areaSeries(props.data);
+		},
+		render:function() {
+			return (
+				React.createElement("g", null, 
+					React.createElement("path", {d: this.getPath(), className: "line line-stroke"}), 
+					React.createElement("path", {d: this.getArea(), className: "area"})
+				)
+			);
+		}
+	});
+	
+	module.exports = AreaSeries;
+	
+	/*				
+	
+	*/
+
+/***/ },
+/* 64 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(1),
+		d3 = __webpack_require__(2),
+		PureRenderMixin = __webpack_require__(81);
+	
+	
+	var LineSeries = React.createClass({displayName: "LineSeries",
+		// mixins: [PureRenderMixin],
+		propTypes: {
+			_xScale: React.PropTypes.func.isRequired,
+			_yScale: React.PropTypes.func.isRequired,
+			_xAccessor: React.PropTypes.func.isRequired,
+			_yAccessor: React.PropTypes.func.isRequired,
+			data: React.PropTypes.array.isRequired,
+			className: React.PropTypes.string,
+			stroke: React.PropTypes.string
+		},
+		getDefaultProps:function() {
+			return {
+				namespace: "ReStock.LineSeries",
+				className: "line "
+			}
+		},
+		getPath:function() {
+			// console.log('LineSeries.getPath');
+			var props = this.props;
+			var dataSeries = d3.svg.line()
+				.defined(function(d, i) {
+						return (props._yAccessor(d) !== undefined);
+						//nreturn false;
+					})
+				.x(function(d) { return props._xScale(props._xAccessor(d)); })
+				.y(function(d) { return props._yScale(props._yAccessor(d)); });
+			return dataSeries(props.data);
+		},
+		render:function() {
+			var className = this.props.className.concat((this.props.stroke !== undefined) ? '' : ' line-stroke');
+			// console.log('%s, %s, %s', className, this.props.className, this.props.stroke);
+	
+			return (
+				React.createElement("g", null, 
+					React.createElement("path", {d: this.getPath(), stroke: this.props.stroke, fill: "none", className: className})
+				)
+			);
+		}
+	});
+	
+	module.exports = LineSeries;
+	
+	/*				
+	
+	*/
+
+/***/ },
+/* 65 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(1),
+		d3 = __webpack_require__(2),
+		PureRenderMixin = __webpack_require__(81);
+	
+	
+	var CandlestickSeries = React.createClass({displayName: "CandlestickSeries",
+		mixins: [PureRenderMixin],
+		propTypes: {
+			_xScale: React.PropTypes.func.isRequired,
+			_yScale: React.PropTypes.func.isRequired,
+			_xAccessor: React.PropTypes.func.isRequired,
+			_yAccessor: React.PropTypes.func.isRequired
+		},
+		statics: {
+			yAccessor: function(d)  {return {open: d.open, high: d.high, low: d.low, close: d.close};}
+		},
+		getDefaultProps:function() {
+			return {
+				namespace: "ReStock.CandlestickSeries"
+			}
+		},
+		getWicks:function() {
+			var wicks = this.props.data
+					.filter(function (d) { return d.close !== undefined; })
+					.map(function(d, idx) {
+						var ohlc = this.props._yAccessor(d);
+	
+						var x1 = Math.round(this.props._xScale(this.props._xAccessor(d))),
+							y1 = this.props._yScale(ohlc.high),
+							x2 = x1,
+							y2 = this.props._yScale(ohlc.low),
+							className = (ohlc.open >= ohlc.close) ? 'up' : 'down';
+						var path = 'M' + x1 + ' ' + y1 + 'L' + x2 + ' ' + y2;
+						//return <path key={idx} d={path} className={className} />
+						/* */
+						return React.createElement("line", {key: idx, 
+										className: className, 
+										x1: x1, 
+										y1: y1, 
+										x2: x2, 
+										y2: y2})
+					}, this);
+			return wicks;
+		},
+		getCandles:function() {
+			var width = this.props._xScale(this.props._xAccessor(this.props.data[this.props.data.length - 1]))
+				- this.props._xScale(this.props._xAccessor(this.props.data[0]));
+			var cw = (width / (this.props.data.length)) * 0.5;
+			var candleWidth = Math.floor(cw) % 2 === 0 ? Math.floor(cw) : Math.round(cw); // 
+			var candles = this.props.data
+					.filter(function (d) { return d.close !== undefined; })
+					.map(function(d, idx) {
+						var ohlc = this.props._yAccessor(d);
+						var x = Math.round(this.props._xScale(this.props._xAccessor(d)))
+								- (candleWidth === 1 ? 0 : 0.5 * candleWidth),
+							y = this.props._yScale(Math.max(ohlc.open, ohlc.close)),
+							height = Math.abs(this.props._yScale(ohlc.open) - this.props._yScale(ohlc.close)),
+							className = (ohlc.open <= ohlc.close) ? 'up' : 'down';
+						if (ohlc.open === ohlc.close) {
+							return React.createElement("line", {key: idx, x1: x, y1: y, x2: x + candleWidth, y2: y})
+						}
+						if (candleWidth <= 1) {
+							return React.createElement("line", {className: className, key: idx, x1: x, y1: y, x2: x, y2: y + height})
+						}
+						return React.createElement("rect", {key: idx, className: className, 
+									x: x, 
+									y: y, 
+									width: candleWidth, 
+									height: height})
+					}, this);
+			return candles;
+		},
+		render:function() {
+			return (
+				React.createElement("g", null, 
+					React.createElement("g", {className: "wick", key: "wicks"}, 
+						this.getWicks()
+					), 
+					React.createElement("g", {className: "candle", key: "candles"}, 
+						this.getCandles()
+					)
+				)
+			);
+		}
+	});
+	
+	module.exports = CandlestickSeries;
+	
+	/*				
+	
+	*/
+
+/***/ },
+/* 66 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1),
+		PureRenderMixin = __webpack_require__(81),
+		Utils = __webpack_require__(86),
+		OverlayUtils = __webpack_require__(85);
+	
+	var OverlaySeries = React.createClass({displayName: "OverlaySeries",
+		//namespace: "ReStock.OverlaySeries",
+		mixins: [PureRenderMixin],
+		/*shouldComponentUpdate(nextProps, nextState) {
+			return false;
+		},*/
+		propTypes: {
+			_xScale: React.PropTypes.func.isRequired,
+			_yScale: React.PropTypes.func.isRequired,
+			_xAccessor: React.PropTypes.func.isRequired,
+			// _yAccessor: React.PropTypes.func.isRequired,
+			_overlay: React.PropTypes.object.isRequired,
+			data: React.PropTypes.array.isRequired,
+			type: React.PropTypes.oneOf(['sma', 'ema']),
+			options: React.PropTypes.object.isRequired,
+			id: React.PropTypes.number.isRequired,
+			stroke: React.PropTypes.string
+		},
+		getDefaultProps:function() {
+			return {
+				namespace: "ReStock.OverlaySeries"
+			};
+		},/*
+		componentWillMount: function () {
+			var overlay = {
+				id: newChild.props.id,
+				yAccessor: OverlayUtils.getYAccessor(newChild.props),
+				options: newChild.props.options,
+				type: newChild.props.type,
+				tooltipLabel: OverlayUtils.getToolTipLabel(newChild.props),
+				stroke: newChild.stroke || overlayColors(newChild.props.id)
+			};
+		},*/
+		componentWillUnMount:function() {
+			console.log('componentWillUnMount');
+			console.log('componentWillUnMount');
+			console.log('componentWillUnMount');
+			console.log('componentWillUnMount');
+			console.log('componentWillUnMount');
+			// unregister self
+			this.props._overlay.set(null);
+		},
+		componentWillReceiveProps:function(nextProps) {
+			// if things change reset the overlay TODO
+	
+			// if optinos have changed - update the options
+			if (this.props.options !== nextProps.options) {
+				console.log('updating props.....');
+				// var overlay = this.props._overlays[key];
+				this.props._overlay.set('options', nextProps.options);
+			}
+		},
+		renderChildren:function() {
+			return React.Children.map(this.props.children, function(child)  {
+				var newChild = child;
+	
+				if (typeof child.type === 'string') return newChild;
+	
+				if (/Series$/.test(newChild.props.namespace)) {
+					newChild = React.addons.cloneWithProps(newChild, {
+						_xScale: this.props._xScale,
+						_yScale: this.props._yScale,
+						_xAccessor: (this.props.xAccessor || this.props._xAccessor),
+						_yAccessor: this.props._overlay.yAccessor,
+						data: this.props.data,
+						stroke: this.props._overlay.stroke,
+						className: "overlay"
+					});
+				}
+				return newChild;
+			}.bind(this), this);
+		},
+		render:function() {
+			// console.log('OverlaySeries.render');
+			if (this.props._overlay.yAccessor === undefined) return null;
+			if (this.props._pan && this.props._isMainChart) {
+				return React.createElement("g", null)
+			}
+			return (
+				React.createElement("g", null, this.renderChildren())
+			);
+		}
+	});
+	
+	module.exports = OverlaySeries;
+	
+	//
+
+
+/***/ },
+/* 67 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(1),
+		d3 = __webpack_require__(2),
+		PureRenderMixin = __webpack_require__(81);
+	
+	
+	var HistogramSeries = React.createClass({displayName: "HistogramSeries",
+		mixins: [PureRenderMixin],
+		propTypes: {
+			_xScale: React.PropTypes.func.isRequired,
+			_yScale: React.PropTypes.func.isRequired,
+			_xAccessor: React.PropTypes.func.isRequired,
+			_yAccessor: React.PropTypes.func.isRequired,
+			baseAt: React.PropTypes.oneOfType([
+						React.PropTypes.oneOf(['top', 'bottom', 'middle'])
+						, React.PropTypes.number
+					]).isRequired,
+			direction: React.PropTypes.oneOf(['up', 'down']).isRequired,
+			className: React.PropTypes.oneOfType([
+						React.PropTypes.func, React.PropTypes.string
+					]).isRequired,
+		},
+		getDefaultProps:function() {
+			return {
+				namespace: "ReStock.HistogramSeries",
+				baseAt: 'bottom',
+				direction: 'up',
+				className: 'bar'
+			}
+		},
+		getBars:function() {
+			var base = this.props.baseAt === 'top'
+						? 0
+						: this.props.baseAt === 'bottom'
+							? this.props._yScale.range()[0]
+							: this.props.baseAt === 'middle'
+								? (this.props._yScale.range()[0] + this.props._yScale.range()[1]) / 2
+								: this.props.baseAt;
+	
+			var dir = this.props.direction === 'up' ? -1 : 1;
+	
+			var getClassName = function()  {return this.props.className;}.bind(this);
+			if (typeof this.props.className === 'function') {
+				getClassName = this.props.className;
+			}
+			var width = Math.abs(this.props._xScale.range()[0] - this.props._xScale.range()[1]);
+			var barWidth = width / (this.props.data.length) * 0.5;
+			var bars = this.props.data
+					.filter(function(d)  {return this.props._yAccessor(d) !== undefined;}.bind(this) )
+					.map(function(d, idx)  {
+						var yValue = this.props._yAccessor(d);
+						var x = Math.round(this.props._xScale(this.props._xAccessor(d))) - 0.5 * barWidth,
+							className = getClassName(d) ,
+							y, height;
+						if (dir > 0) {
+							y = base;
+							height = this.props._yScale.range()[0] - this.props._yScale(yValue);
+						} else {
+							y = this.props._yScale(yValue);
+							height = base - y;
+						}
+	
+						if (Math.round(barWidth) <= 1) {
+							return React.createElement("line", {key: idx, className: className, 
+										x1: Math.round(x), y1: Math.round(y), 
+										x2: Math.round(x), y2: Math.round(y + height)})
+						}
+						return React.createElement("rect", {key: idx, className: className, 
+									x: Math.round(x), 
+									y: Math.round(y), 
+									width: Math.round(barWidth), 
+									height: Math.round(height)})
+					}.bind(this), this);
+			return bars;
+		},
+		render:function() {
+			return (
+				React.createElement("g", {className: "histogram"}, 
+					this.getBars()
+				)
+			);
+		}
+	});
+	
+	module.exports = HistogramSeries;
+	
+	/*				
+	
+	*/
+
+/***/ },
+/* 68 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(1);
+	var Utils = __webpack_require__(86)
+	
+	var EventCapture = React.createClass({displayName: "EventCapture",
+		propTypes: {
+			mainChart: React.PropTypes.number.isRequired,
+			mouseMove: React.PropTypes.bool.isRequired,
+			zoom: React.PropTypes.bool.isRequired,
+			zoomMultiplier: React.PropTypes.number.isRequired,
+			pan: React.PropTypes.bool.isRequired,
+			panSpeedMultiplier: React.PropTypes.number.isRequired,
+			defaultFocus: React.PropTypes.bool.isRequired,
+	
+			_chartData: React.PropTypes.object.isRequired,
+			_height: React.PropTypes.number.isRequired,
+			_width: React.PropTypes.number.isRequired,
+			_eventStore: React.PropTypes.object.isRequired,
+			_zoomEventStore: React.PropTypes.object
+		},
+		getInitialState:function() {
+			return {
+				dragOrigin: [0, 0],
+				defaultFocus: false
+			};
+		},
+		componentWillMount:function() {
+			this.setState({
+				className: this.props.className,
+				inFocus: this.props.defaultFocus
+			});
+		},
+		getDefaultProps:function() {
+			return {
+				namespace: "ReStock.EventCapture"
+				, mouseMove: false
+				, zoom: false
+				, zoomMultiplier: 1
+				, pan: false
+				, panSpeedMultiplier: 1
+				, className: "crosshair"
+				, defaultFocus: false
+			}
+		},
+		toggleFocus:function() {
+			this.setFocus(!this.state.defaultFocus);
+		},
+		setFocus:function(focus) {
+			this.setState({
+				defaultFocus: focus
+			});
+		},
+		handleEnter:function() {
+			if (this.props._eventStore) {
+				// console.log('in');
+				this.props._eventStore.get().mouseOver.set({'value': true});
+			}
+		},
+		handleLeave:function() {
+			if (this.props._eventStore) {
+				// console.log('out');
+				var eventData = this.props._eventStore.get();
+				this.props._eventStore.get().mouseOver.set({'value': false});
+				this.props._eventStore.get().set({ pan: false });
+				this.setState({
+					dragging: false,
+					dragOrigin: [0, 0],
+					className: this.props.className
+				})
+			}
+		},
+		handleWheel:function(e) {
+			if (this.props.zoom
+					&& this.props._eventStore
+					//&& this.props._eventStore.get().inFocus.value
+					&& this.state.inFocus
+					&& this.props._zoomEventStore) {
+				e.stopPropagation();
+				e.preventDefault();
+				var zoomDir = e.deltaY > 0 ? this.props.zoomMultiplier : -this.props.zoomMultiplier;
+				//console.log(zoomDir);
+	
+				this.props._zoomEventStore.get().set({ zoom : zoomDir });
+			}
+		},
+		handleMouseMove:function(e) {
+			if (this.props._eventStore && this.props.mouseMove) {
+				var eventData = this.props._eventStore.get();
+				var newPos = Utils.mousePosition(e);
+				//var oldPos = eventData.mouseXY;
+				var startPos = this.state.dragOrigin;
+				if (! (startPos[0] === newPos[0] && startPos[1] === newPos[1])) {
+					if (this.state.dragging) {
+						eventData = eventData.set({
+							dx: (newPos[0] - startPos[0]) * this.props.panSpeedMultiplier,
+							dragOriginDomain: this.state.dragOriginDomain
+						});
+	
+					}
+					eventData = eventData.set( { mouseXY: newPos } );
+					eventData = eventData.set({ pan: this.state.dragging });
+					// console.log('eventData....', eventData);
+				}
+			}
+		},
+		handleMouseDown:function(e) {
+			if (this.props._eventStore) {
+				// this.props._eventStore.get().inFocus.set({'value': true});
+				var inFocus = true
+				if (this.props.pan && this.props._zoomEventStore) {
+					this.setState({
+						dragging: true,
+						dragOrigin: Utils.mousePosition(e),
+						dragOriginDomain: this.props._chartData.scales.xScale.domain(),
+						className: "grabbing",
+						inFocus: inFocus
+					})
+				} else {
+					this.setState({
+						inFocus: inFocus
+					})
+				}
+			}
+			e.preventDefault();
+		},
+		handleMouseUp:function(e) {
+			if (this.props.pan && this.props._zoomEventStore) {
+	
+				this.props._eventStore.get().set({ pan: false })
+				this.setState({
+					dragging: false,
+					dragOrigin: [0, 0],
+					className: this.props.className
+				})
+			}
+			e.preventDefault();
+		},
+		render:function() {
+			return (
+				React.createElement("rect", {
+					className: this.state.className, 
+					width: this.props._width, height: this.props._height, style: {opacity: 0}, 
+					onMouseEnter: this.handleEnter, 
+					onMouseLeave: this.handleLeave, 
+					onMouseMove: this.handleMouseMove, 
+					onMouseDown: this.handleMouseDown, 
+					onMouseUp: this.handleMouseUp, 
+					onWheel: this.handleWheel}
+					)
+			);
+		}
+	});
+	
+	module.exports = EventCapture;
+	
+	/*				
+	
+	*/
+
+/***/ },
+/* 69 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(1);
+	var EdgeCoordinate = __webpack_require__(87)
+	var Utils = __webpack_require__(86)
+	
+	// Should not use xScale and yScale here as MouseCoordinate is common across all charts
+	// if it is made to be inside a Chart another Chart might be displayed over it
+	var MouseCoordinates = React.createClass({displayName: "MouseCoordinates",
+		propTypes: {
+			_height: React.PropTypes.number.isRequired,
+			_width: React.PropTypes.number.isRequired,
+			_show: React.PropTypes.bool.isRequired,
+			_mouseXY: React.PropTypes.array.isRequired,
+			_chartData: React.PropTypes.object.isRequired,
+			_currentItem: React.PropTypes.object.isRequired,
+	
+			forChart: React.PropTypes.number.isRequired, 
+			xDisplayFormat: React.PropTypes.func.isRequired,
+			yDisplayFormat: React.PropTypes.func.isRequired
+		},
+		shouldComponentUpdate:function(nextProps, nextState) {
+			return nextProps._currentItem != this.props._currentItem
+					|| nextProps._mouseXY !== this.props._mouseXY
+					|| nextProps._show !== this.props._show
+		},
+		getDefaultProps:function() {
+			return {
+				namespace: "ReStock.MouseCoordinates",
+				_show: false,
+				snapX: true,
+				xDisplayFormat: Utils.displayDateFormat,
+				yDisplayFormat: Utils.displayNumberFormat,
+			}
+		},
+		renderChildren:function() {
+			var chartData = this.props._chartData;
+			var item = this.props._currentItem.data;
+			
+	
+			var xValue = chartData.accessors.xAccessor(item);
+			var xDisplayValue = this.props._dateAccessor === undefined
+				? xValue
+				: this.props._dateAccessor(item);
+	
+			var yValue = chartData.scales.yScale.invert(this.props._mouseXY[1]);
+	
+			if (xValue === undefined || yValue === undefined) return null;
+			var x = this.props.snapX ? Math.round(chartData.scales.xScale(xValue)) : this.props._mouseXY[0];
+			var y = this.props._mouseXY[1];
+	
+			//console.log(xValue, this.props.xDisplayFormat(xValue));
+			//console.log(yValue, this.props.yDisplayFormat(yValue));
+	
+			return React.Children.map(this.props.children, function(child)  {
+				if (typeof child.type === 'string') return child;
+				var newChild = child;
+				return React.addons.cloneWithProps(newChild, {
+					_width: this.props._width
+					, _height: this.props._height
+					, _mouseXY: [x, y]
+					, _xDisplayValue: this.props.xDisplayFormat(xDisplayValue)
+					, _yDisplayValue: this.props.yDisplayFormat(yValue)
+				});
+			}.bind(this), this);
+		},
+		render:function() {
+			var children = null;
+			if (this.props._show) {
+				children = this.renderChildren();
+			};
+	
+			return (
+				React.createElement("g", {className: this.props._show ? 'show' : 'hide'}, 
+					children
+				)
+			);
+		}
+	});
+	
+	module.exports = MouseCoordinates;
+	
+	
+	/*
+	
+	
+	
+	*/
+
+/***/ },
+/* 70 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(1);
+	var EdgeCoordinate = __webpack_require__(87)
+	var Utils = __webpack_require__(86)
+	
+	var CrossHair = React.createClass({displayName: "CrossHair",
+		propTypes: {
+			_height: React.PropTypes.number.isRequired,
+			_width: React.PropTypes.number.isRequired,
+			_mouseXY: React.PropTypes.array.isRequired,
+			_xDisplayValue: React.PropTypes.string.isRequired,
+			_yDisplayValue: React.PropTypes.string.isRequired,
+			yAxisPad: React.PropTypes.number.isRequired
+		},
+		shouldComponentUpdate:function(nextProps, nextState) {
+			return nextProps._mouseXY !== this.props._mouseXY
+		},
+		getDefaultProps:function() {
+			return {
+				namespace: "ReStock.CrossHair",
+				yAxisPad: 5
+			}
+		},
+		render:function() {
+			return (
+				React.createElement("g", {className: 'crosshair '}, 
+					React.createElement(EdgeCoordinate, {
+						type: "horizontal", 
+						className: "horizontal", 
+						show: true, 
+						x1: 0, y1: this.props._mouseXY[1], 
+						x2: this.props._width + this.props.yAxisPad, y2: this.props._mouseXY[1], 
+						coordinate: this.props._yDisplayValue, 
+						edgeAt: this.props._width + this.props.yAxisPad, 
+						orient: "right"}
+						), 
+					React.createElement(EdgeCoordinate, {
+						type: "vertical", 
+						className: "horizontal", 
+						show: true, 
+						x1: this.props._mouseXY[0], y1: 0, 
+						x2: this.props._mouseXY[0], y2: this.props._height, 
+						coordinate: this.props._xDisplayValue, 
+						edgeAt: this.props._height, 
+						orient: "bottom"}
+						)
+				)
+			);
+		}
+	});
+	
+	module.exports = CrossHair;
+
+
+/***/ },
+/* 71 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(1);
+	var EdgeCoordinate = __webpack_require__(87)
+	var Utils = __webpack_require__(86)
+	
+	var VerticalMousePointer = React.createClass({displayName: "VerticalMousePointer",
+		propTypes: {
+			_height: React.PropTypes.number.isRequired,
+			_width: React.PropTypes.number.isRequired,
+			_mouseXY: React.PropTypes.array.isRequired,
+			_xDisplayValue: React.PropTypes.string.isRequired,
+			_yDisplayValue: React.PropTypes.string.isRequired,
+			yAxisPad: React.PropTypes.number.isRequired
+		},
+		shouldComponentUpdate:function(nextProps, nextState) {
+			return nextProps._mouseXY !== this.props._mouseXY
+		},
+		getDefaultProps:function() {
+			return {
+				namespace: "ReStock.VerticalMousePointer",
+				yAxisPad: 10
+			}
+		},
+		render:function() {
+			return (
+				React.createElement("g", {className: 'crosshair '}, 
+					React.createElement(EdgeCoordinate, {
+						type: "vertical", 
+						className: "horizontal", 
+						show: true, 
+						x1: this.props._mouseXY[0], y1: 0, 
+						x2: this.props._mouseXY[0], y2: this.props._height, 
+						coordinate: this.props._xDisplayValue, 
+						edgeAt: this.props._height, 
+						orient: "bottom"}
+						)
+					
+				)
+			);
+		}
+	});
+	
+	module.exports = VerticalMousePointer;
+
+
+/***/ },
+/* 72 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(1);
+	
+	var TooltipContainer = React.createClass({displayName: "TooltipContainer",
+		propTypes: {
+			_currentItems: React.PropTypes.array.isRequired,
+			_charts: React.PropTypes.array.isRequired
+		},
+		shouldComponentUpdate:function(nextProps, nextState) {
+			return nextProps._charts !== this.props._charts || nextProps._currentItems !== this.props._currentItems;
+		},
+		getDefaultProps:function() {
+			return {
+				namespace: "ReStock.TooltipContainer"
+			}
+		},
+		renderChildren:function() {
+			return React.Children.map(this.props.children, function(child)  {
+				if (typeof child.type === 'string') return child;
+				var newChild = child;
+				var chart = this.props._charts.filter(function(chart)  {return chart.id === newChild.props.forChart;})[0];
+				var currentItem = this.props._currentItems.filter(function(item)  {return item.id === newChild.props.forChart;})[0];
+				newChild = React.addons.cloneWithProps(newChild, {
+					_currentItem: currentItem.data
+				});
+				if (/MovingAverageTooltip$/.test(newChild.props.namespace)) {
+					newChild = React.addons.cloneWithProps(newChild, {
+						_overlays: chart.overlays
+					});
+				}
+				return newChild;
+			}.bind(this));
+		},
+		render:function() {
+			return (
+				React.createElement("g", {className: "toottip-hover"}, 
+					this.renderChildren()
+				)
+			);
+		}
+	});
+	
+	module.exports = TooltipContainer;
+
+
+/***/ },
+/* 73 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var Utils = __webpack_require__(86)
+	
+	var billion = 1 * 1000 * 1000 * 1000;
+	var million = 1 * 1000 * 1000;
+	var thousand = 1 * 1000;
+	
+	var OHLCTooltip = React.createClass({displayName: "OHLCTooltip",
+		propTypes: {
+			_currentItem: React.PropTypes.object.isRequired,
+			accessor: React.PropTypes.func.isRequired,
+			xDisplayFormat: React.PropTypes.func.isRequired,
+			origin: React.PropTypes.array.isRequired,
+		},
+		shouldComponentUpdate:function(nextProps, nextState) {
+			return (nextProps._currentItem !== this.props._currentItem);
+		},
+		getDefaultProps:function() {
+			return {
+				namespace: "ReStock.OHLCTooltip",
+				accessor: function(d)  {return {date: d.date, open: d.open, high: d.high, low: d.low, close: d.close, volume: d.volume}},
+				xDisplayFormat: Utils.displayDateFormat,
+				origin: [0, 0]
+			}
+		},
+		render:function() {
+			var displayDate, fromDate, toDate, open, high, low, close, volume;
+	
+			displayDate = fromDate = toDate = open = high = low = close = volume = "n/a";
+			var item = this.props.accessor(this.props._currentItem);
+	
+			if (item !== undefined && item.close !== undefined) {
+				volume = (item.volume / billion > 1)
+					? (item.volume / billion).toFixed(2) + "b"
+					: (item.volume / million > 1)
+						? (item.volume / million).toFixed(2) + "m"
+						: (item.volume / thousand > 1)
+							? (item.volume / thousand).toFixed(2) + "k"
+							: item.volume;
+	
+				displayDate = this.props.xDisplayFormat(item.date);
+				open = Utils.displayNumberFormat(item.open);
+				high = Utils.displayNumberFormat(item.high);
+				low = Utils.displayNumberFormat(item.low);
+				close = Utils.displayNumberFormat(item.close);
+			}
+	
+			return (
+				React.createElement("g", {transform: "translate(" + this.props.origin[0] + ", " + this.props.origin[1] + ")"}, 
+					React.createElement("text", {x: 0, y: 0, className: "legend"}, 
+						React.createElement("tspan", {key: "label", x: 0, dy: "5", className: "tooltip-label"}, "Date: "), 
+						React.createElement("tspan", {key: "value"}, displayDate), 
+						React.createElement("tspan", {key: "label_O", className: "tooltip-label"}, " O: "), React.createElement("tspan", {key: "value_O"}, open), 
+						React.createElement("tspan", {key: "label_H", className: "tooltip-label"}, " H: "), React.createElement("tspan", {key: "value_H"}, high), 
+						React.createElement("tspan", {key: "label_L", className: "tooltip-label"}, " L: "), React.createElement("tspan", {key: "value_L"}, low), 
+						React.createElement("tspan", {key: "label_C", className: "tooltip-label"}, " C: "), React.createElement("tspan", {key: "value_C"}, close), 
+						React.createElement("tspan", {key: "label_Vol", className: "tooltip-label"}, " Vol: "), React.createElement("tspan", {key: "value_Vol"}, volume)
+					)
+				)
+			);
+		}
+	});
+	
+	module.exports = OHLCTooltip;
+
+
+/***/ },
+/* 74 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var Utils = __webpack_require__(86)
+	
+	var SingleMAToolTip = React.createClass({displayName: "SingleMAToolTip",
+		propTypes: {
+			origin: React.PropTypes.array.isRequired,
+			color: React.PropTypes.string.isRequired,
+			displayName: React.PropTypes.string.isRequired,
+			value: React.PropTypes.string.isRequired,
+			onClick: React.PropTypes.func
+		},
+		getDefaultProps:function() {
+	
+		},
+		handleClick:function(overlay) {
+			if (this.props.onClick) {
+				this.props.onClick(overlay);
+			}
+		},
+		render:function() {
+			var translate = "translate(" + this.props.origin[0] + ", " + this.props.origin[1] + ")";
+			return (
+				React.createElement("g", {transform: translate}, 
+					React.createElement("line", {x1: 0, y1: 2, x2: 0, y2: 28, stroke: this.props.color}), 
+					React.createElement("text", {x: 5, y: 11, className: "legend"}, 
+						React.createElement("tspan", {className: "tooltip-label"}, this.props.displayName), 
+						React.createElement("tspan", {x: "5", dy: "15"}, this.props.value)
+					), 
+					React.createElement("rect", {x: 0, y: 0, width: 55, height: 30, onClick: this.handleClick.bind(this, this.props.overlay)})
+				)
+			);
+		}
+	});
+	
+	
+	var MovingAverageTooltip = React.createClass({displayName: "MovingAverageTooltip",
+		propTypes: {
+			_currentItem: React.PropTypes.object.isRequired,
+			_overlays: React.PropTypes.array.isRequired,
+			displayFormat: React.PropTypes.func.isRequired,
+			origin: React.PropTypes.array.isRequired,
+			onClick: React.PropTypes.func
+		},
+		getDefaultProps:function() {
+			return {
+				namespace: "ReStock.MovingAverageTooltip",
+				displayFormat: Utils.displayNumberFormat,
+				origin: [0, 10],
+				width: 65
+			}
+		},
+		render:function() {
+			return (
+				React.createElement("g", {transform: "translate(" + this.props.origin[0] + ", " + this.props.origin[1] + ")", className: "ma-container"}, 
+					this.props._overlays.map(function(eachOverlay, idx)  {
+						var yValue = eachOverlay.yAccessor(this.props._currentItem);
+						// console.log(yValue);
+						var yDisplayValue = yValue ? this.props.displayFormat(yValue) : "n/a";
+						return React.createElement(SingleMAToolTip, {
+							key: idx, 
+							origin: [this.props.width * idx, 0], 
+							color: eachOverlay.stroke, 
+							displayName: eachOverlay.tooltipLabel, 
+							value: yDisplayValue, 
+							overlay: eachOverlay, 
+							onClick: this.props.onClick})
+					}.bind(this))
+				)
+			);
+		}
+	});
+	
+	module.exports = MovingAverageTooltip;
+
+
+/***/ },
+/* 75 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(1);
+	
+	var EdgeContainer = React.createClass({displayName: "EdgeContainer",
+		propTypes: {
+			_currentItems: React.PropTypes.array.isRequired,
+			_charts: React.PropTypes.array.isRequired,
+			_height: React.PropTypes.number.isRequired,
+			_width: React.PropTypes.number.isRequired,
+		},
+		getDefaultProps:function() {
+			return {
+				namespace: "ReStock.EdgeContainer",
+			}
+		},
+		renderChildren:function() {
+			return React.Children.map(this.props.children, function(child)  {
+				if (typeof child.type === 'string') return child;
+				var newChild = child;
+				if (/EdgeIndicator$/.test(newChild.props.namespace)) {
+					var chart = this.props._charts.filter(function(chart)  {return chart.id === newChild.props.forChart;})[0];
+					var currentItem = this.props._currentItems.filter(function(item)  {return item.id === newChild.props.forChart;})[0];
+					newChild = React.addons.cloneWithProps(newChild, {
+						_width: this.props._width,
+						_chart: chart,
+						_currentItem: currentItem
+					});
+				}
+				return newChild;
+			}.bind(this));
+		},
+		render:function() {
+			return React.createElement("g", null, this.renderChildren())
+		}
+	});
+	
+	module.exports = EdgeContainer;
+	
+
+
+/***/ },
+/* 76 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(1),
+		PureRenderMixin = __webpack_require__(81),
+		Utils = __webpack_require__(86);
+	
+	var CurrentCoordinate = React.createClass({displayName: "CurrentCoordinate",
+		//namespace: "ReStock.DataSeries",
+		mixins: [PureRenderMixin],
+		propTypes: {
+			forChart: React.PropTypes.number.isRequired,
+			forOverlay: React.PropTypes.number,
+			yAccessor: React.PropTypes.func,
+			r: React.PropTypes.number.isRequired,
+			className: React.PropTypes.string,
+	
+			_show: React.PropTypes.bool.isRequired,
+			_chartData: React.PropTypes.object.isRequired,
+			_currentItem: React.PropTypes.object.isRequired,
+		},
+		getDefaultProps:function() {
+			return {
+				namespace: "ReStock.CurrentCoordinate",
+				r: 3
+			};
+		},
+		render:function() {
+	
+			var chartData = this.props._chartData;
+			var item = this.props._currentItem.data;
+			var fill = 'black';
+	
+			if (! this.props._show || item === undefined) return null;
+			var yAccessor =  this.props.yAccessor || chartData.accessors.yAccessor;
+	
+			if (this.props.forOverlay !== undefined) {
+				var overlays = chartData.overlays
+					.filter(function(each)  {return each.id === this.props.forOverlay;}.bind(this));
+	
+				if (overlays.length != 1) {
+					console.warn('Unique overlay with id={%s} not found', this.props.forOverlay);
+					throw new Error('Unique overlay not found');
+				}
+				fill = overlays[0].stroke;
+				yAccessor = overlays[0].yAccessor;
+			}
+	
+			var xValue = chartData.accessors.xAccessor(item);
+			var yValue = yAccessor(item);
+	
+			if (yValue === undefined) return null;
+	
+			var x = Math.round(chartData.scales.xScale(xValue)) + chartData.origin[0];
+			var y = Math.round(chartData.scales.yScale(yValue)) + chartData.origin[1];
+	
+			return (
+				React.createElement("circle", {className: this.props.className, cx: x, cy: y, r: this.props.r, fill: fill})
+			);
+		}
+	});
+	
+	module.exports = CurrentCoordinate;
+
+
+/***/ },
+/* 77 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(1);
+	var Utils = __webpack_require__(86)
+	var EdgeCoordinate = __webpack_require__(87)
+	
+	
+	var EdgeIndicator = React.createClass({displayName: "EdgeIndicator",
+		propTypes: {
+			type: React.PropTypes.oneOf(['horizontal']).isRequired,
+			className: React.PropTypes.string,
+			itemType: React.PropTypes.oneOf(['first', 'last', 'current']).isRequired,
+			orient: React.PropTypes.oneOf(['left', 'right']),
+			edgeAt: React.PropTypes.oneOf(['left', 'right']),
+	
+			forChart: React.PropTypes.number.isRequired,
+			forOverlay: React.PropTypes.number, // undefined means main Data series of that chart
+	
+			displayFormat: React.PropTypes.func.isRequired,
+	
+			_width: React.PropTypes.number,
+			_currentItem: React.PropTypes.object.isRequired,
+			_chart: React.PropTypes.object.isRequired,
+		},
+		getDefaultProps:function() {
+			return {
+				type: 'horizontal',
+				orient: 'left',
+				edgeAt: 'left',
+				displayFormat: Utils.displayNumberFormat,
+				yAxisPad: 5,
+				namespace: "ReStock.EdgeIndicator"
+			};
+		},/*
+		shouldComponentUpdate(nextProps, nextState) {
+			if (nextProps.itemType === 'current') {
+				return 
+			} else {
+	
+			}
+		},*/
+		renderEdge:function() {
+			var edge = null, item, yAccessor;
+			if (this.props.forOverlay !== undefined
+					&& this.props._chart.overlays.length > 0
+					&& this.props._chart.overlayValues.length > 0) {
+	
+				var overlay = this.props._chart.overlays
+					.filter(function(eachOverlay)  {return eachOverlay.id === this.props.forOverlay;}.bind(this));
+				var overlayValue = this.props._chart.overlayValues
+					.filter(function(eachOverlayValue)  {return eachOverlayValue.id === this.props.forOverlay;}.bind(this));
+	
+				// console.log(overlay, overlayValue);
+				if (overlay.length !== 1) {
+					console.warn('%s overlays found with id %s, correct the OverlaySeries so there is exactly one for each id', overlay.length, newChild.props.forOverlay)
+					throw new Error('Unable to identify unique Overlay for the id');
+				}
+				if (overlayValue.length !== 1 && overlay.length === 1) {
+					console.warn('Something is wrong!!!, There should be 1 overlayValue, report the issue on github');
+				}
+	
+				item = this.props.itemType === 'first'
+					? overlayValue[0].first
+					: this.props.itemType === 'last'
+						? overlayValue[0].last
+						: this.props._currentItem;
+				yAccessor = overlay[0].yAccessor;
+	
+				if (item !== undefined) {
+					var yValue = yAccessor(item), xValue = this.props._chart.accessors.xAccessor(item);
+					var x1 = Math.round(this.props._chart.scales.xScale(xValue)), y1 = Math.round(this.props._chart.scales.yScale(yValue));
+					var edgeX = this.props.edgeAt === 'left'
+						? 0 - this.props.yAxisPad
+						: this.props._width + this.props.yAxisPad
+	
+					edge = React.createElement(EdgeCoordinate, {
+							type: this.props.type, 
+							className: "edge-coordinate", 
+							fill: overlay[0].stroke, 
+							show: true, 
+							x1: x1 + this.props._chart.origin[0], y1: y1 + this.props._chart.origin[1], 
+							x2: edgeX + this.props._chart.origin[0], y2: y1 + this.props._chart.origin[1], 
+							coordinate: this.props.displayFormat(yValue), 
+							edgeAt: edgeX, 
+							orient: this.props.orient}
+							)
+				}
+			} else if (this.props.forOverlay === undefined) {
+				item = this.props.itemType === 'first'
+					? this.props._chart.firstItem
+					: this.props.itemType === 'last'
+						? this.props._chart.lastItem
+						: this.props._currentItem;
+				yAccessor = this.props._chart.accessors.yAccessor;
+	
+				if (item !== undefined && yAccessor !== null) {
+					var yValue = yAccessor(item);
+					var xValue = this.props._chart.accessors.xAccessor(item);
+	
+					var x1 = Math.round(this.props._chart.scales.xScale(xValue)), y1 = Math.round(this.props._chart.scales.yScale(yValue));
+					var edgeX = this.props.edgeAt === 'left'
+						? 0 - this.props.yAxisPad
+						: this.props._width + this.props.yAxisPad
+	
+					edge = React.createElement(EdgeCoordinate, {
+							type: this.props.type, 
+							className: "edge-coordinate", 
+							show: true, 
+							x1: x1 + this.props._chart.origin[0], y1: y1 + this.props._chart.origin[1], 
+							x2: edgeX + this.props._chart.origin[0], y2: y1 + this.props._chart.origin[1], 
+							coordinate: this.props.displayFormat(yValue), 
+							edgeAt: edgeX, 
+							orient: this.props.orient}
+							)
+				}
+			}
+			return edge;
+		},
+		render:function() {
+			return this.renderEdge();
+		}
+	});
+	
+	module.exports = EdgeIndicator;
+	
+	/*
+	<EdgeCoordinate
+					type={this.props.type}
+					className={this.props.className}
+					show={true}
+					x1={this.props._x1} y1={this.props._y1}
+					x2={this.props._width + this.props.yAxisPad} y2={this.props._mouseXY[1]}
+					coordinate={this.props._yDisplayValue}
+					edgeAt={this.props._width + this.props.yAxisPad}
+					orient="right"
+					/>
+	*/
+
+/***/ },
+/* 78 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMoAAABQCAQAAADykSIGAAAF1UlEQVR4Ae3df4zXdR3A8cfnvnccd7i7gwMiCCE6BzlwImVFpqgnykANZ66RawHTQJrnVizJymwENKUcJSBjsEqyJrIEQiHQSoutWBA4BYwLGCi/Tu7O7pDv/fj0R2vfHdx9J3ef7925vR9/v/577j6/vrfXO9IjgrhYkb4K0OR9jc4BEMUATHe7z/mEAkF3anLI3/3e85rbRvm4VSr1pOAV9zmUiXK17cq96+de8IbzChQrkdLihLQgSfmGSmlwRiug0Bh3qjJAjZvsJYoZ5W/KbfZVZ2XkGaifFm9rFiTnI4o1OOVCJdaZ5owJjkYx291sszvELjRYP41OCpJSZIgWx7S6WMomU2x1WxTfbqMaFWpdLM/HpJzUKEhGuRJn1WrfcLuVmxrFq822yCPaV6a/ejWCZAzTx3Fp7etjoflWRPEbPunTdnU4NkzacUEyRoocFmtf5FYv2hfFaQWKvN/h2Eixw4LuiJKnwgFNURwjL8vYCK2OCLrn8jVMNf+LUijdCy5f4UZfpn8mSn+14Ubfk4/EmWfdTJQRmbHwSNwjL4+Zt8IT/48yKuvYSUEuP7O0/X7SlPlLyTbWLElBH0OktKjXqIkLvjTGmRt9trGkBfkGKtLWOWc0k4kSZR0LcqFYscJ2fuTKRMk6FnSnTBQfWiHKEP9W7y+e95y0D6LUvab5jGbDnZcDIcr9nga8bYkVmmVzmW97UAngVtvkQIiy2mwZ/1Sl3kRjXWGoQVJa1Kl1yn67xX5sqIzvWSgHQpQtpuisp82RAyHKq67TWevcKwdClM2m6qxlquRAiLLIAp31davkQIgy0xqd9QdTNUlYiDLCHmU67wnzBQlHedFtuqLFp+wRJBjls3bqqvW+JEgwymqzdVXaEGcFiUU5ariuu9NGQUJRStVKwncsFiQUpcJbkrDUtwQJRRltvyQsN0+QUJThjkrCEgsECUXp65wkPOqHgoSi8I4huu4BKwSJRdlqsq4Lvz8mGuVhi3XdYKcFlxylwGilWuRpViCtSKMydQbbKE/XHDRDpEytYucUapKvRUqdg9KCDqOMV60OQLFhykGeRW7QNcs9q1mk1buOawRQapTdgg6jEBmjVEqMBu84BRjpdf103ikV3gMMMlQpYk1qHRDLKvylcFCD9txlvUjnxKZ7QXv6GS22W9DJ/5D8srX6unSt5lkpyEkUxllpoktz2GwvCxKNUmCsY04DmOwbJiv0Qeyy0q+kBQlHqfQSfukh9QBK3WCiq1UYKaWtFsdUe9NOrzksyEkUbvQbg+11vTptPWSpPG21+qYnBTmOwpV2Krno/xwne0nkYrEptgpyHIW5lqPKMhk73KR9fzJJkPMo+Q65HL/wU3vFRrvHo1IAjuJyAK1KNAhyHIUqTwLS6ANIe8YsrJYyE8+6RwpjHBDkPEqBLSpd6BXbLMYKzMUCU12Hq+wT5DwKhR43RwEyfm3fBVHGmdF9UUIU+KhbXKHASc2W9Y4oIUrGOHtDlA9/lCBECVGe0uLBEKWno3zBn7HO6xZjCR7GAmN9Bdd7VdCx9o8gyETJMpTNGjMxX6nvYoG0pVio1hNYa5b2BfnKFWurUY1mmShZhjpymcfNwT9MskElrhLbhx2m+6NrsNJ8/3Epwsav813Z9zXej5ywzQaft12e5ebhKQ9odYvXzHCjQR6x26UIu/GOJLMZ73cq/MwqMSL3qfKWL+qcsEWyuvftkAz7Vo/0vm2rYTPx2d63lzjs8D7f+zZ4hyMIWgkHEPSuKCXqNETxm8YYb084gKBXXL4m2GV/FK/1NY/5Qa+4fIUb/WO+b00U3+05p1Wo7/EbfXgkLvMv5e6K4iJbTLLB3eIefSQOL4+RjabZoTKKucY25dab5b0ee3kMn1lKPWOaGteqjmLyTfJbA5zxE5sc0BQOIOjWD5L9XOkOcw1Qo9Ieohj6mGCRSYKe9LL7M8fUQr6BprjZtUZJCbrTOdX+apNNkIkiHEDQm/wXb4bZSIeJkMcAAAAASUVORK5CYII="
+
+/***/ },
+/* 79 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var React = __webpack_require__(1);
+	var EventCapture = __webpack_require__(68);
+	var MouseCoordinates = __webpack_require__(69);
+	var Utils = __webpack_require__(86);
+	
+	var Freezer = __webpack_require__(90);
+	// Let's create a freezer store
+	function getLongValue(value) {
+		if (value instanceof Date) {
+			return value.getTime();
+		}
+		return value;
+	}
+	var EventCaptureMixin = {
+		doesContainChart:function() {
+			var children = Array.isArray(this.props.children)
+				? this.props.children
+				: [this.props.children];
+	
+			return children
+				.filter(function(child)  {return /Chart$/.test(child.props.namespace);})
+				.length > 0;
+		},
+		componentWillMount:function() {
+			var passThroughProps = {};
+			if (this.isDataDransform && this.isDataDransform()) {
+				passThroughProps = this.transformData(this.props);
+			}
+	
+			if (this.doesContainChart()) {
+				// console.log('EventCaptureMixin.componentWillMount', this.state);
+				var eventStore = new Freezer({
+					mouseXY: [0, 0],
+					mouseOver: { value: false },
+					inFocus: { value: true } // TODO change to false later
+				});
+				var zoomEventStore = new Freezer({
+					zoom: 0
+				});
+				var chartStore  = new Freezer({
+					charts: [],
+					updateMode: { immediate : true }
+				});
+	
+				var currentItemStore = new Freezer({
+					currentItems: [],
+					viewPortXRange: [],
+					viewPortXDelta: 30
+				});
+				var fullData, data, stockScale = passThroughProps._stockScale || this.props._stockScale;
+				if (passThroughProps && stockScale) {
+					currentItemStore.get().set({ interval : 'D' });
+	
+					//fullData = passThroughProps.data[currentItemStore.get().interval];
+					fullData = passThroughProps.data;
+					data = fullData[currentItemStore.get().interval];
+				} else {
+					fullData = this.props.data;
+					data = fullData;
+				}
+	
+				React.Children.forEach(this.props.children, function(child)  {
+					if ("ReStock.Chart" === child.props.namespace) {
+						var chartProps = child.props;
+	
+						var dimensions = this.getDimensions(this.props, chartProps);
+						var threshold = dimensions.width / 4;
+						if (data.length > threshold) {
+							data = data.slice(data.length - threshold);
+						}
+	
+						//var charts = chartStore.get().charts.push(this.createChartData(child.props.id));
+						//var _chartData = charts[charts.length - 1];
+						var _chartData = this.getChartDataFor(this.props, chartProps, data, fullData, passThroughProps);
+						_chartData.id = child.props.id;
+	
+	
+						chartStore.get().charts.push(_chartData);
+					}
+				}.bind(this));
+	
+				var stores = {
+						eventStore: eventStore,
+						chartStore: chartStore,
+						currentItemStore: currentItemStore,
+						zoomEventStore: zoomEventStore,
+						fullData: fullData,
+						data: data,
+						passThroughProps: passThroughProps
+					};
+	
+				console.log(Object.keys(stores));
+				// console.log(stores);
+				this.setState(stores);
+			} else {
+				this.setState({
+					passThroughProps: passThroughProps
+				});
+			}
+		},
+		getEventStore:function() {
+			return this.state.eventStore;
+		},
+		updateEventStore:function(eventStore, zoomEventStore) {
+			this.unListen();
+	
+			var newState = {
+				eventStore: eventStore,
+				chartStore: this.state.chartStore,
+				currentItemStore: this.state.currentItemStore,
+				zoomEventStore: zoomEventStore || this.state.zoomEventStore
+			};
+			this.setState(newState, function()  { this.listen(newState) }.bind(this));
+		},
+		componentWillUnmount:function() {
+			if (this.doesContainChart()) {
+				this.unListen();
+			}
+		},
+		unListen:function() {
+			if (this.state.eventStore !== undefined) {
+				this.state.eventStore.off('update', this.eventListener);
+			}
+			if (this.state.chartStore !== undefined) {
+				this.state.chartStore.off('update', this.dataListener);
+			}
+			if (this.state.zoomEventStore !== undefined) {
+				this.state.zoomEventStore.off('update', this.zoomEventListener);
+			}
+		},
+		eventListener:function(d) {
+			//console.log('events updated...', d);
+			//this.state.chartStore.get().currentItem.set({value : new Date().getTime()});
+			if (this.state.chartStore.get().updateMode.immediate) {
+				this.state.chartStore.get().charts.forEach(function(chart)  {
+					this.updateCurrentItemForChart(chart);
+				}.bind(this));
+				if (this.state.eventStore.get().pan) {
+					requestAnimationFrame(function()  {
+	
+						var mainChart = this.state.currentItemStore.get().mainChart;
+						var chart = this.getChartForId(mainChart);
+						//var domain = chart.scales.xScale.domain();
+						var domain = this.state.eventStore.get().dragOriginDomain;
+						var domainRange = domain[1] - domain[0];
+	
+						// domainRange = domain[1] - domain[0];
+						// get width of mainChart
+						var fullData = this.state.fullData[this.state.currentItemStore.get().interval];
+						var last = fullData[fullData.length - 1];
+						var first = fullData[0];
+	
+						var domainStart = Math.round(getLongValue(domain[0]) - this.state.eventStore.get().dx/chart.width * domainRange)
+						if (domainStart < getLongValue(chart.accessors.xAccessor(first)) - Math.floor(domainRange/3)) {
+							domainStart = getLongValue(chart.accessors.xAccessor(first)) - Math.floor(domainRange/3)
+						} else {
+							domainStart = Math.min(getLongValue(chart.accessors.xAccessor(last))
+								+ Math.ceil(domainRange/3), domainStart + domainRange) - domainRange;
+						}
+	
+						/*console.log('pan in progress...', this.state.eventStore.get().dx, domain[0], domainRange
+							, new Date(domainStart));*/
+	
+						var domainL = domainStart, domainR = domainStart + domainRange
+						if (domain[0] instanceof Date) {
+							domainL = new Date(domainL);
+							domainR = new Date(domainR);
+						}
+	
+						this.state.currentItemStore.get().viewPortXRange.set([domainL, domainR]);
+	
+						var data = this.calculateViewableData();
+	
+						// update the viewPortXRange
+						// this.state.currentItemStore.get().viewPortXRange
+	
+						React.Children.forEach(this.props.children, function(child)  {
+							if ("ReStock.Chart" === child.props.namespace) {
+								var _chartData = this.getChartForId(child.props.id);
+	
+								_chartData = this.updateChartDataFor(_chartData, data.data)
+	
+								_chartData.scales.xScale.domain([domainL, domainR]);
+								//_chartData.scales.xScale.domain(this.state.currentItemStore.get().viewPortXRange);
+							}
+						}.bind(this))
+	/*					var thisChart = this.getChartForId(mainChart);
+						thisChart = this.updateChartDataFor(thisChart, data)
+						thisChart.scales.xScale.domain([domainL, domainR]);
+	*/					//var newXScale = this.updateXScaleDomain(chart.scales.xScale, [domainL, domainR])
+	
+						//chart.scales.set({ xScale: newXScale });
+	
+						/*this.setState({
+							data: data
+						})*/
+						this.setState({
+							data: data.data
+						})
+						// this.forceUpdate();
+					}.bind(this));
+				} else {
+					/*requestAnimationFrame(() => {
+						this.forceUpdate();
+					});*/
+					this.forceUpdate();
+				}
+			}
+		},
+		componentWillReceiveProps:function(nextProps) {
+			if (this.doesContainChart()) {
+				/*console.log('EventCaptureMixin.componentWillReceiveProps');
+				console.log('EventCaptureMixin.componentWillReceiveProps');
+				console.log('EventCaptureMixin.componentWillReceiveProps');*/
+	
+				var passThroughProps;
+				if (this.isDataDransform && this.isDataDransform()) {
+					passThroughProps = this.transformData(this.props);
+				}
+	
+				React.Children.forEach(nextProps.children, function(child)  {
+					if ("ReStock.Chart" === child.props.namespace) {
+	
+	
+						var chartProps = child.props;
+	
+						var _chartData = this.getChartDataFor(nextProps, chartProps, nextProps.data, nextProps.data, passThroughProps);
+						_chartData.id = child.props.id;
+	
+						var chartData = this.getChartForId(child.props.id);
+						chartData.reset(_chartData);
+					}
+				}.bind(this))
+	
+				//this.calculateViewableData();
+			}
+		},
+		calculateViewableData:function() {
+			var xRange = this.state.currentItemStore.get().viewPortXRange;
+			var fullData = this.getFullData()[this.state.currentItemStore.get().interval];
+			var data = this.state.data;
+	
+			if (xRange.length > 0) {
+				var mainChart = this.state.currentItemStore.get().mainChart,
+					chart = this.getChartForId(mainChart);
+	
+				var leftX = Utils.getClosestItemIndexes(fullData, xRange[0], chart.accessors.xAccessor);
+				var rightX = Utils.getClosestItemIndexes(fullData, xRange[1], chart.accessors.xAccessor);
+							console.log('whoa whoa whoa');
+				var currentInterval = this.state.currentItemStore.get().interval;
+				var filteredData = fullData.slice(leftX.left, rightX.right);
+				if (this.state.passThroughProps && this.state.passThroughProps._stockScale
+						&& filteredData.length > chart.width / 3) {
+					if (this.state.passThroughProps._multiInterval && currentInterval ==='D' ) {
+						var interval = 'W';
+						this.state.currentItemStore.get().set({ interval : interval });
+						fullData = this.state.fullData[interval];
+	
+						leftX = Utils.getClosestItemIndexes(fullData, xRange[0], chart.accessors.xAccessor);
+						rightX = Utils.getClosestItemIndexes(fullData, xRange[1], chart.accessors.xAccessor);
+						filteredData = fullData.slice(leftX.left, rightX.right);
+	
+					} else if (this.state.passThroughProps._multiInterval && currentInterval ==='W' ) {
+						var interval = 'M';
+						this.state.currentItemStore.get().set({ interval : interval });
+						fullData = this.state.fullData[interval];
+	
+						leftX = Utils.getClosestItemIndexes(fullData, xRange[0], chart.accessors.xAccessor);
+						rightX = Utils.getClosestItemIndexes(fullData, xRange[1], chart.accessors.xAccessor);
+						filteredData = fullData.slice(leftX.left, rightX.right);
+					} else {
+						var l = getLongValue(chart.accessors.xAccessor(this.state.data[0]));
+						var r = getLongValue(chart.accessors.xAccessor(this.state.data[this.state.data.length - 1]));
+						this.state.currentItemStore.get().set({ viewPortXRange : [l, r] });
+						return {
+							data: this.state.data
+						};
+					}
+				} else if (this.state.passThroughProps && this.state.passThroughProps._stockScale
+						&& (currentInterval === 'W' || currentInterval === 'M')) {
+					// TODO if zoom in, try to go from M to W or W to D if possible
+				} else if (filteredData.length / chart.width < .03) {
+					var l = getLongValue(chart.accessors.xAccessor(this.state.data[0]));
+					var r = getLongValue(chart.accessors.xAccessor(this.state.data[this.state.data.length - 1]));
+					this.state.currentItemStore.get().set({ viewPortXRange : [l, r] });
+	
+					return {
+						data: this.state.data
+					};
+				}
+				return {
+					data: filteredData
+				};
+			}
+			return {
+				data: data
+			}
+		},
+		zoomEventListener:function(d) {
+			//console.log('events updated...', d);
+			//this.state.chartStore.get().currentItem.set({value : new Date().getTime()});
+			if (this.state.chartStore.get().updateMode.immediate) {
+	
+	
+				var zoomData = this.state.zoomEventStore.get(),
+					zoomDir = zoomData.zoom,
+					mainChart = this.state.currentItemStore.get().mainChart,
+					chart = this.getChartForId(mainChart);
+	
+				// console.log('************UPDATING NOW**************- zoomDir = ', zoomDir, mainChart);
+	
+				this.updateCurrentItemForChart(chart);
+	
+				var item = this.getCurrentItemForChart(mainChart).data,
+					domain = chart.scales.xScale.domain(),
+					centerX = chart.accessors.xAccessor(item),
+					leftX = centerX - domain[0],
+					rightX = domain[1] - centerX,
+					zoom = Math.pow(1 + Math.abs(zoomDir)/2 , zoomDir),
+					domainL = (getLongValue(centerX) - ( leftX * zoom)),
+					domainR = (getLongValue(centerX) + (rightX * zoom));
+	
+				var domainRange = Math.abs(domain[1] - domain[0]);
+				var fullData = this.state.fullData[this.state.currentItemStore.get().interval];
+				var last = fullData[fullData.length - 1];
+				var first = fullData[0];
+	
+				domainL = Math.max(getLongValue(chart.accessors.xAccessor(first)) - Math.floor(domainRange/3), domainL)
+				domainR = Math.min(getLongValue(chart.accessors.xAccessor(last)) + Math.floor(domainRange/3), domainR)
+	
+				if (centerX instanceof Date) {
+					domainL = new Date(domainL);
+					domainR = new Date(domainR);
+				}
+	
+	
+	
+	
+				this.state.currentItemStore.get().viewPortXRange.set([domainL, domainR]);
+	
+				requestAnimationFrame(function()  {
+					var data = this.calculateViewableData();
+					console.log(domainL, domainR);
+					var passThroughProps = this.state.passThroughProps;
+	
+					React.Children.forEach(this.props.children, function(child)  {
+						if ("ReStock.Chart" === child.props.namespace) {
+	/*
+	
+	
+	*/
+							var _chartData = this.getChartForId(child.props.id);
+	
+							_chartData = this.updateChartDataFor(_chartData, data.data)
+							_chartData.scales.xScale.domain(this.state.currentItemStore.get().viewPortXRange);
+						}
+					}.bind(this))
+	
+	
+					this.setState({
+						data: data.data
+					})
+				}.bind(this));
+	
+				// find mainChart
+				// get new domainL & R
+				// if (this.props.changeIntervalIfNeeded) is present
+				//		call this.props.changeIntervalIfNeeded
+				//		if ^ returns false
+				//			requestAnimationFrame and send down new data
+				//			update currentItem
+				//		if true
+				//			update currentItem
+				// else
+				//		requestAnimationFrame and send down new data
+				//		update currentItem
+	
+			}
+		},
+		dataListener:function(d) {
+			// console.log('data updated from ', this.state.chartStore.get().currentItem, ' to ', d);
+			if (this.state.chartStore.get().updateMode.immediate) {
+				requestAnimationFrame(function () {
+					// console.log('************UPDATING NOW**************');
+					// console.log(this.state.chartStore.get().charts[0].overlays);
+					this.forceUpdate();
+				}.bind(this));
+			}
+		},
+		componentDidMount:function() {
+			if (this.doesContainChart()) {
+				// this.state.chartStore.get().updateMode.set({ immediate: true });
+				this.listen(this.state);
+			}
+		},
+		componentDidUpdate:function() {
+			if (this.doesContainChart()) {
+				if (! this.state.chartStore.get().updateMode.immediate)
+					this.state.chartStore.get().updateMode.set({ immediate: true });
+			}
+		},
+		listen:function(stores) {
+			// console.log('begining to listen...', stores);
+	
+			stores.eventStore.on('update', this.eventListener);
+			// stores.chartStore.on('update', this.dataListener);
+			stores.zoomEventStore.on('update', this.zoomEventListener);
+			// stores.chartStore.get().currentItem.getListener().on('update', this.dataListener);
+		},
+		updatePropsForEventCapture:function(child) {
+			if ("ReStock.EventCapture" === child.props.namespace) {
+				// find mainChart and add to zoomeventstores
+				if (this.state.currentItemStore.get().mainChart === undefined
+					|| this.state.currentItemStore.get().mainChart !== child.props.mainChart) {
+	
+					this.state.currentItemStore.get().set({ mainChart: child.props.mainChart });
+				}
+				return React.addons.cloneWithProps(child, {
+					_eventStore: this.state.eventStore,
+					_zoomEventStore: this.state.zoomEventStore,
+					_chartData: this.getChartForId(child.props.mainChart)
+				}); 
+			}
+			return child;
+		},
+		updatePropsForCurrentCoordinate:function(child) {
+			if ("ReStock.CurrentCoordinate" === child.props.namespace) {
+				var chart = this.getChartForId(child.props.forChart);
+				var currentItem = this.getCurrentItemForChart(child.props.forChart);
+	
+				return React.addons.cloneWithProps(child, {
+					_show: this.state.eventStore.get().mouseOver.value,
+					_chartData: chart,
+					_currentItem: currentItem
+				});
+			}
+			return child;
+		},
+		updatePropsForMouseCoordinates:function(child) {
+			if ("ReStock.MouseCoordinates" === child.props.namespace) {
+				var chart = this.getChartForId(child.props.forChart);
+				var currentItem = this.getCurrentItemForChart(child.props.forChart);
+	
+				return React.addons.cloneWithProps(child, {
+					_show: this.state.eventStore.get().mouseOver.value,
+					_mouseXY: this.state.eventStore.get().mouseXY,
+					_chartData: chart,
+					_currentItem: currentItem
+				});
+			}
+			return child;
+		},
+		updatePropsForTooltipContainer:function(child) {
+			if ("ReStock.TooltipContainer" === child.props.namespace) {
+				return React.addons.cloneWithProps(child, {
+					_currentItems: this.state.currentItemStore.get().currentItems,
+					_charts: this.state.chartStore.get().charts
+				});
+			}
+			return child;
+		},
+		updatePropsForEdgeContainer:function(child) {
+			if ("ReStock.EdgeContainer" === child.props.namespace) {
+				return React.addons.cloneWithProps(child, {
+					_currentItems: this.state.currentItemStore.get().currentItems,
+					_charts: this.state.chartStore.get().charts
+				});
+			}
+			return child;
+		},
+		updatePropsForChart:function(child) {
+			var newChild = child;
+				console.log('here here...........');
+			if ("ReStock.Chart" === child.props.namespace) {
+				if (this.state.eventStore && this.state.chartStore) {
+					var _chartData = this.getChartForId(newChild.props.id);
+					newChild = React.addons.cloneWithProps(newChild, {
+						_updateMode: this.state.chartStore.get().updateMode,
+						_chartData: _chartData,
+						data: this.getData(),
+						//_pan: this.state.eventStore.get().pan,
+						//_isMainChart: newChild.props.id === this.state.currentItemStore.get().mainChart/**/
+					});
+				}
+			}
+			return newChild;
+		},
+		getData:function(range) {
+			return this.state.data;
+		},
+		getFullData:function() {
+			return this.state.fullData;
+		},
+		getChartForId:function(chartId) {
+			var charts = this.state.chartStore.get().charts;
+			var filteredCharts = charts.filter(function(eachChart)  {return eachChart.id === chartId;});
+			if (filteredCharts.length > 1) {
+				var errorMessage = ("multiple charts with the same id " +  chartId + " found");
+				console.warn(errorMessage);
+				throw new Error(errorMessage);
+			}
+			if (filteredCharts.length === 0) {
+				charts = charts.push(createChartData(chartId));
+				return this.getChartForId(chartId);
+			}
+			return filteredCharts[0];
+		},
+		createChartData:function(chartId) {
+			var chart = {
+					id: chartId,
+					scales: { xScale: null, yScale: null },
+					accessors: { xAccessor: null, yAccessor: null },
+					lastItem: {},
+					firstItem: {},
+					overlays: [],
+					overlayValues: []
+				};
+			return chart;
+		},
+		getCurrentItemForChart:function(chartId) {
+			var currentItems = this.state.currentItemStore.get().currentItems;
+			var filteredCurrentItems = currentItems.filter(function(each)  {return each.id === chartId;});
+			if (filteredCurrentItems.length > 1) {
+				var errorMessage = ("multiple filteredCurrentItems with the same id " +  chartId + " found");
+				console.warn(errorMessage);
+				throw new Error(errorMessage);
+			}
+			if (filteredCurrentItems.length === 0) {
+				var currentItem = {
+					id: chartId,
+					data: {}
+				};
+				currentItems = currentItems.push(currentItem);
+				return this.getCurrentItemForChart(chartId);
+			}
+			return filteredCurrentItems[0];
+		},
+		updateCurrentItemForChart:function(chartData) {
+			var currentItem = this.getCurrentItemForChart(chartData.id);
+			var mouseXY = this.state.eventStore.get().mouseXY;
+			if (chartData.scales.xScale === null) {
+				console.warn('Verify if the the <Chart id=... > matches with the forChart=... This error likely because a Chart defined with id={%s} is not found', chartData.id);
+			}
+			var xValue = chartData.scales.xScale.invert(mouseXY[0]);
+			var item = Utils.getClosestItem(this.getData(), xValue, chartData.accessors.xAccessor);
+	
+			currentItem = currentItem.data.reset(item);
+			// console.log(currentItem);
+		},
+		_renderChildren:function(children) {
+			if (this.doesContainChart()) {
+				return React.Children.map(children, function(child)  {
+					if (typeof child.type === 'string') return child;
+					var newChild = child;
+					newChild = this.updatePropsForEventCapture(child);
+					newChild = this.updatePropsForMouseCoordinates(newChild);
+					newChild = this.updatePropsForTooltipContainer(newChild);
+					newChild = this.updatePropsForEdgeContainer(newChild);
+					newChild = this.updatePropsForChart(newChild);
+					newChild = this.updatePropsForCurrentCoordinate(newChild);
+					return newChild;
+				}.bind(this));
+			}
+			return children;
+		}
+	};
+	
+	module.exports = EventCaptureMixin;
+
+
+/***/ },
+/* 80 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var React = __webpack_require__(1),
+		d3 = __webpack_require__(2),
+		ScaleUtils = __webpack_require__(84),
+		OverlayUtils = __webpack_require__(85),
+		Utils = __webpack_require__(86),
+		Chart = __webpack_require__(61),
+		overlayColors = Utils.overlayColors;
+	var pluck = Utils.pluck;
+	var keysAsArray = Utils.keysAsArray;
+	
+	
+	function getOverlayFromList(overlays, id) {
+		return overlays.map(function(each)  {return [each.id, each];})
+			.filter(function(eachMap)  {return eachMap[0] === id;})
+			.map(function(eachMap)  {return eachMap[1];})[0];
+	}
+	
+	
+	var ChartContainerMixin = {
+		getDimensions:function(_props, chartProps) {
+	
+			var availableWidth = _props._width || this.getAvailableWidth(_props);
+			var availableHeight = _props._height || this.getAvailableHeight(_props);
+	
+			var width = chartProps.width || availableWidth;
+			var height = chartProps.height || availableHeight
+	
+			return {
+				availableWidth: availableWidth,
+				availableHeight: availableHeight,
+				width: width,
+				height: height
+			}
+		},
+		getChartDataFor:function(_props, chartProps, data, fullData, passThroughProps) {
+			var dimensions = this.getDimensions(_props, chartProps);
+	
+			var scales = this.defineScales(chartProps, data, passThroughProps);
+	
+			var accessors = this.getXYAccessors(chartProps, passThroughProps);
+			// identify overlays
+			var overlaysToAdd = this.identifyOverlaysToAdd(chartProps);
+			// console.log(overlaysToAdd);
+			// calculate overlays
+			this.calculateOverlays(fullData, overlaysToAdd);
+	
+			var overlayYAccessors = pluck(keysAsArray(overlaysToAdd), 'yAccessor');
+	
+			var xyValues = ScaleUtils.flattenData(data, [accessors.xAccessor], [accessors.yAccessor].concat(overlayYAccessors));
+	
+			var overlayValues = this.updateOverlayFirstLast(data, overlaysToAdd)
+	
+			scales = this.updateScales(
+				xyValues
+				, scales
+				, data
+				, dimensions.width
+				, dimensions.height);
+	
+			var last = Utils.cloneMe(data[data.length - 1]);
+			var first = Utils.cloneMe(data[0]);
+			var origin = typeof chartProps.origin === 'function'
+				? chartProps.origin(dimensions.availableWidth, dimensions.availableHeight)
+				: chartProps.origin;
+	
+			var drawableWidth = scales.xScale(accessors.xAccessor(data[data.length - 1]))
+				- scales.xScale(accessors.xAccessor(data[0]));
+	
+			var _chartData = {
+					width: dimensions.width,
+					height: dimensions.height,
+					drawableWidth: drawableWidth,
+					origin: origin,
+					overlayValues: overlayValues,
+					overlays: overlaysToAdd,
+					accessors: accessors,
+					scales: scales,
+					lastItem: last,
+					firstItem: first
+				};
+			return _chartData;
+		},
+		defineScales:function(props, data, passThroughProps) {
+			var xScale = props.xScale || props._xScale,
+				yScale = props.yScale;
+	
+			if (xScale === undefined && passThroughProps) xScale = passThroughProps._xScale;
+	
+			if (xScale === undefined) {
+				var each = data[0];
+				if (typeof each === 'object') {
+					Object.keys(each).forEach(function(key)  {
+						if (Object.prototype.toString.call(each[key]) === '[object Date]') {
+							xScale = d3.time.scale();
+						}
+					});
+				}
+				if (xScale === undefined) xScale = d3.scale.linear();
+				//xScale = polyLinearTimeScale();
+			}
+			if (yScale === undefined) {
+				yScale = d3.scale.linear();
+			}
+			return { xScale: xScale, yScale: yScale };
+		},
+		getXYAccessors:function(props, passThroughProps) {
+			var accessor = { xAccessor: null, yAccessor: null };
+	
+			React.Children.forEach(props.children, function(child)  {
+				if (['ReStock.DataSeries']
+						.indexOf(child.props.namespace) > -1) {
+					if (child.props) {
+	
+						var xAccesor = passThroughProps !== undefined && passThroughProps._stockScale
+							? passThroughProps._indexAccessor
+							: child.props.xAccessor
+						accessor.xAccessor = xAccesor;
+						accessor.yAccessor = child.props.yAccessor;
+					}
+				}
+			});
+			// yAccessors.push(overlayY);
+	
+			return accessor;
+		},
+		identifyOverlaysToAdd:function(props) {
+			var overlaysToAdd = [];
+			React.Children.forEach(props.children, function(child)  {
+				if (/DataSeries$/.test(child.props.namespace)) {
+					React.Children.forEach(child.props.children, function(grandChild)  {
+						if (/OverlaySeries$/.test(grandChild.props.namespace)) {
+							// var overlay = getOverlayFromList(overlays, grandChild.props.id)
+							var key = OverlayUtils.getYAccessorKey(props.id, grandChild.props);
+							var overlay = {
+								id: grandChild.props.id,
+								chartId: props.id,
+								key: key,
+								yAccessor: function(d)  {return d[key];},
+								options: grandChild.props.options,
+								type: grandChild.props.type,
+								tooltipLabel: OverlayUtils.getToolTipLabel(grandChild.props),
+								stroke: grandChild.stroke || overlayColors(grandChild.props.id)
+							};
+							overlaysToAdd.push(overlay);
+						}
+					});
+				}
+			})
+			return overlaysToAdd;
+		},
+		calculateOverlays:function(fullData, overlays) {
+			if (Array.isArray(fullData)) {
+				overlays
+					.filter(function(eachOverlay)  {return eachOverlay.id !== undefined;})
+					.forEach(function(overlay)  {
+						OverlayUtils.calculateOverlay(fullData, overlay);
+					});
+			} else {
+				Object.keys(fullData)
+					.filter(function(key)  {return ['D', 'W', 'M'].indexOf(key) > -1;})
+					.forEach(function(key)  {
+						overlays
+							.filter(function(eachOverlay)  {return eachOverlay.id !== undefined;})
+							.forEach(function(overlay)  {
+								OverlayUtils.calculateOverlay(fullData[key], overlay);
+							});
+					})
+			}
+			// console.log(overlays);
+		},
+		updateOverlayFirstLast:function(data,
+			overlays) {
+	
+			// console.log('updateOverlayFirstLast');
+	
+			var overlayValues = [];
+	
+			overlays
+				.forEach(function(eachOverlay, idx)  {
+					// console.log(JSON.stringify(first), Object.keys(first), yAccessor(first));
+					overlayValues.push({
+						id: eachOverlay.id,
+						first: OverlayUtils.firstDefined(data, eachOverlay.yAccessor),
+						last: OverlayUtils.lastDefined(data, eachOverlay.yAccessor)
+					})/**/
+				})
+			// console.log(_overlayValues);
+			return overlayValues;
+		},
+		updateScales:function(xyValues, scales, data, width, height) {
+			console.log('updateScales');
+	
+	
+			scales.xScale.range([0, width]);
+			// if polylinear scale then set data
+			if (scales.xScale.isPolyLinear && scales.xScale.isPolyLinear()) {
+				scales.xScale.data(data);
+			} else {
+				// else set the domain
+				scales.xScale.domain(d3.extent(xyValues.xValues));
+			}
+	
+			scales.yScale.range([height, 0]);
+	
+			var domain = d3.extent(xyValues.yValues);
+			//var extraPadding = Math.abs(domain[0] - domain[1]) * 0.05;
+			//yScale.domain([domain[0] - extraPadding, domain[1] + extraPadding]);
+			scales.yScale.domain(domain);
+	
+			return {
+				xScale: scales.xScale.copy(),
+				yScale: scales.yScale.copy()
+			};
+		},
+	
+		updateChartDataFor:function(_chartData, data) {
+			console.log('updateChartDataFor');
+			var scales = _chartData.scales;
+	
+			var accessors = _chartData.accessors;
+	
+			var overlayValues = this.updateOverlayFirstLast(data, _chartData.overlays)
+			_chartData = _chartData.set( { overlayValues: overlayValues } ); // replace everything
+	
+			var overlayYAccessors = pluck(keysAsArray(_chartData.overlays), 'yAccessor');
+	
+	
+			var xyValues = ScaleUtils.flattenData(data, [accessors.xAccessor], [accessors.yAccessor].concat(overlayYAccessors));
+	
+			scales = this.updateScales(
+				xyValues
+				, scales
+				, data
+				, _chartData.width
+				, _chartData.height);
+	
+			_chartData = _chartData.set({ scales: scales });
+	
+			var last = Utils.cloneMe(data[data.length - 1]);
+			_chartData = _chartData.set({ lastItem: last });
+	
+			var first = Utils.cloneMe(data[0]);
+			_chartData = _chartData.set({ firstItem: first });
+			return _chartData;
+		}
+	};
+	
+	module.exports = ChartContainerMixin;
+
+
+/***/ },
+/* 81 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	var shallowEqual = __webpack_require__(91);
+	
+	/**
+	 * If your React component's render function is "pure", e.g. it will render the
+	 * same result given the same props and state, provide this Mixin for a
+	 * considerable performance boost.
+	 *
+	 * Most React components have pure render functions.
+	 *
+	 * Example:
+	 *
+	 *   var ReactComponentWithPureRenderMixin =
+	 *     require('ReactComponentWithPureRenderMixin');
+	 *   React.createClass({
+	 *     mixins: [ReactComponentWithPureRenderMixin],
+	 *
+	 *     render: function() {
+	 *       return <div className={this.props.className}>foo</div>;
+	 *     }
+	 *   });
+	 *
+	 * Note: This only checks shallow equality for props and state. If these contain
+	 * complex data structures this mixin may have false-negatives for deeper
+	 * differences. Only mixin to components which have simple props and state, or
+	 * use `forceUpdate()` when you know deep data structures have changed.
+	 */
+	var ReStockPureRenderMixin = {
+		shouldComponentUpdate: function(nextProps, nextState) {
+			var extraCheck = (typeof this.extraShouldComponentUpdate === "function")
+				? this.extraShouldComponentUpdate
+				: function(nextProps, nextState, actualCheck)  {return actualCheck;}
+			var actualCheck = !shallowEqual(this.props, nextProps) ||
+					!shallowEqual(this.state, nextState)
+			return extraCheck(nextProps, nextState, actualCheck);
+		}
+	};
+	
+	module.exports = ReStockPureRenderMixin;
+
+
+/***/ },
+/* 82 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var ChartTransformer = __webpack_require__(88);
+	
+	var DataTransformMixin = {
+		isDataDransform:function() {
+			return true;
+		},
+		transformData:function(props) {
+			var transformer = ChartTransformer.getTransformerFor(props.transformType);
+			var passThroughProps = transformer(props.data, props.options, props)
+			// console.log('passThroughProps-------', passThroughProps);
+	
+			// this.setState({ passThroughProps: passThroughProps });
+			return passThroughProps;
+		}
+	};
+	
+	module.exports = DataTransformMixin;
+
+
+/***/ },
+/* 83 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var d3 = __webpack_require__(2);
+	
+	var polylineartimescale = function(indexAccessor) {
+		return guided_scale([0, 1], indexAccessor, d3.scale.linear());
+	};
+	
+	function guided_scale(drawableData, indexAccessor, backingLinearScale) {
+		//var  = 'week'; //valid values 'day', 'week', 'month'
+	
+		var d3_time_scaleSteps = [
+			{ step: 864e5, f: function (d, i) {return d.date !== undefined && true ;}},  // 1-day
+			{ step: 1728e5, f: function (d, i) {return d.date !== undefined && (i % 2 == 0) ;}},  // 2-day
+			{ step: 8380e5, f: function (d, i, arr) {
+					if (d.startOfMonth) return true;
+					var list = [];
+					if ((i - 2) >= 0) list.push(arr[i - 2]);
+					if ((i - 1) >= 0) list.push(arr[i - 1]);
+					list.push(arr[i]);
+					if ((i + 1) <= arr.length - 1) list.push(arr[i + 1]);
+					if ((i + 2) <= arr.length - 1) list.push(arr[i + 2]);
+					var sm = list
+								.map(function (d) { return d.startOfMonth; })
+								.reduce(function(prev, curr) {
+										return prev || curr;
+									});
+					return sm ? false : d.startOfWeek;
+				}},  // 1-week
+			{ step: 3525e6, f: function (d) {return d.startOfMonth; }},  // 1-month
+			{ step: 7776e6, f: function (d) {return d.startOfQuarter; }},  // 3-month
+			{ step: 31536e6, f: function (d) {return d.startOfYear; }},  // 1-year
+			{ step: 91536e15, f: function (d) {return d.date !== undefined && (d.startOfYear && d.date.getFullYear() % 2 == 0); }}  // 2-year
+		];
+		var timeScaleStepsBisector = d3.bisector(function(d) { return d.step; }).left;
+		var __BISECT = d3.bisector(function(d) { return indexAccessor(d); }).left;
+		var tickFormat = [
+			[d3.time.format("%Y"), function(d) { return d.startOfYear; }],
+			[d3.time.format("%b %Y"), function(d) { return d.startOfQuarter; }],
+			[d3.time.format("%b"), function(d) { return d.startOfMonth; }],
+			[d3.time.format("%d %b"), function(d) { return d.startOfWeek; }],
+			[d3.time.format("%a %d "), function(d) { return true; }]
+		];
+		function formater(d) {
+			var i = 0, format = tickFormat[i];
+			while (!format[1](d)) format = tickFormat[++i];
+			var tickDisplay = format[0](d.date);
+			// console.log(tickDisplay);
+			return tickDisplay;
+		};
+	
+		var ticks;
+	
+		function scale(x) {
+			return backingLinearScale(x);
+		};
+		scale.isPolyLinear = function() {
+			return true;
+		}
+		scale.invert = function(x) {
+			return backingLinearScale.invert(x);
+		};
+		scale.data = function(x) {
+			if (!arguments.length) {
+				return drawableData;
+			} else {
+				drawableData = x;
+				//this.domain([drawableData.first().index, drawableData.last().index]);
+				this.domain([indexAccessor(drawableData[0]), indexAccessor(drawableData[drawableData.length - 1])]);
+				return scale;
+			}
+		};
+		scale.domain = function(x) {
+			if (!arguments.length) return backingLinearScale.domain();
+			//console.log("before = %s, after = %s", JSON.stringify(backingLinearScale.domain()), JSON.stringify(x))
+			var d = [Math.floor(x[0]), Math.ceil(x[1])]
+	
+			backingLinearScale.domain(d);
+			return scale;
+		};
+		scale.range = function(x) {
+			if (!arguments.length) return backingLinearScale.range();
+			backingLinearScale.range(x);
+			return scale;
+		};
+		scale.rangeRound = function(x) {
+			return backingLinearScale.range(x);
+		};
+		scale.clamp = function(x) {
+			if (!arguments.length) return backingLinearScale.clamp();
+			backingLinearScale.clamp(x);
+			return scale;
+		};
+		scale.interpolate = function(x) {
+			if (!arguments.length) return backingLinearScale.interpolate();
+			backingLinearScale.interpolate(x);
+			return scale;
+		};
+	
+		scale.ticks = function(m) {
+	
+			var start, end, count = 0;
+			drawableData.forEach(function (d, i) {
+				if (d.date !== undefined) {
+					if (start === undefined) start = d;
+					end = d;
+					count++;
+				}
+			});
+			m = (count/drawableData.length) * m;
+			var span = (end.date.getTime() - start.date.getTime());
+			var target = span/m;
+			/*
+			console.log(drawableData[drawableData.length - 1].date
+				, drawableData[0].date
+				, span
+				, m
+				, target
+				, timeScaleStepsBisector(d3_time_scaleSteps, target)
+				);
+			*/
+			var ticks = drawableData
+							.filter(d3_time_scaleSteps[timeScaleStepsBisector(d3_time_scaleSteps, target)].f)
+							.map(function(d, i) {return indexAccessor(d);})
+							;
+			// return the index of all the ticks to be displayed,
+			//console.log(target, span, m, ticks);
+			return ticks;
+		};
+		scale.tickFormat = function(ticks) {
+			return function(d) {
+				// for each index received from ticks() function derive the formatted output
+				var tickIndex = __BISECT(drawableData, d);
+				return formater(drawableData[tickIndex]) ;
+				//return formater(d) ;
+			};
+		}
+	
+		scale.nice = function(m) {
+			backingLinearScale.nice(m);
+			return scale;
+		};
+		scale.copy = function() {
+			return guided_scale(drawableData, indexAccessor, backingLinearScale.copy());
+		};
+		return scale;
+	}
+	
+	
+	module.exports = polylineartimescale
+
+/***/ },
+/* 84 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	function pushToValues(values, eachValue) {
+		if (typeof eachValue === 'object' && Object.keys(eachValue).length > 0) {
+			Object.keys(eachValue).forEach(function (key) {
+				if (!isNaN(eachValue[key])) {
+					values.push(eachValue[key]);
+				}
+			});
+		} else {
+			if (!isNaN(eachValue)) {
+				values.push(eachValue);
+			}
+		}
+	}
+	
+	
+	var ScaleUtils = {
+		flattenData:function(data, xAccessors, yAccessors) {
+			console.log(xAccessors, yAccessors);
+			var xValues = [];
+			var yValues = [];
+			data.forEach( function(row)  {
+				xAccessors.forEach( function(xAccessor)  {
+					var x = xAccessor(row);
+					if (x !== undefined) {
+						pushToValues(xValues, x);
+					}
+				});
+				yAccessors.forEach( function(yAccessor)  {
+					var y = yAccessor(row);
+					if (y !== undefined) {
+						pushToValues(yValues, y);
+					}
+				});
+			})
+			return {
+				xValues: xValues,
+				yValues: yValues
+			};
+		}
+	}
+	module.exports = ScaleUtils;
+
+
+/***/ },
+/* 85 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var Utils = __webpack_require__(86);
+	var MACalculator = __webpack_require__(89);
+	
+	var OverlayUtils = {
+		getToolTipLabel:function(props) {
+			if (props.type === "sma" || props.type === "ema") {
+				var tooltip = props.type.toUpperCase() + '(' + props.options.period + ')';
+				return tooltip;
+			}
+			return 'N/A';
+		},/*
+		getYAccessor(chartId, props) {
+			if (props.type === "sma" || props.type === "ema") {
+				var key = props.type + props.options.period + '_chart_' + chartId;
+				return (d) => d[key];
+			}
+			return false;
+		},*/
+		getYAccessorKey:function(chartId, props) {
+			if (props.type === "sma" || props.type === "ema") {
+				var key = props.type + props.options.period + '_chart_' + chartId;
+				return key;
+			}
+			return false;
+		},
+		calculateOverlay:function(data, overlay) {
+			console.log(overlay);
+			if (overlay.type === 'sma') {
+				data = MACalculator.calculateSMA(data, overlay.options.period, overlay.key, overlay.options.pluck);
+			} else if (overlay.type === 'ema') {
+				data = MACalculator.calculateEMA(data, overlay.options.period, overlay.key, overlay.options.pluck);
+			}
+			return data;
+		},
+		firstDefined:function(data, accessor) {
+			var each;
+			for (var i = 0; i < data.length; i++) {
+				if (accessor(data[i]) === undefined) continue;
+				each = data[i];
+				// console.log(i, each, accessor(each));
+				break;
+			};
+			return Utils.cloneMe(each);
+		},
+		lastDefined:function(data, accessor) {
+			var each;
+			for (var i = data.length - 1; i >= 0; i--) {
+				if (accessor(data[i]) === undefined) continue;
+				each = data[i];
+				// console.log(i, each, accessor(each));
+				break;
+			};
+			return Utils.cloneMe(each);
+		}
+	}
+	
+	module.exports = OverlayUtils;
+
+
+/***/ },
+/* 86 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var d3 = __webpack_require__(2);
+	
+	var overlayColors = d3.scale.category10();
+	
+	function Utils() {
+	}
+	
+	Utils.overlayColors = overlayColors;
+	Utils.cloneMe = function(obj) {
+		if(obj == null || typeof(obj) !== 'object')
+			return obj;
+		if (obj instanceof Date) {
+			return new Date(obj.getTime());
+		}
+		var temp = {};//obj.constructor(); // changed
+	
+		for(var key in obj) {
+			if(obj.hasOwnProperty(key)) {
+				temp[key] = Utils.cloneMe(obj[key]);
+			}
+		}
+		return temp;
+	}
+	Utils.displayDateFormat = d3.time.format("%Y-%m-%d");
+	Utils.displayNumberFormat = function(x) {
+		return Utils.numberWithCommas(x.toFixed(2));
+	};
+	Utils.numberWithCommas = function(x) {
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	};
+	Utils.isNumeric = function(n) {
+		return !isNaN(parseFloat(n)) && isFinite(n);
+	};
+	Utils.mousePosition = function(e) {
+		var container = e.currentTarget,
+			rect = container.getBoundingClientRect(),
+			x = e.clientX - rect.left - container.clientLeft,
+			y = e.clientY - rect.top - container.clientTop,
+			xy = [ Math.round(x), Math.round(y) ];
+		return xy;
+	}
+	Utils.getValue = function(d) {
+		if (d instanceof Date) {
+			return d.getTime();
+		}
+		return d;
+	}
+	Utils.getClosestItem = function(array, value, accessor) {
+		var lo = 0, hi = array.length - 1;
+		while (hi - lo > 1) {
+			var mid = Math.round((lo + hi)/2);
+			if (accessor(array[mid]) <= value) {
+				lo = mid;
+			} else {
+				hi = mid;
+			}
+		}
+		if (accessor(array[lo]) === value) hi = lo;
+		var closest = (Math.abs(accessor(array[lo]) - value) < Math.abs(accessor(array[hi]) - value))
+							? array[lo]
+							: array[hi]
+		//console.log(array[lo], array[hi], closest, lo, hi);
+		return Utils.cloneMe(closest);
+	}
+	Utils.getClosestItemIndexes = function(array, value, accessor) {
+		var lo = 0, hi = array.length - 1;
+		while (hi - lo > 1) {
+			var mid = Math.round((lo + hi)/2);
+			if (accessor(array[mid]) <= value) {
+				lo = mid;
+			} else {
+				hi = mid;
+			}
+		}
+		if (accessor(array[lo]) === value) hi = lo;
+		//console.log(array[lo], array[hi], closestIndex, lo, hi);
+		return { left: lo, right: hi };
+	}
+	Utils.pluck = function(array, key) {
+		return array.map(function(each)  {return each[key];})
+	}
+	Utils.keysAsArray = function(obj) {
+		return Object.keys(obj)
+			.filter(function(key)  {return obj[key] !== null;})
+			.map(function(key)  {return obj[key];});
+	}
+	Utils.sum = function(array) {
+		return array.reduce(function(d1, d2)  {return d1 + d2;});
+	}
+	
+	module.exports = Utils;
+
+
+/***/ },
+/* 87 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(1);
+	
+	var EdgeCoordinate = React.createClass({displayName: "EdgeCoordinate",
+		propTypes: {
+			type: React.PropTypes.oneOf(['vertical', 'horizontal']).isRequired,
+			coordinate: React.PropTypes.any.isRequired,
+			x1: React.PropTypes.number.isRequired,
+			y1: React.PropTypes.number.isRequired,
+			x2: React.PropTypes.number.isRequired,
+			y2: React.PropTypes.number.isRequired,
+			orient: React.PropTypes.oneOf(['bottom', 'top', 'left', 'right']),
+			rectWidth: React.PropTypes.number
+		},
+		getDefaultProps:function() {
+			return {
+				orient: 'left'
+			};
+		},
+		render:function() {
+			if (!this.props.show) return null;
+	
+			var displayCoordinate = this.props.coordinate;
+			var rectWidth = this.props.rectWidth
+				? this.props.rectWidth
+				: (this.props.type === 'horizontal')
+					? 60
+					: 100,
+				rectHeight = 20;
+	
+			var edgeXRect, edgeYRect, edgeXText, edgeYText;
+	
+			if (this.props.type === 'horizontal') {
+	
+				edgeXRect = (this.props.orient === 'right') ? this.props.edgeAt + 1 : this.props.edgeAt - rectWidth - 1;
+				edgeYRect = this.props.y1 - (rectHeight / 2);
+				edgeXText = (this.props.orient === 'right') ? this.props.edgeAt + (rectWidth / 2) : this.props.edgeAt - (rectWidth / 2);
+				edgeYText = this.props.y1;
+			} else {
+				edgeXRect = this.props.x1 - (rectWidth / 2);
+				edgeYRect = (this.props.orient === 'bottom') ? this.props.edgeAt : this.props.edgeAt - rectHeight;
+				edgeXText = this.props.x1;
+				edgeYText = (this.props.orient === 'bottom') ? this.props.edgeAt + (rectHeight / 2) : this.props.edgeAt - (rectHeight / 2);
+			}
+			var coordinateBase = null, coordinate = null;
+			if (displayCoordinate !== undefined) {
+					coordinateBase = (React.createElement("rect", {key: 1, className: "textbg", 
+										x: edgeXRect, 
+										y: edgeYRect, 
+										height: rectHeight, width: rectWidth, fill: this.props.fill}));
+					coordinate = (React.createElement("text", {key: 2, x: edgeXText, 
+										y: edgeYText, 
+										style: {"textAnchor": "middle"}, 
+										dy: ".32em"}, displayCoordinate));
+			}
+			return (
+				React.createElement("g", {className: (this.props.show ? 'show ' : 'hide ') + this.props.className}, 
+						React.createElement("line", {className: "cross-hair", 
+							x1: this.props.x1, y1: this.props.y1, 
+							x2: this.props.x2, y2: this.props.y2}), 
+						coordinateBase, 
+						coordinate
+				)
+			);
+		}
+	});
+	
+	module.exports = EdgeCoordinate;
+
+
+/***/ },
+/* 88 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var StockScaleTransformer = __webpack_require__(92);
+	var HeikinAshiTransformer = __webpack_require__(93);
+	
+	var ChartTransformer = {
+		getTransformerFor:function(type) {
+			if (type === "none")
+				return function(d)  {return d;};
+			if (type === "stockscale")
+				return StockScaleTransformer;
+			if (type === "heikinashi")
+				return HeikinAshiTransformer;
+			return false;
+		},
+		filter:function(data, dateAccesor, fromDate, toDate) {
+			var filteredData = data.filter(function(each)  {
+				var filtered = dateAccesor(each).getTime() > fromDate.getTime() && dateAccesor(each).getTime() < toDate.getTime()
+				return filtered;
+			});
+			return filteredData;
+		}
+	}
+	
+	module.exports = ChartTransformer;
+
+
+/***/ },
+/* 89 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var Utils = __webpack_require__(86);
+	
+	var pluck = Utils.pluck;
+	var sum = Utils.sum;
+	
+	function MACalculator() {
+	
+	};
+	MACalculator.calculateSMA = function(data, period, key, pluckKey) {
+		console.log('calculateSMA');
+	
+		var l = data.length - 1;//, key = 'sma' + period;
+		var maKey = pluckKey || 'close';
+	
+		data.map(function(each, i)  {return data.slice(i - period, i);})
+			.filter(function(array)  {return array.length === period && array.length > 0;})
+			.map(function(array)  {return pluck(array, maKey);})
+			.map(function(array)  {return sum(array);})
+			.map(function(sum)  {return sum / period;})
+			.reverse()
+			.forEach(function(avg, i)  {
+				// Object.defineProperty(data[l - i], key, { value: avg });
+				data[l - i][key] = avg;
+				// console.log(data[l - i][key]);
+			})
+		if (key === 'sma53_chart_2') {
+			console.table(data);
+		}
+		return data;
+	}
+	
+	MACalculator.calculateEMA = function (data, period) {
+		console.log('calculating EMA');
+		return false;
+	}
+	
+	module.exports = MACalculator;
+
+
+/***/ },
+/* 90 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Freezer = __webpack_require__(94);
+	module.exports = Freezer;
+
+/***/ },
+/* 91 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-2014, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule shallowEqual
+	 */
+	
+	"use strict";
+	
+	/**
+	 * Performs equality by iterating through keys on an object and returning
+	 * false when any key has values which are not strictly equal between
+	 * objA and objB. Returns true when the values of all keys are strictly equal.
+	 *
+	 * @return {boolean}
+	 */
+	function shallowEqual(objA, objB) {
+	  if (objA === objB) {
+	    return true;
+	  }
+	  var key;
+	  // Test for A's keys different from B.
+	  for (key in objA) {
+	    if (objA.hasOwnProperty(key) &&
+	        (!objB.hasOwnProperty(key) || objA[key] !== objB[key])) {
+	      return false;
+	    }
+	  }
+	  // Test for B's keys missing from A.
+	  for (key in objB) {
+	    if (objB.hasOwnProperty(key) && !objA.hasOwnProperty(key)) {
+	      return false;
+	    }
+	  }
+	  return true;
+	}
+	
+	module.exports = shallowEqual;
+
+
+/***/ },
+/* 92 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var stockScale = __webpack_require__(83);
+	
+	var defaultOptions = {
+		dateAccesor: function(d)  {return d.date;},
+		indexAccessor: function(d)  {return d._idx;},
+		indexMutator: function(d, i)  {d._idx = i;}
+	}
+	
+	function StockScaleTransformer(data, options) {
+		if (options === undefined) options = defaultOptions;
+		var dateAccesor = options.dateAccesor;
+		var dateMutator = options.dateMutator || function(d, date) {d.date = date};
+		var indexMutator = options.indexMutator;
+	
+		var prevDate;
+		var responseData = {}
+		responseData.D = data
+			//.filter((each) => Math.random() > 0.9)
+			.map(function(each, i)  {
+				var row = each;
+				// console.log(each);
+				//console.log(row);
+				indexMutator(row,  i);
+	
+				row.startOfWeek = false;
+				row.startOfMonth = false;
+				row.startOfQuarter = false;
+				row.startOfYear = false;
+				var date = dateAccesor(row);
+				//row.displayDate = dateFormat(date);
+				if (prevDate !== undefined) {
+					// According to ISO calendar
+					// Sunday = 0, Monday = 1, ... Saturday = 6
+					// day of week of today < day of week of yesterday then today is start of week
+					row.startOfWeek = date.getDay() < prevDate.getDay();
+					// month of today != month of yesterday then today is start of month
+					row.startOfMonth = date.getMonth() != prevDate.getMonth();
+					//if start of month and month % 3 === 0 then it is start of quarter
+					row.startOfQuarter = row.startOfMonth && date.getMonth() % 3 === 0;
+					// year of today != year of yesterday then today is start of year
+					row.startOfYear = date.getYear() != prevDate.getYear();
+				}
+				prevDate = date;
+				return row;
+			});
+		// console.table(responseData);
+		responseData.W = buildWeeklyData(responseData.D, indexMutator, dateAccesor, dateMutator);
+		responseData.M = buildMonthlyData(responseData.D, indexMutator, dateAccesor, dateMutator);
+	
+		// console.table(responseData.W);
+	
+		return {
+				data: responseData,
+				_dateAccessor: dateAccesor,
+				_dateMutator: dateMutator,
+				_indexAccessor: options.indexAccessor,
+				_indexMutator: indexMutator,
+				// _indexMutator: indexMutator,
+				_stockScale: true,
+				_xScale: stockScale(options.indexAccessor),
+				_multiInterval: true
+			};
+	}
+	
+	function buildWeeklyData(daily, indexMutator, dateAccesor, dateMutator) {
+		var weekly = [], prevWeek, eachWeek = {};
+		for (var i = 0; i < daily.length; i++) {
+			var d = daily[i];
+	
+			if (dateAccesor(eachWeek)) indexMutator(eachWeek,  i);
+	
+			dateMutator(eachWeek, dateAccesor(d));
+	
+			eachWeek.startOfWeek = eachWeek.startOfWeek || d.startOfWeek;
+			eachWeek.startOfMonth = eachWeek.startOfMonth || d.startOfMonth;
+			eachWeek.startOfQuarter = eachWeek.startOfQuarter || d.startOfQuarter;
+			eachWeek.startOfYear = eachWeek.startOfYear || d.startOfYear;
+	
+			if (!eachWeek.open) eachWeek.open = d.open;
+			if (!eachWeek.high) eachWeek.high = d.high;
+			if (!eachWeek.low) eachWeek.low = d.low;
+	
+			eachWeek.close = d.close;
+	
+			eachWeek.high = Math.max(eachWeek.high, d.high);
+			eachWeek.low = Math.min(eachWeek.low, d.low);
+	
+			if (!eachWeek.volume) eachWeek.volume = 0;
+			eachWeek.volume += d.volume;
+	
+			if (d.startOfWeek) {
+				if (prevWeek) {
+					eachWeek.trueRange = Math.max(
+						eachWeek.high - eachWeek.low
+						, eachWeek.high - prevWeek.close
+						, eachWeek.low - prevWeek.close
+					);
+				}
+				prevWeek = eachWeek
+				weekly.push(eachWeek);
+				eachWeek = {};
+			}
+		}
+		return weekly;
+	}
+	
+	function buildMonthlyData(daily, indexMutator, dateAccesor) {
+		var monthly = [], prevMonth, eachMonth = {};
+		for (var i = 0; i < daily.length; i++) {
+			var d = daily[i];
+	
+			if (!eachMonth.date) indexMutator(eachMonth,  i);
+	
+			eachMonth.date = dateAccesor(d);
+	
+			eachMonth.startOfMonth = eachMonth.startOfMonth || d.startOfMonth;
+			eachMonth.startOfQuarter = eachMonth.startOfQuarter || d.startOfQuarter;
+			eachMonth.startOfYear = eachMonth.startOfYear || d.startOfYear;
+	
+			if (!eachMonth.open) eachMonth.open = d.open;
+			if (!eachMonth.high) eachMonth.high = d.high;
+			if (!eachMonth.low) eachMonth.low = d.low;
+	
+			eachMonth.close = d.close;
+	
+			eachMonth.high = Math.max(eachMonth.high, d.high);
+			eachMonth.low = Math.min(eachMonth.low, d.low);
+	
+			if (!eachMonth.volume) eachMonth.volume = 0;
+			eachMonth.volume += d.volume;
+	
+			if (d.startOfMonth) {
+				eachMonth.startOfWeek = d.startOfWeek;
+				if (prevMonth) {
+					eachMonth.trueRange = Math.max(
+						eachMonth.high - eachMonth.low
+						, eachMonth.high - prevMonth.close
+						, eachMonth.low - prevMonth.close
+					);
+				}
+				prevMonth = eachMonth
+				monthly.push(eachMonth);
+				eachMonth = {};
+			}
+		}
+		return monthly;
+	}
+	
+	module.exports = StockScaleTransformer;
+
+
+/***/ },
+/* 93 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var excludeList = ['transformType', 'options', 'children', 'namespace'];
+	
+	
+	function HeikinAshiTransformer(data, options, props) {
+		if (options === undefined) options = {};
+		var dateAccesor = options.dateAccesor || props._dateAccessor;
+		var dateMutator = options.dateMutator || props._dateMutator;
+		var indexAccessor = options.indexAccessor || props._indexAccessor;
+		var indexMutator = options.indexMutator || props._indexMutator;
+	
+		if (props._multiInterval && props._stockScale) {
+			
+			var haData = {};
+			Object.keys(data)
+				.forEach(function(key)  {return haData[key] = buildHA(data[key], indexAccessor, indexMutator, dateAccesor, dateMutator);});
+			var response = {};
+	
+			Object.keys(props)
+				.filter(function(key)  {return excludeList.indexOf(key) < 0;})
+				.forEach(function(key)  {return response[key] = props[key];});
+	
+			response.data = haData;
+	
+			return response;
+		}
+		return {
+			data: data
+		};
+	}
+	
+	function buildHA(data, indexAccessor, indexMutator, dateAccesor, dateMutator) {
+		var prevEach;
+	
+		var haData = data.map(function (d, i) {
+			var each = {};
+			indexMutator(each, indexAccessor(d));
+			each.close = (d.open + d.high + d.low + d.close) / 4;
+	
+			dateMutator(each, dateAccesor(d));
+			//each.displayDate = d.displayDate;
+	
+			if (!prevEach) {
+				each.open = d.open;
+				each.high = d.high;
+				each.low = d.low;
+			} else {
+				each.open = (prevEach.open + prevEach.close) / 2;
+				each.high = Math.max(each.open, d.high, each.close);
+				each.low = Math.min(each.open, d.low, each.close);
+				each.trueRange = Math.max(
+						d.high - d.low
+						, d.high - prevEach.close
+						, d.low - prevEach.close
+					);
+			}
+			each.volume = d.volume;
+	
+			each.startOfWeek = d.startOfWeek;
+			each.startOfMonth = d.startOfMonth;
+			each.startOfQuarter = d.startOfQuarter;
+			each.startOfYear = d.startOfYear;
+	
+			prevEach = each;
+			return each;
+		});
+		// console.table(haData);
+		return haData;
+	};
+	
+	module.exports = HeikinAshiTransformer;
+
+
+/***/ },
+/* 94 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var Utils = __webpack_require__( 95 ),
+		Emitter = __webpack_require__( 98 ),
+		Mixins = __webpack_require__( 96 ),
+		Frozen = __webpack_require__( 97 )
+	;
+	
+	//#build
+	var Freezer = function( initialValue ) {
+		var me = this;
+	
+		// Immutable data
+		var frozen;
+	
+		var notify = function notify( eventName, node, options ){
+			if( eventName == 'listener' )
+				return Frozen.createListener( node );
+	
+			var updated = Frozen.update( eventName, node, options );
+	
+			if( !updated )
+				return Utils.error( 'Can\'t udpate. The node is not in the freezer.' );
+	
+			return updated;
+		};
+	
+		// Create the frozen object
+		frozen = Frozen.freeze( initialValue, notify );
+	
+		// Listen to its changes immediately
+		var listener = frozen.getListener();
+	
+		// Updating flag to trigger the event on nextTick
+		var updating = false;
+	
+		listener.on( 'immediate', function( prevNode, updated ){
+			if( prevNode != frozen )
+				return;
+	
+			frozen = updated;
+	
+			// Trigger on next tick
+			if( !updating ){
+				updating = true;
+				Utils.nextTick( function(){
+					updating = false;
+					me.trigger( 'update', frozen );
+				});
+			}
+		});
+	
+		Utils.addNE( this, {
+			get: function(){
+				return frozen;
+			},
+			set: function( node ){
+				var newNode = notify( 'reset', frozen, node );
+				newNode.__.listener.trigger( 'immediate', frozen, newNode );
+			}
+		});
+	
+		Utils.addNE( this, { getData: this.get, setData: this.set } );
+	
+		// The event store
+		this._events = [];
+	}
+	
+	Freezer.prototype = Utils.createNonEnumerable({}, Emitter);
+	//#build
+	
+	module.exports = Freezer;
+
+/***/ },
+/* 95 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	//#build
+	var global = (new Function("return this")());
+	
+	var Utils = {
+		extend: function( ob, props ){
+			for( var p in props ){
+				ob[p] = props[p];
+			}
+			return ob;
+		},
+	
+		createNonEnumerable: function( obj, proto ){
+			var ne = {};
+			for( var key in obj )
+				ne[key] = {value: obj[key] };
+			return Object.create( proto || {}, ne );
+		},
+	
+		error: function( message ){
+			var err = new Error( message );
+			if( console )
+				return console.error( err );
+			else
+				throw err;
+		},
+	
+		each: function( o, clbk ){
+			var i,l,keys;
+			if( o && o.constructor == Array ){
+				for (i = 0, l = o.length; i < l; i++)
+					clbk( o[i], i );
+			}
+			else {
+				keys = Object.keys( o );
+				for( i = 0, l = keys.length; i < l; i++ )
+					clbk( o[ keys[i] ], keys[i] );
+			}
+		},
+	
+		addNE: function( node, attrs ){
+			for( var key in attrs ){
+				Object.defineProperty( node, key, {
+					enumerable: false,
+					configurable: true,
+					writable: true,
+					value: attrs[ key ]
+				});
+			}
+		},
+	
+		// nextTick - by stagas / public domain
+	  	nextTick: (function () {
+	      var queue = [],
+				dirty = false,
+				fn,
+				hasPostMessage = !!global.postMessage,
+				messageName = 'nexttick',
+				trigger = (function () {
+					return hasPostMessage
+						? function trigger () {
+						global.postMessage(messageName, '*');
+					}
+					: function trigger () {
+						setTimeout(function () { processQueue() }, 0);
+					};
+				}()),
+				processQueue = (function () {
+					return hasPostMessage
+						? function processQueue (event) {
+							if (event.source === global && event.data === messageName) {
+								event.stopPropagation();
+								flushQueue();
+							}
+						}
+						: flushQueue;
+	      	})()
+	      ;
+	
+	      function flushQueue () {
+	          while (fn = queue.shift()) {
+	              fn();
+	          }
+	          dirty = false;
+	      }
+	
+	      function nextTick (fn) {
+	          queue.push(fn);
+	          if (dirty) return;
+	          dirty = true;
+	          trigger();
+	      }
+	
+	      if (hasPostMessage) global.addEventListener('message', processQueue, true);
+	
+	      nextTick.removeListener = function () {
+	          global.removeEventListener('message', processQueue, true);
+	      }
+	
+	      return nextTick;
+	  })()
+	};
+	//#build
+	
+	
+	module.exports = Utils;
+
+/***/ },
+/* 96 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var Utils = __webpack_require__( 95 );
+	
+	//#build
+	
+	/**
+	 * Creates non-enumerable property descriptors, to be used by Object.create.
+	 * @param  {Object} attrs Properties to create descriptors
+	 * @return {Object}       A hash with the descriptors.
+	 */
+	var createNE = function( attrs ){
+		var ne = {};
+	
+		for( var key in attrs ){
+			ne[ key ] = {
+				writable: true,
+				configurable: true,
+				enumerable: false,
+				value: attrs[ key]
+			}
+		}
+	
+		return ne;
+	}
+	
+	var commonMethods = {
+		set: function( attr, value ){
+			var attrs = attr;
+	
+			if( typeof value != 'undefined' ){
+				attrs = {};
+				attrs[ attr ] = value;
+			}
+	
+			return this.__.notify( 'merge', this, attrs );
+		},
+	
+		getListener: function(){
+			return this.__.notify( 'listener', this );
+		},
+	
+		toJS: function(){
+			var js;
+			if( this.constructor == Array ){
+				js = new Array( this.length );
+			}
+			else {
+				js = {};
+			}
+	
+			Utils.each( this, function( child, i ){
+				if( child && child.__ )
+					js[ i ] = child.toJS();
+				else
+					js[ i ] = child;
+			});
+	
+			return js;
+		}
+	};
+	
+	var arrayMethods = Utils.extend({
+		push: function( el ){
+			return this.append( [el] );
+		},
+	
+		append: function( els ){
+			if( els && els.length )
+				return this.__.notify( 'splice', this, [this.length, 0].concat( els ) );
+			return this;
+		},
+	
+		pop: function(){
+			if( !this.length )
+				return this;
+	
+			return this.__.notify( 'splice', this, [this.length -1, 1] );
+		},
+	
+		unshift: function( el ){
+			return this.prepend( [el] );
+		},
+	
+		prepend: function( els ){
+			if( els && els.length )
+				return this.__.notify( 'splice', this, [0, 0].concat( els ) );
+			return this;
+		},
+	
+		shift: function(){
+			if( !this.length )
+				return this;
+	
+			return this.__.notify( 'splice', this, [0, 1] );
+		},
+	
+		splice: function( index, toRemove, toAdd ){
+			return this.__.notify( 'splice', this, arguments );
+		}
+	}, commonMethods );
+	
+	var FrozenArray = Object.create( Array.prototype, createNE( arrayMethods ) );
+	
+	var Mixins = {
+	
+	Hash: Object.create( Object.prototype, createNE( Utils.extend({
+		remove: function( keys ){
+			var filtered = [],
+				k = keys
+			;
+	
+			if( keys.constructor != Array )
+				k = [ keys ];
+	
+			for( var i = 0, l = k.length; i<l; i++ ){
+				if( this.hasOwnProperty( k[i] ) )
+					filtered.push( k[i] );
+			}
+	
+			if( filtered.length )
+				return this.__.notify( 'remove', this, filtered );
+			return this;
+		},
+	
+		reset: function( attrs ) {
+			return this.__.notify( 'replaceself', this, attrs );
+		}
+	
+	}, commonMethods))),
+	
+	List: FrozenArray,
+	arrayMethods: arrayMethods
+	};
+	//#build
+	
+	module.exports = Mixins;
+
+/***/ },
+/* 97 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var Utils = __webpack_require__( 95 ),
+		Mixins = __webpack_require__( 96),
+		Emitter = __webpack_require__(98)
+	;
+	
+	//#build
+	var Frozen = {
+		freeze: function( node, notify ){
+			if( node && node.__ ){
+				return node;
+			}
+	
+			var me = this,
+				frozen, mixin, cons
+			;
+	
+			if( node.constructor == Array ){
+				frozen = this.createArray( node.length );
+			}
+			else {
+				frozen = Object.create( Mixins.Hash );
+			}
+	
+			Utils.addNE( frozen, { __: {
+				listener: false,
+				parents: [],
+				notify: notify,
+				dirty: false
+			}});
+	
+			// Freeze children
+			Utils.each( node, function( child, key ){
+				cons = child && child.constructor;
+				if( cons == Array || cons == Object ){
+					child = me.freeze( child, notify );
+				}
+	
+				if( child && child.__ )
+					me.addParent( child, frozen );
+	
+				frozen[ key ] = child;
+			});
+	
+			Object.freeze( frozen );
+	
+			return frozen;
+		},
+	
+		update: function( type, node, options ){
+			if( !this[ type ])
+				return Utils.error( 'Unknown update type: ' + type );
+	
+			return this[ type ]( node, options );
+		},
+	
+		reset: function( node, value ){
+			var me = this,
+				frozen
+			;
+	
+			if( value && value.__ ){
+				frozen = value;
+				frozen.__.listener = value.__.listener;
+				frozen.__.parents = [];
+	
+				// Set back the parent on the children
+				// that have been updated
+				this.fixChildren( frozen, node );
+				Utils.each( frozen, function( child ){
+					if( child && child.__ ){
+						me.removeParent( node );
+						me.addParent( child, frozen );
+					}
+				});
+			}
+			else {
+				frozen = this.freeze( node, node.__.notify );
+			}
+	
+			return frozen;
+		},
+	
+		merge: function( node, attrs ){
+			var me = this,
+				frozen = this.copyMeta( node ),
+				notify = node.__.notify,
+				val, cons, key, isFrozen
+			;
+	
+			Utils.each( node, function( child, key ){
+				isFrozen = child && child.__;
+	
+				if( isFrozen ){
+					me.removeParent( child, node );
+				}
+	
+				val = attrs[ key ];
+				if( !val ){
+					if( isFrozen )
+						me.addParent( child, frozen );
+					return frozen[ key ] = child;
+				}
+	
+				cons = val && val.constructor;
+	
+				if( cons == Array || cons == Object )
+					val = me.freeze( val, notify );
+	
+				if( val && val.__ )
+					me.addParent( val, frozen );
+	
+				delete attrs[ key ];
+	
+				frozen[ key ] = val;
+			});
+	
+			for( key in attrs ) {
+				val = attrs[ key ];
+				cons = val && val.constructor;
+	
+				if( cons == Array || cons == Object )
+					val = me.freeze( val, notify );
+	
+				if( val && val.__ )
+					me.addParent( val, frozen );
+	
+				frozen[ key ] = val;
+			}
+	
+			Object.freeze( frozen );
+	
+			this.refreshParents( node, frozen );
+	
+			return frozen;
+		},
+		replaceself: function( node, attrs ) {
+			var me = this,
+				frozen = this.copyMeta( node ),
+				notify = node.__.notify,
+				val, cons, key
+			;
+			for( key in attrs ) {
+				val = attrs[ key ];
+				cons = val && val.constructor;
+	
+				if( cons == Array || cons == Object )
+					val = me.freeze( val, notify );
+	
+				if( val && val.__ )
+					me.addParent( val, frozen );
+	
+				frozen[ key ] = val;
+			}
+	
+			Object.freeze( frozen );
+	
+			this.refreshParents( node, frozen );
+	
+			return frozen;
+		},
+		remove: function( node, attrs ){
+			var me = this,
+				frozen = this.copyMeta( node ),
+				isFrozen
+			;
+	
+			Utils.each( node, function( child, key ){
+				isFrozen = child && child.__;
+	
+				if( isFrozen ){
+					me.removeParent( child, node );
+				}
+	
+				if( attrs.indexOf( key ) != -1 ){
+					return;
+				}
+	
+				if( isFrozen )
+					me.addParent( child, frozen );
+	
+				frozen[ key ] = child;
+			});
+	
+			Object.freeze( frozen );
+			this.refreshParents( node, frozen );
+	
+			return frozen;
+		},
+	
+		splice: function( node, args ){
+			var me = this,
+				frozen = this.copyMeta( node ),
+				index = args[0],
+				deleteIndex = index + args[1],
+				notify = node.__.notify,
+				con, child
+			;
+	
+			// Clone the array
+			Utils.each( node, function( child, i ){
+	
+				if( child && child.__ ){
+					me.removeParent( child, node );
+	
+					// Skip the nodes to delete
+					if( i < index || i>= deleteIndex )
+						me.addParent( child, frozen );
+				}
+	
+				frozen[i] = child;
+			});
+	
+			// Prepare the new nodes
+			if( args.length > 1 ){
+				for (var i = args.length - 1; i >= 2; i--) {
+					child = args[i];
+					con = child && child.constructor;
+	
+					if( con == Array || con == Object )
+						child = this.freeze( child, notify );
+	
+					if( child && child.__ )
+						this.addParent( child, frozen );
+	
+					args[i] = child;
+				}
+			}
+	
+			// splice
+			Array.prototype.splice.apply( frozen, args );
+	
+			Object.freeze( frozen );
+			this.refreshParents( node, frozen );
+	
+			return frozen;
+		},
+	
+		refresh: function( node, oldChild, newChild, returnUpdated ){
+			var me = this,
+				frozen = this.copyMeta( node ),
+				__
+			;
+	
+			Utils.each( node, function( child, key ){
+				if( child == oldChild ){
+					child = newChild;
+				}
+	
+				if( child && (__ = child.__) ){
+					if( __.dirty ){
+						child = me.refresh( child, __.dirty[0], __.dirty[1], true );
+					}
+	
+					me.removeParent( child, node );
+					me.addParent( child, frozen );
+				}
+	
+				frozen[ key ] = child;
+			});
+	
+			Object.freeze( frozen );
+	
+			// If the node was dirty, clean it
+			node.__.dirty = false;
+	
+			if( returnUpdated )
+				return frozen;
+	
+			this.refreshParents( node, frozen );
+		},
+	
+		fixChildren: function( node, oldNode ){
+			var me = this;
+			Utils.each( node, function( child ){
+				if( !child || !child.__ )
+					return;
+	
+				// If the child is linked to the node,
+				// maybe its children are not linked
+				if( child.__.parents.indexOf( node ) != -1 )
+					return me.fixChildren( child );
+	
+				// If the child wasn't linked it is sure
+				// that it wasn't modified. Just link it
+				// to the new parent
+				if( child.__.parents.length == 1 )
+					return child.__.parents = [ node ];
+	
+				if( oldNode )
+					me.removeParent( child, oldNode );
+	
+				me.addParent( node );
+			});
+		},
+	
+		clean: function( node ){
+			return this.refresh( node, __.dirty[0], __.dirty[1], true );
+		},
+	
+		copyMeta: function( node ){
+			var me = this,
+				frozen
+			;
+	
+			if( node.constructor == Array ){
+				frozen = this.createArray( node.length );
+			}
+			else {
+				frozen = Object.create( Mixins.Hash );
+			}
+	
+			var __ = node.__;
+			Utils.addNE( frozen, {__: {
+				notify: __.notify,
+				listener: __.listener,
+				parents: __.parents.slice( 0 ),
+				dirty: false
+			}});
+	
+			return frozen;
+		},
+	
+		refreshParents: function( oldChild, newChild ){
+			var __ = oldChild.__,
+				i
+			;
+	
+			if( __.listener )
+				this.trigger( newChild, 'update', newChild );
+	
+			if( !__.parents.length ){
+				if( __.listener ){
+					__.listener.trigger( 'immediate', oldChild, newChild );
+				}
+			}
+			else {
+				for (i = __.parents.length - 1; i >= 0; i--) {
+					if( i == 0 )
+						this.refresh( __.parents[i], oldChild, newChild, false );
+					else
+						this.markDirty( __.parents[i], [oldChild, newChild] );
+				}
+			}
+		},
+	
+		markDirty: function( node, dirt ){
+			var __ = node.__,
+				i
+			;
+			__.dirty = dirt;
+	
+			for ( i = __.parents.length - 1; i >= 0; i-- ) {
+				this.markDirty( __.parents[i], dirt );
+			}
+		},
+	
+		removeParent: function( node, parent ){
+			var parents = node.__.parents,
+				index = parents.indexOf( parent )
+			;
+	
+			if( index != -1 ){
+				parents.splice( index, 1 );
+			}
+		},
+	
+		addParent: function( node, parent ){
+			var parents = node.__.parents,
+				index = parents.indexOf( parent )
+			;
+	
+			if( index == -1 ){
+				parents[ parents.length ] = parent;
+			}
+		},
+	
+		trigger: function( node, eventName, param ){
+			var listener = node.__.listener,
+				ticking = listener.ticking
+			;
+	
+			listener.ticking = param;
+			if( !ticking ){
+				Utils.nextTick( function(){
+					var updated = listener.ticking;
+					listener.ticking = false;
+					listener.trigger( eventName, updated );
+				});
+			}
+		},
+	
+		createListener: function( frozen ){
+			var l = frozen.__.listener;
+	
+			if( !l ) {
+				l = Object.create(Emitter, {
+					_events: {
+						value: {},
+						writable: true
+					}
+				});
+	
+				frozen.__.listener = l;
+			}
+	
+			return l;
+		},
+	
+		createArray: (function(){
+			// Set createArray method
+			if( [].__proto__ )
+				return function( length ){
+					var arr = new Array( length );
+					arr.__proto__ = Mixins.List;
+					return arr;
+				}
+			return function( length ){
+				var arr = new Array( length ),
+					methods = Mixins.arrayMethods
+				;
+				for( var m in methods ){
+					arr[ m ] = methods[ m ];
+				}
+				return arr;
+			}
+		})()
+	};
+	//#build
+	
+	module.exports = Frozen;
+
+/***/ },
+/* 98 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var Utils = __webpack_require__( 95 );
+	
+	//#build
+	
+	// The prototype methods are stored in a different object
+	// and applied as non enumerable properties later
+	var emitterProto = {
+		on: function( eventName, listener, once ){
+			var listeners = this._events[ eventName ] || [];
+	
+			listeners.push({ callback: listener, once: once});
+			this._events[ eventName ] =  listeners;
+	
+			return this;
+		},
+	
+		once: function( eventName, listener ){
+			this.on( eventName, listener, true );
+		},
+	
+		off: function( eventName, listener ){
+			if( typeof eventName == 'undefined' ){
+				this._events = {};
+			}
+			else if( typeof listener == 'undefined' ) {
+				this._events[ eventName ] = [];
+			}
+			else {
+				var listeners = this._events[ eventName ] || [],
+					i
+				;
+	
+				for (i = listeners.length - 1; i >= 0; i--) {
+					if( listeners[i] === listener )
+						listeners.splice( i, 1 );
+				}
+			}
+	
+			return this;
+		},
+	
+		trigger: function( eventName ){
+			var args = [].slice.call( arguments, 1 ),
+				listeners = this._events[ eventName ] || [],
+				onceListeners = [],
+				i, listener
+			;
+	
+			// Call listeners
+			for (i = 0; i < listeners.length; i++) {
+				listener = listeners[i];
+	
+				if( listener.callback )
+					listener.callback.apply( null, args );
+				else {
+					// If there is not a callback, remove!
+					listener.once = true;
+				}
+	
+				if( listener.once )
+					onceListeners.push( i );
+			}
+	
+			// Remove listeners marked as once
+			for( i = onceListeners.length - 1; i >= 0; i-- ){
+				listeners.splice( onceListeners[i], 1 );
+			}
+	
+			return this;
+		}
+	};
+	
+	// Methods are not enumerable so, when the stores are
+	// extended with the emitter, they can be iterated as
+	// hashmaps
+	var Emitter = Utils.createNonEnumerable( emitterProto );
+	//#build
+	
+	module.exports = Emitter;
+
+/***/ }
+/******/ ]);
 //# sourceMappingURL=react-stockcharts-docs-core.js.map
