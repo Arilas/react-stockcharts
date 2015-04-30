@@ -554,8 +554,8 @@ return webpackJsonpReStock([1,2],[
 	'use strict';
 	
 	// common components
-	exports.ChartCanvas = __webpack_require__(58);
-	exports.DataTransform = __webpack_require__(57);
+	exports.ChartCanvas = __webpack_require__(57);
+	exports.DataTransform = __webpack_require__(58);
 	
 	exports.XAxis = __webpack_require__(59);
 	exports.YAxis = __webpack_require__(60);
@@ -566,10 +566,10 @@ return webpackJsonpReStock([1,2],[
 	exports.AreaSeries = __webpack_require__(63);
 	exports.LineSeries = __webpack_require__(64);
 	exports.CandlestickSeries = __webpack_require__(65);
-	exports.OverlaySeries = __webpack_require__(68);
-	exports.HistogramSeries = __webpack_require__(66);
+	exports.OverlaySeries = __webpack_require__(66);
+	exports.HistogramSeries = __webpack_require__(67);
 	// interaction components
-	exports.EventCapture = __webpack_require__(67);
+	exports.EventCapture = __webpack_require__(68);
 	exports.MouseCoordinates = __webpack_require__(69);
 	exports.CrossHair = __webpack_require__(70);
 	exports.VerticalMousePointer = __webpack_require__(71);
@@ -608,6 +608,80 @@ return webpackJsonpReStock([1,2],[
 
 /***/ },
 /* 57 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(1);
+	// var TestUtils = React.addons.TestUtils;
+	
+	var Chart = __webpack_require__(61);
+	var EventCaptureMixin = __webpack_require__(79);
+	var ChartContainerMixin = __webpack_require__(80);
+	
+	var ChartCanvas = React.createClass({displayName: "ChartCanvas",
+		mixins: [ChartContainerMixin, EventCaptureMixin],
+		propTypes: {
+			width: React.PropTypes.number.isRequired
+			, height: React.PropTypes.number.isRequired
+			, margin: React.PropTypes.object
+			, interval: React.PropTypes.string.isRequired
+		},
+		getAvailableHeight:function(props) {
+			return props.height - props.margin.top - props.margin.bottom;
+		},
+		getAvailableWidth:function(props) {
+			return props.width - props.margin.left - props.margin.right;
+		},
+		getInitialState:function() {
+			return {};
+		},
+		getDefaultProps:function() {
+			return {
+				margin: {top: 20, right: 30, bottom: 30, left: 80},
+				interval: "D"
+			};
+		},
+		renderChildren:function() {
+	
+			var children = React.Children.map(this.props.children, function(child)  {
+				if (typeof child.type === 'string') return child;
+				var newChild = child;
+				if ('ReStock.DataTransform' === newChild.props.namespace) {
+					newChild = React.addons.cloneWithProps(newChild, {
+						data: this.props.data,
+						interval: this.props.interval
+					});
+				}
+				return React.addons.cloneWithProps(newChild, {
+					_width: this.getAvailableWidth(this.props)
+					, _height: this.getAvailableHeight(this.props)
+				});
+			}.bind(this));
+			return this._renderChildren(children);
+		},
+		render:function() {
+	
+			var transform = 'translate(' + this.props.margin.left + ',' +  this.props.margin.top + ')';
+			var clipPath = '<clipPath id="chart-area-clip">'
+								+ '<rect x="0" y="0" width="' + this.getAvailableWidth(this.props) + '" height="' + this.getAvailableHeight(this.props) + '" />'
+							+ '</clipPath>';
+	
+			var children = this.renderChildren();
+	
+			return (
+				React.createElement("svg", {width: this.props.width, height: this.props.height}, 
+					React.createElement("defs", {dangerouslySetInnerHTML: { __html: clipPath}}), 
+					React.createElement("g", {transform: transform}, children)
+				)
+			);
+		}
+	});
+	
+	module.exports = ChartCanvas;
+
+
+/***/ },
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -680,80 +754,6 @@ return webpackJsonpReStock([1,2],[
 	});
 	
 	module.exports = DataTransform;
-
-
-/***/ },
-/* 58 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var React = __webpack_require__(1);
-	// var TestUtils = React.addons.TestUtils;
-	
-	var Chart = __webpack_require__(61);
-	var EventCaptureMixin = __webpack_require__(79);
-	var ChartContainerMixin = __webpack_require__(80);
-	
-	var ChartCanvas = React.createClass({displayName: "ChartCanvas",
-		mixins: [ChartContainerMixin, EventCaptureMixin],
-		propTypes: {
-			width: React.PropTypes.number.isRequired
-			, height: React.PropTypes.number.isRequired
-			, margin: React.PropTypes.object
-			, interval: React.PropTypes.string.isRequired
-		},
-		getAvailableHeight:function(props) {
-			return props.height - props.margin.top - props.margin.bottom;
-		},
-		getAvailableWidth:function(props) {
-			return props.width - props.margin.left - props.margin.right;
-		},
-		getInitialState:function() {
-			return {};
-		},
-		getDefaultProps:function() {
-			return {
-				margin: {top: 20, right: 30, bottom: 30, left: 80},
-				interval: "D"
-			};
-		},
-		renderChildren:function() {
-	
-			var children = React.Children.map(this.props.children, function(child)  {
-				if (typeof child.type === 'string') return child;
-				var newChild = child;
-				if ('ReStock.DataTransform' === newChild.props.namespace) {
-					newChild = React.addons.cloneWithProps(newChild, {
-						data: this.props.data,
-						interval: this.props.interval
-					});
-				}
-				return React.addons.cloneWithProps(newChild, {
-					_width: this.getAvailableWidth(this.props)
-					, _height: this.getAvailableHeight(this.props)
-				});
-			}.bind(this));
-			return this._renderChildren(children);
-		},
-		render:function() {
-	
-			var transform = 'translate(' + this.props.margin.left + ',' +  this.props.margin.top + ')';
-			var clipPath = '<clipPath id="chart-area-clip">'
-								+ '<rect x="0" y="0" width="' + this.getAvailableWidth(this.props) + '" height="' + this.getAvailableHeight(this.props) + '" />'
-							+ '</clipPath>';
-	
-			var children = this.renderChildren();
-	
-			return (
-				React.createElement("svg", {width: this.props.width, height: this.props.height}, 
-					React.createElement("defs", {dangerouslySetInnerHTML: { __html: clipPath}}), 
-					React.createElement("g", {transform: transform}, children)
-				)
-			);
-		}
-	});
-	
-	module.exports = ChartCanvas;
 
 
 /***/ },
@@ -1576,6 +1576,106 @@ return webpackJsonpReStock([1,2],[
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	
+	var React = __webpack_require__(1),
+		PureRenderMixin = __webpack_require__(83),
+		Utils = __webpack_require__(86),
+		OverlayUtils = __webpack_require__(85);
+	
+	var OverlaySeries = React.createClass({displayName: "OverlaySeries",
+		//namespace: "ReStock.OverlaySeries",
+		mixins: [PureRenderMixin],
+		/*shouldComponentUpdate(nextProps, nextState) {
+			return false;
+		},*/
+		propTypes: {
+			_xScale: React.PropTypes.func.isRequired,
+			_yScale: React.PropTypes.func.isRequired,
+			_xAccessor: React.PropTypes.func.isRequired,
+			// _yAccessor: React.PropTypes.func.isRequired,
+			_overlay: React.PropTypes.object.isRequired,
+			data: React.PropTypes.array.isRequired,
+			type: React.PropTypes.oneOf(['sma', 'ema']),
+			options: React.PropTypes.object.isRequired,
+			id: React.PropTypes.number.isRequired,
+			stroke: React.PropTypes.string
+		},
+		getDefaultProps:function() {
+			return {
+				namespace: "ReStock.OverlaySeries"
+			};
+		},/*
+		componentWillMount: function () {
+			var overlay = {
+				id: newChild.props.id,
+				yAccessor: OverlayUtils.getYAccessor(newChild.props),
+				options: newChild.props.options,
+				type: newChild.props.type,
+				tooltipLabel: OverlayUtils.getToolTipLabel(newChild.props),
+				stroke: newChild.stroke || overlayColors(newChild.props.id)
+			};
+		},*/
+		componentWillUnMount:function() {
+			console.log('componentWillUnMount');
+			console.log('componentWillUnMount');
+			console.log('componentWillUnMount');
+			console.log('componentWillUnMount');
+			console.log('componentWillUnMount');
+			// unregister self
+			this.props._overlay.set(null);
+		},
+		componentWillReceiveProps:function(nextProps) {
+			// if things change reset the overlay TODO
+	
+			// if optinos have changed - update the options
+			if (this.props.options !== nextProps.options) {
+				console.log('updating props.....');
+				// var overlay = this.props._overlays[key];
+				this.props._overlay.set('options', nextProps.options);
+			}
+		},
+		renderChildren:function() {
+			return React.Children.map(this.props.children, function(child)  {
+				var newChild = child;
+	
+				if (typeof child.type === 'string') return newChild;
+	
+				if (/Series$/.test(newChild.props.namespace)) {
+					newChild = React.addons.cloneWithProps(newChild, {
+						_xScale: this.props._xScale,
+						_yScale: this.props._yScale,
+						_xAccessor: (this.props.xAccessor || this.props._xAccessor),
+						_yAccessor: this.props._overlay.yAccessor,
+						data: this.props.data,
+						stroke: this.props._overlay.stroke,
+						className: "overlay"
+					});
+				}
+				return newChild;
+			}.bind(this), this);
+		},
+		render:function() {
+			// console.log('OverlaySeries.render');
+			if (this.props._overlay.yAccessor === undefined) return null;
+			if (this.props._pan && this.props._isMainChart) {
+				return React.createElement("g", null)
+			}
+			return (
+				React.createElement("g", null, this.renderChildren())
+			);
+		}
+	});
+	
+	module.exports = OverlaySeries;
+	
+	//
+
+
+/***/ },
+/* 67 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
 	var React = __webpack_require__(1),
 		d3 = __webpack_require__(2),
 		PureRenderMixin = __webpack_require__(83);
@@ -1666,7 +1766,7 @@ return webpackJsonpReStock([1,2],[
 	*/
 
 /***/ },
-/* 67 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1827,106 +1927,6 @@ return webpackJsonpReStock([1,2],[
 	/*				
 	
 	*/
-
-/***/ },
-/* 68 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(1),
-		PureRenderMixin = __webpack_require__(83),
-		Utils = __webpack_require__(86),
-		OverlayUtils = __webpack_require__(85);
-	
-	var OverlaySeries = React.createClass({displayName: "OverlaySeries",
-		//namespace: "ReStock.OverlaySeries",
-		mixins: [PureRenderMixin],
-		/*shouldComponentUpdate(nextProps, nextState) {
-			return false;
-		},*/
-		propTypes: {
-			_xScale: React.PropTypes.func.isRequired,
-			_yScale: React.PropTypes.func.isRequired,
-			_xAccessor: React.PropTypes.func.isRequired,
-			// _yAccessor: React.PropTypes.func.isRequired,
-			_overlay: React.PropTypes.object.isRequired,
-			data: React.PropTypes.array.isRequired,
-			type: React.PropTypes.oneOf(['sma', 'ema']),
-			options: React.PropTypes.object.isRequired,
-			id: React.PropTypes.number.isRequired,
-			stroke: React.PropTypes.string
-		},
-		getDefaultProps:function() {
-			return {
-				namespace: "ReStock.OverlaySeries"
-			};
-		},/*
-		componentWillMount: function () {
-			var overlay = {
-				id: newChild.props.id,
-				yAccessor: OverlayUtils.getYAccessor(newChild.props),
-				options: newChild.props.options,
-				type: newChild.props.type,
-				tooltipLabel: OverlayUtils.getToolTipLabel(newChild.props),
-				stroke: newChild.stroke || overlayColors(newChild.props.id)
-			};
-		},*/
-		componentWillUnMount:function() {
-			console.log('componentWillUnMount');
-			console.log('componentWillUnMount');
-			console.log('componentWillUnMount');
-			console.log('componentWillUnMount');
-			console.log('componentWillUnMount');
-			// unregister self
-			this.props._overlay.set(null);
-		},
-		componentWillReceiveProps:function(nextProps) {
-			// if things change reset the overlay TODO
-	
-			// if optinos have changed - update the options
-			if (this.props.options !== nextProps.options) {
-				console.log('updating props.....');
-				// var overlay = this.props._overlays[key];
-				this.props._overlay.set('options', nextProps.options);
-			}
-		},
-		renderChildren:function() {
-			return React.Children.map(this.props.children, function(child)  {
-				var newChild = child;
-	
-				if (typeof child.type === 'string') return newChild;
-	
-				if (/Series$/.test(newChild.props.namespace)) {
-					newChild = React.addons.cloneWithProps(newChild, {
-						_xScale: this.props._xScale,
-						_yScale: this.props._yScale,
-						_xAccessor: (this.props.xAccessor || this.props._xAccessor),
-						_yAccessor: this.props._overlay.yAccessor,
-						data: this.props.data,
-						stroke: this.props._overlay.stroke,
-						className: "overlay"
-					});
-				}
-				return newChild;
-			}.bind(this), this);
-		},
-		render:function() {
-			// console.log('OverlaySeries.render');
-			if (this.props._overlay.yAccessor === undefined) return null;
-			if (this.props._pan && this.props._isMainChart) {
-				return React.createElement("g", null)
-			}
-			return (
-				React.createElement("g", null, this.renderChildren())
-			);
-		}
-	});
-	
-	module.exports = OverlaySeries;
-	
-	//
-
 
 /***/ },
 /* 69 */
@@ -2593,7 +2593,7 @@ return webpackJsonpReStock([1,2],[
 
 	"use strict";
 	var React = __webpack_require__(1);
-	var EventCapture = __webpack_require__(67);
+	var EventCapture = __webpack_require__(68);
 	var MouseCoordinates = __webpack_require__(69);
 	var Utils = __webpack_require__(86);
 	
@@ -3602,7 +3602,7 @@ return webpackJsonpReStock([1,2],[
 
 	"use strict";
 	
-	var shallowEqual = __webpack_require__(92);
+	var shallowEqual = __webpack_require__(93);
 	
 	/**
 	 * If your React component's render function is "pure", e.g. it will render the
@@ -3936,7 +3936,7 @@ return webpackJsonpReStock([1,2],[
 	'use strict';
 	
 	var StockScaleTransformer = __webpack_require__(91);
-	var HeikinAshiTransformer = __webpack_require__(93);
+	var HeikinAshiTransformer = __webpack_require__(92);
 	
 	var ChartTransformer = {
 		getTransformerFor:function(type) {
@@ -4173,54 +4173,6 @@ return webpackJsonpReStock([1,2],[
 /* 92 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/**
-	 * Copyright 2013-2014, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule shallowEqual
-	 */
-	
-	"use strict";
-	
-	/**
-	 * Performs equality by iterating through keys on an object and returning
-	 * false when any key has values which are not strictly equal between
-	 * objA and objB. Returns true when the values of all keys are strictly equal.
-	 *
-	 * @return {boolean}
-	 */
-	function shallowEqual(objA, objB) {
-	  if (objA === objB) {
-	    return true;
-	  }
-	  var key;
-	  // Test for A's keys different from B.
-	  for (key in objA) {
-	    if (objA.hasOwnProperty(key) &&
-	        (!objB.hasOwnProperty(key) || objA[key] !== objB[key])) {
-	      return false;
-	    }
-	  }
-	  // Test for B's keys missing from A.
-	  for (key in objB) {
-	    if (objB.hasOwnProperty(key) && !objA.hasOwnProperty(key)) {
-	      return false;
-	    }
-	  }
-	  return true;
-	}
-	
-	module.exports = shallowEqual;
-
-
-/***/ },
-/* 93 */
-/***/ function(module, exports, __webpack_require__) {
-
 	'use strict';
 	
 	var excludeList = ['transformType', 'options', 'children', 'namespace'];
@@ -4296,15 +4248,63 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
+/* 93 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-2014, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule shallowEqual
+	 */
+	
+	"use strict";
+	
+	/**
+	 * Performs equality by iterating through keys on an object and returning
+	 * false when any key has values which are not strictly equal between
+	 * objA and objB. Returns true when the values of all keys are strictly equal.
+	 *
+	 * @return {boolean}
+	 */
+	function shallowEqual(objA, objB) {
+	  if (objA === objB) {
+	    return true;
+	  }
+	  var key;
+	  // Test for A's keys different from B.
+	  for (key in objA) {
+	    if (objA.hasOwnProperty(key) &&
+	        (!objB.hasOwnProperty(key) || objA[key] !== objB[key])) {
+	      return false;
+	    }
+	  }
+	  // Test for B's keys missing from A.
+	  for (key in objB) {
+	    if (objB.hasOwnProperty(key) && !objA.hasOwnProperty(key)) {
+	      return false;
+	    }
+	  }
+	  return true;
+	}
+	
+	module.exports = shallowEqual;
+
+
+/***/ },
 /* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Utils = __webpack_require__( 98 ),
-		Emitter = __webpack_require__( 95 ),
-		Mixins = __webpack_require__( 96 ),
-		Frozen = __webpack_require__( 97 )
+	var Utils = __webpack_require__( 95 ),
+		Emitter = __webpack_require__( 96 ),
+		Mixins = __webpack_require__( 97 ),
+		Frozen = __webpack_require__( 98 )
 	;
 	
 	//#build
@@ -4378,7 +4378,119 @@ return webpackJsonpReStock([1,2],[
 
 	'use strict';
 	
-	var Utils = __webpack_require__( 98 );
+	//#build
+	var global = (new Function("return this")());
+	
+	var Utils = {
+		extend: function( ob, props ){
+			for( var p in props ){
+				ob[p] = props[p];
+			}
+			return ob;
+		},
+	
+		createNonEnumerable: function( obj, proto ){
+			var ne = {};
+			for( var key in obj )
+				ne[key] = {value: obj[key] };
+			return Object.create( proto || {}, ne );
+		},
+	
+		error: function( message ){
+			var err = new Error( message );
+			if( console )
+				return console.error( err );
+			else
+				throw err;
+		},
+	
+		each: function( o, clbk ){
+			var i,l,keys;
+			if( o && o.constructor == Array ){
+				for (i = 0, l = o.length; i < l; i++)
+					clbk( o[i], i );
+			}
+			else {
+				keys = Object.keys( o );
+				for( i = 0, l = keys.length; i < l; i++ )
+					clbk( o[ keys[i] ], keys[i] );
+			}
+		},
+	
+		addNE: function( node, attrs ){
+			for( var key in attrs ){
+				Object.defineProperty( node, key, {
+					enumerable: false,
+					configurable: true,
+					writable: true,
+					value: attrs[ key ]
+				});
+			}
+		},
+	
+		// nextTick - by stagas / public domain
+	  	nextTick: (function () {
+	      var queue = [],
+				dirty = false,
+				fn,
+				hasPostMessage = !!global.postMessage,
+				messageName = 'nexttick',
+				trigger = (function () {
+					return hasPostMessage
+						? function trigger () {
+						global.postMessage(messageName, '*');
+					}
+					: function trigger () {
+						setTimeout(function () { processQueue() }, 0);
+					};
+				}()),
+				processQueue = (function () {
+					return hasPostMessage
+						? function processQueue (event) {
+							if (event.source === global && event.data === messageName) {
+								event.stopPropagation();
+								flushQueue();
+							}
+						}
+						: flushQueue;
+	      	})()
+	      ;
+	
+	      function flushQueue () {
+	          while (fn = queue.shift()) {
+	              fn();
+	          }
+	          dirty = false;
+	      }
+	
+	      function nextTick (fn) {
+	          queue.push(fn);
+	          if (dirty) return;
+	          dirty = true;
+	          trigger();
+	      }
+	
+	      if (hasPostMessage) global.addEventListener('message', processQueue, true);
+	
+	      nextTick.removeListener = function () {
+	          global.removeEventListener('message', processQueue, true);
+	      }
+	
+	      return nextTick;
+	  })()
+	};
+	//#build
+	
+	
+	module.exports = Utils;
+
+/***/ },
+/* 96 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var Utils = __webpack_require__( 95 );
 	
 	//#build
 	
@@ -4459,12 +4571,12 @@ return webpackJsonpReStock([1,2],[
 	module.exports = Emitter;
 
 /***/ },
-/* 96 */
+/* 97 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Utils = __webpack_require__( 98 );
+	var Utils = __webpack_require__( 95 );
 	
 	//#build
 	
@@ -4601,14 +4713,14 @@ return webpackJsonpReStock([1,2],[
 	module.exports = Mixins;
 
 /***/ },
-/* 97 */
+/* 98 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Utils = __webpack_require__( 98 ),
-		Mixins = __webpack_require__( 96),
-		Emitter = __webpack_require__(95)
+	var Utils = __webpack_require__( 95 ),
+		Mixins = __webpack_require__( 97),
+		Emitter = __webpack_require__(96)
 	;
 	
 	//#build
@@ -5036,118 +5148,6 @@ return webpackJsonpReStock([1,2],[
 	//#build
 	
 	module.exports = Frozen;
-
-/***/ },
-/* 98 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	//#build
-	var global = (new Function("return this")());
-	
-	var Utils = {
-		extend: function( ob, props ){
-			for( var p in props ){
-				ob[p] = props[p];
-			}
-			return ob;
-		},
-	
-		createNonEnumerable: function( obj, proto ){
-			var ne = {};
-			for( var key in obj )
-				ne[key] = {value: obj[key] };
-			return Object.create( proto || {}, ne );
-		},
-	
-		error: function( message ){
-			var err = new Error( message );
-			if( console )
-				return console.error( err );
-			else
-				throw err;
-		},
-	
-		each: function( o, clbk ){
-			var i,l,keys;
-			if( o && o.constructor == Array ){
-				for (i = 0, l = o.length; i < l; i++)
-					clbk( o[i], i );
-			}
-			else {
-				keys = Object.keys( o );
-				for( i = 0, l = keys.length; i < l; i++ )
-					clbk( o[ keys[i] ], keys[i] );
-			}
-		},
-	
-		addNE: function( node, attrs ){
-			for( var key in attrs ){
-				Object.defineProperty( node, key, {
-					enumerable: false,
-					configurable: true,
-					writable: true,
-					value: attrs[ key ]
-				});
-			}
-		},
-	
-		// nextTick - by stagas / public domain
-	  	nextTick: (function () {
-	      var queue = [],
-				dirty = false,
-				fn,
-				hasPostMessage = !!global.postMessage,
-				messageName = 'nexttick',
-				trigger = (function () {
-					return hasPostMessage
-						? function trigger () {
-						global.postMessage(messageName, '*');
-					}
-					: function trigger () {
-						setTimeout(function () { processQueue() }, 0);
-					};
-				}()),
-				processQueue = (function () {
-					return hasPostMessage
-						? function processQueue (event) {
-							if (event.source === global && event.data === messageName) {
-								event.stopPropagation();
-								flushQueue();
-							}
-						}
-						: flushQueue;
-	      	})()
-	      ;
-	
-	      function flushQueue () {
-	          while (fn = queue.shift()) {
-	              fn();
-	          }
-	          dirty = false;
-	      }
-	
-	      function nextTick (fn) {
-	          queue.push(fn);
-	          if (dirty) return;
-	          dirty = true;
-	          trigger();
-	      }
-	
-	      if (hasPostMessage) global.addEventListener('message', processQueue, true);
-	
-	      nextTick.removeListener = function () {
-	          global.removeEventListener('message', processQueue, true);
-	      }
-	
-	      return nextTick;
-	  })()
-	};
-	//#build
-	
-	
-	module.exports = Utils;
 
 /***/ }
 ])
