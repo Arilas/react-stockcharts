@@ -17,10 +17,10 @@ return webpackJsonpReStock([1,2],[
 	var React = __webpack_require__(1);
 	var d3 = __webpack_require__(2);
 	
-	__webpack_require__(35);
-	__webpack_require__(33);
+	__webpack_require__(54);
+	__webpack_require__(52);
 	
-	var ReadME = __webpack_require__(37);
+	var ReadME = __webpack_require__(34);
 	
 	document.getElementById("content").innerHTML = ReadME;
 	
@@ -65,7 +65,7 @@ return webpackJsonpReStock([1,2],[
 	var React = __webpack_require__(1);
 	var d3 = __webpack_require__(2);
 	
-	var ReStock = __webpack_require__(57);
+	var ReStock = __webpack_require__(59);
 	
 	var ChartCanvas = ReStock.ChartCanvas
 		, XAxis = ReStock.XAxis
@@ -74,8 +74,8 @@ return webpackJsonpReStock([1,2],[
 		, DataTransform = ReStock.DataTransform
 		, Chart = ReStock.Chart
 		, DataSeries = ReStock.DataSeries
-		, ChartWidthMixin = __webpack_require__(54)
-		, InitialStateMixin = __webpack_require__(55)
+		, ChartWidthMixin = __webpack_require__(57)
+		, InitialStateMixin = __webpack_require__(56)
 		, HistogramSeries = ReStock.HistogramSeries
 		, EventCapture = ReStock.EventCapture
 		, MouseCoordinates = ReStock.MouseCoordinates
@@ -229,72 +229,16 @@ return webpackJsonpReStock([1,2],[
 /* 30 */,
 /* 31 */,
 /* 32 */,
-/* 33 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(34);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(56)(content, {});
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		module.hot.accept("!!/c/Ragu/Work/GC/opensource/react-stockcharts/node_modules/css-loader/index.js!/c/Ragu/Work/GC/opensource/react-stockcharts/node_modules/autoprefixer-loader/index.js!/c/Ragu/Work/GC/opensource/react-stockcharts/node_modules/sass-loader/index.js?outputStyle=expanded!/c/Ragu/Work/GC/opensource/react-stockcharts/docs/stylesheets/re-stock.scss", function() {
-			var newContent = require("!!/c/Ragu/Work/GC/opensource/react-stockcharts/node_modules/css-loader/index.js!/c/Ragu/Work/GC/opensource/react-stockcharts/node_modules/autoprefixer-loader/index.js!/c/Ragu/Work/GC/opensource/react-stockcharts/node_modules/sass-loader/index.js?outputStyle=expanded!/c/Ragu/Work/GC/opensource/react-stockcharts/docs/stylesheets/re-stock.scss");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
+/* 33 */,
 /* 34 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(58)();
-	exports.push([module.id, "/* Move down content because we have a fixed navbar that is 50px tall */\n/*! normalize.css v3.0.2 | MIT License | git.io/normalize */\n/* #MainContainer {\n   position: fixed;\n   top: 50px;\n   padding-left: 100px;\n} */\naside table {\n  border: 1;\n  border-spacing: 1px;\n  border-collapse: collapse;\n  max-width: 100%;\n  margin-bottom: 20px; }\n  aside table tbody > tr > td, aside table tbody > tr > th, aside table tfoot > tr > td, aside table tfoot > tr > th, aside table thead > tr > td, aside table thead > tr > th {\n    padding: 8px;\n    line-height: 1.42857;\n    vertical-align: top;\n    border-top: 1px solid #DDD; }\n\na.button {\n  background: transparent url("+__webpack_require__(81)+") 0 0 no-repeat;\n  width: 203px;\n  height: 80px;\n  padding-left: 60px;\n  color: #fff !important; }\n  a.button small {\n    display: inline;\n    font-size: 13px;\n    margin-top: 15px; }\n\n.jumbotron {\n  background: steelblue;\n  padding: 0px;\n  color: white; }\n  .jumbotron a {\n    color: yellow; }\n\n.top-spacing {\n  padding-top: 10px; }\n\n.navbar {\n  background-color: steelblue; }\n  .navbar a {\n    color: white; }\n\n/*\n * Top navigation\n * Hide default border to remove 1px line.\n */\n.navbar-fixed-top {\n  border: 0; }\n\n/*\n * Sidebar\n */\n/* Hide for mobile, show later */\n.sidebar {\n  display: none; }\n\n@media (min-width: 768px) {\n  .sidebar {\n    position: fixed;\n    top: 51px;\n    bottom: 0;\n    left: 0;\n    z-index: 1000;\n    display: block;\n    padding: 20px;\n    overflow-x: hidden;\n    overflow-y: auto;\n    /* Scrollable contents if viewport is shorter than content. */\n    background-color: #f5f5f5;\n    border-right: 1px solid #eee; } }\n\n/* Sidebar navigation */\n.nav-sidebar {\n  margin-right: -21px;\n  /* 20px padding + 1px border */\n  margin-bottom: 20px;\n  margin-left: -20px; }\n  .nav-sidebar > li > a {\n    padding-right: 20px;\n    padding-left: 20px; }\n  .nav-sidebar > .active a, .nav-sidebar > .active a:hover, .nav-sidebar > .active a:focus {\n    color: #fff;\n    background-color: #428bca; }\n\n/*\n * Main content\n */\n.main {\n  padding: 20px; }\n\n@media (min-width: 768px) {\n  .main {\n    padding-right: 40px;\n    padding-left: 40px; } }\n\n.main .page-header {\n  margin-top: 0; }\n", ""]);
-
-/***/ },
-/* 35 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(36);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(56)(content, {});
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		module.hot.accept("!!/c/Ragu/Work/GC/opensource/react-stockcharts/node_modules/css-loader/index.js!/c/Ragu/Work/GC/opensource/react-stockcharts/node_modules/autoprefixer-loader/index.js!/c/Ragu/Work/GC/opensource/react-stockcharts/node_modules/sass-loader/index.js?outputStyle=expanded!/c/Ragu/Work/GC/opensource/react-stockcharts/src/styles/react-stockcharts.scss", function() {
-			var newContent = require("!!/c/Ragu/Work/GC/opensource/react-stockcharts/node_modules/css-loader/index.js!/c/Ragu/Work/GC/opensource/react-stockcharts/node_modules/autoprefixer-loader/index.js!/c/Ragu/Work/GC/opensource/react-stockcharts/node_modules/sass-loader/index.js?outputStyle=expanded!/c/Ragu/Work/GC/opensource/react-stockcharts/src/styles/react-stockcharts.scss");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 36 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(58)();
-	exports.push([module.id, "body {\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  font-size: 13px; }\n\n.react-stockchart .axis path, .react-stockchart .axis line {\n  fill: none;\n  stroke: #000000; }\n.react-stockchart .current-coordinate {\n  fill: none;\n  stroke: steelblue;\n  stroke-width: 3px; }\n.react-stockchart .grid.axis path, .react-stockchart .grid.axis line {\n  fill: none;\n  stroke: #000000;\n  shape-rendering: crispEdges;\n  opacity: 0.2; }\n.react-stockchart .y.axis path {\n  display: none; }\n.react-stockchart .candle .up {\n  fill: #6BA583;\n  stroke: #6BA583;\n  stroke-width: 1px;\n  shape-rendering: crispEdges; }\n.react-stockchart .candle .down {\n  fill: #ff0000;\n  stroke: #ff0000;\n  stroke-width: 1px;\n  shape-rendering: crispEdges; }\n.react-stockchart .candle line {\n  stroke: #000000; }\n.react-stockchart .wick .up, .react-stockchart .wick .down {\n  stroke: #000000;\n  stroke-width: 1px;\n  shape-rendering: crispEdges; }\n.react-stockchart .line {\n  fill: none;\n  stroke-width: 1px; }\n.react-stockchart .line-stroke {\n  shape-rendering: crispEdges;\n  stroke: steelblue; }\n.react-stockchart .overlay-stroke {\n  stroke: steelblue; }\n.react-stockchart .yin {\n  fill: none;\n  stroke: #ff0000;\n  stroke-width: 2px; }\n.react-stockchart .yang {\n  fill: none;\n  stroke: #6BA583;\n  stroke-width: 2px; }\n.react-stockchart .point_figure_up {\n  fill: none;\n  stroke: green;\n  stroke-width: 1px; }\n.react-stockchart .point_figure_down {\n  fill: none;\n  stroke: #ff0000;\n  stroke-width: 1px; }\n.react-stockchart .area {\n  fill: lightsteelblue;\n  opacity: 0.5; }\n.react-stockchart .backgroundText {\n  text-anchor: middle;\n  fill: #8a8a8a;\n  opacity: 0.15; }\n.react-stockchart .cross-hair {\n  stroke: #000000;\n  stroke-width: 1px;\n  shape-rendering: crispEdges;\n  opacity: 0.2; }\n.react-stockchart .horizontal2 .textbg {\n  opacity: 0.95;\n  fill: #f0e68c; }\n.react-stockchart .horizontal2 text {\n  fill: #757575; }\n.react-stockchart .horizontal3 .textbg {\n  opacity: 0.95;\n  fill: #000000; }\n.react-stockchart .horizontal3 text {\n  fill: #757575; }\n.react-stockchart .edge-coordinate .textbg {\n  opacity: 0.95; }\n.react-stockchart .edge-coordinate text {\n  fill: #ffffff; }\n.react-stockchart .vertical .textbg, .react-stockchart .horizontal .textbg {\n  opacity: 0.9;\n  fill: #8a8a8a; }\n.react-stockchart .vertical text, .react-stockchart .horizontal text {\n  fill: #ffffff; }\n.react-stockchart .grab {\n  cursor: grab;\n  cursor: -webkit-grab; }\n.react-stockchart .grabbing {\n  cursor: grabbing;\n  cursor: -webkit-grabbing; }\n.react-stockchart .crosshair {\n  cursor: crosshair; }\n.react-stockchart .toottip-hover {\n  pointer-events: all;\n  cursor: pointer; }\n.react-stockchart .histogram .bar {\n  fill: steelblue;\n  opacity: 0.3;\n  stroke: none; }\n.react-stockchart .histogram .up {\n  fill: #6BA583;\n  opacity: 0.3;\n  stroke: none; }\n.react-stockchart .histogram .down {\n  fill: #ff0000;\n  opacity: 0.3;\n  stroke: none; }\n.react-stockchart .histogram line.up {\n  stroke: #6BA583; }\n.react-stockchart .histogram line.down {\n  stroke: #ff0000; }\n.react-stockchart .ma-container rect {\n  fill: none;\n  stroke: none; }\n  .react-stockchart .ma-container rect:hover {\n    fill: #8a8a8a;\n    opacity: 0.3; }\n.react-stockchart .ma-container line {\n  stroke-width: 4px; }\n.react-stockchart .legend {\n  font-size: 11px; }\n  .react-stockchart .legend .tooltip-label {\n    fill: steelblue;\n    font-weight: bold; }\n", ""]);
-
-/***/ },
-/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = "<h1>React Stockcharts</h1>\n<p>Highly customizable stock charts built with <a href=\"http://facebook.github.io/react/\">React JS</a> and <a href=\"http://d3js.org/\">d3</a></p>\n";
 
 /***/ },
+/* 35 */,
+/* 36 */,
+/* 37 */,
 /* 38 */,
 /* 39 */,
 /* 40 */,
@@ -309,9 +253,81 @@ return webpackJsonpReStock([1,2],[
 /* 49 */,
 /* 50 */,
 /* 51 */,
-/* 52 */,
-/* 53 */,
+/* 52 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(53);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(58)(content, {});
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		module.hot.accept("!!/c/Ragu/Work/GC/opensource/react-stockcharts/node_modules/css-loader/index.js!/c/Ragu/Work/GC/opensource/react-stockcharts/node_modules/autoprefixer-loader/index.js!/c/Ragu/Work/GC/opensource/react-stockcharts/node_modules/sass-loader/index.js?outputStyle=expanded!/c/Ragu/Work/GC/opensource/react-stockcharts/docs/stylesheets/re-stock.scss", function() {
+			var newContent = require("!!/c/Ragu/Work/GC/opensource/react-stockcharts/node_modules/css-loader/index.js!/c/Ragu/Work/GC/opensource/react-stockcharts/node_modules/autoprefixer-loader/index.js!/c/Ragu/Work/GC/opensource/react-stockcharts/node_modules/sass-loader/index.js?outputStyle=expanded!/c/Ragu/Work/GC/opensource/react-stockcharts/docs/stylesheets/re-stock.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 53 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(60)();
+	exports.push([module.id, "/* Move down content because we have a fixed navbar that is 50px tall */\n/*! normalize.css v3.0.2 | MIT License | git.io/normalize */\n/* #MainContainer {\n   position: fixed;\n   top: 50px;\n   padding-left: 100px;\n} */\naside table {\n  border: 1;\n  border-spacing: 1px;\n  border-collapse: collapse;\n  max-width: 100%;\n  margin-bottom: 20px; }\n  aside table tbody > tr > td, aside table tbody > tr > th, aside table tfoot > tr > td, aside table tfoot > tr > th, aside table thead > tr > td, aside table thead > tr > th {\n    padding: 8px;\n    line-height: 1.42857;\n    vertical-align: top;\n    border-top: 1px solid #DDD; }\n\na.button {\n  background: transparent url("+__webpack_require__(84)+") 0 0 no-repeat;\n  width: 203px;\n  height: 80px;\n  padding-left: 60px;\n  color: #fff !important; }\n  a.button small {\n    display: inline;\n    font-size: 13px;\n    margin-top: 15px; }\n\n.jumbotron {\n  background: steelblue;\n  padding: 0px;\n  color: white; }\n  .jumbotron a {\n    color: yellow; }\n\n.top-spacing {\n  padding-top: 10px; }\n\n.navbar {\n  background-color: steelblue; }\n  .navbar a {\n    color: white; }\n\n/*\n * Top navigation\n * Hide default border to remove 1px line.\n */\n.navbar-fixed-top {\n  border: 0; }\n\n/*\n * Sidebar\n */\n/* Hide for mobile, show later */\n.sidebar {\n  display: none; }\n\n@media (min-width: 768px) {\n  .sidebar {\n    position: fixed;\n    top: 51px;\n    bottom: 0;\n    left: 0;\n    z-index: 1000;\n    display: block;\n    padding: 20px;\n    overflow-x: hidden;\n    overflow-y: auto;\n    /* Scrollable contents if viewport is shorter than content. */\n    background-color: #f5f5f5;\n    border-right: 1px solid #eee; } }\n\n/* Sidebar navigation */\n.nav-sidebar {\n  margin-right: -21px;\n  /* 20px padding + 1px border */\n  margin-bottom: 20px;\n  margin-left: -20px; }\n  .nav-sidebar > li > a {\n    padding-right: 20px;\n    padding-left: 20px; }\n  .nav-sidebar > .active a, .nav-sidebar > .active a:hover, .nav-sidebar > .active a:focus {\n    color: #fff;\n    background-color: #428bca; }\n\n/*\n * Main content\n */\n.main {\n  padding: 20px; }\n\n@media (min-width: 768px) {\n  .main {\n    padding-right: 40px;\n    padding-left: 40px; } }\n\n.main .page-header {\n  margin-top: 0; }\n", ""]);
+
+/***/ },
 /* 54 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(55);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(58)(content, {});
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		module.hot.accept("!!/c/Ragu/Work/GC/opensource/react-stockcharts/node_modules/css-loader/index.js!/c/Ragu/Work/GC/opensource/react-stockcharts/node_modules/autoprefixer-loader/index.js!/c/Ragu/Work/GC/opensource/react-stockcharts/node_modules/sass-loader/index.js?outputStyle=expanded!/c/Ragu/Work/GC/opensource/react-stockcharts/src/styles/react-stockcharts.scss", function() {
+			var newContent = require("!!/c/Ragu/Work/GC/opensource/react-stockcharts/node_modules/css-loader/index.js!/c/Ragu/Work/GC/opensource/react-stockcharts/node_modules/autoprefixer-loader/index.js!/c/Ragu/Work/GC/opensource/react-stockcharts/node_modules/sass-loader/index.js?outputStyle=expanded!/c/Ragu/Work/GC/opensource/react-stockcharts/src/styles/react-stockcharts.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 55 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(60)();
+	exports.push([module.id, "body {\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  font-size: 13px; }\n\n.react-stockchart .axis path, .react-stockchart .axis line {\n  fill: none;\n  stroke: #000000; }\n.react-stockchart .current-coordinate {\n  fill: none;\n  stroke: steelblue;\n  stroke-width: 3px; }\n.react-stockchart .grid.axis path, .react-stockchart .grid.axis line {\n  fill: none;\n  stroke: #000000;\n  shape-rendering: crispEdges;\n  opacity: 0.2; }\n.react-stockchart .y.axis path {\n  display: none; }\n.react-stockchart .candle .up {\n  fill: #6BA583;\n  stroke: #6BA583;\n  stroke-width: 1px;\n  shape-rendering: crispEdges; }\n.react-stockchart .candle .down {\n  fill: #ff0000;\n  stroke: #ff0000;\n  stroke-width: 1px;\n  shape-rendering: crispEdges; }\n.react-stockchart .candle line {\n  stroke: #000000; }\n.react-stockchart .wick .up, .react-stockchart .wick .down {\n  stroke: #000000;\n  stroke-width: 1px;\n  shape-rendering: crispEdges; }\n.react-stockchart .line {\n  fill: none;\n  stroke-width: 1px; }\n.react-stockchart .line-stroke {\n  shape-rendering: crispEdges;\n  stroke: steelblue; }\n.react-stockchart .overlay-stroke {\n  stroke: steelblue; }\n.react-stockchart .yin {\n  fill: none;\n  stroke: #ff0000;\n  stroke-width: 2px; }\n.react-stockchart .yang {\n  fill: none;\n  stroke: #6BA583;\n  stroke-width: 2px; }\n.react-stockchart .point_figure_up {\n  fill: none;\n  stroke: green;\n  stroke-width: 1px; }\n.react-stockchart .point_figure_down {\n  fill: none;\n  stroke: #ff0000;\n  stroke-width: 1px; }\n.react-stockchart .area {\n  fill: lightsteelblue;\n  opacity: 0.5; }\n.react-stockchart .backgroundText {\n  text-anchor: middle;\n  fill: #8a8a8a;\n  opacity: 0.15; }\n.react-stockchart .cross-hair {\n  stroke: #000000;\n  stroke-width: 1px;\n  shape-rendering: crispEdges;\n  opacity: 0.2; }\n.react-stockchart .horizontal2 .textbg {\n  opacity: 0.95;\n  fill: #f0e68c; }\n.react-stockchart .horizontal2 text {\n  fill: #757575; }\n.react-stockchart .horizontal3 .textbg {\n  opacity: 0.95;\n  fill: #000000; }\n.react-stockchart .horizontal3 text {\n  fill: #757575; }\n.react-stockchart .edge-coordinate .textbg {\n  opacity: 0.95; }\n.react-stockchart .edge-coordinate text {\n  fill: #ffffff; }\n.react-stockchart .vertical .textbg, .react-stockchart .horizontal .textbg {\n  opacity: 0.9;\n  fill: #8a8a8a; }\n.react-stockchart .vertical text, .react-stockchart .horizontal text {\n  fill: #ffffff; }\n.react-stockchart .grab {\n  cursor: grab;\n  cursor: -webkit-grab; }\n.react-stockchart .grabbing {\n  cursor: grabbing;\n  cursor: -webkit-grabbing; }\n.react-stockchart .crosshair {\n  cursor: crosshair; }\n.react-stockchart .toottip-hover {\n  pointer-events: all;\n  cursor: pointer; }\n.react-stockchart .histogram .bar {\n  fill: steelblue;\n  opacity: 0.3;\n  stroke: none; }\n.react-stockchart .histogram .up {\n  fill: #6BA583;\n  opacity: 0.3;\n  stroke: none; }\n.react-stockchart .histogram .down {\n  fill: #ff0000;\n  opacity: 0.3;\n  stroke: none; }\n.react-stockchart .histogram line.up {\n  stroke: #6BA583; }\n.react-stockchart .histogram line.down {\n  stroke: #ff0000; }\n.react-stockchart .ma-container rect {\n  fill: none;\n  stroke: none; }\n  .react-stockchart .ma-container rect:hover {\n    fill: #8a8a8a;\n    opacity: 0.3; }\n.react-stockchart .ma-container line {\n  stroke-width: 4px; }\n.react-stockchart .legend {\n  font-size: 11px; }\n  .react-stockchart .legend .tooltip-label {\n    fill: steelblue;\n    font-weight: bold; }\n", ""]);
+
+/***/ },
+/* 56 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var InitialStateMixin = {
+		getInitialState:function() {
+			return {};
+		}
+	};
+	
+	module.exports = InitialStateMixin;
+
+/***/ },
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -340,21 +356,7 @@ return webpackJsonpReStock([1,2],[
 	module.exports = ChartWidthMixin;
 
 /***/ },
-/* 55 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var InitialStateMixin = {
-		getInitialState:function() {
-			return {};
-		}
-	};
-	
-	module.exports = InitialStateMixin;
-
-/***/ },
-/* 56 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -550,47 +552,47 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 57 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	// common components
-	exports.ChartCanvas = __webpack_require__(59);
-	exports.DataTransform = __webpack_require__(60);
+	exports.ChartCanvas = __webpack_require__(61);
+	exports.DataTransform = __webpack_require__(62);
 	
-	exports.XAxis = __webpack_require__(61);
-	exports.YAxis = __webpack_require__(62);
-	exports.Chart = __webpack_require__(63);
-	exports.DataSeries = __webpack_require__(64);
+	exports.XAxis = __webpack_require__(63);
+	exports.YAxis = __webpack_require__(64);
+	exports.Chart = __webpack_require__(65);
+	exports.DataSeries = __webpack_require__(66);
 	
 	// chart types & Series
-	exports.AreaSeries = __webpack_require__(65);
-	exports.LineSeries = __webpack_require__(66);
-	exports.CandlestickSeries = __webpack_require__(67);
-	exports.OverlaySeries = __webpack_require__(68);
-	exports.HistogramSeries = __webpack_require__(69);
-	exports.KagiSeries = __webpack_require__(70);
-	
+	exports.AreaSeries = __webpack_require__(67);
+	exports.LineSeries = __webpack_require__(68);
+	exports.CandlestickSeries = __webpack_require__(69);
+	exports.OverlaySeries = __webpack_require__(70);
+	exports.HistogramSeries = __webpack_require__(71);
+	exports.KagiSeries = __webpack_require__(72);
+	exports.PointAndFigureSeries = __webpack_require__(73);
 	// interaction components
-	exports.EventCapture = __webpack_require__(71);
-	exports.MouseCoordinates = __webpack_require__(72);
-	exports.CrossHair = __webpack_require__(73);
-	exports.VerticalMousePointer = __webpack_require__(74);
-	exports.CurrentCoordinate = __webpack_require__(75);
+	exports.EventCapture = __webpack_require__(74);
+	exports.MouseCoordinates = __webpack_require__(75);
+	exports.CrossHair = __webpack_require__(76);
+	exports.VerticalMousePointer = __webpack_require__(77);
+	exports.CurrentCoordinate = __webpack_require__(78);
 	
 	// Tooltips
-	exports.TooltipContainer = __webpack_require__(76);
-	exports.OHLCTooltip = __webpack_require__(77);
-	exports.MovingAverageTooltip = __webpack_require__(78);
+	exports.TooltipContainer = __webpack_require__(79);
+	exports.OHLCTooltip = __webpack_require__(80);
+	exports.MovingAverageTooltip = __webpack_require__(81);
 	
 	// misc
-	exports.EdgeContainer = __webpack_require__(79);
-	exports.EdgeIndicator = __webpack_require__(80);
+	exports.EdgeContainer = __webpack_require__(82);
+	exports.EdgeIndicator = __webpack_require__(83);
 
 
 /***/ },
-/* 58 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = function() {
@@ -611,16 +613,16 @@ return webpackJsonpReStock([1,2],[
 	}
 
 /***/ },
-/* 59 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(1);
 	// var TestUtils = React.addons.TestUtils;
 	
-	var Chart = __webpack_require__(63);
-	var EventCaptureMixin = __webpack_require__(82);
-	var ChartContainerMixin = __webpack_require__(83);
+	var Chart = __webpack_require__(65);
+	var EventCaptureMixin = __webpack_require__(85);
+	var ChartContainerMixin = __webpack_require__(86);
 	
 	var ChartCanvas = React.createClass({displayName: "ChartCanvas",
 		mixins: [ChartContainerMixin, EventCaptureMixin],
@@ -685,16 +687,16 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 60 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(1);
-	var EventCaptureMixin = __webpack_require__(82);
-	var ChartContainerMixin = __webpack_require__(83);
-	var DataTransformMixin = __webpack_require__(84);
+	var EventCaptureMixin = __webpack_require__(85);
+	var ChartContainerMixin = __webpack_require__(86);
+	var DataTransformMixin = __webpack_require__(87);
 	
-	var polyLinearTimeScale = __webpack_require__(85);
+	var polyLinearTimeScale = __webpack_require__(88);
 	
 	var doNotPassThrough = ['transformType', 'options', 'children', 'namespace'];
 	
@@ -761,13 +763,13 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 61 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(1),
 		d3 = __webpack_require__(2),
-		PureRenderMixin = __webpack_require__(86);
+		PureRenderMixin = __webpack_require__(89);
 	
 	var XAxis = React.createClass({displayName: "XAxis",
 		mixins: [PureRenderMixin],
@@ -843,13 +845,13 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 62 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(1)
 		, d3 = __webpack_require__(2),
-		PureRenderMixin = __webpack_require__(86);
+		PureRenderMixin = __webpack_require__(89);
 	
 	
 	var YAxis = React.createClass({displayName: "YAxis",
@@ -926,7 +928,7 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 63 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -935,9 +937,9 @@ return webpackJsonpReStock([1,2],[
 	
 	var React = __webpack_require__(1),
 		d3 = __webpack_require__(2),
-		ScaleUtils = __webpack_require__(87),
-		OverlayUtils = __webpack_require__(88),
-		Utils = __webpack_require__(89),
+		ScaleUtils = __webpack_require__(90),
+		OverlayUtils = __webpack_require__(91),
+		Utils = __webpack_require__(92),
 		overlayColors = Utils.overlayColors;
 		// logger = require('./utils/logger')
 	
@@ -1271,7 +1273,7 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 64 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1281,10 +1283,10 @@ return webpackJsonpReStock([1,2],[
 	//     of PureRenderMixin
 	
 	var React = __webpack_require__(1),
-		PureRenderMixin = __webpack_require__(86),
-		Utils = __webpack_require__(89),
+		PureRenderMixin = __webpack_require__(89),
+		Utils = __webpack_require__(92),
 		d3 = __webpack_require__(2),
-		OverlayUtils = __webpack_require__(88),
+		OverlayUtils = __webpack_require__(91),
 		overlayColors = Utils.overlayColors;
 	
 	function getOverlayFromList(overlays, id) {
@@ -1359,13 +1361,13 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 65 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(1),
 		d3 = __webpack_require__(2),
-		PureRenderMixin = __webpack_require__(86);
+		PureRenderMixin = __webpack_require__(89);
 	
 	var AreaSeries = React.createClass({displayName: "AreaSeries",
 		mixins: [PureRenderMixin],
@@ -1422,13 +1424,13 @@ return webpackJsonpReStock([1,2],[
 	*/
 
 /***/ },
-/* 66 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(1),
 		d3 = __webpack_require__(2),
-		PureRenderMixin = __webpack_require__(86);
+		PureRenderMixin = __webpack_require__(89);
 	
 	
 	var LineSeries = React.createClass({displayName: "LineSeries",
@@ -1479,13 +1481,13 @@ return webpackJsonpReStock([1,2],[
 	*/
 
 /***/ },
-/* 67 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(1),
 		d3 = __webpack_require__(2),
-		PureRenderMixin = __webpack_require__(86);
+		PureRenderMixin = __webpack_require__(89);
 	
 	
 	var CandlestickSeries = React.createClass({displayName: "CandlestickSeries",
@@ -1576,15 +1578,15 @@ return webpackJsonpReStock([1,2],[
 	*/
 
 /***/ },
-/* 68 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(1),
-		PureRenderMixin = __webpack_require__(86),
-		Utils = __webpack_require__(89),
-		OverlayUtils = __webpack_require__(88);
+		PureRenderMixin = __webpack_require__(89),
+		Utils = __webpack_require__(92),
+		OverlayUtils = __webpack_require__(91);
 	
 	var OverlaySeries = React.createClass({displayName: "OverlaySeries",
 		//namespace: "ReStock.OverlaySeries",
@@ -1676,13 +1678,13 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 69 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(1),
 		d3 = __webpack_require__(2),
-		PureRenderMixin = __webpack_require__(86);
+		PureRenderMixin = __webpack_require__(89);
 	
 	
 	var HistogramSeries = React.createClass({displayName: "HistogramSeries",
@@ -1770,13 +1772,13 @@ return webpackJsonpReStock([1,2],[
 	*/
 
 /***/ },
-/* 70 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(1),
 		d3 = __webpack_require__(2),
-		PureRenderMixin = __webpack_require__(86);
+		PureRenderMixin = __webpack_require__(89);
 	
 	
 	var KagiSeries = React.createClass({displayName: "KagiSeries",
@@ -1841,12 +1843,98 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 71 */
+/* 73 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(1),
+		d3 = __webpack_require__(2),
+		PureRenderMixin = __webpack_require__(89);
+	
+	
+	var PointAndFigureSeries = React.createClass({displayName: "PointAndFigureSeries",
+		mixins: [PureRenderMixin],
+		propTypes: {
+			_xScale: React.PropTypes.func.isRequired,
+			_yScale: React.PropTypes.func.isRequired,
+			_xAccessor: React.PropTypes.func.isRequired,
+			_yAccessor: React.PropTypes.func.isRequired,
+			data: React.PropTypes.array.isRequired
+		},
+		statics: {
+			yAccessor: function(d)  {return {open: d.open, high: d.high, low: d.low, close: d.close};}
+		},
+		getDefaultProps:function() {
+			return {
+				namespace: "ReStock.PointAndFigureSeries"
+			}
+		},
+		render:function() {
+			var width = this.props._xScale(this.props._xAccessor(this.props.data[this.props.data.length - 1]))
+				- this.props._xScale(this.props._xAccessor(this.props.data[0]));
+	
+			var columnWidth = (width / (this.props.data.length - 1));
+	
+			var anyBox, j = 0;
+			while (anyBox === undefined) {
+				if (this.props.data[j].close !== undefined) {
+					anyBox= this.props.data[j].boxes[0];
+				}
+				j++;
+			}
+	
+			var props = this.props;
+			var boxHeight = Math.abs(props._yScale(anyBox.open) - props._yScale(anyBox.close));
+	
+			// console.log(columnWidth, boxHeight);
+			var columns = this.props.data
+					.filter(function (d) { return d.close !== undefined; })
+					.map(function(d, idx) {
+						var ohlc = d;
+						var boxes = d.boxes.map(function (box, i) {
+							var boxshape;
+							if (d.direction > 0) {
+								boxshape = (
+									React.createElement("g", {key: idx + "-" + i}, 
+										React.createElement("line", {className: "point_figure_up", x1: 0, y1: props._yScale(box.open), x2: columnWidth, y2: props._yScale(box.close)}), 
+										React.createElement("line", {className: "point_figure_up", x1: 0, y1: props._yScale(box.close), x2: columnWidth, y2: props._yScale(box.open)})
+									)
+									);
+							} else {
+								boxshape = (
+									React.createElement("ellipse", {key: idx + "-" + i, className: "point_figure_down", cx: columnWidth/2, cy: props._yScale((box.open + box.close) / 2), 
+										rx: columnWidth/2, ry: boxHeight / 2})
+									);
+							}
+							return boxshape;
+						});
+						var col = (React.createElement("g", {key: idx, 
+										transform: "translate(" + (props._xScale(this.props._xAccessor(d)) - (columnWidth / 2)) + ", 0)"}, 
+										boxes, 
+										React.createElement("rect", {x: 0, y: 0, height: this.props.height, width: columnWidth, 
+											style: { opacity: 0}})
+									));
+						return col;
+					}, this);
+	
+			return (
+				React.createElement("g", null, 
+					columns
+				)
+			);
+		}
+	});
+	
+	module.exports = PointAndFigureSeries;
+
+
+/***/ },
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(1);
-	var Utils = __webpack_require__(89)
+	var Utils = __webpack_require__(92)
 	
 	var EventCapture = React.createClass({displayName: "EventCapture",
 		propTypes: {
@@ -2004,13 +2092,13 @@ return webpackJsonpReStock([1,2],[
 	*/
 
 /***/ },
-/* 72 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(1);
-	var EdgeCoordinate = __webpack_require__(90)
-	var Utils = __webpack_require__(89)
+	var EdgeCoordinate = __webpack_require__(93)
+	var Utils = __webpack_require__(92)
 	
 	// Should not use xScale and yScale here as MouseCoordinate is common across all charts
 	// if it is made to be inside a Chart another Chart might be displayed over it
@@ -2096,13 +2184,13 @@ return webpackJsonpReStock([1,2],[
 	*/
 
 /***/ },
-/* 73 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(1);
-	var EdgeCoordinate = __webpack_require__(90)
-	var Utils = __webpack_require__(89)
+	var EdgeCoordinate = __webpack_require__(93)
+	var Utils = __webpack_require__(92)
 	
 	var CrossHair = React.createClass({displayName: "CrossHair",
 		propTypes: {
@@ -2154,13 +2242,13 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 74 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(1);
-	var EdgeCoordinate = __webpack_require__(90)
-	var Utils = __webpack_require__(89)
+	var EdgeCoordinate = __webpack_require__(93)
+	var Utils = __webpack_require__(92)
 	
 	var VerticalMousePointer = React.createClass({displayName: "VerticalMousePointer",
 		propTypes: {
@@ -2203,13 +2291,13 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 75 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(1),
-		PureRenderMixin = __webpack_require__(86),
-		Utils = __webpack_require__(89);
+		PureRenderMixin = __webpack_require__(89),
+		Utils = __webpack_require__(92);
 	
 	var CurrentCoordinate = React.createClass({displayName: "CurrentCoordinate",
 		//namespace: "ReStock.DataSeries",
@@ -2270,7 +2358,7 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 76 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2319,13 +2407,13 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 77 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(1);
-	var Utils = __webpack_require__(89)
+	var Utils = __webpack_require__(92)
 	
 	var billion = 1 * 1000 * 1000 * 1000;
 	var million = 1 * 1000 * 1000;
@@ -2391,13 +2479,13 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 78 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(1);
-	var Utils = __webpack_require__(89)
+	var Utils = __webpack_require__(92)
 	
 	var SingleMAToolTip = React.createClass({displayName: "SingleMAToolTip",
 		propTypes: {
@@ -2472,7 +2560,7 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 79 */
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2516,13 +2604,13 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 80 */
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(1);
-	var Utils = __webpack_require__(89)
-	var EdgeCoordinate = __webpack_require__(90)
+	var Utils = __webpack_require__(92)
+	var EdgeCoordinate = __webpack_require__(93)
 	
 	
 	var EdgeIndicator = React.createClass({displayName: "EdgeIndicator",
@@ -2657,22 +2745,22 @@ return webpackJsonpReStock([1,2],[
 	*/
 
 /***/ },
-/* 81 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMoAAABQCAQAAADykSIGAAAF1UlEQVR4Ae3df4zXdR3A8cfnvnccd7i7gwMiCCE6BzlwImVFpqgnykANZ66RawHTQJrnVizJymwENKUcJSBjsEqyJrIEQiHQSoutWBA4BYwLGCi/Tu7O7pDv/fj0R2vfHdx9J3ef7925vR9/v/577j6/vrfXO9IjgrhYkb4K0OR9jc4BEMUATHe7z/mEAkF3anLI3/3e85rbRvm4VSr1pOAV9zmUiXK17cq96+de8IbzChQrkdLihLQgSfmGSmlwRiug0Bh3qjJAjZvsJYoZ5W/KbfZVZ2XkGaifFm9rFiTnI4o1OOVCJdaZ5owJjkYx291sszvELjRYP41OCpJSZIgWx7S6WMomU2x1WxTfbqMaFWpdLM/HpJzUKEhGuRJn1WrfcLuVmxrFq822yCPaV6a/ejWCZAzTx3Fp7etjoflWRPEbPunTdnU4NkzacUEyRoocFmtf5FYv2hfFaQWKvN/h2Eixw4LuiJKnwgFNURwjL8vYCK2OCLrn8jVMNf+LUijdCy5f4UZfpn8mSn+14Ubfk4/EmWfdTJQRmbHwSNwjL4+Zt8IT/48yKuvYSUEuP7O0/X7SlPlLyTbWLElBH0OktKjXqIkLvjTGmRt9trGkBfkGKtLWOWc0k4kSZR0LcqFYscJ2fuTKRMk6FnSnTBQfWiHKEP9W7y+e95y0D6LUvab5jGbDnZcDIcr9nga8bYkVmmVzmW97UAngVtvkQIiy2mwZ/1Sl3kRjXWGoQVJa1Kl1yn67xX5sqIzvWSgHQpQtpuisp82RAyHKq67TWevcKwdClM2m6qxlquRAiLLIAp31davkQIgy0xqd9QdTNUlYiDLCHmU67wnzBQlHedFtuqLFp+wRJBjls3bqqvW+JEgwymqzdVXaEGcFiUU5ariuu9NGQUJRStVKwncsFiQUpcJbkrDUtwQJRRltvyQsN0+QUJThjkrCEgsECUXp65wkPOqHgoSi8I4huu4BKwSJRdlqsq4Lvz8mGuVhi3XdYKcFlxylwGilWuRpViCtSKMydQbbKE/XHDRDpEytYucUapKvRUqdg9KCDqOMV60OQLFhykGeRW7QNcs9q1mk1buOawRQapTdgg6jEBmjVEqMBu84BRjpdf103ikV3gMMMlQpYk1qHRDLKvylcFCD9txlvUjnxKZ7QXv6GS22W9DJ/5D8srX6unSt5lkpyEkUxllpoktz2GwvCxKNUmCsY04DmOwbJiv0Qeyy0q+kBQlHqfQSfukh9QBK3WCiq1UYKaWtFsdUe9NOrzksyEkUbvQbg+11vTptPWSpPG21+qYnBTmOwpV2Krno/xwne0nkYrEptgpyHIW5lqPKMhk73KR9fzJJkPMo+Q65HL/wU3vFRrvHo1IAjuJyAK1KNAhyHIUqTwLS6ANIe8YsrJYyE8+6RwpjHBDkPEqBLSpd6BXbLMYKzMUCU12Hq+wT5DwKhR43RwEyfm3fBVHGmdF9UUIU+KhbXKHASc2W9Y4oIUrGOHtDlA9/lCBECVGe0uLBEKWno3zBn7HO6xZjCR7GAmN9Bdd7VdCx9o8gyETJMpTNGjMxX6nvYoG0pVio1hNYa5b2BfnKFWurUY1mmShZhjpymcfNwT9MskElrhLbhx2m+6NrsNJ8/3Epwsav813Z9zXej5ywzQaft12e5ebhKQ9odYvXzHCjQR6x26UIu/GOJLMZ73cq/MwqMSL3qfKWL+qcsEWyuvftkAz7Vo/0vm2rYTPx2d63lzjs8D7f+zZ4hyMIWgkHEPSuKCXqNETxm8YYb084gKBXXL4m2GV/FK/1NY/5Qa+4fIUb/WO+b00U3+05p1Wo7/EbfXgkLvMv5e6K4iJbTLLB3eIefSQOL4+RjabZoTKKucY25dab5b0ee3kMn1lKPWOaGteqjmLyTfJbA5zxE5sc0BQOIOjWD5L9XOkOcw1Qo9Ieohj6mGCRSYKe9LL7M8fUQr6BprjZtUZJCbrTOdX+apNNkIkiHEDQm/wXb4bZSIeJkMcAAAAASUVORK5CYII="
 
 /***/ },
-/* 82 */
+/* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var React = __webpack_require__(1);
-	var EventCapture = __webpack_require__(71);
-	var MouseCoordinates = __webpack_require__(72);
-	var Utils = __webpack_require__(89);
+	var EventCapture = __webpack_require__(74);
+	var MouseCoordinates = __webpack_require__(75);
+	var Utils = __webpack_require__(92);
 	
-	var Freezer = __webpack_require__(93);
+	var Freezer = __webpack_require__(96);
 	// Let's create a freezer store
 	function getLongValue(value) {
 		if (value instanceof Date) {
@@ -3238,16 +3326,16 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 83 */
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var React = __webpack_require__(1),
 		d3 = __webpack_require__(2),
-		ScaleUtils = __webpack_require__(87),
-		OverlayUtils = __webpack_require__(88),
-		Utils = __webpack_require__(89),
-		Chart = __webpack_require__(63),
+		ScaleUtils = __webpack_require__(90),
+		OverlayUtils = __webpack_require__(91),
+		Utils = __webpack_require__(92),
+		Chart = __webpack_require__(65),
 		overlayColors = Utils.overlayColors;
 	var pluck = Utils.pluck;
 	var keysAsArray = Utils.keysAsArray;
@@ -3493,11 +3581,11 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 84 */
+/* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var ChartTransformer = __webpack_require__(91);
+	var ChartTransformer = __webpack_require__(94);
 	
 	var DataTransformMixin = {
 		isDataDransform:function() {
@@ -3517,7 +3605,7 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 85 */
+/* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3672,7 +3760,7 @@ return webpackJsonpReStock([1,2],[
 	module.exports = polylineartimescale
 
 /***/ },
-/* 86 */
+/* 89 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3718,7 +3806,7 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 87 */
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3767,13 +3855,13 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 88 */
+/* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Utils = __webpack_require__(89);
-	var MACalculator = __webpack_require__(92);
+	var Utils = __webpack_require__(92);
+	var MACalculator = __webpack_require__(95);
 	
 	var OverlayUtils = {
 		getToolTipLabel:function(props) {
@@ -3832,7 +3920,7 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 89 */
+/* 92 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3931,7 +4019,7 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 90 */
+/* 93 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4005,14 +4093,15 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 91 */
+/* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var StockScaleTransformer = __webpack_require__(94);
-	var HeikinAshiTransformer = __webpack_require__(95);
-	var KagiTransformer = __webpack_require__(96);
+	var StockScaleTransformer = __webpack_require__(98);
+	var HeikinAshiTransformer = __webpack_require__(99);
+	var KagiTransformer = __webpack_require__(100);
+	var PointAndFigureTransformer = __webpack_require__(101);
 	
 	var ChartTransformer = {
 		getTransformerFor:function(type) {
@@ -4024,6 +4113,8 @@ return webpackJsonpReStock([1,2],[
 				return HeikinAshiTransformer;
 			if (type === "kagi")
 				return KagiTransformer;
+			if (type === "pointandfigure")
+				return PointAndFigureTransformer;
 			return false;
 		},
 		filter:function(data, dateAccesor, fromDate, toDate) {
@@ -4039,12 +4130,12 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 92 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Utils = __webpack_require__(89);
+	var Utils = __webpack_require__(92);
 	
 	var pluck = Utils.pluck;
 	var sum = Utils.sum;
@@ -4084,19 +4175,67 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 93 */
+/* 96 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Freezer = __webpack_require__(98);
+	var Freezer = __webpack_require__(102);
 	module.exports = Freezer;
 
 /***/ },
-/* 94 */
+/* 97 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-2014, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule shallowEqual
+	 */
+	
+	"use strict";
+	
+	/**
+	 * Performs equality by iterating through keys on an object and returning
+	 * false when any key has values which are not strictly equal between
+	 * objA and objB. Returns true when the values of all keys are strictly equal.
+	 *
+	 * @return {boolean}
+	 */
+	function shallowEqual(objA, objB) {
+	  if (objA === objB) {
+	    return true;
+	  }
+	  var key;
+	  // Test for A's keys different from B.
+	  for (key in objA) {
+	    if (objA.hasOwnProperty(key) &&
+	        (!objB.hasOwnProperty(key) || objA[key] !== objB[key])) {
+	      return false;
+	    }
+	  }
+	  // Test for B's keys missing from A.
+	  for (key in objB) {
+	    if (objB.hasOwnProperty(key) && !objA.hasOwnProperty(key)) {
+	      return false;
+	    }
+	  }
+	  return true;
+	}
+	
+	module.exports = shallowEqual;
+
+
+/***/ },
+/* 98 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var stockScale = __webpack_require__(85);
+	var stockScale = __webpack_require__(88);
 	
 	var defaultOptions = {
 		dateAccesor: function(d)  {return d.date;},
@@ -4248,7 +4387,7 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 95 */
+/* 99 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4326,7 +4465,7 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 96 */
+/* 100 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4335,7 +4474,7 @@ return webpackJsonpReStock([1,2],[
 	var pricingMethod = function (d) { return { high: d.high, low: d.low }; };
 	var usePrice = function (d) { return d.close; };
 	
-	var calculateATR = __webpack_require__(99);
+	var calculateATR = __webpack_require__(103);
 	
 	function KagiTransformer(data, options, props) {
 		if (options === undefined) options = {};
@@ -4498,63 +4637,247 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 97 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright 2013-2014, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule shallowEqual
-	 */
-	
-	"use strict";
-	
-	/**
-	 * Performs equality by iterating through keys on an object and returning
-	 * false when any key has values which are not strictly equal between
-	 * objA and objB. Returns true when the values of all keys are strictly equal.
-	 *
-	 * @return {boolean}
-	 */
-	function shallowEqual(objA, objB) {
-	  if (objA === objB) {
-	    return true;
-	  }
-	  var key;
-	  // Test for A's keys different from B.
-	  for (key in objA) {
-	    if (objA.hasOwnProperty(key) &&
-	        (!objB.hasOwnProperty(key) || objA[key] !== objB[key])) {
-	      return false;
-	    }
-	  }
-	  // Test for B's keys missing from A.
-	  for (key in objB) {
-	    if (objB.hasOwnProperty(key) && !objA.hasOwnProperty(key)) {
-	      return false;
-	    }
-	  }
-	  return true;
-	}
-	
-	module.exports = shallowEqual;
-
-
-/***/ },
-/* 98 */
+/* 101 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Utils = __webpack_require__( 100 ),
-		Emitter = __webpack_require__( 101 ),
-		Mixins = __webpack_require__( 102 ),
-		Frozen = __webpack_require__( 103 )
+	var excludeList = ['transformType', 'options', 'children', 'namespace', '_multiInterval'];
+	var pricingMethod = function (d) { return { high: d.high, low: d.low }; };
+	var usePrice = function (d) { return { high: d.high, low: d.low }; };
+	var defaultBoxSize = 0.5;
+	var defaultReversal = 3;
+	
+	function createBox(d, dateAccesor, dateMutator) {
+		var box = {
+			open: d.open
+			, fromDate: dateAccesor(d)
+			, toDate: dateAccesor(d)
+			//, displayDate: d.displayDate
+			, startOfYear: d.startOfYear
+			, startOfQuarter: d.startOfQuarter
+			, startOfMonth: d.startOfMonth
+			, startOfWeek: d.startOfWeek
+		};
+		dateMutator(box, dateAccesor(d));
+		return box;
+	}
+	
+	function updateColumns(columnData, dateAccesor, dateMutator) {
+	
+		columnData.forEach(function (d, i) {
+			var lastBox = d.boxes[d.boxes.length - 1];
+	
+			d.startOfYear = false;
+			d.startOfQuarter = false;
+			d.startOfMonth = false;
+			d.startOfWeek = false;
+	
+			d.boxes.forEach(function(eachBox) {
+				if (d.open === undefined) d.open = eachBox.open;
+				d.close = eachBox.close;
+				d.high = Math.max(d.open, d.close);
+				d.low = Math.min(d.open, d.close);
+	
+				if (d.fromDate === undefined) d.fromDate = eachBox.fromDate;
+				if (d.date === undefined) d.date = eachBox.date;
+				// if (d.displayDate === undefined) d.displayDate = eachBox.displayDate;
+				d.toDate = eachBox.toDate;
+	
+				if (d.startOfYear !== true && eachBox.startOfYear) {
+					d.startOfYear = eachBox.startOfYear;
+					d.startOfQuarter = eachBox.startOfQuarter;
+					d.startOfMonth = eachBox.startOfMonth;
+					d.startOfWeek = eachBox.startOfWeek;
+					//d.displayDate = eachBox.displayDate;
+					dateMutator(d, dateAccesor(eachBox));
+				}
+				if (d.startOfQuarter !== true && eachBox.startOfQuarter) {
+					d.startOfQuarter = eachBox.startOfQuarter;
+					d.startOfMonth = eachBox.startOfMonth;
+					d.startOfWeek = eachBox.startOfWeek;
+					// d.displayDate = eachBox.displayDate;
+					dateMutator(d, dateAccesor(eachBox));
+				}
+				if (d.startOfMonth !== true && eachBox.startOfMonth) {
+					d.startOfMonth = eachBox.startOfMonth;
+					d.startOfWeek = eachBox.startOfWeek;
+					// d.displayDate = eachBox.displayDate;
+					dateMutator(d, dateAccesor(eachBox));
+				}
+				if (d.startOfWeek !== true && eachBox.startOfWeek) {
+					d.startOfWeek = eachBox.startOfWeek;
+					// d.displayDate = eachBox.displayDate;
+					dateMutator(d, dateAccesor(eachBox));
+				}
+			});
+	
+		});
+	
+		// console.table(columnData);
+		// console.table(rawData);
+		return columnData;
+	};
+	/**/
+	
+	function PointAndFigureTransformer(rawData, options, props) {
+		if (options === undefined) options = {};
+	
+	
+		var dateAccesor = options.dateAccesor || props._dateAccessor;
+		var dateMutator = options.dateMutator || props._dateMutator;
+		var indexAccessor = options.indexAccessor || props._indexAccessor;
+		var indexMutator = options.indexMutator || props._indexMutator;
+		var boxSize = options.boxSize || defaultBoxSize;
+		var reversal = options.reversal || defaultReversal;
+	
+	
+		var columnData = new Array();
+	
+		var index = 0, direction;
+		var column = {
+			boxes: [],
+			open: rawData.D[0].open
+		}, box = createBox(rawData.D[0], dateAccesor, dateMutator);
+	
+		indexMutator(column, 0);
+		columnData.push(column);
+	
+		rawData.D.forEach( function (d) {
+			column.volume = column.volume || 0;
+			column.volume += d.volume;
+			if (!box.startOfYear) {
+				box.startOfYear = d.startOfYear;
+				if (box.startOfYear) {
+					box.date = d.date;
+					box.displayDate = d.displayDate;
+				}
+			}
+	
+			if (!box.startOfQuarter) {
+				box.startOfQuarter = d.startOfQuarter;
+				if (box.startOfQuarter && !box.startOfYear) {
+					box.date = d.date;
+					box.displayDate = d.displayDate;
+				}
+			}
+	
+			if (!box.startOfMonth) {
+				box.startOfMonth = d.startOfMonth;
+				if (box.startOfMonth && !box.startOfQuarter) {
+					box.date = d.date;
+					box.displayDate = d.displayDate;
+				}
+			}
+			if (!box.startOfWeek) {
+				box.startOfWeek = d.startOfWeek;
+				if (box.startOfWeek && !box.startOfMonth) {
+					box.date = d.date;
+					box.displayDate = d.displayDate;
+				}
+			}
+	
+			if (columnData.length === 1 && column.boxes.length === 0) {
+				var upwardMovement = (Math.max((usePrice(d).high - column.open), 0)) //upward movement
+				var downwardMovement = Math.abs(Math.min((column.open - usePrice(d).low), 0)) // downward movement
+				column.direction = upwardMovement > downwardMovement ? 1 : -1;
+				if (boxSize * reversal < upwardMovement
+					|| boxSize * reversal < downwardMovement) {
+					// enough movement to trigger a reversal
+					box.toDate = dateAccesor(d);
+					box.open = column.open;
+					var noOfBoxes = column.direction > 0
+										? Math.floor(upwardMovement / boxSize)
+										: Math.floor(downwardMovement / boxSize);
+					for (var i = 0; i < noOfBoxes; i++) {
+						box.close = box.open + column.direction * boxSize;
+						var prevBoxClose = box.close;
+						column.boxes.push(box);
+						box = createBox(box, dateAccesor, dateMutator);
+						// box = cloneMe(box);
+						box.open = prevBoxClose;
+					}
+					box.fromDate = dateAccesor(d);
+					box.date = dateAccesor(d);
+				}
+			} else {
+				// one or more boxes already formed in the current column
+				var upwardMovement = (Math.max((usePrice(d).high - box.open), 0)) //upward movement
+				var downwardMovement = Math.abs(Math.min((usePrice(d).low - box.open), 0)) // downward movement
+	
+				if ((column.direction > 0 && upwardMovement > boxSize) /* rising column AND box can be formed */
+						|| (column.direction < 0 && downwardMovement > boxSize) /* falling column AND box can be formed */ ) {
+					// form another box
+					box.close = box.open + column.direction * boxSize;
+					box.toDate = dateAccesor(d);
+					var prevBoxClose = box.close;
+					column.boxes.push(box);
+					box = createBox(d, dateAccesor, dateMutator);
+					box.open = prevBoxClose;
+					box.fromDate = dateAccesor(d);
+					dateMutator(box, dateAccesor(d));
+				} else if ((column.direction > 0 && downwardMovement > boxSize * reversal) /* rising column and there is downward movement to trigger a reversal */
+						|| (column.direction < 0 && upwardMovement > boxSize * reversal)/* falling column and there is downward movement to trigger a reversal */) {
+					// reversal
+	
+					box.open = box.open + -1 * column.direction * boxSize;
+					box.toDate = dateAccesor(d);
+					// box.displayDate = d.displayDate;
+					dateMutator(box, dateAccesor(d));
+					box.startOfYear = d.startOfYear;
+					box.startOfQuarter = d.startOfQuarter;
+					box.startOfMonth = d.startOfMonth;
+					box.startOfWeek = d.startOfWeek;
+					// console.table(column.boxes);
+					var idx = indexAccessor(column) + 1;
+					column = {
+						boxes: [],
+						//, index: column.index + 1
+						direction: -1 * column.direction
+					};
+					indexMutator(column, idx);
+					var noOfBoxes = column.direction > 0
+										? Math.floor(upwardMovement / boxSize)
+										: Math.floor(downwardMovement / boxSize);
+					for (var i = 0; i < noOfBoxes; i++) {
+						box.close = box.open + column.direction * boxSize;
+						var prevBoxClose = box.close;
+						column.boxes.push(box);
+						box = createBox(d, dateAccesor, dateMutator);
+						box.open = prevBoxClose;
+					}
+	
+					columnData.push(column);
+				}
+			}
+		});
+		updateColumns(columnData, dateAccesor, dateMutator);
+	
+		// console.table(columnData);
+		// console.table(data);
+		var response = {};
+		Object.keys(props)
+			.filter(function(key)  {return excludeList.indexOf(key) < 0;})
+			.forEach(function(key)  {return response[key] = props[key];});
+	
+		response.data = {'D': columnData};
+	
+		return response;
+	}
+	
+	module.exports = PointAndFigureTransformer;
+
+
+/***/ },
+/* 102 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var Utils = __webpack_require__( 104 ),
+		Emitter = __webpack_require__( 106 ),
+		Mixins = __webpack_require__( 105 ),
+		Frozen = __webpack_require__( 107 )
 	;
 	
 	//#build
@@ -4623,7 +4946,7 @@ return webpackJsonpReStock([1,2],[
 	module.exports = Freezer;
 
 /***/ },
-/* 99 */
+/* 103 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4663,7 +4986,7 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 100 */
+/* 104 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4775,98 +5098,12 @@ return webpackJsonpReStock([1,2],[
 	module.exports = Utils;
 
 /***/ },
-/* 101 */
+/* 105 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Utils = __webpack_require__( 100 );
-	
-	//#build
-	
-	// The prototype methods are stored in a different object
-	// and applied as non enumerable properties later
-	var emitterProto = {
-		on: function( eventName, listener, once ){
-			var listeners = this._events[ eventName ] || [];
-	
-			listeners.push({ callback: listener, once: once});
-			this._events[ eventName ] =  listeners;
-	
-			return this;
-		},
-	
-		once: function( eventName, listener ){
-			this.on( eventName, listener, true );
-		},
-	
-		off: function( eventName, listener ){
-			if( typeof eventName == 'undefined' ){
-				this._events = {};
-			}
-			else if( typeof listener == 'undefined' ) {
-				this._events[ eventName ] = [];
-			}
-			else {
-				var listeners = this._events[ eventName ] || [],
-					i
-				;
-	
-				for (i = listeners.length - 1; i >= 0; i--) {
-					if( listeners[i] === listener )
-						listeners.splice( i, 1 );
-				}
-			}
-	
-			return this;
-		},
-	
-		trigger: function( eventName ){
-			var args = [].slice.call( arguments, 1 ),
-				listeners = this._events[ eventName ] || [],
-				onceListeners = [],
-				i, listener
-			;
-	
-			// Call listeners
-			for (i = 0; i < listeners.length; i++) {
-				listener = listeners[i];
-	
-				if( listener.callback )
-					listener.callback.apply( null, args );
-				else {
-					// If there is not a callback, remove!
-					listener.once = true;
-				}
-	
-				if( listener.once )
-					onceListeners.push( i );
-			}
-	
-			// Remove listeners marked as once
-			for( i = onceListeners.length - 1; i >= 0; i-- ){
-				listeners.splice( onceListeners[i], 1 );
-			}
-	
-			return this;
-		}
-	};
-	
-	// Methods are not enumerable so, when the stores are
-	// extended with the emitter, they can be iterated as
-	// hashmaps
-	var Emitter = Utils.createNonEnumerable( emitterProto );
-	//#build
-	
-	module.exports = Emitter;
-
-/***/ },
-/* 102 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var Utils = __webpack_require__( 100 );
+	var Utils = __webpack_require__( 104 );
 	
 	//#build
 	
@@ -5003,14 +5240,100 @@ return webpackJsonpReStock([1,2],[
 	module.exports = Mixins;
 
 /***/ },
-/* 103 */
+/* 106 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Utils = __webpack_require__( 100 ),
-		Mixins = __webpack_require__( 102),
-		Emitter = __webpack_require__(101)
+	var Utils = __webpack_require__( 104 );
+	
+	//#build
+	
+	// The prototype methods are stored in a different object
+	// and applied as non enumerable properties later
+	var emitterProto = {
+		on: function( eventName, listener, once ){
+			var listeners = this._events[ eventName ] || [];
+	
+			listeners.push({ callback: listener, once: once});
+			this._events[ eventName ] =  listeners;
+	
+			return this;
+		},
+	
+		once: function( eventName, listener ){
+			this.on( eventName, listener, true );
+		},
+	
+		off: function( eventName, listener ){
+			if( typeof eventName == 'undefined' ){
+				this._events = {};
+			}
+			else if( typeof listener == 'undefined' ) {
+				this._events[ eventName ] = [];
+			}
+			else {
+				var listeners = this._events[ eventName ] || [],
+					i
+				;
+	
+				for (i = listeners.length - 1; i >= 0; i--) {
+					if( listeners[i] === listener )
+						listeners.splice( i, 1 );
+				}
+			}
+	
+			return this;
+		},
+	
+		trigger: function( eventName ){
+			var args = [].slice.call( arguments, 1 ),
+				listeners = this._events[ eventName ] || [],
+				onceListeners = [],
+				i, listener
+			;
+	
+			// Call listeners
+			for (i = 0; i < listeners.length; i++) {
+				listener = listeners[i];
+	
+				if( listener.callback )
+					listener.callback.apply( null, args );
+				else {
+					// If there is not a callback, remove!
+					listener.once = true;
+				}
+	
+				if( listener.once )
+					onceListeners.push( i );
+			}
+	
+			// Remove listeners marked as once
+			for( i = onceListeners.length - 1; i >= 0; i-- ){
+				listeners.splice( onceListeners[i], 1 );
+			}
+	
+			return this;
+		}
+	};
+	
+	// Methods are not enumerable so, when the stores are
+	// extended with the emitter, they can be iterated as
+	// hashmaps
+	var Emitter = Utils.createNonEnumerable( emitterProto );
+	//#build
+	
+	module.exports = Emitter;
+
+/***/ },
+/* 107 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var Utils = __webpack_require__( 104 ),
+		Mixins = __webpack_require__( 105),
+		Emitter = __webpack_require__(106)
 	;
 	
 	//#build
