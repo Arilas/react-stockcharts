@@ -17,10 +17,10 @@ return webpackJsonpReStock([0,2],[
 	var React = __webpack_require__(1);
 	var d3 = __webpack_require__(2);
 	
-	__webpack_require__(37);
-	__webpack_require__(35);
+	__webpack_require__(29);
+	__webpack_require__(27);
 	
-	var ReadME = __webpack_require__(57);
+	var ReadME = __webpack_require__(31);
 	
 	document.getElementById("content").innerHTML = ReadME;
 	
@@ -36,9 +36,9 @@ return webpackJsonpReStock([0,2],[
 			// console.log(d);
 		});
 	
-		var CandleStickChartWithEdge = __webpack_require__(22).init(data);
+		var CandleStickChartWithEdge = __webpack_require__(7);
 	
-		React.render(React.createElement(CandleStickChartWithEdge, null), document.getElementById("chart"));
+		React.render(React.createElement(CandleStickChartWithEdge, {data: data}), document.getElementById("chart"));
 	});
 	
 	//require('./examples/freezer-example');
@@ -61,22 +61,7 @@ return webpackJsonpReStock([0,2],[
 /* 4 */,
 /* 5 */,
 /* 6 */,
-/* 7 */,
-/* 8 */,
-/* 9 */,
-/* 10 */,
-/* 11 */,
-/* 12 */,
-/* 13 */,
-/* 14 */,
-/* 15 */,
-/* 16 */,
-/* 17 */,
-/* 18 */,
-/* 19 */,
-/* 20 */,
-/* 21 */,
-/* 22 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -84,7 +69,7 @@ return webpackJsonpReStock([0,2],[
 	var React = __webpack_require__(1);
 	var d3 = __webpack_require__(2);
 	
-	var ReStock = __webpack_require__(61);
+	var ReStock = __webpack_require__(69);
 	
 	var ChartCanvas = ReStock.ChartCanvas
 		, XAxis = ReStock.XAxis
@@ -93,8 +78,8 @@ return webpackJsonpReStock([0,2],[
 		, DataTransform = ReStock.DataTransform
 		, Chart = ReStock.Chart
 		, DataSeries = ReStock.DataSeries
-		, ChartWidthMixin = __webpack_require__(58)
-		, InitialStateMixin = __webpack_require__(59)
+		, ChartWidthMixin = __webpack_require__(67)
+		, InitialStateMixin = __webpack_require__(68)
 		, HistogramSeries = ReStock.HistogramSeries
 		, EventCapture = ReStock.EventCapture
 		, MouseCoordinates = ReStock.MouseCoordinates
@@ -108,103 +93,88 @@ return webpackJsonpReStock([0,2],[
 		, AreaSeries = ReStock.AreaSeries
 		, EdgeContainer = ReStock.EdgeContainer
 		, EdgeIndicator = ReStock.EdgeIndicator
-	
-	
 	;
 	
-	module.exports = {
-		init:function(data) {
-			var CandleStickChart = React.createClass({displayName: "CandleStickChart",
-				mixins: [InitialStateMixin, ChartWidthMixin],
-				render:function() {
-					if (!this.state.width) return React.createElement("div", null);
+	var CandleStickChart = React.createClass({displayName: "CandleStickChart",
+		mixins: [InitialStateMixin, ChartWidthMixin],
+		render:function() {
+			if (!this.state.width) return React.createElement("div", null);
 	
-					var parseDate = d3.time.format("%Y-%m-%d").parse
-					var dateRange = { from: parseDate("2012-12-01"), to: parseDate("2012-12-31")}
-					var dateFormat = d3.time.format("%Y-%m-%d");
+			var parseDate = d3.time.format("%Y-%m-%d").parse
+			var dateRange = { from: parseDate("2012-12-01"), to: parseDate("2012-12-31")}
+			var dateFormat = d3.time.format("%Y-%m-%d");
 	
-					return (
-						React.createElement(ChartCanvas, {width: this.state.width, height: 400, margin: {left: 90, right: 70, top:10, bottom: 30}, data: data, interval: "1D"}, 
-							React.createElement(DataTransform, {transformType: "stockscale"}, 
-								React.createElement(Chart, {id: 1}, 
-									React.createElement(XAxis, {axisAt: "bottom", orient: "bottom"}), 
-									React.createElement(YAxis, {axisAt: "right", orient: "right", ticks: 5}), 
-									React.createElement(DataSeries, {yAccessor: CandlestickSeries.yAccessor}, 
-										React.createElement(CandlestickSeries, null), 
-										React.createElement(OverlaySeries, {id: 0, type: "sma", options: { period: 20, pluck: 'close'}}, 
-											React.createElement(LineSeries, null)
-										), 
-										React.createElement(OverlaySeries, {id: 1, type: "sma", options: { period: 30}}, 
-											React.createElement(LineSeries, null)
-										), 
-										React.createElement(OverlaySeries, {id: 2, type: "sma", options: { period: 50}}, 
-											React.createElement(LineSeries, null)
-										)
-									)
+			return (
+				React.createElement(ChartCanvas, {width: this.state.width, height: 400, 
+					margin: {left: 90, right: 70, top:10, bottom: 30}, data: this.props.data, interval: "1D"}, 
+					React.createElement(DataTransform, {transformType: "stockscale"}, 
+						React.createElement(Chart, {id: 1}, 
+							React.createElement(XAxis, {axisAt: "bottom", orient: "bottom"}), 
+							React.createElement(YAxis, {axisAt: "right", orient: "right", ticks: 5}), 
+							React.createElement(DataSeries, {yAccessor: CandlestickSeries.yAccessor}, 
+								React.createElement(CandlestickSeries, null), 
+								React.createElement(OverlaySeries, {id: 0, type: "sma", options: { period: 20, pluck: 'close'}}, 
+									React.createElement(LineSeries, null)
 								), 
-								React.createElement(CurrentCoordinate, {forChart: 1, forOverlay: 0}), 
-								React.createElement(CurrentCoordinate, {forChart: 1, forOverlay: 1}), 
-								React.createElement(CurrentCoordinate, {forChart: 1, forOverlay: 2}), 
-								React.createElement(Chart, {id: 2, height: 150, origin: function(w, h)  {return [0, h - 150];}}, 
-									React.createElement(YAxis, {axisAt: "left", orient: "left", ticks: 5, tickFormat: d3.format("s")}), 
-									React.createElement(DataSeries, {yAccessor: function(d)  {return d.volume;}}, 
-										React.createElement(HistogramSeries, {className: function(d)  {return d.close > d.open ? 'up' : 'down';}}), 
-										React.createElement(OverlaySeries, {id: 3, type: "sma", options: { period: 10, pluck:'volume'}}, 
-											React.createElement(AreaSeries, null)
-										)
-									)
+								React.createElement(OverlaySeries, {id: 1, type: "sma", options: { period: 30}}, 
+									React.createElement(LineSeries, null)
 								), 
-								React.createElement(CurrentCoordinate, {forChart: 2, forOverlay: 3}), 
-								React.createElement(CurrentCoordinate, {forChart: 2}), 
-								React.createElement(EdgeContainer, null, 
-									React.createElement(EdgeIndicator, {className: "horizontal", itemType: "last", orient: "right", 
-										edgeAt: "right", forChart: 1, forOverlay: 0}
-										), 
-									React.createElement(EdgeIndicator, {className: "horizontal", itemType: "last", orient: "right", 
-										edgeAt: "right", forChart: 1, forOverlay: 1}
-										), 
-									React.createElement(EdgeIndicator, {className: "horizontal", itemType: "last", orient: "right", 
-										edgeAt: "right", forChart: 1, forOverlay: 2}
-										), 
-									React.createElement(EdgeIndicator, {className: "horizontal", itemType: "first", orient: "left", 
-										edgeAt: "left", forChart: 1, forOverlay: 0}
-										), 
-									React.createElement(EdgeIndicator, {className: "horizontal", itemType: "first", orient: "left", 
-										edgeAt: "left", forChart: 1, forOverlay: 1}
-										), 
-									React.createElement(EdgeIndicator, {className: "horizontal", itemType: "first", orient: "left", 
-										edgeAt: "left", forChart: 1, forOverlay: 2}
-										), 
-									React.createElement(EdgeIndicator, {className: "horizontal", itemType: "first", orient: "left", 
-										edgeAt: "left", forChart: 2, forOverlay: 3, displayFormat: d3.format(".4s")}
-										), 
-									React.createElement(EdgeIndicator, {className: "horizontal", itemType: "last", orient: "right", 
-										edgeAt: "right", forChart: 2, forOverlay: 3, displayFormat: d3.format(".4s")}
-										), 
-									React.createElement(EdgeIndicator, {className: "horizontal", itemType: "first", orient: "left", 
-										edgeAt: "left", forChart: 2, displayFormat: d3.format(".4s")}
-										), 
-									React.createElement(EdgeIndicator, {className: "horizontal", itemType: "last", orient: "right", 
-										edgeAt: "right", forChart: 2, displayFormat: d3.format(".4s")}
-										)
-								), 
-								React.createElement(MouseCoordinates, {forChart: 1, xDisplayFormat: dateFormat, yDisplayFormat: function(y)  {return y.toFixed(2);}}, 
-									React.createElement(CrossHair, null)
-								), 
-								React.createElement(EventCapture, {mouseMove: true, zoom: true, pan: true, mainChart: 1, defaultFocus: false}), 
-								React.createElement(TooltipContainer, null, 
-									React.createElement(OHLCTooltip, {forChart: 1, origin: [-50, 0]}), 
-									React.createElement(MovingAverageTooltip, {forChart: 1, onClick: function(e)  {return console.log(e);}, origin: [-48, 15]})
+								React.createElement(OverlaySeries, {id: 2, type: "sma", options: { period: 50}}, 
+									React.createElement(LineSeries, null)
 								)
 							)
+						), 
+						React.createElement(CurrentCoordinate, {forChart: 1, forOverlay: 0}), 
+						React.createElement(CurrentCoordinate, {forChart: 1, forOverlay: 1}), 
+						React.createElement(CurrentCoordinate, {forChart: 1, forOverlay: 2}), 
+						React.createElement(Chart, {id: 2, height: 150, origin: function(w, h)  {return [0, h - 150];}}, 
+							React.createElement(YAxis, {axisAt: "left", orient: "left", ticks: 5, tickFormat: d3.format("s")}), 
+							React.createElement(DataSeries, {yAccessor: function(d)  {return d.volume;}}, 
+								React.createElement(HistogramSeries, {className: function(d)  {return d.close > d.open ? 'up' : 'down';}}), 
+								React.createElement(OverlaySeries, {id: 3, type: "sma", options: { period: 10, pluck:'volume'}}, 
+									React.createElement(AreaSeries, null)
+								)
+							)
+						), 
+						React.createElement(CurrentCoordinate, {forChart: 2, forOverlay: 3}), 
+						React.createElement(CurrentCoordinate, {forChart: 2}), 
+						React.createElement(EdgeContainer, null, 
+							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "last", orient: "right", 
+								edgeAt: "right", forChart: 1, forOverlay: 0}), 
+							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "last", orient: "right", 
+								edgeAt: "right", forChart: 1, forOverlay: 1}), 
+							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "last", orient: "right", 
+								edgeAt: "right", forChart: 1, forOverlay: 2}), 
+							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "first", orient: "left", 
+								edgeAt: "left", forChart: 1, forOverlay: 0}), 
+							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "first", orient: "left", 
+								edgeAt: "left", forChart: 1, forOverlay: 1}), 
+							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "first", orient: "left", 
+								edgeAt: "left", forChart: 1, forOverlay: 2}), 
+							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "first", orient: "left", 
+								edgeAt: "left", forChart: 2, forOverlay: 3, displayFormat: d3.format(".4s")}), 
+							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "last", orient: "right", 
+								edgeAt: "right", forChart: 2, forOverlay: 3, displayFormat: d3.format(".4s")}), 
+							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "first", orient: "left", 
+								edgeAt: "left", forChart: 2, displayFormat: d3.format(".4s")}), 
+							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "last", orient: "right", 
+								edgeAt: "right", forChart: 2, displayFormat: d3.format(".4s")})
+						), 
+						React.createElement(MouseCoordinates, {forChart: 1, xDisplayFormat: dateFormat, yDisplayFormat: function(y)  {return y.toFixed(2);}}, 
+							React.createElement(CrossHair, null)
+						), 
+						React.createElement(EventCapture, {mouseMove: true, zoom: true, pan: true, mainChart: 1, defaultFocus: false}), 
+						React.createElement(TooltipContainer, null, 
+							React.createElement(OHLCTooltip, {forChart: 1, origin: [-50, 0]}), 
+							React.createElement(MovingAverageTooltip, {forChart: 1, onClick: function(e)  {return console.log(e);}, origin: [-48, 15]})
 						)
-					);
-				}
-			});
-			return CandleStickChart
+					)
+				)
+			);
 		}
-	}
+	});
 	
+	module.exports = CandleStickChart;
 	
 	/*
 	 xScaleDependsOn={1}
@@ -219,28 +189,35 @@ return webpackJsonpReStock([0,2],[
 	*/
 
 /***/ },
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */,
+/* 12 */,
+/* 13 */,
+/* 14 */,
+/* 15 */,
+/* 16 */,
+/* 17 */,
+/* 18 */,
+/* 19 */,
+/* 20 */,
+/* 21 */,
+/* 22 */,
 /* 23 */,
 /* 24 */,
 /* 25 */,
 /* 26 */,
-/* 27 */,
-/* 28 */,
-/* 29 */,
-/* 30 */,
-/* 31 */,
-/* 32 */,
-/* 33 */,
-/* 34 */,
-/* 35 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(36);
+	var content = __webpack_require__(28);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(60)(content, {});
+	var update = __webpack_require__(65)(content, {});
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
@@ -254,23 +231,23 @@ return webpackJsonpReStock([0,2],[
 	}
 
 /***/ },
-/* 36 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(62)();
-	exports.push([module.id, "/* Move down content because we have a fixed navbar that is 50px tall */\n/*! normalize.css v3.0.2 | MIT License | git.io/normalize */\n/* #MainContainer {\n   position: fixed;\n   top: 50px;\n   padding-left: 100px;\n} */\naside table {\n  border: 1;\n  border-spacing: 1px;\n  border-collapse: collapse;\n  max-width: 100%;\n  margin-bottom: 20px; }\n  aside table tbody > tr > td, aside table tbody > tr > th, aside table tfoot > tr > td, aside table tfoot > tr > th, aside table thead > tr > td, aside table thead > tr > th {\n    padding: 8px;\n    line-height: 1.42857;\n    vertical-align: top;\n    border-top: 1px solid #DDD; }\n\na.button {\n  background: transparent url("+__webpack_require__(87)+") 0 0 no-repeat;\n  width: 203px;\n  height: 80px;\n  padding-left: 60px;\n  color: #fff !important; }\n  a.button small {\n    display: inline;\n    font-size: 13px;\n    margin-top: 15px; }\n\n.jumbotron {\n  background: steelblue;\n  padding: 0px;\n  color: white; }\n  .jumbotron a {\n    color: yellow; }\n\n.top-spacing {\n  padding-top: 10px; }\n\n.navbar {\n  background-color: steelblue; }\n  .navbar a {\n    color: white; }\n\n/*\n * Top navigation\n * Hide default border to remove 1px line.\n */\n.navbar-fixed-top {\n  border: 0; }\n\n/*\n * Sidebar\n */\n/* Hide for mobile, show later */\n.sidebar {\n  display: none; }\n\n@media (min-width: 768px) {\n  .sidebar {\n    position: fixed;\n    top: 51px;\n    bottom: 0;\n    left: 0;\n    z-index: 1000;\n    display: block;\n    padding: 20px;\n    overflow-x: hidden;\n    overflow-y: auto;\n    /* Scrollable contents if viewport is shorter than content. */\n    background-color: #f5f5f5;\n    border-right: 1px solid #eee; } }\n\n/* Sidebar navigation */\n.nav-sidebar {\n  margin-right: -21px;\n  /* 20px padding + 1px border */\n  margin-bottom: 20px;\n  margin-left: -20px; }\n  .nav-sidebar > li > a {\n    padding-right: 20px;\n    padding-left: 20px; }\n  .nav-sidebar > .active a, .nav-sidebar > .active a:hover, .nav-sidebar > .active a:focus {\n    color: #fff;\n    background-color: #428bca; }\n\n/*\n * Main content\n */\n.main {\n  padding: 20px; }\n\n@media (min-width: 768px) {\n  .main {\n    padding-right: 40px;\n    padding-left: 40px; } }\n\n.main .page-header {\n  margin-top: 0; }\n", ""]);
+	exports = module.exports = __webpack_require__(70)();
+	exports.push([module.id, "/* Move down content because we have a fixed navbar that is 50px tall */\n/*! normalize.css v3.0.2 | MIT License | git.io/normalize */\n/* #MainContainer {\n   position: fixed;\n   top: 50px;\n   padding-left: 100px;\n} */\naside table {\n  border: 1;\n  border-spacing: 1px;\n  border-collapse: collapse;\n  max-width: 100%;\n  margin-bottom: 20px; }\n  aside table tbody > tr > td, aside table tbody > tr > th, aside table tfoot > tr > td, aside table tfoot > tr > th, aside table thead > tr > td, aside table thead > tr > th {\n    padding: 8px;\n    line-height: 1.42857;\n    vertical-align: top;\n    border-top: 1px solid #DDD; }\n\na.button {\n  background: transparent url("+__webpack_require__(95)+") 0 0 no-repeat;\n  width: 203px;\n  height: 80px;\n  padding-left: 60px;\n  color: #fff !important; }\n  a.button small {\n    display: inline;\n    font-size: 13px;\n    margin-top: 15px; }\n\n.jumbotron {\n  background: steelblue;\n  padding: 0px;\n  color: white; }\n  .jumbotron a {\n    color: yellow; }\n\n.top-spacing {\n  padding-top: 10px; }\n\n.navbar {\n  background-color: steelblue; }\n  .navbar a {\n    color: white; }\n\n/*\n * Top navigation\n * Hide default border to remove 1px line.\n */\n.navbar-fixed-top {\n  border: 0; }\n\n/*\n * Sidebar\n */\n/* Hide for mobile, show later */\n.sidebar {\n  display: none; }\n\n@media (min-width: 768px) {\n  .sidebar {\n    position: fixed;\n    top: 51px;\n    bottom: 0;\n    left: 0;\n    z-index: 1000;\n    display: block;\n    padding: 20px;\n    overflow-x: hidden;\n    overflow-y: auto;\n    /* Scrollable contents if viewport is shorter than content. */\n    background-color: #f5f5f5;\n    border-right: 1px solid #eee; } }\n\n/* Sidebar navigation */\n.nav-sidebar {\n  margin-right: -21px;\n  /* 20px padding + 1px border */\n  margin-bottom: 20px;\n  margin-left: -20px; }\n  .nav-sidebar > li > a {\n    padding-right: 20px;\n    padding-left: 20px; }\n  .nav-sidebar > .active a, .nav-sidebar > .active a:hover, .nav-sidebar > .active a:focus {\n    color: #fff;\n    background-color: #428bca; }\n\n/*\n * Main content\n */\n.main {\n  padding: 20px; }\n\n@media (min-width: 768px) {\n  .main {\n    padding-right: 40px;\n    padding-left: 40px; } }\n\n.main .page-header {\n  margin-top: 0; }\n", ""]);
 
 /***/ },
-/* 37 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(38);
+	var content = __webpack_require__(30);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(60)(content, {});
+	var update = __webpack_require__(65)(content, {});
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
@@ -284,13 +261,26 @@ return webpackJsonpReStock([0,2],[
 	}
 
 /***/ },
-/* 38 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(62)();
+	exports = module.exports = __webpack_require__(70)();
 	exports.push([module.id, "body {\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  font-size: 13px; }\n\n.react-stockchart .axis path, .react-stockchart .axis line {\n  fill: none;\n  stroke: #000000; }\n.react-stockchart .current-coordinate {\n  fill: none;\n  stroke: steelblue;\n  stroke-width: 3px; }\n.react-stockchart .grid.axis path, .react-stockchart .grid.axis line {\n  fill: none;\n  stroke: #000000;\n  shape-rendering: crispEdges;\n  opacity: 0.2; }\n.react-stockchart .y.axis path {\n  display: none; }\n.react-stockchart .candle .up {\n  fill: #6BA583;\n  stroke: #6BA583;\n  stroke-width: 1px;\n  shape-rendering: crispEdges; }\n.react-stockchart .candle .down {\n  fill: #ff0000;\n  stroke: #ff0000;\n  stroke-width: 1px;\n  shape-rendering: crispEdges; }\n.react-stockchart .candle line {\n  stroke: #000000; }\n.react-stockchart .wick .up, .react-stockchart .wick .down {\n  stroke: #000000;\n  stroke-width: 1px;\n  shape-rendering: crispEdges; }\n.react-stockchart .line {\n  fill: none;\n  stroke-width: 1px; }\n.react-stockchart .line-stroke {\n  shape-rendering: crispEdges;\n  stroke: steelblue; }\n.react-stockchart .overlay-stroke {\n  stroke: steelblue; }\n.react-stockchart .yin {\n  fill: none;\n  stroke: #ff0000;\n  stroke-width: 2px; }\n.react-stockchart .yang {\n  fill: none;\n  stroke: #6BA583;\n  stroke-width: 2px; }\n.react-stockchart .point_figure_up {\n  fill: none;\n  stroke: green;\n  stroke-width: 1px; }\n.react-stockchart .point_figure_down {\n  fill: none;\n  stroke: #ff0000;\n  stroke-width: 1px; }\n.react-stockchart .area {\n  fill: lightsteelblue;\n  opacity: 0.5; }\n.react-stockchart .backgroundText {\n  text-anchor: middle;\n  fill: #8a8a8a;\n  opacity: 0.15; }\n.react-stockchart .cross-hair {\n  stroke: #000000;\n  stroke-width: 1px;\n  shape-rendering: crispEdges;\n  opacity: 0.2; }\n.react-stockchart .horizontal2 .textbg {\n  opacity: 0.95;\n  fill: #f0e68c; }\n.react-stockchart .horizontal2 text {\n  fill: #757575; }\n.react-stockchart .horizontal3 .textbg {\n  opacity: 0.95;\n  fill: #000000; }\n.react-stockchart .horizontal3 text {\n  fill: #757575; }\n.react-stockchart .edge-coordinate .textbg {\n  opacity: 0.95; }\n.react-stockchart .edge-coordinate text {\n  fill: #ffffff; }\n.react-stockchart .vertical .textbg, .react-stockchart .horizontal .textbg {\n  opacity: 0.9;\n  fill: #8a8a8a; }\n.react-stockchart .vertical text, .react-stockchart .horizontal text {\n  fill: #ffffff; }\n.react-stockchart .grab {\n  cursor: grab;\n  cursor: -webkit-grab; }\n.react-stockchart .grabbing {\n  cursor: grabbing;\n  cursor: -webkit-grabbing; }\n.react-stockchart .crosshair {\n  cursor: crosshair; }\n.react-stockchart .toottip-hover {\n  pointer-events: all;\n  cursor: pointer; }\n.react-stockchart .histogram .bar {\n  fill: steelblue;\n  opacity: 0.3;\n  stroke: none; }\n.react-stockchart .histogram .up {\n  fill: #6BA583;\n  opacity: 0.3;\n  stroke: none; }\n.react-stockchart .histogram .down {\n  fill: #ff0000;\n  opacity: 0.3;\n  stroke: none; }\n.react-stockchart .histogram line.up {\n  stroke: #6BA583; }\n.react-stockchart .histogram line.down {\n  stroke: #ff0000; }\n.react-stockchart .ma-container rect {\n  fill: none;\n  stroke: none; }\n  .react-stockchart .ma-container rect:hover {\n    fill: #8a8a8a;\n    opacity: 0.3; }\n.react-stockchart .ma-container line {\n  stroke-width: 4px; }\n.react-stockchart .legend {\n  font-size: 11px; }\n  .react-stockchart .legend .tooltip-label {\n    fill: steelblue;\n    font-weight: bold; }\n", ""]);
 
 /***/ },
+/* 31 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = "<h1>React Stockcharts</h1>\n<p>Highly customizable stock charts built with <a href=\"http://facebook.github.io/react/\">React JS</a> and <a href=\"http://d3js.org/\">d3</a></p>\n";
+
+/***/ },
+/* 32 */,
+/* 33 */,
+/* 34 */,
+/* 35 */,
+/* 36 */,
+/* 37 */,
+/* 38 */,
 /* 39 */,
 /* 40 */,
 /* 41 */,
@@ -309,56 +299,15 @@ return webpackJsonpReStock([0,2],[
 /* 54 */,
 /* 55 */,
 /* 56 */,
-/* 57 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = "<h1>React Stockcharts</h1>\n<p>Highly customizable stock charts built with <a href=\"http://facebook.github.io/react/\">React JS</a> and <a href=\"http://d3js.org/\">d3</a></p>\n";
-
-/***/ },
-/* 58 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var ChartWidthMixin = {
-		handleWindowResize:function() {
-			var w = $(this.getDOMNode()).parent().width();
-			console.log('width = ', w);
-	
-			this.setState({
-				width: w
-			});
-		},
-		componentWillUnMount:function() {
-			window.removeEventListener("resize", this.handleWindowResize);
-		},
-		componentDidMount:function() {
-			window.addEventListener("resize", this.handleWindowResize);
-			var w = $(this.getDOMNode()).parent().width();
-			this.setState({
-				width: w
-			});
-		},
-	};
-	
-	module.exports = ChartWidthMixin;
-
-/***/ },
-/* 59 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var InitialStateMixin = {
-		getInitialState:function() {
-			return {};
-		}
-	};
-	
-	module.exports = InitialStateMixin;
-
-/***/ },
-/* 60 */
+/* 57 */,
+/* 58 */,
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */,
+/* 64 */,
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -554,49 +503,93 @@ return webpackJsonpReStock([0,2],[
 
 
 /***/ },
-/* 61 */
+/* 66 */,
+/* 67 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var ChartWidthMixin = {
+		handleWindowResize:function() {
+			var w = $(this.getDOMNode()).parent().width();
+			console.log('width = ', w);
+	
+			this.setState({
+				width: w
+			});
+		},
+		componentWillUnMount:function() {
+			window.removeEventListener("resize", this.handleWindowResize);
+		},
+		componentDidMount:function() {
+			window.addEventListener("resize", this.handleWindowResize);
+			var w = $(this.getDOMNode()).parent().width();
+			this.setState({
+				width: w
+			});
+		},
+	};
+	
+	module.exports = ChartWidthMixin;
+
+/***/ },
+/* 68 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var InitialStateMixin = {
+		getInitialState:function() {
+			return {};
+		}
+	};
+	
+	module.exports = InitialStateMixin;
+
+/***/ },
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	// common components
-	exports.ChartCanvas = __webpack_require__(63);
-	exports.DataTransform = __webpack_require__(64);
+	exports.ChartCanvas = __webpack_require__(71);
+	exports.DataTransform = __webpack_require__(72);
 	
-	exports.XAxis = __webpack_require__(65);
-	exports.YAxis = __webpack_require__(66);
-	exports.Chart = __webpack_require__(67);
-	exports.DataSeries = __webpack_require__(68);
+	exports.XAxis = __webpack_require__(73);
+	exports.YAxis = __webpack_require__(74);
+	exports.Chart = __webpack_require__(75);
+	exports.DataSeries = __webpack_require__(76);
 	
 	// chart types & Series
-	exports.AreaSeries = __webpack_require__(69);
-	exports.LineSeries = __webpack_require__(70);
-	exports.CandlestickSeries = __webpack_require__(71);
-	exports.OverlaySeries = __webpack_require__(72);
-	exports.HistogramSeries = __webpack_require__(74);
-	exports.KagiSeries = __webpack_require__(73);
-	exports.PointAndFigureSeries = __webpack_require__(75);
-	exports.RenkoSeries = __webpack_require__(76);
+	exports.AreaSeries = __webpack_require__(77);
+	exports.LineSeries = __webpack_require__(78);
+	exports.CandlestickSeries = __webpack_require__(79);
+	exports.OverlaySeries = __webpack_require__(80);
+	exports.HistogramSeries = __webpack_require__(81);
+	exports.KagiSeries = __webpack_require__(82);
+	exports.PointAndFigureSeries = __webpack_require__(83);
+	exports.RenkoSeries = __webpack_require__(84);
 	
 	// interaction components
-	exports.EventCapture = __webpack_require__(77);
-	exports.MouseCoordinates = __webpack_require__(78);
-	exports.CrossHair = __webpack_require__(79);
-	exports.VerticalMousePointer = __webpack_require__(80);
-	exports.CurrentCoordinate = __webpack_require__(81);
+	exports.EventCapture = __webpack_require__(85);
+	exports.MouseCoordinates = __webpack_require__(86);
+	exports.CrossHair = __webpack_require__(87);
+	exports.VerticalMousePointer = __webpack_require__(88);
+	exports.CurrentCoordinate = __webpack_require__(89);
 	
 	// Tooltips
-	exports.TooltipContainer = __webpack_require__(82);
-	exports.OHLCTooltip = __webpack_require__(83);
-	exports.MovingAverageTooltip = __webpack_require__(84);
+	exports.TooltipContainer = __webpack_require__(90);
+	exports.OHLCTooltip = __webpack_require__(91);
+	exports.MovingAverageTooltip = __webpack_require__(93);
 	
 	// misc
-	exports.EdgeContainer = __webpack_require__(85);
-	exports.EdgeIndicator = __webpack_require__(86);
+	exports.EdgeContainer = __webpack_require__(92);
+	exports.EdgeIndicator = __webpack_require__(94);
 
 
 /***/ },
-/* 62 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = function() {
@@ -617,16 +610,16 @@ return webpackJsonpReStock([0,2],[
 	}
 
 /***/ },
-/* 63 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(1);
 	// var TestUtils = React.addons.TestUtils;
 	
-	var Chart = __webpack_require__(67);
-	var EventCaptureMixin = __webpack_require__(89);
-	var ChartContainerMixin = __webpack_require__(88);
+	var Chart = __webpack_require__(75);
+	var EventCaptureMixin = __webpack_require__(96);
+	var ChartContainerMixin = __webpack_require__(97);
 	
 	var ChartCanvas = React.createClass({displayName: "ChartCanvas",
 		mixins: [ChartContainerMixin, EventCaptureMixin],
@@ -691,16 +684,16 @@ return webpackJsonpReStock([0,2],[
 
 
 /***/ },
-/* 64 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(1);
-	var EventCaptureMixin = __webpack_require__(89);
-	var ChartContainerMixin = __webpack_require__(88);
-	var DataTransformMixin = __webpack_require__(90);
+	var EventCaptureMixin = __webpack_require__(96);
+	var ChartContainerMixin = __webpack_require__(97);
+	var DataTransformMixin = __webpack_require__(98);
 	
-	var polyLinearTimeScale = __webpack_require__(91);
+	var polyLinearTimeScale = __webpack_require__(99);
 	
 	var doNotPassThrough = ['transformType', 'options', 'children', 'namespace'];
 	
@@ -767,13 +760,13 @@ return webpackJsonpReStock([0,2],[
 
 
 /***/ },
-/* 65 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(1),
 		d3 = __webpack_require__(2),
-		PureRenderMixin = __webpack_require__(92);
+		PureRenderMixin = __webpack_require__(100);
 	
 	var XAxis = React.createClass({displayName: "XAxis",
 		mixins: [PureRenderMixin],
@@ -849,13 +842,13 @@ return webpackJsonpReStock([0,2],[
 
 
 /***/ },
-/* 66 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(1)
 		, d3 = __webpack_require__(2),
-		PureRenderMixin = __webpack_require__(92);
+		PureRenderMixin = __webpack_require__(100);
 	
 	
 	var YAxis = React.createClass({displayName: "YAxis",
@@ -932,7 +925,7 @@ return webpackJsonpReStock([0,2],[
 
 
 /***/ },
-/* 67 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -941,9 +934,9 @@ return webpackJsonpReStock([0,2],[
 	
 	var React = __webpack_require__(1),
 		d3 = __webpack_require__(2),
-		ScaleUtils = __webpack_require__(93),
-		OverlayUtils = __webpack_require__(94),
-		Utils = __webpack_require__(95),
+		ScaleUtils = __webpack_require__(101),
+		OverlayUtils = __webpack_require__(102),
+		Utils = __webpack_require__(103),
 		overlayColors = Utils.overlayColors;
 		// logger = require('./utils/logger')
 	
@@ -1277,7 +1270,7 @@ return webpackJsonpReStock([0,2],[
 
 
 /***/ },
-/* 68 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1287,10 +1280,10 @@ return webpackJsonpReStock([0,2],[
 	//     of PureRenderMixin
 	
 	var React = __webpack_require__(1),
-		PureRenderMixin = __webpack_require__(92),
-		Utils = __webpack_require__(95),
+		PureRenderMixin = __webpack_require__(100),
+		Utils = __webpack_require__(103),
 		d3 = __webpack_require__(2),
-		OverlayUtils = __webpack_require__(94),
+		OverlayUtils = __webpack_require__(102),
 		overlayColors = Utils.overlayColors;
 	
 	function getOverlayFromList(overlays, id) {
@@ -1365,13 +1358,13 @@ return webpackJsonpReStock([0,2],[
 
 
 /***/ },
-/* 69 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(1),
 		d3 = __webpack_require__(2),
-		PureRenderMixin = __webpack_require__(92);
+		PureRenderMixin = __webpack_require__(100);
 	
 	var AreaSeries = React.createClass({displayName: "AreaSeries",
 		mixins: [PureRenderMixin],
@@ -1428,13 +1421,13 @@ return webpackJsonpReStock([0,2],[
 	*/
 
 /***/ },
-/* 70 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(1),
 		d3 = __webpack_require__(2),
-		PureRenderMixin = __webpack_require__(92);
+		PureRenderMixin = __webpack_require__(100);
 	
 	
 	var LineSeries = React.createClass({displayName: "LineSeries",
@@ -1485,13 +1478,13 @@ return webpackJsonpReStock([0,2],[
 	*/
 
 /***/ },
-/* 71 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(1),
 		d3 = __webpack_require__(2),
-		PureRenderMixin = __webpack_require__(92);
+		PureRenderMixin = __webpack_require__(100);
 	
 	
 	var CandlestickSeries = React.createClass({displayName: "CandlestickSeries",
@@ -1582,15 +1575,15 @@ return webpackJsonpReStock([0,2],[
 	*/
 
 /***/ },
-/* 72 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(1),
-		PureRenderMixin = __webpack_require__(92),
-		Utils = __webpack_require__(95),
-		OverlayUtils = __webpack_require__(94);
+		PureRenderMixin = __webpack_require__(100),
+		Utils = __webpack_require__(103),
+		OverlayUtils = __webpack_require__(102);
 	
 	var OverlaySeries = React.createClass({displayName: "OverlaySeries",
 		//namespace: "ReStock.OverlaySeries",
@@ -1682,84 +1675,13 @@ return webpackJsonpReStock([0,2],[
 
 
 /***/ },
-/* 73 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(1),
 		d3 = __webpack_require__(2),
-		PureRenderMixin = __webpack_require__(92);
-	
-	
-	var KagiSeries = React.createClass({displayName: "KagiSeries",
-		mixins: [PureRenderMixin],
-		propTypes: {
-			_xScale: React.PropTypes.func.isRequired,
-			_yScale: React.PropTypes.func.isRequired,
-			_xAccessor: React.PropTypes.func.isRequired,
-			_yAccessor: React.PropTypes.func.isRequired,
-			data: React.PropTypes.array.isRequired
-		},
-		statics: {
-			yAccessor: function(d)  {return {open: d.open, high: d.high, low: d.low, close: d.close};}
-		},
-		getDefaultProps:function() {
-			return {
-				namespace: "ReStock.KagiSeries"
-			}
-		},
-		render:function() {
-			var kagiLine = new Array();
-			var kagi = {};
-			for (var i = 0; i < this.props.data.length; i++) {
-				var d = this.props.data[i];
-				if (d.close === undefined) continue;
-				if (kagi.type === undefined) kagi.type = d.startAs;
-				if (kagi.plot === undefined) kagi.plot = new Array();
-				var idx = this.props._xAccessor(d);
-				kagi.plot.push([idx, d.open]);
-	
-				if (d.changePoint != undefined) {
-					kagi.plot.push([idx, d.changePoint]);
-					kagiLine.push(kagi);
-					kagi = {
-						type: d.changeTo
-						, plot: []
-					};
-					kagi.plot.push([idx, d.changePoint]);
-				}
-			};
-	
-			var props = this.props;
-	
-			var paths = kagiLine.map(function (each, i) {
-	
-				var dataSeries = d3.svg.line()
-					.x(function(d) { return props._xScale(d[0]); })
-					.y(function(d) { return props._yScale(d[1]); })
-					.interpolate("step-before")
-					;
-				return (React.createElement("path", {key: i, d: dataSeries(each.plot), className: each.type}))
-			});
-			return (
-				React.createElement("g", null, 
-					paths
-				)
-			);
-		}
-	});
-	
-	module.exports = KagiSeries;
-
-
-/***/ },
-/* 74 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var React = __webpack_require__(1),
-		d3 = __webpack_require__(2),
-		PureRenderMixin = __webpack_require__(92);
+		PureRenderMixin = __webpack_require__(100);
 	
 	
 	var HistogramSeries = React.createClass({displayName: "HistogramSeries",
@@ -1847,13 +1769,84 @@ return webpackJsonpReStock([0,2],[
 	*/
 
 /***/ },
-/* 75 */
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(1),
 		d3 = __webpack_require__(2),
-		PureRenderMixin = __webpack_require__(92);
+		PureRenderMixin = __webpack_require__(100);
+	
+	
+	var KagiSeries = React.createClass({displayName: "KagiSeries",
+		mixins: [PureRenderMixin],
+		propTypes: {
+			_xScale: React.PropTypes.func.isRequired,
+			_yScale: React.PropTypes.func.isRequired,
+			_xAccessor: React.PropTypes.func.isRequired,
+			_yAccessor: React.PropTypes.func.isRequired,
+			data: React.PropTypes.array.isRequired
+		},
+		statics: {
+			yAccessor: function(d)  {return {open: d.open, high: d.high, low: d.low, close: d.close};}
+		},
+		getDefaultProps:function() {
+			return {
+				namespace: "ReStock.KagiSeries"
+			}
+		},
+		render:function() {
+			var kagiLine = new Array();
+			var kagi = {};
+			for (var i = 0; i < this.props.data.length; i++) {
+				var d = this.props.data[i];
+				if (d.close === undefined) continue;
+				if (kagi.type === undefined) kagi.type = d.startAs;
+				if (kagi.plot === undefined) kagi.plot = new Array();
+				var idx = this.props._xAccessor(d);
+				kagi.plot.push([idx, d.open]);
+	
+				if (d.changePoint != undefined) {
+					kagi.plot.push([idx, d.changePoint]);
+					kagiLine.push(kagi);
+					kagi = {
+						type: d.changeTo
+						, plot: []
+					};
+					kagi.plot.push([idx, d.changePoint]);
+				}
+			};
+	
+			var props = this.props;
+	
+			var paths = kagiLine.map(function (each, i) {
+	
+				var dataSeries = d3.svg.line()
+					.x(function(d) { return props._xScale(d[0]); })
+					.y(function(d) { return props._yScale(d[1]); })
+					.interpolate("step-before")
+					;
+				return (React.createElement("path", {key: i, d: dataSeries(each.plot), className: each.type}))
+			});
+			return (
+				React.createElement("g", null, 
+					paths
+				)
+			);
+		}
+	});
+	
+	module.exports = KagiSeries;
+
+
+/***/ },
+/* 83 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(1),
+		d3 = __webpack_require__(2),
+		PureRenderMixin = __webpack_require__(100);
 	
 	
 	var PointAndFigureSeries = React.createClass({displayName: "PointAndFigureSeries",
@@ -1938,13 +1931,13 @@ return webpackJsonpReStock([0,2],[
 
 
 /***/ },
-/* 76 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(1),
 		d3 = __webpack_require__(2),
-		PureRenderMixin = __webpack_require__(92);
+		PureRenderMixin = __webpack_require__(100);
 	
 	
 	var RenkoSeries = React.createClass({displayName: "RenkoSeries",
@@ -2025,12 +2018,12 @@ return webpackJsonpReStock([0,2],[
 	*/
 
 /***/ },
-/* 77 */
+/* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(1);
-	var Utils = __webpack_require__(95)
+	var Utils = __webpack_require__(103)
 	
 	var EventCapture = React.createClass({displayName: "EventCapture",
 		propTypes: {
@@ -2188,13 +2181,13 @@ return webpackJsonpReStock([0,2],[
 	*/
 
 /***/ },
-/* 78 */
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(1);
-	var EdgeCoordinate = __webpack_require__(96)
-	var Utils = __webpack_require__(95)
+	var EdgeCoordinate = __webpack_require__(104)
+	var Utils = __webpack_require__(103)
 	
 	// Should not use xScale and yScale here as MouseCoordinate is common across all charts
 	// if it is made to be inside a Chart another Chart might be displayed over it
@@ -2280,13 +2273,13 @@ return webpackJsonpReStock([0,2],[
 	*/
 
 /***/ },
-/* 79 */
+/* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(1);
-	var EdgeCoordinate = __webpack_require__(96)
-	var Utils = __webpack_require__(95)
+	var EdgeCoordinate = __webpack_require__(104)
+	var Utils = __webpack_require__(103)
 	
 	var CrossHair = React.createClass({displayName: "CrossHair",
 		propTypes: {
@@ -2338,13 +2331,13 @@ return webpackJsonpReStock([0,2],[
 
 
 /***/ },
-/* 80 */
+/* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(1);
-	var EdgeCoordinate = __webpack_require__(96)
-	var Utils = __webpack_require__(95)
+	var EdgeCoordinate = __webpack_require__(104)
+	var Utils = __webpack_require__(103)
 	
 	var VerticalMousePointer = React.createClass({displayName: "VerticalMousePointer",
 		propTypes: {
@@ -2387,13 +2380,13 @@ return webpackJsonpReStock([0,2],[
 
 
 /***/ },
-/* 81 */
+/* 89 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(1),
-		PureRenderMixin = __webpack_require__(92),
-		Utils = __webpack_require__(95);
+		PureRenderMixin = __webpack_require__(100),
+		Utils = __webpack_require__(103);
 	
 	var CurrentCoordinate = React.createClass({displayName: "CurrentCoordinate",
 		//namespace: "ReStock.DataSeries",
@@ -2454,7 +2447,7 @@ return webpackJsonpReStock([0,2],[
 
 
 /***/ },
-/* 82 */
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2503,13 +2496,13 @@ return webpackJsonpReStock([0,2],[
 
 
 /***/ },
-/* 83 */
+/* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(1);
-	var Utils = __webpack_require__(95)
+	var Utils = __webpack_require__(103)
 	
 	var billion = 1 * 1000 * 1000 * 1000;
 	var million = 1 * 1000 * 1000;
@@ -2575,13 +2568,57 @@ return webpackJsonpReStock([0,2],[
 
 
 /***/ },
-/* 84 */
+/* 92 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(1);
+	
+	var EdgeContainer = React.createClass({displayName: "EdgeContainer",
+		propTypes: {
+			_currentItems: React.PropTypes.array.isRequired,
+			_charts: React.PropTypes.array.isRequired,
+			_height: React.PropTypes.number.isRequired,
+			_width: React.PropTypes.number.isRequired,
+		},
+		getDefaultProps:function() {
+			return {
+				namespace: "ReStock.EdgeContainer",
+			}
+		},
+		renderChildren:function() {
+			return React.Children.map(this.props.children, function(child)  {
+				if (typeof child.type === 'string') return child;
+				var newChild = child;
+				if (/EdgeIndicator$/.test(newChild.props.namespace)) {
+					var chart = this.props._charts.filter(function(chart)  {return chart.id === newChild.props.forChart;})[0];
+					var currentItem = this.props._currentItems.filter(function(item)  {return item.id === newChild.props.forChart;})[0];
+					newChild = React.addons.cloneWithProps(newChild, {
+						_width: this.props._width,
+						_chart: chart,
+						_currentItem: currentItem
+					});
+				}
+				return newChild;
+			}.bind(this));
+		},
+		render:function() {
+			return React.createElement("g", null, this.renderChildren())
+		}
+	});
+	
+	module.exports = EdgeContainer;
+	
+
+
+/***/ },
+/* 93 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(1);
-	var Utils = __webpack_require__(95)
+	var Utils = __webpack_require__(103)
 	
 	var SingleMAToolTip = React.createClass({displayName: "SingleMAToolTip",
 		propTypes: {
@@ -2656,57 +2693,13 @@ return webpackJsonpReStock([0,2],[
 
 
 /***/ },
-/* 85 */
+/* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(1);
-	
-	var EdgeContainer = React.createClass({displayName: "EdgeContainer",
-		propTypes: {
-			_currentItems: React.PropTypes.array.isRequired,
-			_charts: React.PropTypes.array.isRequired,
-			_height: React.PropTypes.number.isRequired,
-			_width: React.PropTypes.number.isRequired,
-		},
-		getDefaultProps:function() {
-			return {
-				namespace: "ReStock.EdgeContainer",
-			}
-		},
-		renderChildren:function() {
-			return React.Children.map(this.props.children, function(child)  {
-				if (typeof child.type === 'string') return child;
-				var newChild = child;
-				if (/EdgeIndicator$/.test(newChild.props.namespace)) {
-					var chart = this.props._charts.filter(function(chart)  {return chart.id === newChild.props.forChart;})[0];
-					var currentItem = this.props._currentItems.filter(function(item)  {return item.id === newChild.props.forChart;})[0];
-					newChild = React.addons.cloneWithProps(newChild, {
-						_width: this.props._width,
-						_chart: chart,
-						_currentItem: currentItem
-					});
-				}
-				return newChild;
-			}.bind(this));
-		},
-		render:function() {
-			return React.createElement("g", null, this.renderChildren())
-		}
-	});
-	
-	module.exports = EdgeContainer;
-	
-
-
-/***/ },
-/* 86 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var React = __webpack_require__(1);
-	var Utils = __webpack_require__(95)
-	var EdgeCoordinate = __webpack_require__(96)
+	var Utils = __webpack_require__(103)
+	var EdgeCoordinate = __webpack_require__(104)
 	
 	
 	var EdgeIndicator = React.createClass({displayName: "EdgeIndicator",
@@ -2841,277 +2834,22 @@ return webpackJsonpReStock([0,2],[
 	*/
 
 /***/ },
-/* 87 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMoAAABQCAQAAADykSIGAAAF1UlEQVR4Ae3df4zXdR3A8cfnvnccd7i7gwMiCCE6BzlwImVFpqgnykANZ66RawHTQJrnVizJymwENKUcJSBjsEqyJrIEQiHQSoutWBA4BYwLGCi/Tu7O7pDv/fj0R2vfHdx9J3ef7925vR9/v/577j6/vrfXO9IjgrhYkb4K0OR9jc4BEMUATHe7z/mEAkF3anLI3/3e85rbRvm4VSr1pOAV9zmUiXK17cq96+de8IbzChQrkdLihLQgSfmGSmlwRiug0Bh3qjJAjZvsJYoZ5W/KbfZVZ2XkGaifFm9rFiTnI4o1OOVCJdaZ5owJjkYx291sszvELjRYP41OCpJSZIgWx7S6WMomU2x1WxTfbqMaFWpdLM/HpJzUKEhGuRJn1WrfcLuVmxrFq822yCPaV6a/ejWCZAzTx3Fp7etjoflWRPEbPunTdnU4NkzacUEyRoocFmtf5FYv2hfFaQWKvN/h2Eixw4LuiJKnwgFNURwjL8vYCK2OCLrn8jVMNf+LUijdCy5f4UZfpn8mSn+14Ubfk4/EmWfdTJQRmbHwSNwjL4+Zt8IT/48yKuvYSUEuP7O0/X7SlPlLyTbWLElBH0OktKjXqIkLvjTGmRt9trGkBfkGKtLWOWc0k4kSZR0LcqFYscJ2fuTKRMk6FnSnTBQfWiHKEP9W7y+e95y0D6LUvab5jGbDnZcDIcr9nga8bYkVmmVzmW97UAngVtvkQIiy2mwZ/1Sl3kRjXWGoQVJa1Kl1yn67xX5sqIzvWSgHQpQtpuisp82RAyHKq67TWevcKwdClM2m6qxlquRAiLLIAp31davkQIgy0xqd9QdTNUlYiDLCHmU67wnzBQlHedFtuqLFp+wRJBjls3bqqvW+JEgwymqzdVXaEGcFiUU5ariuu9NGQUJRStVKwncsFiQUpcJbkrDUtwQJRRltvyQsN0+QUJThjkrCEgsECUXp65wkPOqHgoSi8I4huu4BKwSJRdlqsq4Lvz8mGuVhi3XdYKcFlxylwGilWuRpViCtSKMydQbbKE/XHDRDpEytYucUapKvRUqdg9KCDqOMV60OQLFhykGeRW7QNcs9q1mk1buOawRQapTdgg6jEBmjVEqMBu84BRjpdf103ikV3gMMMlQpYk1qHRDLKvylcFCD9txlvUjnxKZ7QXv6GS22W9DJ/5D8srX6unSt5lkpyEkUxllpoktz2GwvCxKNUmCsY04DmOwbJiv0Qeyy0q+kBQlHqfQSfukh9QBK3WCiq1UYKaWtFsdUe9NOrzksyEkUbvQbg+11vTptPWSpPG21+qYnBTmOwpV2Krno/xwne0nkYrEptgpyHIW5lqPKMhk73KR9fzJJkPMo+Q65HL/wU3vFRrvHo1IAjuJyAK1KNAhyHIUqTwLS6ANIe8YsrJYyE8+6RwpjHBDkPEqBLSpd6BXbLMYKzMUCU12Hq+wT5DwKhR43RwEyfm3fBVHGmdF9UUIU+KhbXKHASc2W9Y4oIUrGOHtDlA9/lCBECVGe0uLBEKWno3zBn7HO6xZjCR7GAmN9Bdd7VdCx9o8gyETJMpTNGjMxX6nvYoG0pVio1hNYa5b2BfnKFWurUY1mmShZhjpymcfNwT9MskElrhLbhx2m+6NrsNJ8/3Epwsav813Z9zXej5ywzQaft12e5ebhKQ9odYvXzHCjQR6x26UIu/GOJLMZ73cq/MwqMSL3qfKWL+qcsEWyuvftkAz7Vo/0vm2rYTPx2d63lzjs8D7f+zZ4hyMIWgkHEPSuKCXqNETxm8YYb084gKBXXL4m2GV/FK/1NY/5Qa+4fIUb/WO+b00U3+05p1Wo7/EbfXgkLvMv5e6K4iJbTLLB3eIefSQOL4+RjabZoTKKucY25dab5b0ee3kMn1lKPWOaGteqjmLyTfJbA5zxE5sc0BQOIOjWD5L9XOkOcw1Qo9Ieohj6mGCRSYKe9LL7M8fUQr6BprjZtUZJCbrTOdX+apNNkIkiHEDQm/wXb4bZSIeJkMcAAAAASUVORK5CYII="
 
 /***/ },
-/* 88 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var React = __webpack_require__(1),
-		d3 = __webpack_require__(2),
-		ScaleUtils = __webpack_require__(93),
-		OverlayUtils = __webpack_require__(94),
-		Utils = __webpack_require__(95),
-		Chart = __webpack_require__(67),
-		overlayColors = Utils.overlayColors;
-	var pluck = Utils.pluck;
-	var keysAsArray = Utils.keysAsArray;
-	
-	
-	function getOverlayFromList(overlays, id) {
-		return overlays.map(function(each)  {return [each.id, each];})
-			.filter(function(eachMap)  {return eachMap[0] === id;})
-			.map(function(eachMap)  {return eachMap[1];})[0];
-	}
-	
-	
-	var ChartContainerMixin = {
-		getDimensions:function(_props, chartProps) {
-	
-			var availableWidth = _props._width || this.getAvailableWidth(_props);
-			var availableHeight = _props._height || this.getAvailableHeight(_props);
-	
-			var width = chartProps.width || availableWidth;
-			var height = chartProps.height || availableHeight
-	
-			return {
-				availableWidth: availableWidth,
-				availableHeight: availableHeight,
-				width: width,
-				height: height
-			}
-		},
-		getChartDataFor:function(_props, chartProps, data, fullData, passThroughProps) {
-			var dimensions = this.getDimensions(_props, chartProps);
-	
-			var scales = this.defineScales(chartProps, data, passThroughProps);
-	
-			var accessors = this.getXYAccessors(chartProps, passThroughProps);
-			// identify overlays
-			var overlaysToAdd = this.identifyOverlaysToAdd(chartProps);
-			// console.log(overlaysToAdd);
-			// calculate overlays
-			this.calculateOverlays(fullData, overlaysToAdd);
-	
-			var overlayYAccessors = pluck(keysAsArray(overlaysToAdd), 'yAccessor');
-	
-			var xyValues = ScaleUtils.flattenData(data, [accessors.xAccessor], [accessors.yAccessor].concat(overlayYAccessors));
-	
-			var overlayValues = this.updateOverlayFirstLast(data, overlaysToAdd)
-	
-			scales = this.updateScales(
-				xyValues
-				, scales
-				, data
-				, dimensions.width
-				, dimensions.height);
-	
-			var last = Utils.cloneMe(data[data.length - 1]);
-			var first = Utils.cloneMe(data[0]);
-			var origin = typeof chartProps.origin === 'function'
-				? chartProps.origin(dimensions.availableWidth, dimensions.availableHeight)
-				: chartProps.origin;
-	
-			var drawableWidth = scales.xScale(accessors.xAccessor(data[data.length - 1]))
-				- scales.xScale(accessors.xAccessor(data[0]));
-	
-			var _chartData = {
-					width: dimensions.width,
-					height: dimensions.height,
-					drawableWidth: drawableWidth,
-					origin: origin,
-					overlayValues: overlayValues,
-					overlays: overlaysToAdd,
-					accessors: accessors,
-					scales: scales,
-					lastItem: last,
-					firstItem: first
-				};
-			return _chartData;
-		},
-		defineScales:function(props, data, passThroughProps) {
-			var xScale = props.xScale || props._xScale,
-				yScale = props.yScale;
-	
-			if (xScale === undefined && passThroughProps) xScale = passThroughProps._xScale;
-	
-			if (xScale === undefined) {
-				var each = data[0];
-				if (typeof each === 'object') {
-					Object.keys(each).forEach(function(key)  {
-						if (Object.prototype.toString.call(each[key]) === '[object Date]') {
-							xScale = d3.time.scale();
-						}
-					});
-				}
-				if (xScale === undefined) xScale = d3.scale.linear();
-				//xScale = polyLinearTimeScale();
-			}
-			if (yScale === undefined) {
-				yScale = d3.scale.linear();
-			}
-			return { xScale: xScale, yScale: yScale };
-		},
-		getXYAccessors:function(props, passThroughProps) {
-			var accessor = { xAccessor: null, yAccessor: null };
-	
-			React.Children.forEach(props.children, function(child)  {
-				if (['ReStock.DataSeries']
-						.indexOf(child.props.namespace) > -1) {
-					if (child.props) {
-	
-						var xAccesor = passThroughProps !== undefined && passThroughProps._stockScale
-							? passThroughProps._indexAccessor
-							: child.props.xAccessor
-						accessor.xAccessor = xAccesor;
-						accessor.yAccessor = child.props.yAccessor;
-					}
-				}
-			});
-			// yAccessors.push(overlayY);
-	
-			return accessor;
-		},
-		identifyOverlaysToAdd:function(props) {
-			var overlaysToAdd = [];
-			React.Children.forEach(props.children, function(child)  {
-				if (/DataSeries$/.test(child.props.namespace)) {
-					React.Children.forEach(child.props.children, function(grandChild)  {
-						if (/OverlaySeries$/.test(grandChild.props.namespace)) {
-							// var overlay = getOverlayFromList(overlays, grandChild.props.id)
-							var key = OverlayUtils.getYAccessorKey(props.id, grandChild.props);
-							var overlay = {
-								id: grandChild.props.id,
-								chartId: props.id,
-								key: key,
-								yAccessor: function(d)  {return d[key];},
-								options: grandChild.props.options,
-								type: grandChild.props.type,
-								tooltipLabel: OverlayUtils.getToolTipLabel(grandChild.props),
-								stroke: grandChild.stroke || overlayColors(grandChild.props.id)
-							};
-							overlaysToAdd.push(overlay);
-						}
-					});
-				}
-			})
-			return overlaysToAdd;
-		},
-		calculateOverlays:function(fullData, overlays) {
-			if (Array.isArray(fullData)) {
-				overlays
-					.filter(function(eachOverlay)  {return eachOverlay.id !== undefined;})
-					.forEach(function(overlay)  {
-						OverlayUtils.calculateOverlay(fullData, overlay);
-					});
-			} else {
-				Object.keys(fullData)
-					.filter(function(key)  {return ['D', 'W', 'M'].indexOf(key) > -1;})
-					.forEach(function(key)  {
-						overlays
-							.filter(function(eachOverlay)  {return eachOverlay.id !== undefined;})
-							.forEach(function(overlay)  {
-								OverlayUtils.calculateOverlay(fullData[key], overlay);
-							});
-					})
-			}
-			// console.log(overlays);
-		},
-		updateOverlayFirstLast:function(data,
-			overlays) {
-	
-			// console.log('updateOverlayFirstLast');
-	
-			var overlayValues = [];
-	
-			overlays
-				.forEach(function(eachOverlay, idx)  {
-					// console.log(JSON.stringify(first), Object.keys(first), yAccessor(first));
-					overlayValues.push({
-						id: eachOverlay.id,
-						first: OverlayUtils.firstDefined(data, eachOverlay.yAccessor),
-						last: OverlayUtils.lastDefined(data, eachOverlay.yAccessor)
-					})/**/
-				})
-			// console.log(_overlayValues);
-			return overlayValues;
-		},
-		updateScales:function(xyValues, scales, data, width, height) {
-			console.log('updateScales');
-	
-	
-			scales.xScale.range([0, width]);
-			// if polylinear scale then set data
-			if (scales.xScale.isPolyLinear && scales.xScale.isPolyLinear()) {
-				scales.xScale.data(data);
-			} else {
-				// else set the domain
-				scales.xScale.domain(d3.extent(xyValues.xValues));
-			}
-	
-			scales.yScale.range([height, 0]);
-	
-			var domain = d3.extent(xyValues.yValues);
-			//var extraPadding = Math.abs(domain[0] - domain[1]) * 0.05;
-			//yScale.domain([domain[0] - extraPadding, domain[1] + extraPadding]);
-			scales.yScale.domain(domain);
-	
-			return {
-				xScale: scales.xScale.copy(),
-				yScale: scales.yScale.copy()
-			};
-		},
-	
-		updateChartDataFor:function(_chartData, data) {
-			console.log('updateChartDataFor');
-			var scales = _chartData.scales;
-	
-			var accessors = _chartData.accessors;
-	
-			var overlayValues = this.updateOverlayFirstLast(data, _chartData.overlays)
-			_chartData = _chartData.set( { overlayValues: overlayValues } ); // replace everything
-	
-			var overlayYAccessors = pluck(keysAsArray(_chartData.overlays), 'yAccessor');
-	
-	
-			var xyValues = ScaleUtils.flattenData(data, [accessors.xAccessor], [accessors.yAccessor].concat(overlayYAccessors));
-	
-			scales = this.updateScales(
-				xyValues
-				, scales
-				, data
-				, _chartData.width
-				, _chartData.height);
-	
-			_chartData = _chartData.set({ scales: scales });
-	
-			var last = Utils.cloneMe(data[data.length - 1]);
-			_chartData = _chartData.set({ lastItem: last });
-	
-			var first = Utils.cloneMe(data[0]);
-			_chartData = _chartData.set({ firstItem: first });
-			return _chartData;
-		}
-	};
-	
-	module.exports = ChartContainerMixin;
-
-
-/***/ },
-/* 89 */
+/* 96 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var React = __webpack_require__(1);
-	var EventCapture = __webpack_require__(77);
-	var MouseCoordinates = __webpack_require__(78);
-	var Utils = __webpack_require__(95);
+	var EventCapture = __webpack_require__(85);
+	var MouseCoordinates = __webpack_require__(86);
+	var Utils = __webpack_require__(103);
 	
-	var Freezer = __webpack_require__(99);
+	var Freezer = __webpack_require__(107);
 	// Let's create a freezer store
 	function getLongValue(value) {
 		if (value instanceof Date) {
@@ -3677,11 +3415,266 @@ return webpackJsonpReStock([0,2],[
 
 
 /***/ },
-/* 90 */
+/* 97 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var ChartTransformer = __webpack_require__(97);
+	var React = __webpack_require__(1),
+		d3 = __webpack_require__(2),
+		ScaleUtils = __webpack_require__(101),
+		OverlayUtils = __webpack_require__(102),
+		Utils = __webpack_require__(103),
+		Chart = __webpack_require__(75),
+		overlayColors = Utils.overlayColors;
+	var pluck = Utils.pluck;
+	var keysAsArray = Utils.keysAsArray;
+	
+	
+	function getOverlayFromList(overlays, id) {
+		return overlays.map(function(each)  {return [each.id, each];})
+			.filter(function(eachMap)  {return eachMap[0] === id;})
+			.map(function(eachMap)  {return eachMap[1];})[0];
+	}
+	
+	
+	var ChartContainerMixin = {
+		getDimensions:function(_props, chartProps) {
+	
+			var availableWidth = _props._width || this.getAvailableWidth(_props);
+			var availableHeight = _props._height || this.getAvailableHeight(_props);
+	
+			var width = chartProps.width || availableWidth;
+			var height = chartProps.height || availableHeight
+	
+			return {
+				availableWidth: availableWidth,
+				availableHeight: availableHeight,
+				width: width,
+				height: height
+			}
+		},
+		getChartDataFor:function(_props, chartProps, data, fullData, passThroughProps) {
+			var dimensions = this.getDimensions(_props, chartProps);
+	
+			var scales = this.defineScales(chartProps, data, passThroughProps);
+	
+			var accessors = this.getXYAccessors(chartProps, passThroughProps);
+			// identify overlays
+			var overlaysToAdd = this.identifyOverlaysToAdd(chartProps);
+			// console.log(overlaysToAdd);
+			// calculate overlays
+			this.calculateOverlays(fullData, overlaysToAdd);
+	
+			var overlayYAccessors = pluck(keysAsArray(overlaysToAdd), 'yAccessor');
+	
+			var xyValues = ScaleUtils.flattenData(data, [accessors.xAccessor], [accessors.yAccessor].concat(overlayYAccessors));
+	
+			var overlayValues = this.updateOverlayFirstLast(data, overlaysToAdd)
+	
+			scales = this.updateScales(
+				xyValues
+				, scales
+				, data
+				, dimensions.width
+				, dimensions.height);
+	
+			var last = Utils.cloneMe(data[data.length - 1]);
+			var first = Utils.cloneMe(data[0]);
+			var origin = typeof chartProps.origin === 'function'
+				? chartProps.origin(dimensions.availableWidth, dimensions.availableHeight)
+				: chartProps.origin;
+	
+			var drawableWidth = scales.xScale(accessors.xAccessor(data[data.length - 1]))
+				- scales.xScale(accessors.xAccessor(data[0]));
+	
+			var _chartData = {
+					width: dimensions.width,
+					height: dimensions.height,
+					drawableWidth: drawableWidth,
+					origin: origin,
+					overlayValues: overlayValues,
+					overlays: overlaysToAdd,
+					accessors: accessors,
+					scales: scales,
+					lastItem: last,
+					firstItem: first
+				};
+			return _chartData;
+		},
+		defineScales:function(props, data, passThroughProps) {
+			var xScale = props.xScale || props._xScale,
+				yScale = props.yScale;
+	
+			if (xScale === undefined && passThroughProps) xScale = passThroughProps._xScale;
+	
+			if (xScale === undefined) {
+				var each = data[0];
+				if (typeof each === 'object') {
+					Object.keys(each).forEach(function(key)  {
+						if (Object.prototype.toString.call(each[key]) === '[object Date]') {
+							xScale = d3.time.scale();
+						}
+					});
+				}
+				if (xScale === undefined) xScale = d3.scale.linear();
+				//xScale = polyLinearTimeScale();
+			}
+			if (yScale === undefined) {
+				yScale = d3.scale.linear();
+			}
+			return { xScale: xScale, yScale: yScale };
+		},
+		getXYAccessors:function(props, passThroughProps) {
+			var accessor = { xAccessor: null, yAccessor: null };
+	
+			React.Children.forEach(props.children, function(child)  {
+				if (['ReStock.DataSeries']
+						.indexOf(child.props.namespace) > -1) {
+					if (child.props) {
+	
+						var xAccesor = passThroughProps !== undefined && passThroughProps._stockScale
+							? passThroughProps._indexAccessor
+							: child.props.xAccessor
+						accessor.xAccessor = xAccesor;
+						accessor.yAccessor = child.props.yAccessor;
+					}
+				}
+			});
+			// yAccessors.push(overlayY);
+	
+			return accessor;
+		},
+		identifyOverlaysToAdd:function(props) {
+			var overlaysToAdd = [];
+			React.Children.forEach(props.children, function(child)  {
+				if (/DataSeries$/.test(child.props.namespace)) {
+					React.Children.forEach(child.props.children, function(grandChild)  {
+						if (/OverlaySeries$/.test(grandChild.props.namespace)) {
+							// var overlay = getOverlayFromList(overlays, grandChild.props.id)
+							var key = OverlayUtils.getYAccessorKey(props.id, grandChild.props);
+							var overlay = {
+								id: grandChild.props.id,
+								chartId: props.id,
+								key: key,
+								yAccessor: function(d)  {return d[key];},
+								options: grandChild.props.options,
+								type: grandChild.props.type,
+								tooltipLabel: OverlayUtils.getToolTipLabel(grandChild.props),
+								stroke: grandChild.stroke || overlayColors(grandChild.props.id)
+							};
+							overlaysToAdd.push(overlay);
+						}
+					});
+				}
+			})
+			return overlaysToAdd;
+		},
+		calculateOverlays:function(fullData, overlays) {
+			if (Array.isArray(fullData)) {
+				overlays
+					.filter(function(eachOverlay)  {return eachOverlay.id !== undefined;})
+					.forEach(function(overlay)  {
+						OverlayUtils.calculateOverlay(fullData, overlay);
+					});
+			} else {
+				Object.keys(fullData)
+					.filter(function(key)  {return ['D', 'W', 'M'].indexOf(key) > -1;})
+					.forEach(function(key)  {
+						overlays
+							.filter(function(eachOverlay)  {return eachOverlay.id !== undefined;})
+							.forEach(function(overlay)  {
+								OverlayUtils.calculateOverlay(fullData[key], overlay);
+							});
+					})
+			}
+			// console.log(overlays);
+		},
+		updateOverlayFirstLast:function(data,
+			overlays) {
+	
+			// console.log('updateOverlayFirstLast');
+	
+			var overlayValues = [];
+	
+			overlays
+				.forEach(function(eachOverlay, idx)  {
+					// console.log(JSON.stringify(first), Object.keys(first), yAccessor(first));
+					overlayValues.push({
+						id: eachOverlay.id,
+						first: OverlayUtils.firstDefined(data, eachOverlay.yAccessor),
+						last: OverlayUtils.lastDefined(data, eachOverlay.yAccessor)
+					})/**/
+				})
+			// console.log(_overlayValues);
+			return overlayValues;
+		},
+		updateScales:function(xyValues, scales, data, width, height) {
+			console.log('updateScales');
+	
+	
+			scales.xScale.range([0, width]);
+			// if polylinear scale then set data
+			if (scales.xScale.isPolyLinear && scales.xScale.isPolyLinear()) {
+				scales.xScale.data(data);
+			} else {
+				// else set the domain
+				scales.xScale.domain(d3.extent(xyValues.xValues));
+			}
+	
+			scales.yScale.range([height, 0]);
+	
+			var domain = d3.extent(xyValues.yValues);
+			//var extraPadding = Math.abs(domain[0] - domain[1]) * 0.05;
+			//yScale.domain([domain[0] - extraPadding, domain[1] + extraPadding]);
+			scales.yScale.domain(domain);
+	
+			return {
+				xScale: scales.xScale.copy(),
+				yScale: scales.yScale.copy()
+			};
+		},
+	
+		updateChartDataFor:function(_chartData, data) {
+			console.log('updateChartDataFor');
+			var scales = _chartData.scales;
+	
+			var accessors = _chartData.accessors;
+	
+			var overlayValues = this.updateOverlayFirstLast(data, _chartData.overlays)
+			_chartData = _chartData.set( { overlayValues: overlayValues } ); // replace everything
+	
+			var overlayYAccessors = pluck(keysAsArray(_chartData.overlays), 'yAccessor');
+	
+	
+			var xyValues = ScaleUtils.flattenData(data, [accessors.xAccessor], [accessors.yAccessor].concat(overlayYAccessors));
+	
+			scales = this.updateScales(
+				xyValues
+				, scales
+				, data
+				, _chartData.width
+				, _chartData.height);
+	
+			_chartData = _chartData.set({ scales: scales });
+	
+			var last = Utils.cloneMe(data[data.length - 1]);
+			_chartData = _chartData.set({ lastItem: last });
+	
+			var first = Utils.cloneMe(data[0]);
+			_chartData = _chartData.set({ firstItem: first });
+			return _chartData;
+		}
+	};
+	
+	module.exports = ChartContainerMixin;
+
+
+/***/ },
+/* 98 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var ChartTransformer = __webpack_require__(105);
 	
 	var DataTransformMixin = {
 		isDataDransform:function() {
@@ -3701,7 +3694,7 @@ return webpackJsonpReStock([0,2],[
 
 
 /***/ },
-/* 91 */
+/* 99 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3856,12 +3849,12 @@ return webpackJsonpReStock([0,2],[
 	module.exports = polylineartimescale
 
 /***/ },
-/* 92 */
+/* 100 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
-	var shallowEqual = __webpack_require__(103);
+	var shallowEqual = __webpack_require__(108);
 	
 	/**
 	 * If your React component's render function is "pure", e.g. it will render the
@@ -3902,7 +3895,7 @@ return webpackJsonpReStock([0,2],[
 
 
 /***/ },
-/* 93 */
+/* 101 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3951,13 +3944,13 @@ return webpackJsonpReStock([0,2],[
 
 
 /***/ },
-/* 94 */
+/* 102 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Utils = __webpack_require__(95);
-	var MACalculator = __webpack_require__(98);
+	var Utils = __webpack_require__(103);
+	var MACalculator = __webpack_require__(106);
 	
 	var OverlayUtils = {
 		getToolTipLabel:function(props) {
@@ -4016,7 +4009,7 @@ return webpackJsonpReStock([0,2],[
 
 
 /***/ },
-/* 95 */
+/* 103 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4115,7 +4108,7 @@ return webpackJsonpReStock([0,2],[
 
 
 /***/ },
-/* 96 */
+/* 104 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4189,16 +4182,16 @@ return webpackJsonpReStock([0,2],[
 
 
 /***/ },
-/* 97 */
+/* 105 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var StockScaleTransformer = __webpack_require__(100);
-	var HeikinAshiTransformer = __webpack_require__(101);
-	var KagiTransformer = __webpack_require__(102);
-	var PointAndFigureTransformer = __webpack_require__(104);
-	var RenkoTransformer = __webpack_require__(105);
+	var StockScaleTransformer = __webpack_require__(109);
+	var HeikinAshiTransformer = __webpack_require__(110);
+	var KagiTransformer = __webpack_require__(111);
+	var PointAndFigureTransformer = __webpack_require__(112);
+	var RenkoTransformer = __webpack_require__(113);
 	
 	var ChartTransformer = {
 		getTransformerFor:function(type) {
@@ -4229,12 +4222,12 @@ return webpackJsonpReStock([0,2],[
 
 
 /***/ },
-/* 98 */
+/* 106 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Utils = __webpack_require__(95);
+	var Utils = __webpack_require__(103);
 	
 	var pluck = Utils.pluck;
 	var sum = Utils.sum;
@@ -4274,19 +4267,67 @@ return webpackJsonpReStock([0,2],[
 
 
 /***/ },
-/* 99 */
+/* 107 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Freezer = __webpack_require__(106);
+	var Freezer = __webpack_require__(114);
 	module.exports = Freezer;
 
 /***/ },
-/* 100 */
+/* 108 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-2014, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule shallowEqual
+	 */
+	
+	"use strict";
+	
+	/**
+	 * Performs equality by iterating through keys on an object and returning
+	 * false when any key has values which are not strictly equal between
+	 * objA and objB. Returns true when the values of all keys are strictly equal.
+	 *
+	 * @return {boolean}
+	 */
+	function shallowEqual(objA, objB) {
+	  if (objA === objB) {
+	    return true;
+	  }
+	  var key;
+	  // Test for A's keys different from B.
+	  for (key in objA) {
+	    if (objA.hasOwnProperty(key) &&
+	        (!objB.hasOwnProperty(key) || objA[key] !== objB[key])) {
+	      return false;
+	    }
+	  }
+	  // Test for B's keys missing from A.
+	  for (key in objB) {
+	    if (objB.hasOwnProperty(key) && !objA.hasOwnProperty(key)) {
+	      return false;
+	    }
+	  }
+	  return true;
+	}
+	
+	module.exports = shallowEqual;
+
+
+/***/ },
+/* 109 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var stockScale = __webpack_require__(91);
+	var stockScale = __webpack_require__(99);
 	
 	var defaultOptions = {
 		dateAccesor: function(d)  {return d.date;},
@@ -4438,7 +4479,7 @@ return webpackJsonpReStock([0,2],[
 
 
 /***/ },
-/* 101 */
+/* 110 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4516,7 +4557,7 @@ return webpackJsonpReStock([0,2],[
 
 
 /***/ },
-/* 102 */
+/* 111 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4525,7 +4566,7 @@ return webpackJsonpReStock([0,2],[
 	var pricingMethod = function (d) { return { high: d.high, low: d.low }; };
 	var usePrice = function (d) { return d.close; };
 	
-	var calculateATR = __webpack_require__(107);
+	var calculateATR = __webpack_require__(115);
 	
 	function KagiTransformer(data, options, props) {
 		if (options === undefined) options = {};
@@ -4688,55 +4729,7 @@ return webpackJsonpReStock([0,2],[
 
 
 /***/ },
-/* 103 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright 2013-2014, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule shallowEqual
-	 */
-	
-	"use strict";
-	
-	/**
-	 * Performs equality by iterating through keys on an object and returning
-	 * false when any key has values which are not strictly equal between
-	 * objA and objB. Returns true when the values of all keys are strictly equal.
-	 *
-	 * @return {boolean}
-	 */
-	function shallowEqual(objA, objB) {
-	  if (objA === objB) {
-	    return true;
-	  }
-	  var key;
-	  // Test for A's keys different from B.
-	  for (key in objA) {
-	    if (objA.hasOwnProperty(key) &&
-	        (!objB.hasOwnProperty(key) || objA[key] !== objB[key])) {
-	      return false;
-	    }
-	  }
-	  // Test for B's keys missing from A.
-	  for (key in objB) {
-	    if (objB.hasOwnProperty(key) && !objA.hasOwnProperty(key)) {
-	      return false;
-	    }
-	  }
-	  return true;
-	}
-	
-	module.exports = shallowEqual;
-
-
-/***/ },
-/* 104 */
+/* 112 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4969,7 +4962,7 @@ return webpackJsonpReStock([0,2],[
 
 
 /***/ },
-/* 105 */
+/* 113 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4980,7 +4973,7 @@ return webpackJsonpReStock([0,2],[
 	// var usePrice = function (d) { return d.close; };
 	var defaultBoxSize = 0.5;
 	var defaultReversal = 3;
-	var calculateATR = __webpack_require__(107);
+	var calculateATR = __webpack_require__(115);
 	
 	function RenkoTransformer(rawData, options, props) {
 		if (options === undefined) options = {};
@@ -5150,15 +5143,15 @@ return webpackJsonpReStock([0,2],[
 
 
 /***/ },
-/* 106 */
+/* 114 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Utils = __webpack_require__( 108 ),
-		Emitter = __webpack_require__( 109 ),
-		Mixins = __webpack_require__( 110 ),
-		Frozen = __webpack_require__( 111 )
+	var Utils = __webpack_require__( 116 ),
+		Emitter = __webpack_require__( 117 ),
+		Mixins = __webpack_require__( 118 ),
+		Frozen = __webpack_require__( 119 )
 	;
 	
 	//#build
@@ -5227,7 +5220,7 @@ return webpackJsonpReStock([0,2],[
 	module.exports = Freezer;
 
 /***/ },
-/* 107 */
+/* 115 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5267,7 +5260,7 @@ return webpackJsonpReStock([0,2],[
 
 
 /***/ },
-/* 108 */
+/* 116 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5379,12 +5372,12 @@ return webpackJsonpReStock([0,2],[
 	module.exports = Utils;
 
 /***/ },
-/* 109 */
+/* 117 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Utils = __webpack_require__( 108 );
+	var Utils = __webpack_require__( 116 );
 	
 	//#build
 	
@@ -5465,12 +5458,12 @@ return webpackJsonpReStock([0,2],[
 	module.exports = Emitter;
 
 /***/ },
-/* 110 */
+/* 118 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Utils = __webpack_require__( 108 );
+	var Utils = __webpack_require__( 116 );
 	
 	//#build
 	
@@ -5607,14 +5600,14 @@ return webpackJsonpReStock([0,2],[
 	module.exports = Mixins;
 
 /***/ },
-/* 111 */
+/* 119 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Utils = __webpack_require__( 108 ),
-		Mixins = __webpack_require__( 110),
-		Emitter = __webpack_require__(109)
+	var Utils = __webpack_require__( 116 ),
+		Mixins = __webpack_require__( 118),
+		Emitter = __webpack_require__(117)
 	;
 	
 	//#build
