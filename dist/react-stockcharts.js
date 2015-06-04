@@ -61,38 +61,38 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.DataTransform = __webpack_require__(2);
 	
 	exports.XAxis = __webpack_require__(3);
-	exports.YAxis = __webpack_require__(19);
-	exports.Chart = __webpack_require__(4);
-	exports.DataSeries = __webpack_require__(5);
+	exports.YAxis = __webpack_require__(4);
+	exports.Chart = __webpack_require__(5);
+	exports.DataSeries = __webpack_require__(6);
 	
 	// chart types & Series
-	exports.AreaSeries = __webpack_require__(6);
-	exports.LineSeries = __webpack_require__(7);
-	exports.CandlestickSeries = __webpack_require__(8);
-	exports.OverlaySeries = __webpack_require__(9);
-	exports.HistogramSeries = __webpack_require__(10);
-	exports.KagiSeries = __webpack_require__(11);
-	exports.PointAndFigureSeries = __webpack_require__(12);
-	exports.RenkoSeries = __webpack_require__(13);
+	exports.AreaSeries = __webpack_require__(7);
+	exports.LineSeries = __webpack_require__(8);
+	exports.CandlestickSeries = __webpack_require__(9);
+	exports.OverlaySeries = __webpack_require__(10);
+	exports.HistogramSeries = __webpack_require__(11);
+	exports.KagiSeries = __webpack_require__(12);
+	exports.PointAndFigureSeries = __webpack_require__(13);
+	exports.RenkoSeries = __webpack_require__(14);
 	
 	// interaction components
-	exports.EventCapture = __webpack_require__(14);
-	exports.MouseCoordinates = __webpack_require__(15);
-	exports.CrossHair = __webpack_require__(16);
-	exports.VerticalMousePointer = __webpack_require__(17);
-	exports.CurrentCoordinate = __webpack_require__(18);
+	exports.EventCapture = __webpack_require__(15);
+	exports.MouseCoordinates = __webpack_require__(16);
+	exports.CrossHair = __webpack_require__(17);
+	exports.VerticalMousePointer = __webpack_require__(18);
+	exports.CurrentCoordinate = __webpack_require__(19);
 	
 	// Tooltips
 	exports.TooltipContainer = __webpack_require__(20);
 	exports.OHLCTooltip = __webpack_require__(21);
-	exports.MovingAverageTooltip = __webpack_require__(22);
+	exports.MovingAverageTooltip = __webpack_require__(25);
 	
 	// misc
-	exports.EdgeContainer = __webpack_require__(23);
-	exports.EdgeIndicator = __webpack_require__(1);
+	exports.EdgeContainer = __webpack_require__(22);
+	exports.EdgeIndicator = __webpack_require__(23);
 	
 	exports.helper = {};
-	exports.helper.ChartWidthMixin = __webpack_require__(25);
+	exports.helper.ChartWidthMixin = __webpack_require__(1);
 
 
 /***/ },
@@ -100,123 +100,33 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	
 	var React = __webpack_require__(26);
-	var Utils = __webpack_require__(34)
-	var EdgeCoordinate = __webpack_require__(37)
 	
+	var ChartWidthMixin = {
+		handleWindowResize:function() {
+			var w = $(React.findDOMNode(this)).parent().width();
+			//var w = $(this.getDOMNode()).parent().width();
+			console.log('width = ', w);
 	
-	var EdgeIndicator = React.createClass({displayName: "EdgeIndicator",
-		propTypes: {
-			type: React.PropTypes.oneOf(['horizontal']).isRequired,
-			className: React.PropTypes.string,
-			itemType: React.PropTypes.oneOf(['first', 'last', 'current']).isRequired,
-			orient: React.PropTypes.oneOf(['left', 'right']),
-			edgeAt: React.PropTypes.oneOf(['left', 'right']),
-	
-			forChart: React.PropTypes.number.isRequired,
-			forOverlay: React.PropTypes.number, // undefined means main Data series of that chart
-	
-			displayFormat: React.PropTypes.func.isRequired,
+			this.setState({
+				width: w
+			});
 		},
-		getDefaultProps:function() {
-			return {
-				type: 'horizontal',
-				orient: 'left',
-				edgeAt: 'left',
-				displayFormat: Utils.displayNumberFormat,
-				yAxisPad: 5,
-				namespace: "ReStock.EdgeIndicator"
-			};
+		componentWillUnMount:function() {
+			window.removeEventListener("resize", this.handleWindowResize);
 		},
-		contextTypes: {
-			_width: React.PropTypes.number.isRequired
+		componentDidMount:function() {
+			window.addEventListener("resize", this.handleWindowResize);
+			var w = $(React.findDOMNode(this)).parent().width();
+			//var w = $(this.getDOMNode()).parent().width();
+			this.setState({
+				width: w
+			});
 		},
-		mixins: [__webpack_require__(36)],
-		renderEdge:function() {
-			var chartData = this.getChartData();
-			var currentItem = this.getCurrentItem();
-			var edge = null, item, yAccessor;
-			if (this.props.forOverlay !== undefined
-					&& chartData.config.overlays.length > 0
-					&& chartData.plot.overlayValues.length > 0) {
+	};
 	
-				var overlay = chartData.config.overlays
-					.filter(function(eachOverlay)  {return eachOverlay.id === this.props.forOverlay;}.bind(this));
-				var overlayValue = chartData.plot.overlayValues
-					.filter(function(eachOverlayValue)  {return eachOverlayValue.id === this.props.forOverlay;}.bind(this));
-	
-				// console.log(overlay, overlayValue);
-				if (overlay.length !== 1) {
-					console.warn('%s overlays found with id %s, correct the OverlaySeries so there is exactly one for each id', overlay.length, newChild.props.forOverlay)
-					throw new Error('Unable to identify unique Overlay for the id');
-				}
-				if (overlayValue.length !== 1 && overlay.length === 1) {
-					console.warn('Something is wrong!!!, There should be 1 overlayValue, report the issue on github');
-				}
-	
-				item = this.props.itemType === 'first'
-					? overlayValue[0].first
-					: this.props.itemType === 'last'
-						? overlayValue[0].last
-						: currentItem;
-				yAccessor = overlay[0].yAccessor;
-	
-				if (item !== undefined) {
-					var yValue = yAccessor(item), xValue = chartData.config.accessors.xAccessor(item);
-					var x1 = Math.round(chartData.plot.scales.xScale(xValue)), y1 = Math.round(chartData.plot.scales.yScale(yValue));
-					var edgeX = this.props.edgeAt === 'left'
-						? 0 - this.props.yAxisPad
-						: this.context._width + this.props.yAxisPad
-	
-					edge = React.createElement(EdgeCoordinate, {
-							type: this.props.type, 
-							className: "edge-coordinate", 
-							fill: overlay[0].stroke, 
-							show: true, 
-							x1: x1 + chartData.config.origin[0], y1: y1 + chartData.config.origin[1], 
-							x2: edgeX + chartData.config.origin[0], y2: y1 + chartData.config.origin[1], 
-							coordinate: this.props.displayFormat(yValue), 
-							edgeAt: edgeX, 
-							orient: this.props.orient}
-							)
-				}
-			} else if (this.props.forOverlay === undefined) {
-				item = this.props.itemType === 'first'
-					? chartData.firstItem
-					: this.props.itemType === 'last'
-						? chartData.lastItem
-						: currentItem;
-				yAccessor = chartData.config.accessors.yAccessor;
-	
-				if (item !== undefined && yAccessor !== null) {
-					var yValue = yAccessor(item);
-					var xValue = chartData.accessors.xAccessor(item);
-	
-					var x1 = Math.round(chartData.plot.scales.xScale(xValue)), y1 = Math.round(chartData.plot.scales.yScale(yValue));
-					var edgeX = this.props.edgeAt === 'left'
-						? 0 - this.props.yAxisPad
-						: this.context._width + this.props.yAxisPad
-	
-					edge = React.createElement(EdgeCoordinate, {
-							type: this.props.type, 
-							className: "edge-coordinate", 
-							show: true, 
-							x1: x1 + chartData.config.origin[0], y1: y1 + chartData.config.origin[1], 
-							x2: edgeX + chartData.config.origin[0], y2: y1 + chartData.config.origin[1], 
-							coordinate: this.props.displayFormat(yValue), 
-							edgeAt: edgeX, 
-							orient: this.props.orient}
-							)
-				}
-			}
-			return edge;
-		},
-		render:function() {
-			return this.renderEdge();
-		}
-	});
-	
-	module.exports = EdgeIndicator;
+	module.exports = ChartWidthMixin;
 
 
 /***/ },
@@ -468,6 +378,86 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	var React = __webpack_require__(26)
+		, d3 = __webpack_require__(27);
+	
+	var YAxis = React.createClass({displayName: "YAxis",
+		propTypes: {
+			axisAt: React.PropTypes.oneOfType([
+						React.PropTypes.oneOf(['left', 'right', 'middle'])
+						, React.PropTypes.number
+					]).isRequired,
+			orient: React.PropTypes.oneOf(['left', 'right']).isRequired,
+			innerTickSize: React.PropTypes.number,
+			outerTickSize: React.PropTypes.number,
+			tickFormat: React.PropTypes.func,
+			tickPadding: React.PropTypes.number,
+			tickSize: React.PropTypes.number,
+			ticks: React.PropTypes.number,
+			tickValues: React.PropTypes.array,
+			percentScale: React.PropTypes.bool,
+			axisPadding: React.PropTypes.number
+		},
+		getDefaultProps:function() {
+			return {
+				namespace: "ReStock.YAxis",
+				showGrid: false,
+				axisPadding: 0
+			};
+		},
+		getInitialState:function() {
+			return {};
+		},
+		contextTypes: {
+			xScale: React.PropTypes.func.isRequired,
+			yScale: React.PropTypes.func.isRequired
+		},
+		componentDidMount:function() {
+			this.updateAxis();
+		},
+		componentDidUpdate:function() {
+			this.updateAxis();
+		},
+		updateAxis:function() {
+			var scale = this.context.yScale;
+			if (this.props.percentScale) scale = scale.copy().domain([0, 1]);
+	
+			var axis = d3.svg.axis()
+				.scale(scale)
+				.orient(this.props.orient);
+	
+			if (this.props.orient) axis.orient(this.props.orient);
+			if (this.props.innerTickSize) axis.innerTickSize(this.props.innerTickSize);
+			if (this.props.outerTickSize) axis.outerTickSize(this.props.outerTickSize);
+			if (this.props.tickFormat) axis.tickFormat(this.props.tickFormat);
+			if (this.props.tickPadding) axis.tickPadding(this.props.tickPadding);
+			if (this.props.tickSize) axis.tickSize(this.props.tickSize);
+			if (this.props.ticks) axis.ticks(this.props.ticks);
+			if (this.props.tickValues) axis.tickValues(this.props.tickValues);
+			
+			d3.select(React.findDOMNode(this)).call(axis);
+		},
+		render:function() {
+			var axisAt = this.props.axisAt
+				, range = this.context.xScale.range();
+			if (this.props.axisAt === 'left') axisAt = Math.min(range[0], range[1]) + this.props.axisPadding;
+			if (this.props.axisAt === 'right') axisAt = Math.max(range[0], range[1]) + this.props.axisPadding;
+			if (this.props.axisAt === 'middle') axisAt = (range[0] + range[1]) / 2 + this.props.axisPadding;
+	
+			return (
+				React.createElement("g", {className: "y axis", transform: 'translate(' + axisAt + ', 0)'})
+			);
+		}
+	});
+	
+	module.exports = YAxis;
+
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
 	
 	var React = __webpack_require__(26),
 		PureRenderMixin = __webpack_require__(38);
@@ -541,7 +531,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -570,7 +560,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -621,7 +611,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -667,7 +657,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -761,7 +751,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -807,7 +797,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -898,7 +888,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -965,7 +955,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1053,7 +1043,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1137,7 +1127,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	*/
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1269,13 +1259,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(26);
-	var CrossHair = __webpack_require__(16)
-	var VerticalMousePointer = __webpack_require__(17)
+	var CrossHair = __webpack_require__(17)
+	var VerticalMousePointer = __webpack_require__(18)
 	var Utils = __webpack_require__(34)
 	
 	
@@ -1349,7 +1339,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1407,7 +1397,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1452,7 +1442,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1515,86 +1505,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	
 	module.exports = CurrentCoordinate;
-
-
-/***/ },
-/* 19 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var React = __webpack_require__(26)
-		, d3 = __webpack_require__(27);
-	
-	var YAxis = React.createClass({displayName: "YAxis",
-		propTypes: {
-			axisAt: React.PropTypes.oneOfType([
-						React.PropTypes.oneOf(['left', 'right', 'middle'])
-						, React.PropTypes.number
-					]).isRequired,
-			orient: React.PropTypes.oneOf(['left', 'right']).isRequired,
-			innerTickSize: React.PropTypes.number,
-			outerTickSize: React.PropTypes.number,
-			tickFormat: React.PropTypes.func,
-			tickPadding: React.PropTypes.number,
-			tickSize: React.PropTypes.number,
-			ticks: React.PropTypes.number,
-			tickValues: React.PropTypes.array,
-			percentScale: React.PropTypes.bool,
-			axisPadding: React.PropTypes.number
-		},
-		getDefaultProps:function() {
-			return {
-				namespace: "ReStock.YAxis",
-				showGrid: false,
-				axisPadding: 0
-			};
-		},
-		getInitialState:function() {
-			return {};
-		},
-		contextTypes: {
-			xScale: React.PropTypes.func.isRequired,
-			yScale: React.PropTypes.func.isRequired
-		},
-		componentDidMount:function() {
-			this.updateAxis();
-		},
-		componentDidUpdate:function() {
-			this.updateAxis();
-		},
-		updateAxis:function() {
-			var scale = this.context.yScale;
-			if (this.props.percentScale) scale = scale.copy().domain([0, 1]);
-	
-			var axis = d3.svg.axis()
-				.scale(scale)
-				.orient(this.props.orient);
-	
-			if (this.props.orient) axis.orient(this.props.orient);
-			if (this.props.innerTickSize) axis.innerTickSize(this.props.innerTickSize);
-			if (this.props.outerTickSize) axis.outerTickSize(this.props.outerTickSize);
-			if (this.props.tickFormat) axis.tickFormat(this.props.tickFormat);
-			if (this.props.tickPadding) axis.tickPadding(this.props.tickPadding);
-			if (this.props.tickSize) axis.tickSize(this.props.tickSize);
-			if (this.props.ticks) axis.ticks(this.props.ticks);
-			if (this.props.tickValues) axis.tickValues(this.props.tickValues);
-			
-			d3.select(React.findDOMNode(this)).call(axis);
-		},
-		render:function() {
-			var axisAt = this.props.axisAt
-				, range = this.context.xScale.range();
-			if (this.props.axisAt === 'left') axisAt = Math.min(range[0], range[1]) + this.props.axisPadding;
-			if (this.props.axisAt === 'right') axisAt = Math.max(range[0], range[1]) + this.props.axisPadding;
-			if (this.props.axisAt === 'middle') axisAt = (range[0] + range[1]) / 2 + this.props.axisPadding;
-	
-			return (
-				React.createElement("g", {className: "y axis", transform: 'translate(' + axisAt + ', 0)'})
-			);
-		}
-	});
-	
-	module.exports = YAxis;
 
 
 /***/ },
@@ -1708,92 +1618,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	var React = __webpack_require__(26);
-	var Utils = __webpack_require__(34)
-	
-	var SingleMAToolTip = React.createClass({displayName: "SingleMAToolTip",
-		propTypes: {
-			origin: React.PropTypes.array.isRequired,
-			color: React.PropTypes.string.isRequired,
-			displayName: React.PropTypes.string.isRequired,
-			value: React.PropTypes.string.isRequired,
-			onClick: React.PropTypes.func
-		},
-		getDefaultProps:function() {
-	
-		},
-		handleClick:function(overlay) {
-			if (this.props.onClick) {
-				this.props.onClick(overlay);
-			}
-		},
-		render:function() {
-			var translate = "translate(" + this.props.origin[0] + ", " + this.props.origin[1] + ")";
-			return (
-				React.createElement("g", {transform: translate}, 
-					React.createElement("line", {x1: 0, y1: 2, x2: 0, y2: 28, stroke: this.props.color}), 
-					React.createElement("text", {x: 5, y: 11, className: "legend"}, 
-						React.createElement("tspan", {className: "tooltip-label"}, this.props.displayName), 
-						React.createElement("tspan", {x: "5", dy: "15"}, this.props.value)
-					), 
-					React.createElement("rect", {x: 0, y: 0, width: 55, height: 30, onClick: this.handleClick.bind(this, this.props.overlay)})
-				)
-			);
-		}
-	});
-	
-	
-	var MovingAverageTooltip = React.createClass({displayName: "MovingAverageTooltip",
-		propTypes: {
-			// _currentItem: React.PropTypes.object.isRequired,
-			// _overlays: React.PropTypes.array.isRequired,
-			forChart: React.PropTypes.number.isRequired,
-			displayFormat: React.PropTypes.func.isRequired,
-			origin: React.PropTypes.array.isRequired,
-			onClick: React.PropTypes.func
-		},
-		getDefaultProps:function() {
-			return {
-				namespace: "ReStock.MovingAverageTooltip",
-				displayFormat: Utils.displayNumberFormat,
-				origin: [0, 10],
-				width: 65
-			}
-		},
-		mixins: [__webpack_require__(36)],
-		render:function() {
-			var chartData = this.getChartData();
-			var item = this.getCurrentItem();
-	
-			return (
-				React.createElement("g", {transform: "translate(" + this.props.origin[0] + ", " + this.props.origin[1] + ")", className: "ma-container"}, 
-					chartData.config.overlays.map(function(eachOverlay, idx)  {
-						var yValue = eachOverlay.yAccessor(item);
-						// console.log(yValue);
-						var yDisplayValue = yValue ? this.props.displayFormat(yValue) : "n/a";
-						return React.createElement(SingleMAToolTip, {
-							key: idx, 
-							origin: [this.props.width * idx, 0], 
-							color: eachOverlay.stroke, 
-							displayName: eachOverlay.tooltipLabel, 
-							value: yDisplayValue, 
-							overlay: eachOverlay, 
-							onClick: this.props.onClick})
-					}.bind(this))
-				)
-			);
-		}
-	});
-	
-	module.exports = MovingAverageTooltip;
-
-
-/***/ },
-/* 23 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 	var React = __webpack_require__(26);
 	
 	var EdgeContainer = React.createClass({displayName: "EdgeContainer",
@@ -1812,6 +1636,130 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	module.exports = EdgeContainer;
 	
+
+
+/***/ },
+/* 23 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(26);
+	var Utils = __webpack_require__(34)
+	var EdgeCoordinate = __webpack_require__(37)
+	
+	
+	var EdgeIndicator = React.createClass({displayName: "EdgeIndicator",
+		propTypes: {
+			type: React.PropTypes.oneOf(['horizontal']).isRequired,
+			className: React.PropTypes.string,
+			itemType: React.PropTypes.oneOf(['first', 'last', 'current']).isRequired,
+			orient: React.PropTypes.oneOf(['left', 'right']),
+			edgeAt: React.PropTypes.oneOf(['left', 'right']),
+	
+			forChart: React.PropTypes.number.isRequired,
+			forOverlay: React.PropTypes.number, // undefined means main Data series of that chart
+	
+			displayFormat: React.PropTypes.func.isRequired,
+		},
+		getDefaultProps:function() {
+			return {
+				type: 'horizontal',
+				orient: 'left',
+				edgeAt: 'left',
+				displayFormat: Utils.displayNumberFormat,
+				yAxisPad: 5,
+				namespace: "ReStock.EdgeIndicator"
+			};
+		},
+		contextTypes: {
+			_width: React.PropTypes.number.isRequired
+		},
+		mixins: [__webpack_require__(36)],
+		renderEdge:function() {
+			var chartData = this.getChartData();
+			var currentItem = this.getCurrentItem();
+			var edge = null, item, yAccessor;
+			if (this.props.forOverlay !== undefined
+					&& chartData.config.overlays.length > 0
+					&& chartData.plot.overlayValues.length > 0) {
+	
+				var overlay = chartData.config.overlays
+					.filter(function(eachOverlay)  {return eachOverlay.id === this.props.forOverlay;}.bind(this));
+				var overlayValue = chartData.plot.overlayValues
+					.filter(function(eachOverlayValue)  {return eachOverlayValue.id === this.props.forOverlay;}.bind(this));
+	
+				// console.log(overlay, overlayValue);
+				if (overlay.length !== 1) {
+					console.warn('%s overlays found with id %s, correct the OverlaySeries so there is exactly one for each id', overlay.length, newChild.props.forOverlay)
+					throw new Error('Unable to identify unique Overlay for the id');
+				}
+				if (overlayValue.length !== 1 && overlay.length === 1) {
+					console.warn('Something is wrong!!!, There should be 1 overlayValue, report the issue on github');
+				}
+	
+				item = this.props.itemType === 'first'
+					? overlayValue[0].first
+					: this.props.itemType === 'last'
+						? overlayValue[0].last
+						: currentItem;
+				yAccessor = overlay[0].yAccessor;
+	
+				if (item !== undefined) {
+					var yValue = yAccessor(item), xValue = chartData.config.accessors.xAccessor(item);
+					var x1 = Math.round(chartData.plot.scales.xScale(xValue)), y1 = Math.round(chartData.plot.scales.yScale(yValue));
+					var edgeX = this.props.edgeAt === 'left'
+						? 0 - this.props.yAxisPad
+						: this.context._width + this.props.yAxisPad
+	
+					edge = React.createElement(EdgeCoordinate, {
+							type: this.props.type, 
+							className: "edge-coordinate", 
+							fill: overlay[0].stroke, 
+							show: true, 
+							x1: x1 + chartData.config.origin[0], y1: y1 + chartData.config.origin[1], 
+							x2: edgeX + chartData.config.origin[0], y2: y1 + chartData.config.origin[1], 
+							coordinate: this.props.displayFormat(yValue), 
+							edgeAt: edgeX, 
+							orient: this.props.orient}
+							)
+				}
+			} else if (this.props.forOverlay === undefined) {
+				item = this.props.itemType === 'first'
+					? chartData.firstItem
+					: this.props.itemType === 'last'
+						? chartData.lastItem
+						: currentItem;
+				yAccessor = chartData.config.accessors.yAccessor;
+	
+				if (item !== undefined && yAccessor !== null) {
+					var yValue = yAccessor(item);
+					var xValue = chartData.accessors.xAccessor(item);
+	
+					var x1 = Math.round(chartData.plot.scales.xScale(xValue)), y1 = Math.round(chartData.plot.scales.yScale(yValue));
+					var edgeX = this.props.edgeAt === 'left'
+						? 0 - this.props.yAxisPad
+						: this.context._width + this.props.yAxisPad
+	
+					edge = React.createElement(EdgeCoordinate, {
+							type: this.props.type, 
+							className: "edge-coordinate", 
+							show: true, 
+							x1: x1 + chartData.config.origin[0], y1: y1 + chartData.config.origin[1], 
+							x2: edgeX + chartData.config.origin[0], y2: y1 + chartData.config.origin[1], 
+							coordinate: this.props.displayFormat(yValue), 
+							edgeAt: edgeX, 
+							orient: this.props.orient}
+							)
+				}
+			}
+			return edge;
+		},
+		render:function() {
+			return this.renderEdge();
+		}
+	});
+	
+	module.exports = EdgeIndicator;
 
 
 /***/ },
@@ -1938,31 +1886,83 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 	
 	var React = __webpack_require__(26);
+	var Utils = __webpack_require__(34)
 	
-	var ChartWidthMixin = {
-		handleWindowResize:function() {
-			var w = $(React.findDOMNode(this)).parent().width();
-			//var w = $(this.getDOMNode()).parent().width();
-			console.log('width = ', w);
+	var SingleMAToolTip = React.createClass({displayName: "SingleMAToolTip",
+		propTypes: {
+			origin: React.PropTypes.array.isRequired,
+			color: React.PropTypes.string.isRequired,
+			displayName: React.PropTypes.string.isRequired,
+			value: React.PropTypes.string.isRequired,
+			onClick: React.PropTypes.func
+		},
+		getDefaultProps:function() {
 	
-			this.setState({
-				width: w
-			});
 		},
-		componentWillUnMount:function() {
-			window.removeEventListener("resize", this.handleWindowResize);
+		handleClick:function(overlay) {
+			if (this.props.onClick) {
+				this.props.onClick(overlay);
+			}
 		},
-		componentDidMount:function() {
-			window.addEventListener("resize", this.handleWindowResize);
-			var w = $(React.findDOMNode(this)).parent().width();
-			//var w = $(this.getDOMNode()).parent().width();
-			this.setState({
-				width: w
-			});
-		},
-	};
+		render:function() {
+			var translate = "translate(" + this.props.origin[0] + ", " + this.props.origin[1] + ")";
+			return (
+				React.createElement("g", {transform: translate}, 
+					React.createElement("line", {x1: 0, y1: 2, x2: 0, y2: 28, stroke: this.props.color}), 
+					React.createElement("text", {x: 5, y: 11, className: "legend"}, 
+						React.createElement("tspan", {className: "tooltip-label"}, this.props.displayName), 
+						React.createElement("tspan", {x: "5", dy: "15"}, this.props.value)
+					), 
+					React.createElement("rect", {x: 0, y: 0, width: 55, height: 30, onClick: this.handleClick.bind(this, this.props.overlay)})
+				)
+			);
+		}
+	});
 	
-	module.exports = ChartWidthMixin;
+	
+	var MovingAverageTooltip = React.createClass({displayName: "MovingAverageTooltip",
+		propTypes: {
+			// _currentItem: React.PropTypes.object.isRequired,
+			// _overlays: React.PropTypes.array.isRequired,
+			forChart: React.PropTypes.number.isRequired,
+			displayFormat: React.PropTypes.func.isRequired,
+			origin: React.PropTypes.array.isRequired,
+			onClick: React.PropTypes.func
+		},
+		getDefaultProps:function() {
+			return {
+				namespace: "ReStock.MovingAverageTooltip",
+				displayFormat: Utils.displayNumberFormat,
+				origin: [0, 10],
+				width: 65
+			}
+		},
+		mixins: [__webpack_require__(36)],
+		render:function() {
+			var chartData = this.getChartData();
+			var item = this.getCurrentItem();
+	
+			return (
+				React.createElement("g", {transform: "translate(" + this.props.origin[0] + ", " + this.props.origin[1] + ")", className: "ma-container"}, 
+					chartData.config.overlays.map(function(eachOverlay, idx)  {
+						var yValue = eachOverlay.yAccessor(item);
+						// console.log(yValue);
+						var yDisplayValue = yValue ? this.props.displayFormat(yValue) : "n/a";
+						return React.createElement(SingleMAToolTip, {
+							key: idx, 
+							origin: [this.props.width * idx, 0], 
+							color: eachOverlay.stroke, 
+							displayName: eachOverlay.tooltipLabel, 
+							value: yDisplayValue, 
+							overlay: eachOverlay, 
+							onClick: this.props.onClick})
+					}.bind(this))
+				)
+			);
+		}
+	});
+	
+	module.exports = MovingAverageTooltip;
 
 
 /***/ },
