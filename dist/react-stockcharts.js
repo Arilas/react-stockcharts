@@ -70,21 +70,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.LineSeries = __webpack_require__(8);
 	exports.CandlestickSeries = __webpack_require__(9);
 	exports.OverlaySeries = __webpack_require__(10);
-	exports.HistogramSeries = __webpack_require__(12);
+	exports.HistogramSeries = __webpack_require__(25);
 	exports.KagiSeries = __webpack_require__(11);
-	exports.PointAndFigureSeries = __webpack_require__(13);
-	exports.RenkoSeries = __webpack_require__(14);
+	exports.PointAndFigureSeries = __webpack_require__(12);
+	exports.RenkoSeries = __webpack_require__(13);
 	
 	// interaction components
-	exports.EventCapture = __webpack_require__(15);
-	exports.MouseCoordinates = __webpack_require__(16);
-	exports.CrossHair = __webpack_require__(17);
-	exports.VerticalMousePointer = __webpack_require__(18);
-	exports.CurrentCoordinate = __webpack_require__(19);
+	exports.EventCapture = __webpack_require__(14);
+	exports.MouseCoordinates = __webpack_require__(15);
+	exports.CrossHair = __webpack_require__(16);
+	exports.VerticalMousePointer = __webpack_require__(17);
+	exports.CurrentCoordinate = __webpack_require__(18);
 	
 	// Tooltips
-	exports.TooltipContainer = __webpack_require__(20);
-	exports.OHLCTooltip = __webpack_require__(25);
+	exports.TooltipContainer = __webpack_require__(19);
+	exports.OHLCTooltip = __webpack_require__(20);
 	exports.MovingAverageTooltip = __webpack_require__(21);
 	
 	// misc
@@ -136,13 +136,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 	var React = __webpack_require__(26);
 	var EventCaptureMixin = __webpack_require__(29);
-	var ChartContainerMixin = __webpack_require__(31);
-	var DataTransformMixin = __webpack_require__(30);
+	var ChartContainerMixin = __webpack_require__(30);
+	var DataTransformMixin = __webpack_require__(31);
 	var ChartTransformer = __webpack_require__(28);
-	var Dummy = __webpack_require__(34);
-	var Utils = __webpack_require__(32);
+	var Dummy = __webpack_require__(32);
+	var Utils = __webpack_require__(33);
 	
-	var polyLinearTimeScale = __webpack_require__(33);
+	var polyLinearTimeScale = __webpack_require__(34);
 	
 	var doNotPassThrough = ['transformType', 'options', 'children', 'namespace'];
 	
@@ -462,9 +462,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 	
 	var React = __webpack_require__(26),
-		PureComponent = __webpack_require__(38);
+		PureComponent = __webpack_require__(37);
 	
-	var Utils = __webpack_require__(32);
+	var Utils = __webpack_require__(33);
 	
 	for(var PureComponent____Key in PureComponent){if(PureComponent.hasOwnProperty(PureComponent____Key)){Chart[PureComponent____Key]=PureComponent[PureComponent____Key];}}var ____SuperProtoOfPureComponent=PureComponent===null?null:PureComponent.prototype;Chart.prototype=Object.create(____SuperProtoOfPureComponent);Chart.prototype.constructor=Chart;Chart.__superConstructor__=PureComponent;function Chart(){if(PureComponent!==null){PureComponent.apply(this,arguments);}}
 		Object.defineProperty(Chart.prototype,"getChildContext",{writable:true,configurable:true,value:function() {
@@ -536,9 +536,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 	
 	var React = __webpack_require__(26);
-	var Utils = __webpack_require__(32);
+	var Utils = __webpack_require__(33);
 	
-	var ____Class2=React.Component;for(var ____Class2____Key in ____Class2){if(____Class2.hasOwnProperty(____Class2____Key)){DataSeries[____Class2____Key]=____Class2[____Class2____Key];}}var ____SuperProtoOf____Class2=____Class2===null?null:____Class2.prototype;DataSeries.prototype=Object.create(____SuperProtoOf____Class2);DataSeries.prototype.constructor=DataSeries;DataSeries.__superConstructor__=____Class2;function DataSeries(){if(____Class2!==null){____Class2.apply(this,arguments);}}
+	var ____Class3=React.Component;for(var ____Class3____Key in ____Class3){if(____Class3.hasOwnProperty(____Class3____Key)){DataSeries[____Class3____Key]=____Class3[____Class3____Key];}}var ____SuperProtoOf____Class3=____Class3===null?null:____Class3.prototype;DataSeries.prototype=Object.create(____SuperProtoOf____Class3);DataSeries.prototype.constructor=DataSeries;DataSeries.__superConstructor__=____Class3;function DataSeries(){if(____Class3!==null){____Class3.apply(this,arguments);}}
 		Object.defineProperty(DataSeries.prototype,"render",{writable:true,configurable:true,value:function() {
 			var children = React.Children.map(this.props.children, function(child)  {
 				var newChild = Utils.isReactVersion13()
@@ -573,9 +573,9 @@ return /******/ (function(modules) { // webpackBootstrap
 		d3 = __webpack_require__(27);
 	
 	// var AreaSeries = React.createClass({
-	var ____Class3=React.Component;for(var ____Class3____Key in ____Class3){if(____Class3.hasOwnProperty(____Class3____Key)){AreaSeries[____Class3____Key]=____Class3[____Class3____Key];}}var ____SuperProtoOf____Class3=____Class3===null?null:____Class3.prototype;AreaSeries.prototype=Object.create(____SuperProtoOf____Class3);AreaSeries.prototype.constructor=AreaSeries;AreaSeries.__superConstructor__=____Class3;
+	var ____Class2=React.Component;for(var ____Class2____Key in ____Class2){if(____Class2.hasOwnProperty(____Class2____Key)){AreaSeries[____Class2____Key]=____Class2[____Class2____Key];}}var ____SuperProtoOf____Class2=____Class2===null?null:____Class2.prototype;AreaSeries.prototype=Object.create(____SuperProtoOf____Class2);AreaSeries.prototype.constructor=AreaSeries;AreaSeries.__superConstructor__=____Class2;
 		function AreaSeries(props) {
-			____Class3.call(this,props);
+			____Class2.call(this,props);
 			this.getPath = this.getPath.bind(this);
 			this.getArea = this.getArea.bind(this);
 		}
@@ -768,9 +768,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 	
 	var React = __webpack_require__(26);
-	var Utils = __webpack_require__(32);
+	var Utils = __webpack_require__(33);
 	
-	var ____Class6=React.Component;for(var ____Class6____Key in ____Class6){if(____Class6.hasOwnProperty(____Class6____Key)){OverlaySeries[____Class6____Key]=____Class6[____Class6____Key];}}var ____SuperProtoOf____Class6=____Class6===null?null:____Class6.prototype;OverlaySeries.prototype=Object.create(____SuperProtoOf____Class6);OverlaySeries.prototype.constructor=OverlaySeries;OverlaySeries.__superConstructor__=____Class6;function OverlaySeries(){if(____Class6!==null){____Class6.apply(this,arguments);}}
+	var ____Class7=React.Component;for(var ____Class7____Key in ____Class7){if(____Class7.hasOwnProperty(____Class7____Key)){OverlaySeries[____Class7____Key]=____Class7[____Class7____Key];}}var ____SuperProtoOf____Class7=____Class7===null?null:____Class7.prototype;OverlaySeries.prototype=Object.create(____SuperProtoOf____Class7);OverlaySeries.prototype.constructor=OverlaySeries;OverlaySeries.__superConstructor__=____Class7;function OverlaySeries(){if(____Class7!==null){____Class7.apply(this,arguments);}}
 	
 		Object.defineProperty(OverlaySeries.prototype,"getChildContext",{writable:true,configurable:true,value:function() {
 			var overlay = this.context.overlays.filter(function(each)  {return each.id === this.props.id;}.bind(this))[0];
@@ -821,7 +821,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(26),
 		d3 = __webpack_require__(27);
 	
-	var ____Class7=React.Component;for(var ____Class7____Key in ____Class7){if(____Class7.hasOwnProperty(____Class7____Key)){KagiSeries[____Class7____Key]=____Class7[____Class7____Key];}}var ____SuperProtoOf____Class7=____Class7===null?null:____Class7.prototype;KagiSeries.prototype=Object.create(____SuperProtoOf____Class7);KagiSeries.prototype.constructor=KagiSeries;KagiSeries.__superConstructor__=____Class7;function KagiSeries(){if(____Class7!==null){____Class7.apply(this,arguments);}}
+	var ____Class8=React.Component;for(var ____Class8____Key in ____Class8){if(____Class8.hasOwnProperty(____Class8____Key)){KagiSeries[____Class8____Key]=____Class8[____Class8____Key];}}var ____SuperProtoOf____Class8=____Class8===null?null:____Class8.prototype;KagiSeries.prototype=Object.create(____SuperProtoOf____Class8);KagiSeries.prototype.constructor=KagiSeries;KagiSeries.__superConstructor__=____Class8;function KagiSeries(){if(____Class8!==null){____Class8.apply(this,arguments);}}
 		Object.defineProperty(KagiSeries.prototype,"render",{writable:true,configurable:true,value:function() {
 			var kagiLine = new Array();
 			var kagi = {};
@@ -885,101 +885,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(26),
 		d3 = __webpack_require__(27);
 	
-	var ____Class8=React.Component;for(var ____Class8____Key in ____Class8){if(____Class8.hasOwnProperty(____Class8____Key)){HistogramSeries[____Class8____Key]=____Class8[____Class8____Key];}}var ____SuperProtoOf____Class8=____Class8===null?null:____Class8.prototype;HistogramSeries.prototype=Object.create(____SuperProtoOf____Class8);HistogramSeries.prototype.constructor=HistogramSeries;HistogramSeries.__superConstructor__=____Class8;
-		function HistogramSeries(props) {
-			____Class8.call(this,props);
-			this.getBars = this.getBars.bind(this);
-		}
-		Object.defineProperty(HistogramSeries.prototype,"getBars",{writable:true,configurable:true,value:function() {
-			var base = this.props.baseAt === 'top'
-						? 0
-						: this.props.baseAt === 'bottom'
-							? this.context.yScale.range()[0]
-							: this.props.baseAt === 'middle'
-								? (this.context.yScale.range()[0] + this.context.yScale.range()[1]) / 2
-								: this.props.baseAt;
-	
-			var dir = this.props.direction === 'up' ? -1 : 1;
-	
-			var getClassName = function()  {return this.props.className;}.bind(this);
-			if (typeof this.props.className === 'function') {
-				getClassName = this.props.className;
-			}
-			var width = Math.abs(this.context.xScale.range()[0] - this.context.xScale.range()[1]);
-			var barWidth = width / (this.context.plotData.length) * 0.5;
-			var bars = this.context.plotData
-					.filter(function(d)  {return this.context.yAccessor(d) !== undefined;}.bind(this) )
-					.map(function(d, idx)  {
-						var yValue = this.context.yAccessor(d);
-						var x = Math.round(this.context.xScale(this.context.xAccessor(d))) - 0.5 * barWidth,
-							className = getClassName(d) ,
-							y, height;
-						if (dir > 0) {
-							y = base;
-							height = this.context.yScale.range()[0] - this.context.yScale(yValue);
-						} else {
-							y = this.context.yScale(yValue);
-							height = base - y;
-						}
-	
-						if (Math.round(barWidth) <= 1) {
-							return React.createElement("line", {key: idx, className: className, 
-										x1: Math.round(x), y1: Math.round(y), 
-										x2: Math.round(x), y2: Math.round(y + height)})
-						}
-						return React.createElement("rect", {key: idx, className: className, 
-									x: Math.round(x), 
-									y: Math.round(y), 
-									width: Math.round(barWidth), 
-									height: Math.round(height)})
-					}.bind(this), this);
-			return bars;
-		}});
-		Object.defineProperty(HistogramSeries.prototype,"render",{writable:true,configurable:true,value:function() {
-			return (
-				React.createElement("g", {className: "histogram"}, 
-					this.getBars()
-				)
-			);
-		}});
-	;
-	
-	HistogramSeries.propTypes = {
-		baseAt: React.PropTypes.oneOfType([
-					React.PropTypes.oneOf(['top', 'bottom', 'middle'])
-					, React.PropTypes.number
-				]).isRequired,
-		direction: React.PropTypes.oneOf(['up', 'down']).isRequired,
-		className: React.PropTypes.oneOfType([
-					React.PropTypes.func, React.PropTypes.string
-				]).isRequired,
-	};
-	HistogramSeries.defaultProps = {
-		namespace: "ReStock.HistogramSeries",
-		baseAt: 'bottom',
-		direction: 'up',
-		className: 'bar'
-	};
-	HistogramSeries.contextTypes = {
-		xScale: React.PropTypes.func.isRequired,
-		yScale: React.PropTypes.func.isRequired,
-		xAccessor: React.PropTypes.func.isRequired,
-		yAccessor: React.PropTypes.func.isRequired,
-		plotData: React.PropTypes.array.isRequired,
-	};
-	
-	module.exports = HistogramSeries;
-
-
-/***/ },
-/* 13 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var React = __webpack_require__(26),
-		d3 = __webpack_require__(27);
-	
-	var ____Classb=React.Component;for(var ____Classb____Key in ____Classb){if(____Classb.hasOwnProperty(____Classb____Key)){PointAndFigureSeries[____Classb____Key]=____Classb[____Classb____Key];}}var ____SuperProtoOf____Classb=____Classb===null?null:____Classb.prototype;PointAndFigureSeries.prototype=Object.create(____SuperProtoOf____Classb);PointAndFigureSeries.prototype.constructor=PointAndFigureSeries;PointAndFigureSeries.__superConstructor__=____Classb;function PointAndFigureSeries(){if(____Classb!==null){____Classb.apply(this,arguments);}}
+	var ____Class6=React.Component;for(var ____Class6____Key in ____Class6){if(____Class6.hasOwnProperty(____Class6____Key)){PointAndFigureSeries[____Class6____Key]=____Class6[____Class6____Key];}}var ____SuperProtoOf____Class6=____Class6===null?null:____Class6.prototype;PointAndFigureSeries.prototype=Object.create(____SuperProtoOf____Class6);PointAndFigureSeries.prototype.constructor=PointAndFigureSeries;PointAndFigureSeries.__superConstructor__=____Class6;function PointAndFigureSeries(){if(____Class6!==null){____Class6.apply(this,arguments);}}
 		Object.defineProperty(PointAndFigureSeries.prototype,"handleClick",{writable:true,configurable:true,value:function(idx) {
 			console.log(this.context.plotData[idx]);
 		}});
@@ -1056,7 +962,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 14 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1130,12 +1036,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 15 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(26);
-	var Utils = __webpack_require__(32)
+	var Utils = __webpack_require__(33)
 	
 	var ____Classa=React.Component;for(var ____Classa____Key in ____Classa){if(____Classa.hasOwnProperty(____Classa____Key)){EventCapture[____Classa____Key]=____Classa[____Classa____Key];}}var ____SuperProtoOf____Classa=____Classa===null?null:____Classa.prototype;EventCapture.prototype=Object.create(____SuperProtoOf____Classa);EventCapture.prototype.constructor=EventCapture;EventCapture.__superConstructor__=____Classa;
 		function EventCapture(props) {
@@ -1267,14 +1173,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 16 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(26);
-	var CrossHair = __webpack_require__(17)
-	var VerticalMousePointer = __webpack_require__(18)
-	var Utils = __webpack_require__(32)
+	var CrossHair = __webpack_require__(16)
+	var VerticalMousePointer = __webpack_require__(17)
+	var Utils = __webpack_require__(33)
 	
 	
 	var MouseCoordinates = React.createClass({displayName: "MouseCoordinates",
@@ -1347,13 +1253,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 17 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(26);
-	var EdgeCoordinate = __webpack_require__(37)
-	var Utils = __webpack_require__(32)
+	var EdgeCoordinate = __webpack_require__(35)
+	var Utils = __webpack_require__(33)
 	
 	var ____Classc=React.Component;for(var ____Classc____Key in ____Classc){if(____Classc.hasOwnProperty(____Classc____Key)){CrossHair[____Classc____Key]=____Classc[____Classc____Key];}}var ____SuperProtoOf____Classc=____Classc===null?null:____Classc.prototype;CrossHair.prototype=Object.create(____SuperProtoOf____Classc);CrossHair.prototype.constructor=CrossHair;CrossHair.__superConstructor__=____Classc;
 		function CrossHair(props) {
@@ -1407,16 +1313,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 18 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(26);
-	var EdgeCoordinate = __webpack_require__(37)
-	var Utils = __webpack_require__(32)
+	var EdgeCoordinate = __webpack_require__(35)
+	var Utils = __webpack_require__(33)
 	
 	
-	var ____Classd=React.Component;for(var ____Classd____Key in ____Classd){if(____Classd.hasOwnProperty(____Classd____Key)){VerticalMousePointer[____Classd____Key]=____Classd[____Classd____Key];}}var ____SuperProtoOf____Classd=____Classd===null?null:____Classd.prototype;VerticalMousePointer.prototype=Object.create(____SuperProtoOf____Classd);VerticalMousePointer.prototype.constructor=VerticalMousePointer;VerticalMousePointer.__superConstructor__=____Classd;function VerticalMousePointer(){if(____Classd!==null){____Classd.apply(this,arguments);}}
+	var ____Classb=React.Component;for(var ____Classb____Key in ____Classb){if(____Classb.hasOwnProperty(____Classb____Key)){VerticalMousePointer[____Classb____Key]=____Classb[____Classb____Key];}}var ____SuperProtoOf____Classb=____Classb===null?null:____Classb.prototype;VerticalMousePointer.prototype=Object.create(____SuperProtoOf____Classb);VerticalMousePointer.prototype.constructor=VerticalMousePointer;VerticalMousePointer.__superConstructor__=____Classb;function VerticalMousePointer(){if(____Classb!==null){____Classb.apply(this,arguments);}}
 		Object.defineProperty(VerticalMousePointer.prototype,"shouldComponentUpdate",{writable:true,configurable:true,value:function(nextProps, nextState, nextContext) {
 			return nextProps.mouseXY !== this.props.mouseXY
 		}});
@@ -1453,16 +1359,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 19 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(26),
-		Utils = __webpack_require__(32);
+		Utils = __webpack_require__(33);
 	
-	var ____Classe=React.Component;for(var ____Classe____Key in ____Classe){if(____Classe.hasOwnProperty(____Classe____Key)){CurrentCoordinate[____Classe____Key]=____Classe[____Classe____Key];}}var ____SuperProtoOf____Classe=____Classe===null?null:____Classe.prototype;CurrentCoordinate.prototype=Object.create(____SuperProtoOf____Classe);CurrentCoordinate.prototype.constructor=CurrentCoordinate;CurrentCoordinate.__superConstructor__=____Classe;
+	var ____Classd=React.Component;for(var ____Classd____Key in ____Classd){if(____Classd.hasOwnProperty(____Classd____Key)){CurrentCoordinate[____Classd____Key]=____Classd[____Classd____Key];}}var ____SuperProtoOf____Classd=____Classd===null?null:____Classd.prototype;CurrentCoordinate.prototype=Object.create(____SuperProtoOf____Classd);CurrentCoordinate.prototype.constructor=CurrentCoordinate;CurrentCoordinate.__superConstructor__=____Classd;
 		function CurrentCoordinate(props) {
-			____Classe.call(this,props);
+			____Classd.call(this,props);
 		}
 		Object.defineProperty(CurrentCoordinate.prototype,"render",{writable:true,configurable:true,value:function() {
 			var chartData = this.context.chartData.filter(function(each)  {return each.id === this.props.forChart;}.bind(this))[0];
@@ -1519,13 +1425,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 20 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(26);
-	var Utils = __webpack_require__(32);
-	var PureComponent = __webpack_require__(38);
+	var Utils = __webpack_require__(33);
+	var PureComponent = __webpack_require__(37);
 	
 	for(var PureComponent____Key in PureComponent){if(PureComponent.hasOwnProperty(PureComponent____Key)){TooltipContainer[PureComponent____Key]=PureComponent[PureComponent____Key];}}var ____SuperProtoOfPureComponent=PureComponent===null?null:PureComponent.prototype;TooltipContainer.prototype=Object.create(____SuperProtoOfPureComponent);TooltipContainer.prototype.constructor=TooltipContainer;TooltipContainer.__superConstructor__=PureComponent;function TooltipContainer(){if(PureComponent!==null){PureComponent.apply(this,arguments);}}
 		Object.defineProperty(TooltipContainer.prototype,"render",{writable:true,configurable:true,value:function() {
@@ -1556,15 +1462,85 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+/* 20 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(26);
+	var Utils = __webpack_require__(33)
+	
+	var billion = 1 * 1000 * 1000 * 1000;
+	var million = 1 * 1000 * 1000;
+	var thousand = 1 * 1000;
+	
+	var OHLCTooltip = React.createClass({displayName: "OHLCTooltip",
+		propTypes: {
+			forChart: React.PropTypes.number.isRequired,
+			accessor: React.PropTypes.func.isRequired,
+			xDisplayFormat: React.PropTypes.func.isRequired,
+			origin: React.PropTypes.array.isRequired,
+		},
+		mixins: [__webpack_require__(36)],
+		getDefaultProps:function() {
+			return {
+				namespace: "ReStock.OHLCTooltip",
+				accessor: function(d)  {return {date: d.date, open: d.open, high: d.high, low: d.low, close: d.close, volume: d.volume}},
+				xDisplayFormat: Utils.displayDateFormat,
+				origin: [0, 0]
+			}
+		},
+		render:function() {
+			var displayDate, fromDate, toDate, open, high, low, close, volume;
+	
+			displayDate = fromDate = toDate = open = high = low = close = volume = "n/a";
+	
+			var item = this.getCurrentItem();
+	
+			if (item !== undefined && item.close !== undefined) {
+				volume = (item.volume / billion > 1)
+					? (item.volume / billion).toFixed(2) + "b"
+					: (item.volume / million > 1)
+						? (item.volume / million).toFixed(2) + "m"
+						: (item.volume / thousand > 1)
+							? (item.volume / thousand).toFixed(2) + "k"
+							: item.volume;
+	
+				displayDate = this.props.xDisplayFormat(item.date);
+				open = Utils.displayNumberFormat(item.open);
+				high = Utils.displayNumberFormat(item.high);
+				low = Utils.displayNumberFormat(item.low);
+				close = Utils.displayNumberFormat(item.close);
+			}
+			return (
+				React.createElement("g", {transform: "translate(" + this.props.origin[0] + ", " + this.props.origin[1] + ")"}, 
+					React.createElement("text", {x: 0, y: 0, className: "legend"}, 
+						React.createElement("tspan", {key: "label", x: 0, dy: "5", className: "tooltip-label"}, "Date: "), 
+						React.createElement("tspan", {key: "value"}, displayDate), 
+						React.createElement("tspan", {key: "label_O", className: "tooltip-label"}, " O: "), React.createElement("tspan", {key: "value_O"}, open), 
+						React.createElement("tspan", {key: "label_H", className: "tooltip-label"}, " H: "), React.createElement("tspan", {key: "value_H"}, high), 
+						React.createElement("tspan", {key: "label_L", className: "tooltip-label"}, " L: "), React.createElement("tspan", {key: "value_L"}, low), 
+						React.createElement("tspan", {key: "label_C", className: "tooltip-label"}, " C: "), React.createElement("tspan", {key: "value_C"}, close), 
+						React.createElement("tspan", {key: "label_Vol", className: "tooltip-label"}, " Vol: "), React.createElement("tspan", {key: "value_Vol"}, volume)
+					)
+				)
+			);
+		}
+	});
+	
+	module.exports = OHLCTooltip;
+
+
+/***/ },
 /* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(26);
-	var Utils = __webpack_require__(32)
+	var Utils = __webpack_require__(33)
 	
-	var ____Classf=React.Component;for(var ____Classf____Key in ____Classf){if(____Classf.hasOwnProperty(____Classf____Key)){SingleMAToolTip[____Classf____Key]=____Classf[____Classf____Key];}}var ____SuperProtoOf____Classf=____Classf===null?null:____Classf.prototype;SingleMAToolTip.prototype=Object.create(____SuperProtoOf____Classf);SingleMAToolTip.prototype.constructor=SingleMAToolTip;SingleMAToolTip.__superConstructor__=____Classf;function SingleMAToolTip(){if(____Classf!==null){____Classf.apply(this,arguments);}}
+	var ____Classe=React.Component;for(var ____Classe____Key in ____Classe){if(____Classe.hasOwnProperty(____Classe____Key)){SingleMAToolTip[____Classe____Key]=____Classe[____Classe____Key];}}var ____SuperProtoOf____Classe=____Classe===null?null:____Classe.prototype;SingleMAToolTip.prototype=Object.create(____SuperProtoOf____Classe);SingleMAToolTip.prototype.constructor=SingleMAToolTip;SingleMAToolTip.__superConstructor__=____Classe;function SingleMAToolTip(){if(____Classe!==null){____Classe.apply(this,arguments);}}
 		Object.defineProperty(SingleMAToolTip.prototype,"handleClick",{writable:true,configurable:true,value:function(overlay) {
 			if (this.props.onClick) {
 				this.props.onClick(overlay);
@@ -1644,8 +1620,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	var React = __webpack_require__(26);
-	var Utils = __webpack_require__(32);
-	var PureComponent = __webpack_require__(38);
+	var Utils = __webpack_require__(33);
+	var PureComponent = __webpack_require__(37);
 	
 	for(var PureComponent____Key in PureComponent){if(PureComponent.hasOwnProperty(PureComponent____Key)){EdgeContainer[PureComponent____Key]=PureComponent[PureComponent____Key];}}var ____SuperProtoOfPureComponent=PureComponent===null?null:PureComponent.prototype;EdgeContainer.prototype=Object.create(____SuperProtoOfPureComponent);EdgeContainer.prototype.constructor=EdgeContainer;EdgeContainer.__superConstructor__=PureComponent;function EdgeContainer(){if(PureComponent!==null){PureComponent.apply(this,arguments);}}
 		Object.defineProperty(EdgeContainer.prototype,"render",{writable:true,configurable:true,value:function() {
@@ -1676,8 +1652,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	var React = __webpack_require__(26);
-	var Utils = __webpack_require__(32)
-	var EdgeCoordinate = __webpack_require__(37)
+	var Utils = __webpack_require__(33)
+	var EdgeCoordinate = __webpack_require__(35)
 	
 	
 	var EdgeIndicator = React.createClass({displayName: "EdgeIndicator",
@@ -1803,9 +1779,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	// var TestUtils = React.addons.TestUtils;
 	
 	// var EventCaptureMixin = require('./mixin/EventCaptureMixin');
-	var ChartContainerMixin = __webpack_require__(31);
-	var Canvas = __webpack_require__(35);
-	var Utils = __webpack_require__(32);
+	var ChartContainerMixin = __webpack_require__(30);
+	var Canvas = __webpack_require__(38);
+	var Utils = __webpack_require__(33);
 	
 	var ChartCanvas = React.createClass({displayName: "ChartCanvas",
 		mixins: [ChartContainerMixin],
@@ -1922,69 +1898,93 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	var React = __webpack_require__(26),
+		d3 = __webpack_require__(27);
 	
-	var React = __webpack_require__(26);
-	var Utils = __webpack_require__(32)
+	var ____Classf=React.Component;for(var ____Classf____Key in ____Classf){if(____Classf.hasOwnProperty(____Classf____Key)){HistogramSeries[____Classf____Key]=____Classf[____Classf____Key];}}var ____SuperProtoOf____Classf=____Classf===null?null:____Classf.prototype;HistogramSeries.prototype=Object.create(____SuperProtoOf____Classf);HistogramSeries.prototype.constructor=HistogramSeries;HistogramSeries.__superConstructor__=____Classf;
+		function HistogramSeries(props) {
+			____Classf.call(this,props);
+			this.getBars = this.getBars.bind(this);
+		}
+		Object.defineProperty(HistogramSeries.prototype,"getBars",{writable:true,configurable:true,value:function() {
+			var base = this.props.baseAt === 'top'
+						? 0
+						: this.props.baseAt === 'bottom'
+							? this.context.yScale.range()[0]
+							: this.props.baseAt === 'middle'
+								? (this.context.yScale.range()[0] + this.context.yScale.range()[1]) / 2
+								: this.props.baseAt;
 	
-	var billion = 1 * 1000 * 1000 * 1000;
-	var million = 1 * 1000 * 1000;
-	var thousand = 1 * 1000;
+			var dir = this.props.direction === 'up' ? -1 : 1;
 	
-	var OHLCTooltip = React.createClass({displayName: "OHLCTooltip",
-		propTypes: {
-			forChart: React.PropTypes.number.isRequired,
-			accessor: React.PropTypes.func.isRequired,
-			xDisplayFormat: React.PropTypes.func.isRequired,
-			origin: React.PropTypes.array.isRequired,
-		},
-		mixins: [__webpack_require__(36)],
-		getDefaultProps:function() {
-			return {
-				namespace: "ReStock.OHLCTooltip",
-				accessor: function(d)  {return {date: d.date, open: d.open, high: d.high, low: d.low, close: d.close, volume: d.volume}},
-				xDisplayFormat: Utils.displayDateFormat,
-				origin: [0, 0]
+			var getClassName = function()  {return this.props.className;}.bind(this);
+			if (typeof this.props.className === 'function') {
+				getClassName = this.props.className;
 			}
-		},
-		render:function() {
-			var displayDate, fromDate, toDate, open, high, low, close, volume;
+			var width = Math.abs(this.context.xScale.range()[0] - this.context.xScale.range()[1]);
+			var barWidth = width / (this.context.plotData.length) * 0.5;
+			var bars = this.context.plotData
+					.filter(function(d)  {return this.context.yAccessor(d) !== undefined;}.bind(this) )
+					.map(function(d, idx)  {
+						var yValue = this.context.yAccessor(d);
+						var x = Math.round(this.context.xScale(this.context.xAccessor(d))) - 0.5 * barWidth,
+							className = getClassName(d) ,
+							y, height;
+						if (dir > 0) {
+							y = base;
+							height = this.context.yScale.range()[0] - this.context.yScale(yValue);
+						} else {
+							y = this.context.yScale(yValue);
+							height = base - y;
+						}
 	
-			displayDate = fromDate = toDate = open = high = low = close = volume = "n/a";
-	
-			var item = this.getCurrentItem();
-	
-			if (item !== undefined && item.close !== undefined) {
-				volume = (item.volume / billion > 1)
-					? (item.volume / billion).toFixed(2) + "b"
-					: (item.volume / million > 1)
-						? (item.volume / million).toFixed(2) + "m"
-						: (item.volume / thousand > 1)
-							? (item.volume / thousand).toFixed(2) + "k"
-							: item.volume;
-	
-				displayDate = this.props.xDisplayFormat(item.date);
-				open = Utils.displayNumberFormat(item.open);
-				high = Utils.displayNumberFormat(item.high);
-				low = Utils.displayNumberFormat(item.low);
-				close = Utils.displayNumberFormat(item.close);
-			}
+						if (Math.round(barWidth) <= 1) {
+							return React.createElement("line", {key: idx, className: className, 
+										x1: Math.round(x), y1: Math.round(y), 
+										x2: Math.round(x), y2: Math.round(y + height)})
+						}
+						return React.createElement("rect", {key: idx, className: className, 
+									x: Math.round(x), 
+									y: Math.round(y), 
+									width: Math.round(barWidth), 
+									height: Math.round(height)})
+					}.bind(this), this);
+			return bars;
+		}});
+		Object.defineProperty(HistogramSeries.prototype,"render",{writable:true,configurable:true,value:function() {
 			return (
-				React.createElement("g", {transform: "translate(" + this.props.origin[0] + ", " + this.props.origin[1] + ")"}, 
-					React.createElement("text", {x: 0, y: 0, className: "legend"}, 
-						React.createElement("tspan", {key: "label", x: 0, dy: "5", className: "tooltip-label"}, "Date: "), 
-						React.createElement("tspan", {key: "value"}, displayDate), 
-						React.createElement("tspan", {key: "label_O", className: "tooltip-label"}, " O: "), React.createElement("tspan", {key: "value_O"}, open), 
-						React.createElement("tspan", {key: "label_H", className: "tooltip-label"}, " H: "), React.createElement("tspan", {key: "value_H"}, high), 
-						React.createElement("tspan", {key: "label_L", className: "tooltip-label"}, " L: "), React.createElement("tspan", {key: "value_L"}, low), 
-						React.createElement("tspan", {key: "label_C", className: "tooltip-label"}, " C: "), React.createElement("tspan", {key: "value_C"}, close), 
-						React.createElement("tspan", {key: "label_Vol", className: "tooltip-label"}, " Vol: "), React.createElement("tspan", {key: "value_Vol"}, volume)
-					)
+				React.createElement("g", {className: "histogram"}, 
+					this.getBars()
 				)
 			);
-		}
-	});
+		}});
+	;
 	
-	module.exports = OHLCTooltip;
+	HistogramSeries.propTypes = {
+		baseAt: React.PropTypes.oneOfType([
+					React.PropTypes.oneOf(['top', 'bottom', 'middle'])
+					, React.PropTypes.number
+				]).isRequired,
+		direction: React.PropTypes.oneOf(['up', 'down']).isRequired,
+		className: React.PropTypes.oneOfType([
+					React.PropTypes.func, React.PropTypes.string
+				]).isRequired,
+	};
+	HistogramSeries.defaultProps = {
+		namespace: "ReStock.HistogramSeries",
+		baseAt: 'bottom',
+		direction: 'up',
+		className: 'bar'
+	};
+	HistogramSeries.contextTypes = {
+		xScale: React.PropTypes.func.isRequired,
+		yScale: React.PropTypes.func.isRequired,
+		xAccessor: React.PropTypes.func.isRequired,
+		yAccessor: React.PropTypes.func.isRequired,
+		plotData: React.PropTypes.array.isRequired,
+	};
+	
+	module.exports = HistogramSeries;
 
 
 /***/ },
@@ -2045,7 +2045,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 	var React = __webpack_require__(26);
-	var Utils = __webpack_require__(32);
+	var Utils = __webpack_require__(33);
 	
 	function getLongValue(value) {
 		if (value instanceof Date) {
@@ -2264,35 +2264,11 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var ChartTransformer = __webpack_require__(28);
-	
-	var DataTransformMixin = {
-		isDataDransform:function() {
-			return true;
-		},
-		transformData:function(props) {
-			var transformer = ChartTransformer.getTransformerFor(props.transformType);
-			var passThroughProps = transformer(this.context.data, props.options, props)
-			// console.log('passThroughProps-------', passThroughProps);
-	
-			// this.setState({ passThroughProps: passThroughProps });
-			return passThroughProps;
-		}
-	};
-	
-	module.exports = DataTransformMixin;
-
-
-/***/ },
-/* 31 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
 	var React = __webpack_require__(26),
 		d3 = __webpack_require__(27),
 		ScaleUtils = __webpack_require__(39),
 		OverlayUtils = __webpack_require__(40),
-		Utils = __webpack_require__(32),
+		Utils = __webpack_require__(33),
 		overlayColors = Utils.overlayColors;
 	var pluck = Utils.pluck;
 	var keysAsArray = Utils.keysAsArray;
@@ -2559,7 +2535,75 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
+/* 31 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var ChartTransformer = __webpack_require__(28);
+	
+	var DataTransformMixin = {
+		isDataDransform:function() {
+			return true;
+		},
+		transformData:function(props) {
+			var transformer = ChartTransformer.getTransformerFor(props.transformType);
+			var passThroughProps = transformer(this.context.data, props.options, props)
+			// console.log('passThroughProps-------', passThroughProps);
+	
+			// this.setState({ passThroughProps: passThroughProps });
+			return passThroughProps;
+		}
+	};
+	
+	module.exports = DataTransformMixin;
+
+
+/***/ },
 /* 32 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(26);
+	
+	var Dummy = React.createClass({displayName: "Dummy",
+		childContextTypes: {
+			data: React.PropTypes.object,
+			dataTransformOptions: React.PropTypes.object,
+			plotData: React.PropTypes.array,
+			chartData: React.PropTypes.array,
+			currentItems: React.PropTypes.array,
+			show: React.PropTypes.bool,
+			mouseXY: React.PropTypes.array,
+			interval: React.PropTypes.string,
+	
+			// EventCaptureMixin
+			onMouseMove: React.PropTypes.func,
+			onMouseEnter: React.PropTypes.func,
+			onMouseLeave: React.PropTypes.func,
+			onZoom: React.PropTypes.func,
+			onPanStart: React.PropTypes.func,
+			onPan: React.PropTypes.func,
+			onPanEnd: React.PropTypes.func,
+			panInProgress: React.PropTypes.bool.isRequired,
+			focus: React.PropTypes.bool.isRequired,
+			onFocus: React.PropTypes.func,
+		},
+		getChildContext:function() {
+			console.log('kjahfdshfkdashfpodisfhoadsiufhadslfhsdiufhds777777777777');
+			return this.props.contextProps;
+		},
+		render:function() {
+			console.log('Dummy.render()');
+			return this.props.render();
+		}
+	});
+	
+	module.exports = Dummy;
+	
+
+
+/***/ },
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2694,7 +2738,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 33 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2850,121 +2894,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = polylineartimescale
 
 /***/ },
-/* 34 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var React = __webpack_require__(26);
-	
-	var Dummy = React.createClass({displayName: "Dummy",
-		childContextTypes: {
-			data: React.PropTypes.object,
-			dataTransformOptions: React.PropTypes.object,
-			plotData: React.PropTypes.array,
-			chartData: React.PropTypes.array,
-			currentItems: React.PropTypes.array,
-			show: React.PropTypes.bool,
-			mouseXY: React.PropTypes.array,
-			interval: React.PropTypes.string,
-	
-			// EventCaptureMixin
-			onMouseMove: React.PropTypes.func,
-			onMouseEnter: React.PropTypes.func,
-			onMouseLeave: React.PropTypes.func,
-			onZoom: React.PropTypes.func,
-			onPanStart: React.PropTypes.func,
-			onPan: React.PropTypes.func,
-			onPanEnd: React.PropTypes.func,
-			panInProgress: React.PropTypes.bool.isRequired,
-			focus: React.PropTypes.bool.isRequired,
-			onFocus: React.PropTypes.func,
-		},
-		getChildContext:function() {
-			console.log('kjahfdshfkdashfpodisfhoadsiufhadslfhsdiufhds777777777777');
-			return this.props.contextProps;
-		},
-		render:function() {
-			console.log('Dummy.render()');
-			return this.props.render();
-		}
-	});
-	
-	module.exports = Dummy;
-	
-
-
-/***/ },
 /* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(26);
 	
-	var ____Classg=React.Component;for(var ____Classg____Key in ____Classg){if(____Classg.hasOwnProperty(____Classg____Key)){Canvas[____Classg____Key]=____Classg[____Classg____Key];}}var ____SuperProtoOf____Classg=____Classg===null?null:____Classg.prototype;Canvas.prototype=Object.create(____SuperProtoOf____Classg);Canvas.prototype.constructor=Canvas;Canvas.__superConstructor__=____Classg;
-		function Canvas(props) {
-			____Classg.call(this,props);
-		}/*,
-		componentDidMount() {
-			console.log(this.getCanvas());
-		},
-		getCanvas() {
-			return React.findDOMNode(this.refs.canvas);
-		},*/
-		Object.defineProperty(Canvas.prototype,"render",{writable:true,configurable:true,value:function() {
-			return (
-				React.createElement("canvas", {ref: "canvas", 
-					width: this.props.width, 
-					height: this.props.height, 
-					style: { position: 'absolute', left: this.props.left, top: this.props.top}})
-			);
-		}});
-	;
-	
-	Canvas.contextTypes = {
-		width: React.PropTypes.number.isRequired,
-		height: React.PropTypes.number.isRequired,
-		left: React.PropTypes.number.isRequired,
-		top: React.PropTypes.number.isRequired
-	}
-	
-	module.exports = Canvas;
-
-
-/***/ },
-/* 36 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	var React = __webpack_require__(26);
-	
-	var ForChartMixin = {
-		contextTypes: {
-			chartData: React.PropTypes.array.isRequired,
-			currentItems: React.PropTypes.array.isRequired,
-		},
-		getChartData:function() {
-			var chartData = this.context.chartData.filter(function(each)  {return each.id === this.props.forChart;}.bind(this))[0];
-			return chartData;
-		},
-		getCurrentItem:function() {
-			var currentItem = this.context.currentItems.filter(function(each)  {return each.id === this.props.forChart;}.bind(this))[0];
-			var item = currentItem ? currentItem.data : {}
-			return item;
-		}
-	};
-	
-	module.exports = ForChartMixin;
-
-
-/***/ },
-/* 37 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var React = __webpack_require__(26);
-	
-	var ____Classh=React.Component;for(var ____Classh____Key in ____Classh){if(____Classh.hasOwnProperty(____Classh____Key)){EdgeCoordinate[____Classh____Key]=____Classh[____Classh____Key];}}var ____SuperProtoOf____Classh=____Classh===null?null:____Classh.prototype;EdgeCoordinate.prototype=Object.create(____SuperProtoOf____Classh);EdgeCoordinate.prototype.constructor=EdgeCoordinate;EdgeCoordinate.__superConstructor__=____Classh;function EdgeCoordinate(){if(____Classh!==null){____Classh.apply(this,arguments);}}
+	var ____Classg=React.Component;for(var ____Classg____Key in ____Classg){if(____Classg.hasOwnProperty(____Classg____Key)){EdgeCoordinate[____Classg____Key]=____Classg[____Classg____Key];}}var ____SuperProtoOf____Classg=____Classg===null?null:____Classg.prototype;EdgeCoordinate.prototype=Object.create(____SuperProtoOf____Classg);EdgeCoordinate.prototype.constructor=EdgeCoordinate;EdgeCoordinate.__superConstructor__=____Classg;function EdgeCoordinate(){if(____Classg!==null){____Classg.apply(this,arguments);}}
 		Object.defineProperty(EdgeCoordinate.prototype,"render",{writable:true,configurable:true,value:function() {
 			if (!this.props.show) return null;
 	
@@ -3031,7 +2967,34 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 38 */
+/* 36 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	var React = __webpack_require__(26);
+	
+	var ForChartMixin = {
+		contextTypes: {
+			chartData: React.PropTypes.array.isRequired,
+			currentItems: React.PropTypes.array.isRequired,
+		},
+		getChartData:function() {
+			var chartData = this.context.chartData.filter(function(each)  {return each.id === this.props.forChart;}.bind(this))[0];
+			return chartData;
+		},
+		getCurrentItem:function() {
+			var currentItem = this.context.currentItems.filter(function(each)  {return each.id === this.props.forChart;}.bind(this))[0];
+			var item = currentItem ? currentItem.data : {}
+			return item;
+		}
+	};
+	
+	module.exports = ForChartMixin;
+
+
+/***/ },
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3039,7 +3002,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(26);
 	var shallowEqual = __webpack_require__(48);
 	
-	var ____Classi=React.Component;for(var ____Classi____Key in ____Classi){if(____Classi.hasOwnProperty(____Classi____Key)){PureComponent[____Classi____Key]=____Classi[____Classi____Key];}}var ____SuperProtoOf____Classi=____Classi===null?null:____Classi.prototype;PureComponent.prototype=Object.create(____SuperProtoOf____Classi);PureComponent.prototype.constructor=PureComponent;PureComponent.__superConstructor__=____Classi;function PureComponent(){if(____Classi!==null){____Classi.apply(this,arguments);}}
+	var ____Classh=React.Component;for(var ____Classh____Key in ____Classh){if(____Classh.hasOwnProperty(____Classh____Key)){PureComponent[____Classh____Key]=____Classh[____Classh____Key];}}var ____SuperProtoOf____Classh=____Classh===null?null:____Classh.prototype;PureComponent.prototype=Object.create(____SuperProtoOf____Classh);PureComponent.prototype.constructor=PureComponent;PureComponent.__superConstructor__=____Classh;function PureComponent(){if(____Classh!==null){____Classh.apply(this,arguments);}}
 		Object.defineProperty(PureComponent.prototype,"shouldComponentUpdate",{writable:true,configurable:true,value:function(nextProps, nextState, nextContext) {
 			return !shallowEqual(this.props, nextProps)
 				|| !shallowEqual(this.state, nextState)
@@ -3048,6 +3011,43 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	
 	module.exports = PureComponent;
+
+/***/ },
+/* 38 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(26);
+	
+	var ____Classi=React.Component;for(var ____Classi____Key in ____Classi){if(____Classi.hasOwnProperty(____Classi____Key)){Canvas[____Classi____Key]=____Classi[____Classi____Key];}}var ____SuperProtoOf____Classi=____Classi===null?null:____Classi.prototype;Canvas.prototype=Object.create(____SuperProtoOf____Classi);Canvas.prototype.constructor=Canvas;Canvas.__superConstructor__=____Classi;
+		function Canvas(props) {
+			____Classi.call(this,props);
+		}/*,
+		componentDidMount() {
+			console.log(this.getCanvas());
+		},
+		getCanvas() {
+			return React.findDOMNode(this.refs.canvas);
+		},*/
+		Object.defineProperty(Canvas.prototype,"render",{writable:true,configurable:true,value:function() {
+			return (
+				React.createElement("canvas", {ref: "canvas", 
+					width: this.props.width, 
+					height: this.props.height, 
+					style: { position: 'absolute', left: this.props.left, top: this.props.top}})
+			);
+		}});
+	;
+	
+	Canvas.contextTypes = {
+		width: React.PropTypes.number.isRequired,
+		height: React.PropTypes.number.isRequired,
+		left: React.PropTypes.number.isRequired,
+		top: React.PropTypes.number.isRequired
+	}
+	
+	module.exports = Canvas;
+
 
 /***/ },
 /* 39 */
@@ -3103,7 +3103,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	
-	var Utils = __webpack_require__(32);
+	var Utils = __webpack_require__(33);
 	var MACalculator = __webpack_require__(46);
 	
 	var OverlayUtils = {
@@ -3168,7 +3168,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	
-	var stockScale = __webpack_require__(33);
+	var stockScale = __webpack_require__(34);
 	
 	var defaultOptions = {
 		_dateAccessor: function(d)  {return d.date;},
@@ -3961,7 +3961,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	
-	var Utils = __webpack_require__(32);
+	var Utils = __webpack_require__(33);
 	
 	var pluck = Utils.pluck;
 	var sum = Utils.sum;
