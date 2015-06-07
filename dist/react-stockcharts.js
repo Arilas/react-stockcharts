@@ -85,11 +85,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	// Tooltips
 	exports.TooltipContainer = __webpack_require__(20);
 	exports.OHLCTooltip = __webpack_require__(21);
-	exports.MovingAverageTooltip = __webpack_require__(22);
+	exports.MovingAverageTooltip = __webpack_require__(23);
 	
 	// misc
-	exports.EdgeContainer = __webpack_require__(23);
-	exports.EdgeIndicator = __webpack_require__(1);
+	exports.EdgeContainer = __webpack_require__(1);
+	exports.EdgeIndicator = __webpack_require__(22);
 	
 	exports.helper = {};
 	exports.helper.ChartWidthMixin = __webpack_require__(25);
@@ -101,122 +101,23 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	var React = __webpack_require__(26);
-	var Utils = __webpack_require__(35)
-	var EdgeCoordinate = __webpack_require__(37)
 	
+	var ____Classh=React.Component;for(var ____Classh____Key in ____Classh){if(____Classh.hasOwnProperty(____Classh____Key)){EdgeContainer[____Classh____Key]=____Classh[____Classh____Key];}}var ____SuperProtoOf____Classh=____Classh===null?null:____Classh.prototype;EdgeContainer.prototype=Object.create(____SuperProtoOf____Classh);EdgeContainer.prototype.constructor=EdgeContainer;EdgeContainer.__superConstructor__=____Classh;function EdgeContainer(){if(____Classh!==null){____Classh.apply(this,arguments);}}
+		Object.defineProperty(EdgeContainer.prototype,"shouldComponentUpdate",{writable:true,configurable:true,value:function(nextProps, nextState, nextContext) {
+			return nextContext.chartData !== this.context.chartData;
+		}});
+		Object.defineProperty(EdgeContainer.prototype,"render",{writable:true,configurable:true,value:function() {
+			var children = React.Children.map(this.props.children, function(child)  {return React.cloneElement(child);});
+			return React.createElement("g", null, children)
+		}});
+	;
 	
-	var EdgeIndicator = React.createClass({displayName: "EdgeIndicator",
-		propTypes: {
-			type: React.PropTypes.oneOf(['horizontal']).isRequired,
-			className: React.PropTypes.string,
-			itemType: React.PropTypes.oneOf(['first', 'last', 'current']).isRequired,
-			orient: React.PropTypes.oneOf(['left', 'right']),
-			edgeAt: React.PropTypes.oneOf(['left', 'right']),
+	EdgeContainer.contextTypes = {
+		chartData: React.PropTypes.array.isRequired
+	};
 	
-			forChart: React.PropTypes.number.isRequired,
-			forOverlay: React.PropTypes.number, // undefined means main Data series of that chart
+	module.exports = EdgeContainer;
 	
-			displayFormat: React.PropTypes.func.isRequired,
-		},
-		getDefaultProps:function() {
-			return {
-				type: 'horizontal',
-				orient: 'left',
-				edgeAt: 'left',
-				displayFormat: Utils.displayNumberFormat,
-				yAxisPad: 5,
-				namespace: "ReStock.EdgeIndicator"
-			};
-		},
-		contextTypes: {
-			width: React.PropTypes.number.isRequired
-		},
-		mixins: [__webpack_require__(36)],
-		renderEdge:function() {
-			var chartData = this.getChartData();
-			var currentItem = this.getCurrentItem();
-			var edge = null, item, yAccessor;
-			if (this.props.forOverlay !== undefined
-					&& chartData.config.overlays.length > 0
-					&& chartData.plot.overlayValues.length > 0) {
-	
-				var overlay = chartData.config.overlays
-					.filter(function(eachOverlay)  {return eachOverlay.id === this.props.forOverlay;}.bind(this));
-				var overlayValue = chartData.plot.overlayValues
-					.filter(function(eachOverlayValue)  {return eachOverlayValue.id === this.props.forOverlay;}.bind(this));
-	
-				// console.log(overlay, overlayValue);
-				if (overlay.length !== 1) {
-					console.warn('%s overlays found with id %s, correct the OverlaySeries so there is exactly one for each id', overlay.length, newChild.props.forOverlay)
-					throw new Error('Unable to identify unique Overlay for the id');
-				}
-				if (overlayValue.length !== 1 && overlay.length === 1) {
-					console.warn('Something is wrong!!!, There should be 1 overlayValue, report the issue on github');
-				}
-	
-				item = this.props.itemType === 'first'
-					? overlayValue[0].first
-					: this.props.itemType === 'last'
-						? overlayValue[0].last
-						: currentItem;
-				yAccessor = overlay[0].yAccessor;
-	
-				if (item !== undefined) {
-					var yValue = yAccessor(item), xValue = chartData.config.accessors.xAccessor(item);
-					var x1 = Math.round(chartData.plot.scales.xScale(xValue)), y1 = Math.round(chartData.plot.scales.yScale(yValue));
-					var edgeX = this.props.edgeAt === 'left'
-						? 0 - this.props.yAxisPad
-						: this.context.width + this.props.yAxisPad
-	
-					edge = React.createElement(EdgeCoordinate, {
-							type: this.props.type, 
-							className: "edge-coordinate", 
-							fill: overlay[0].stroke, 
-							show: true, 
-							x1: x1 + chartData.config.origin[0], y1: y1 + chartData.config.origin[1], 
-							x2: edgeX + chartData.config.origin[0], y2: y1 + chartData.config.origin[1], 
-							coordinate: this.props.displayFormat(yValue), 
-							edgeAt: edgeX, 
-							orient: this.props.orient}
-							)
-				}
-			} else if (this.props.forOverlay === undefined) {
-				item = this.props.itemType === 'first'
-					? chartData.firstItem
-					: this.props.itemType === 'last'
-						? chartData.lastItem
-						: currentItem;
-				yAccessor = chartData.config.accessors.yAccessor;
-	
-				if (item !== undefined && yAccessor !== null) {
-					var yValue = yAccessor(item);
-					var xValue = chartData.accessors.xAccessor(item);
-	
-					var x1 = Math.round(chartData.plot.scales.xScale(xValue)), y1 = Math.round(chartData.plot.scales.yScale(yValue));
-					var edgeX = this.props.edgeAt === 'left'
-						? 0 - this.props.yAxisPad
-						: this.context.width + this.props.yAxisPad
-	
-					edge = React.createElement(EdgeCoordinate, {
-							type: this.props.type, 
-							className: "edge-coordinate", 
-							show: true, 
-							x1: x1 + chartData.config.origin[0], y1: y1 + chartData.config.origin[1], 
-							x2: edgeX + chartData.config.origin[0], y2: y1 + chartData.config.origin[1], 
-							coordinate: this.props.displayFormat(yValue), 
-							edgeAt: edgeX, 
-							orient: this.props.orient}
-							)
-				}
-			}
-			return edge;
-		},
-		render:function() {
-			return this.renderEdge();
-		}
-	});
-	
-	module.exports = EdgeIndicator;
 
 
 /***/ },
@@ -230,7 +131,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var DataTransformMixin = __webpack_require__(32);
 	var ChartTransformer = __webpack_require__(30);
 	var Dummy = __webpack_require__(33);
-	var Utils = __webpack_require__(35);
+	var Utils = __webpack_require__(38);
 	
 	var polyLinearTimeScale = __webpack_require__(34);
 	
@@ -558,7 +459,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 	
 	var React = __webpack_require__(26),
-		PureComponent = __webpack_require__(38);
+		PureComponent = __webpack_require__(37);
 	
 	for(var PureComponent____Key in PureComponent){if(PureComponent.hasOwnProperty(PureComponent____Key)){Chart[PureComponent____Key]=PureComponent[PureComponent____Key];}}var ____SuperProtoOfPureComponent=PureComponent===null?null:PureComponent.prototype;Chart.prototype=Object.create(____SuperProtoOfPureComponent);Chart.prototype.constructor=Chart;Chart.__superConstructor__=PureComponent;function Chart(){if(PureComponent!==null){PureComponent.apply(this,arguments);}}
 		Object.defineProperty(Chart.prototype,"getChildContext",{writable:true,configurable:true,value:function() {
@@ -1210,7 +1111,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	var React = __webpack_require__(26);
-	var Utils = __webpack_require__(35)
+	var Utils = __webpack_require__(38)
 	
 	var ____Classb=React.Component;for(var ____Classb____Key in ____Classb){if(____Classb.hasOwnProperty(____Classb____Key)){EventCapture[____Classb____Key]=____Classb[____Classb____Key];}}var ____SuperProtoOf____Classb=____Classb===null?null:____Classb.prototype;EventCapture.prototype=Object.create(____SuperProtoOf____Classb);EventCapture.prototype.constructor=EventCapture;EventCapture.__superConstructor__=____Classb;
 		function EventCapture(props) {
@@ -1349,7 +1250,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(26);
 	var CrossHair = __webpack_require__(17)
 	var VerticalMousePointer = __webpack_require__(18)
-	var Utils = __webpack_require__(35)
+	var Utils = __webpack_require__(38)
 	
 	
 	var MouseCoordinates = React.createClass({displayName: "MouseCoordinates",
@@ -1373,7 +1274,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				yDisplayFormat: Utils.displayNumberFormat,
 			}
 		},
-		mixins: [__webpack_require__(36)],
+		mixins: [__webpack_require__(35)],
 		contextTypes: {
 			width: React.PropTypes.number.isRequired,
 			height: React.PropTypes.number.isRequired,
@@ -1427,8 +1328,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	var React = __webpack_require__(26);
-	var EdgeCoordinate = __webpack_require__(37)
-	var Utils = __webpack_require__(35)
+	var EdgeCoordinate = __webpack_require__(36)
+	var Utils = __webpack_require__(38)
 	
 	var ____Classc=React.Component;for(var ____Classc____Key in ____Classc){if(____Classc.hasOwnProperty(____Classc____Key)){CrossHair[____Classc____Key]=____Classc[____Classc____Key];}}var ____SuperProtoOf____Classc=____Classc===null?null:____Classc.prototype;CrossHair.prototype=Object.create(____SuperProtoOf____Classc);CrossHair.prototype.constructor=CrossHair;CrossHair.__superConstructor__=____Classc;
 		function CrossHair(props) {
@@ -1487,11 +1388,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	var React = __webpack_require__(26);
-	var EdgeCoordinate = __webpack_require__(37)
-	var Utils = __webpack_require__(35)
+	var EdgeCoordinate = __webpack_require__(36)
+	var Utils = __webpack_require__(38)
 	
 	
-	var ____Classe=React.Component;for(var ____Classe____Key in ____Classe){if(____Classe.hasOwnProperty(____Classe____Key)){VerticalMousePointer[____Classe____Key]=____Classe[____Classe____Key];}}var ____SuperProtoOf____Classe=____Classe===null?null:____Classe.prototype;VerticalMousePointer.prototype=Object.create(____SuperProtoOf____Classe);VerticalMousePointer.prototype.constructor=VerticalMousePointer;VerticalMousePointer.__superConstructor__=____Classe;function VerticalMousePointer(){if(____Classe!==null){____Classe.apply(this,arguments);}}
+	var ____Classd=React.Component;for(var ____Classd____Key in ____Classd){if(____Classd.hasOwnProperty(____Classd____Key)){VerticalMousePointer[____Classd____Key]=____Classd[____Classd____Key];}}var ____SuperProtoOf____Classd=____Classd===null?null:____Classd.prototype;VerticalMousePointer.prototype=Object.create(____SuperProtoOf____Classd);VerticalMousePointer.prototype.constructor=VerticalMousePointer;VerticalMousePointer.__superConstructor__=____Classd;function VerticalMousePointer(){if(____Classd!==null){____Classd.apply(this,arguments);}}
 		Object.defineProperty(VerticalMousePointer.prototype,"shouldComponentUpdate",{writable:true,configurable:true,value:function(nextProps, nextState, nextContext) {
 			return nextProps.mouseXY !== this.props.mouseXY
 		}});
@@ -1533,11 +1434,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	var React = __webpack_require__(26),
-		Utils = __webpack_require__(35);
+		Utils = __webpack_require__(38);
 	
-	var ____Classd=React.Component;for(var ____Classd____Key in ____Classd){if(____Classd.hasOwnProperty(____Classd____Key)){CurrentCoordinate[____Classd____Key]=____Classd[____Classd____Key];}}var ____SuperProtoOf____Classd=____Classd===null?null:____Classd.prototype;CurrentCoordinate.prototype=Object.create(____SuperProtoOf____Classd);CurrentCoordinate.prototype.constructor=CurrentCoordinate;CurrentCoordinate.__superConstructor__=____Classd;
+	var ____Classe=React.Component;for(var ____Classe____Key in ____Classe){if(____Classe.hasOwnProperty(____Classe____Key)){CurrentCoordinate[____Classe____Key]=____Classe[____Classe____Key];}}var ____SuperProtoOf____Classe=____Classe===null?null:____Classe.prototype;CurrentCoordinate.prototype=Object.create(____SuperProtoOf____Classe);CurrentCoordinate.prototype.constructor=CurrentCoordinate;CurrentCoordinate.__superConstructor__=____Classe;
 		function CurrentCoordinate(props) {
-			____Classd.call(this,props);
+			____Classe.call(this,props);
 		}
 		Object.defineProperty(CurrentCoordinate.prototype,"render",{writable:true,configurable:true,value:function() {
 			var chartData = this.context.chartData.filter(function(each)  {return each.id === this.props.forChart;}.bind(this))[0];
@@ -1631,7 +1532,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 	
 	var React = __webpack_require__(26);
-	var Utils = __webpack_require__(35)
+	var Utils = __webpack_require__(38)
 	
 	var billion = 1 * 1000 * 1000 * 1000;
 	var million = 1 * 1000 * 1000;
@@ -1644,7 +1545,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			xDisplayFormat: React.PropTypes.func.isRequired,
 			origin: React.PropTypes.array.isRequired,
 		},
-		mixins: [__webpack_require__(36)],
+		mixins: [__webpack_require__(35)],
 		getDefaultProps:function() {
 			return {
 				namespace: "ReStock.OHLCTooltip",
@@ -1699,9 +1600,133 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	var React = __webpack_require__(26);
+	var Utils = __webpack_require__(38)
+	var EdgeCoordinate = __webpack_require__(36)
+	
+	
+	var EdgeIndicator = React.createClass({displayName: "EdgeIndicator",
+		propTypes: {
+			type: React.PropTypes.oneOf(['horizontal']).isRequired,
+			className: React.PropTypes.string,
+			itemType: React.PropTypes.oneOf(['first', 'last', 'current']).isRequired,
+			orient: React.PropTypes.oneOf(['left', 'right']),
+			edgeAt: React.PropTypes.oneOf(['left', 'right']),
+	
+			forChart: React.PropTypes.number.isRequired,
+			forOverlay: React.PropTypes.number, // undefined means main Data series of that chart
+	
+			displayFormat: React.PropTypes.func.isRequired,
+		},
+		getDefaultProps:function() {
+			return {
+				type: 'horizontal',
+				orient: 'left',
+				edgeAt: 'left',
+				displayFormat: Utils.displayNumberFormat,
+				yAxisPad: 5,
+				namespace: "ReStock.EdgeIndicator"
+			};
+		},
+		contextTypes: {
+			width: React.PropTypes.number.isRequired
+		},
+		mixins: [__webpack_require__(35)],
+		renderEdge:function() {
+			var chartData = this.getChartData();
+			var currentItem = this.getCurrentItem();
+			var edge = null, item, yAccessor;
+			if (this.props.forOverlay !== undefined
+					&& chartData.config.overlays.length > 0
+					&& chartData.plot.overlayValues.length > 0) {
+	
+				var overlay = chartData.config.overlays
+					.filter(function(eachOverlay)  {return eachOverlay.id === this.props.forOverlay;}.bind(this));
+				var overlayValue = chartData.plot.overlayValues
+					.filter(function(eachOverlayValue)  {return eachOverlayValue.id === this.props.forOverlay;}.bind(this));
+	
+				// console.log(overlay, overlayValue);
+				if (overlay.length !== 1) {
+					console.warn('%s overlays found with id %s, correct the OverlaySeries so there is exactly one for each id', overlay.length, newChild.props.forOverlay)
+					throw new Error('Unable to identify unique Overlay for the id');
+				}
+				if (overlayValue.length !== 1 && overlay.length === 1) {
+					console.warn('Something is wrong!!!, There should be 1 overlayValue, report the issue on github');
+				}
+	
+				item = this.props.itemType === 'first'
+					? overlayValue[0].first
+					: this.props.itemType === 'last'
+						? overlayValue[0].last
+						: currentItem;
+				yAccessor = overlay[0].yAccessor;
+	
+				if (item !== undefined) {
+					var yValue = yAccessor(item), xValue = chartData.config.accessors.xAccessor(item);
+					var x1 = Math.round(chartData.plot.scales.xScale(xValue)), y1 = Math.round(chartData.plot.scales.yScale(yValue));
+					var edgeX = this.props.edgeAt === 'left'
+						? 0 - this.props.yAxisPad
+						: this.context.width + this.props.yAxisPad
+	
+					edge = React.createElement(EdgeCoordinate, {
+							type: this.props.type, 
+							className: "edge-coordinate", 
+							fill: overlay[0].stroke, 
+							show: true, 
+							x1: x1 + chartData.config.origin[0], y1: y1 + chartData.config.origin[1], 
+							x2: edgeX + chartData.config.origin[0], y2: y1 + chartData.config.origin[1], 
+							coordinate: this.props.displayFormat(yValue), 
+							edgeAt: edgeX, 
+							orient: this.props.orient}
+							)
+				}
+			} else if (this.props.forOverlay === undefined) {
+				item = this.props.itemType === 'first'
+					? chartData.firstItem
+					: this.props.itemType === 'last'
+						? chartData.lastItem
+						: currentItem;
+				yAccessor = chartData.config.accessors.yAccessor;
+	
+				if (item !== undefined && yAccessor !== null) {
+					var yValue = yAccessor(item);
+					var xValue = chartData.accessors.xAccessor(item);
+	
+					var x1 = Math.round(chartData.plot.scales.xScale(xValue)), y1 = Math.round(chartData.plot.scales.yScale(yValue));
+					var edgeX = this.props.edgeAt === 'left'
+						? 0 - this.props.yAxisPad
+						: this.context.width + this.props.yAxisPad
+	
+					edge = React.createElement(EdgeCoordinate, {
+							type: this.props.type, 
+							className: "edge-coordinate", 
+							show: true, 
+							x1: x1 + chartData.config.origin[0], y1: y1 + chartData.config.origin[1], 
+							x2: edgeX + chartData.config.origin[0], y2: y1 + chartData.config.origin[1], 
+							coordinate: this.props.displayFormat(yValue), 
+							edgeAt: edgeX, 
+							orient: this.props.orient}
+							)
+				}
+			}
+			return edge;
+		},
+		render:function() {
+			return this.renderEdge();
+		}
+	});
+	
+	module.exports = EdgeIndicator;
+
+
+/***/ },
+/* 23 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
 	
 	var React = __webpack_require__(26);
-	var Utils = __webpack_require__(35)
+	var Utils = __webpack_require__(38)
 	
 	var ____Classg=React.Component;for(var ____Classg____Key in ____Classg){if(____Classg.hasOwnProperty(____Classg____Key)){SingleMAToolTip[____Classg____Key]=____Classg[____Classg____Key];}}var ____SuperProtoOf____Classg=____Classg===null?null:____Classg.prototype;SingleMAToolTip.prototype=Object.create(____SuperProtoOf____Classg);SingleMAToolTip.prototype.constructor=SingleMAToolTip;SingleMAToolTip.__superConstructor__=____Classg;function SingleMAToolTip(){if(____Classg!==null){____Classg.apply(this,arguments);}}
 		Object.defineProperty(SingleMAToolTip.prototype,"handleClick",{writable:true,configurable:true,value:function(overlay) {
@@ -1749,7 +1774,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				width: 65
 			}
 		},
-		mixins: [__webpack_require__(36)],
+		mixins: [__webpack_require__(35)],
 		render:function() {
 			var chartData = this.getChartData();
 			var item = this.getCurrentItem();
@@ -1775,31 +1800,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	
 	module.exports = MovingAverageTooltip;
-
-
-/***/ },
-/* 23 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var React = __webpack_require__(26);
-	
-	var ____Classh=React.Component;for(var ____Classh____Key in ____Classh){if(____Classh.hasOwnProperty(____Classh____Key)){EdgeContainer[____Classh____Key]=____Classh[____Classh____Key];}}var ____SuperProtoOf____Classh=____Classh===null?null:____Classh.prototype;EdgeContainer.prototype=Object.create(____SuperProtoOf____Classh);EdgeContainer.prototype.constructor=EdgeContainer;EdgeContainer.__superConstructor__=____Classh;function EdgeContainer(){if(____Classh!==null){____Classh.apply(this,arguments);}}
-		Object.defineProperty(EdgeContainer.prototype,"shouldComponentUpdate",{writable:true,configurable:true,value:function(nextProps, nextState, nextContext) {
-			return nextContext.chartData !== this.context.chartData;
-		}});
-		Object.defineProperty(EdgeContainer.prototype,"render",{writable:true,configurable:true,value:function() {
-			var children = React.Children.map(this.props.children, function(child)  {return React.cloneElement(child);});
-			return React.createElement("g", null, children)
-		}});
-	;
-	
-	EdgeContainer.contextTypes = {
-		chartData: React.PropTypes.array.isRequired
-	};
-	
-	module.exports = EdgeContainer;
-	
 
 
 /***/ },
@@ -1972,9 +1972,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	"use strict";
 	var React = __webpack_require__(26),
 		d3 = __webpack_require__(27),
-		ScaleUtils = __webpack_require__(39),
-		OverlayUtils = __webpack_require__(40),
-		Utils = __webpack_require__(35),
+		ScaleUtils = __webpack_require__(40),
+		OverlayUtils = __webpack_require__(39),
+		Utils = __webpack_require__(38),
 		overlayColors = Utils.overlayColors;
 	var pluck = Utils.pluck;
 	var keysAsArray = Utils.keysAsArray;
@@ -2285,8 +2285,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var StockScaleTransformer = __webpack_require__(41);
 	var HeikinAshiTransformer = __webpack_require__(42);
-	var KagiTransformer = __webpack_require__(44);
-	var PointAndFigureTransformer = __webpack_require__(43);
+	var KagiTransformer = __webpack_require__(43);
+	var PointAndFigureTransformer = __webpack_require__(44);
 	var RenkoTransformer = __webpack_require__(45);
 	
 	var ChartTransformer = {
@@ -2323,7 +2323,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 	var React = __webpack_require__(26);
-	var Utils = __webpack_require__(35);
+	var Utils = __webpack_require__(38);
 	
 	function getLongValue(value) {
 		if (value instanceof Date) {
@@ -2765,6 +2765,125 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
+	
+	var React = __webpack_require__(26);
+	
+	var ForChartMixin = {
+		contextTypes: {
+			chartData: React.PropTypes.array.isRequired,
+			currentItems: React.PropTypes.array.isRequired,
+		},
+		getChartData:function() {
+			var chartData = this.context.chartData.filter(function(each)  {return each.id === this.props.forChart;}.bind(this))[0];
+			return chartData;
+		},
+		getCurrentItem:function() {
+			var currentItem = this.context.currentItems.filter(function(each)  {return each.id === this.props.forChart;}.bind(this))[0];
+			var item = currentItem ? currentItem.data : {}
+			return item;
+		}
+	};
+	
+	module.exports = ForChartMixin;
+
+
+/***/ },
+/* 36 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(26);
+	
+	var ____Classj=React.Component;for(var ____Classj____Key in ____Classj){if(____Classj.hasOwnProperty(____Classj____Key)){EdgeCoordinate[____Classj____Key]=____Classj[____Classj____Key];}}var ____SuperProtoOf____Classj=____Classj===null?null:____Classj.prototype;EdgeCoordinate.prototype=Object.create(____SuperProtoOf____Classj);EdgeCoordinate.prototype.constructor=EdgeCoordinate;EdgeCoordinate.__superConstructor__=____Classj;function EdgeCoordinate(){if(____Classj!==null){____Classj.apply(this,arguments);}}
+		Object.defineProperty(EdgeCoordinate.prototype,"render",{writable:true,configurable:true,value:function() {
+			if (!this.props.show) return null;
+	
+			var displayCoordinate = this.props.coordinate;
+			var rectWidth = this.props.rectWidth
+				? this.props.rectWidth
+				: (this.props.type === 'horizontal')
+					? 60
+					: 100,
+				rectHeight = 20;
+	
+			var edgeXRect, edgeYRect, edgeXText, edgeYText;
+	
+			if (this.props.type === 'horizontal') {
+	
+				edgeXRect = (this.props.orient === 'right') ? this.props.edgeAt + 1 : this.props.edgeAt - rectWidth - 1;
+				edgeYRect = this.props.y1 - (rectHeight / 2);
+				edgeXText = (this.props.orient === 'right') ? this.props.edgeAt + (rectWidth / 2) : this.props.edgeAt - (rectWidth / 2);
+				edgeYText = this.props.y1;
+			} else {
+				edgeXRect = this.props.x1 - (rectWidth / 2);
+				edgeYRect = (this.props.orient === 'bottom') ? this.props.edgeAt : this.props.edgeAt - rectHeight;
+				edgeXText = this.props.x1;
+				edgeYText = (this.props.orient === 'bottom') ? this.props.edgeAt + (rectHeight / 2) : this.props.edgeAt - (rectHeight / 2);
+			}
+			var coordinateBase = null, coordinate = null;
+			if (displayCoordinate !== undefined) {
+					coordinateBase = (React.createElement("rect", {key: 1, className: "textbg", 
+										x: edgeXRect, 
+										y: edgeYRect, 
+										height: rectHeight, width: rectWidth, fill: this.props.fill}));
+					coordinate = (React.createElement("text", {key: 2, x: edgeXText, 
+										y: edgeYText, 
+										style: {"textAnchor": "middle"}, 
+										dy: ".32em"}, displayCoordinate));
+			}
+			return (
+				React.createElement("g", {className: (this.props.show ? 'show ' : 'hide ') + this.props.className}, 
+						React.createElement("line", {className: "cross-hair", 
+							x1: this.props.x1, y1: this.props.y1, 
+							x2: this.props.x2, y2: this.props.y2}), 
+						coordinateBase, 
+						coordinate
+				)
+			);
+		}});
+	;
+	
+	EdgeCoordinate.propTypes = {
+		type: React.PropTypes.oneOf(['vertical', 'horizontal']).isRequired,
+		coordinate: React.PropTypes.any.isRequired,
+		x1: React.PropTypes.number.isRequired,
+		y1: React.PropTypes.number.isRequired,
+		x2: React.PropTypes.number.isRequired,
+		y2: React.PropTypes.number.isRequired,
+		orient: React.PropTypes.oneOf(['bottom', 'top', 'left', 'right']),
+		rectWidth: React.PropTypes.number
+	};
+	EdgeCoordinate.defaultProps = {
+		namespace: "ReStock.EdgeCoordinate",
+		orient: 'left'
+	};
+	module.exports = EdgeCoordinate;
+
+
+/***/ },
+/* 37 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(26);
+	var shallowEqual = __webpack_require__(47);
+	
+	var ____Classk=React.Component;for(var ____Classk____Key in ____Classk){if(____Classk.hasOwnProperty(____Classk____Key)){PureComponent[____Classk____Key]=____Classk[____Classk____Key];}}var ____SuperProtoOf____Classk=____Classk===null?null:____Classk.prototype;PureComponent.prototype=Object.create(____SuperProtoOf____Classk);PureComponent.prototype.constructor=PureComponent;PureComponent.__superConstructor__=____Classk;function PureComponent(){if(____Classk!==null){____Classk.apply(this,arguments);}}
+		Object.defineProperty(PureComponent.prototype,"shouldComponentUpdate",{writable:true,configurable:true,value:function(nextProps, nextState, nextContext) {
+			return !shallowEqual(this.props, nextProps)
+				|| !shallowEqual(this.state, nextState)
+				|| !shallowEqual(this.context, nextContext);
+		}});
+	
+	
+	module.exports = PureComponent;
+
+/***/ },
+/* 38 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 	
 	var d3 = __webpack_require__(27);
@@ -2878,179 +2997,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 36 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	var React = __webpack_require__(26);
-	
-	var ForChartMixin = {
-		contextTypes: {
-			chartData: React.PropTypes.array.isRequired,
-			currentItems: React.PropTypes.array.isRequired,
-		},
-		getChartData:function() {
-			var chartData = this.context.chartData.filter(function(each)  {return each.id === this.props.forChart;}.bind(this))[0];
-			return chartData;
-		},
-		getCurrentItem:function() {
-			var currentItem = this.context.currentItems.filter(function(each)  {return each.id === this.props.forChart;}.bind(this))[0];
-			var item = currentItem ? currentItem.data : {}
-			return item;
-		}
-	};
-	
-	module.exports = ForChartMixin;
-
-
-/***/ },
-/* 37 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var React = __webpack_require__(26);
-	
-	var ____Classj=React.Component;for(var ____Classj____Key in ____Classj){if(____Classj.hasOwnProperty(____Classj____Key)){EdgeCoordinate[____Classj____Key]=____Classj[____Classj____Key];}}var ____SuperProtoOf____Classj=____Classj===null?null:____Classj.prototype;EdgeCoordinate.prototype=Object.create(____SuperProtoOf____Classj);EdgeCoordinate.prototype.constructor=EdgeCoordinate;EdgeCoordinate.__superConstructor__=____Classj;function EdgeCoordinate(){if(____Classj!==null){____Classj.apply(this,arguments);}}
-		Object.defineProperty(EdgeCoordinate.prototype,"render",{writable:true,configurable:true,value:function() {
-			if (!this.props.show) return null;
-	
-			var displayCoordinate = this.props.coordinate;
-			var rectWidth = this.props.rectWidth
-				? this.props.rectWidth
-				: (this.props.type === 'horizontal')
-					? 60
-					: 100,
-				rectHeight = 20;
-	
-			var edgeXRect, edgeYRect, edgeXText, edgeYText;
-	
-			if (this.props.type === 'horizontal') {
-	
-				edgeXRect = (this.props.orient === 'right') ? this.props.edgeAt + 1 : this.props.edgeAt - rectWidth - 1;
-				edgeYRect = this.props.y1 - (rectHeight / 2);
-				edgeXText = (this.props.orient === 'right') ? this.props.edgeAt + (rectWidth / 2) : this.props.edgeAt - (rectWidth / 2);
-				edgeYText = this.props.y1;
-			} else {
-				edgeXRect = this.props.x1 - (rectWidth / 2);
-				edgeYRect = (this.props.orient === 'bottom') ? this.props.edgeAt : this.props.edgeAt - rectHeight;
-				edgeXText = this.props.x1;
-				edgeYText = (this.props.orient === 'bottom') ? this.props.edgeAt + (rectHeight / 2) : this.props.edgeAt - (rectHeight / 2);
-			}
-			var coordinateBase = null, coordinate = null;
-			if (displayCoordinate !== undefined) {
-					coordinateBase = (React.createElement("rect", {key: 1, className: "textbg", 
-										x: edgeXRect, 
-										y: edgeYRect, 
-										height: rectHeight, width: rectWidth, fill: this.props.fill}));
-					coordinate = (React.createElement("text", {key: 2, x: edgeXText, 
-										y: edgeYText, 
-										style: {"textAnchor": "middle"}, 
-										dy: ".32em"}, displayCoordinate));
-			}
-			return (
-				React.createElement("g", {className: (this.props.show ? 'show ' : 'hide ') + this.props.className}, 
-						React.createElement("line", {className: "cross-hair", 
-							x1: this.props.x1, y1: this.props.y1, 
-							x2: this.props.x2, y2: this.props.y2}), 
-						coordinateBase, 
-						coordinate
-				)
-			);
-		}});
-	;
-	
-	EdgeCoordinate.propTypes = {
-		type: React.PropTypes.oneOf(['vertical', 'horizontal']).isRequired,
-		coordinate: React.PropTypes.any.isRequired,
-		x1: React.PropTypes.number.isRequired,
-		y1: React.PropTypes.number.isRequired,
-		x2: React.PropTypes.number.isRequired,
-		y2: React.PropTypes.number.isRequired,
-		orient: React.PropTypes.oneOf(['bottom', 'top', 'left', 'right']),
-		rectWidth: React.PropTypes.number
-	};
-	EdgeCoordinate.defaultProps = {
-		namespace: "ReStock.EdgeCoordinate",
-		orient: 'left'
-	};
-	module.exports = EdgeCoordinate;
-
-
-/***/ },
-/* 38 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(26);
-	var shallowEqual = __webpack_require__(48);
-	
-	var ____Classk=React.Component;for(var ____Classk____Key in ____Classk){if(____Classk.hasOwnProperty(____Classk____Key)){PureComponent[____Classk____Key]=____Classk[____Classk____Key];}}var ____SuperProtoOf____Classk=____Classk===null?null:____Classk.prototype;PureComponent.prototype=Object.create(____SuperProtoOf____Classk);PureComponent.prototype.constructor=PureComponent;PureComponent.__superConstructor__=____Classk;function PureComponent(){if(____Classk!==null){____Classk.apply(this,arguments);}}
-		Object.defineProperty(PureComponent.prototype,"shouldComponentUpdate",{writable:true,configurable:true,value:function(nextProps, nextState, nextContext) {
-			return !shallowEqual(this.props, nextProps)
-				|| !shallowEqual(this.state, nextState)
-				|| !shallowEqual(this.context, nextContext);
-		}});
-	
-	
-	module.exports = PureComponent;
-
-/***/ },
 /* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	function pushToValues(values, eachValue) {
-		if (typeof eachValue === 'object' && Object.keys(eachValue).length > 0) {
-			Object.keys(eachValue).forEach(function (key) {
-				if (!isNaN(eachValue[key])) {
-					values.push(eachValue[key]);
-				}
-			});
-		} else {
-			if (!isNaN(eachValue)) {
-				values.push(eachValue);
-			}
-		}
-	}
-	
-	var ScaleUtils = {
-		flattenData:function(data, xAccessors, yAccessors) {
-			// console.log(xAccessors, yAccessors);
-			var xValues = [];
-			var yValues = [];
-			data.forEach( function(row)  {
-				xAccessors.forEach( function(xAccessor)  {
-					var x = xAccessor(row);
-					if (x !== undefined) {
-						pushToValues(xValues, x);
-					}
-				});
-				yAccessors.forEach( function(yAccessor)  {
-					var y = yAccessor(row);
-					if (y !== undefined) {
-						pushToValues(yValues, y);
-					}
-				});
-			})
-			return {
-				xValues: xValues,
-				yValues: yValues
-			};
-		}
-	}
-	module.exports = ScaleUtils;
-
-
-/***/ },
-/* 40 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var Utils = __webpack_require__(35);
+	var Utils = __webpack_require__(38);
 	var MACalculator = __webpack_require__(46);
 	
 	var OverlayUtils = {
@@ -3107,6 +3059,54 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	
 	module.exports = OverlayUtils;
+
+
+/***/ },
+/* 40 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	function pushToValues(values, eachValue) {
+		if (typeof eachValue === 'object' && Object.keys(eachValue).length > 0) {
+			Object.keys(eachValue).forEach(function (key) {
+				if (!isNaN(eachValue[key])) {
+					values.push(eachValue[key]);
+				}
+			});
+		} else {
+			if (!isNaN(eachValue)) {
+				values.push(eachValue);
+			}
+		}
+	}
+	
+	var ScaleUtils = {
+		flattenData:function(data, xAccessors, yAccessors) {
+			// console.log(xAccessors, yAccessors);
+			var xValues = [];
+			var yValues = [];
+			data.forEach( function(row)  {
+				xAccessors.forEach( function(xAccessor)  {
+					var x = xAccessor(row);
+					if (x !== undefined) {
+						pushToValues(xValues, x);
+					}
+				});
+				yAccessors.forEach( function(yAccessor)  {
+					var y = yAccessor(row);
+					if (y !== undefined) {
+						pushToValues(yValues, y);
+					}
+				});
+			})
+			return {
+				xValues: xValues,
+				yValues: yValues
+			};
+		}
+	}
+	module.exports = ScaleUtils;
 
 
 /***/ },
@@ -3343,6 +3343,171 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var excludeList = ['transformType', 'options', 'children', 'namespace', '_multiInterval'];
 	var pricingMethod = function (d) { return { high: d.high, low: d.low }; };
+	var usePrice = function (d) { return d.close; };
+	
+	var calculateATR = __webpack_require__(48);
+	
+	function KagiTransformer(data, interval, options, other) {
+		if (options === undefined) options = {};
+	
+		var period = options.period || 14;
+	
+		calculateATR(data.D, period);
+		var reversalThreshold = function (d) { return d["atr" + period] }
+	
+		var $__0=       options,_dateAccessor=$__0._dateAccessor,_dateMutator=$__0._dateMutator,_indexAccessor=$__0._indexAccessor,_indexMutator=$__0._indexMutator;
+	
+		var kagiData = new Array();
+	
+		var index = 0, prevPeak, prevTrough, direction;
+		var line = {};
+	
+		data.D.forEach( function (d) {
+			if (line.from === undefined) {
+				_indexMutator(line, index++);
+				_dateMutator(line, _dateAccessor(d));
+				/*line.displayDate = d.displayDate;
+				line.fromDate = d.displayDate;
+				line.toDate = d.displayDate;*/
+				line.from = _dateAccessor(d);
+	
+				if (!line.open) line.open = d.open;
+				line.high = d.high;
+				line.low = d.low;
+				if (!line.close) line.close = usePrice(d);
+				line.startOfYear = d.startOfYear;
+				line.startOfQuarter = d.startOfQuarter;
+				line.startOfMonth = d.startOfMonth;
+				line.startOfWeek = d.startOfWeek;
+				//line.tempClose = d.close;
+			}
+	
+			if (!line.startOfYear) {
+				line.startOfYear = d.startOfYear;
+				if (line.startOfYear) {
+					line.date = d.date;
+					// line.displayDate = d.displayDate;
+				}
+			}
+	
+			if (!line.startOfQuarter) {
+				line.startOfQuarter = d.startOfQuarter;
+				if (line.startOfQuarter && !line.startOfYear) {
+					line.date = d.date;
+					// line.displayDate = d.displayDate;
+				}
+			}
+	
+			if (!line.startOfMonth) {
+				line.startOfMonth = d.startOfMonth;
+				if (line.startOfMonth && !line.startOfQuarter) {
+					line.date = d.date;
+					// line.displayDate = d.displayDate;
+				}
+			}
+			if (!line.startOfWeek) {
+				line.startOfWeek = d.startOfWeek;
+				if (line.startOfWeek && !line.startOfMonth) {
+					line.date = d.date;
+					// line.displayDate = d.displayDate;
+				}
+			}
+			line.volume = (line.volume || 0) + d.volume;
+			line.high = Math.max(line.high, d.high);
+			line.low = Math.min(line.low, d.low);
+			line.to = _dateAccessor(d);
+			//line.toDate = d.displayDate;
+			var priceMovement = (usePrice(d) - line.close);
+	
+			if ((line.close > line.open /* going up */ && priceMovement > 0 /* and moving in same direction */)
+					|| (line.close < line.open /* going down */ && priceMovement < 0 /* and moving in same direction */)) {
+				line.close = usePrice(d);
+				if (prevTrough && line.close < prevTrough) {
+					// going below the prevTrough, so change from yang to yin
+					// A yin line forms when a Kagi line breaks below the prior trough.
+					line.changePoint = prevTrough;
+					if (line.startAs != 'yin') {
+						line.changeTo = 'yin';
+						// line.startAs = 'yang';
+					}
+				}
+				if (prevPeak && line.close > prevPeak) {
+					// going above the prevPeak, so change from yin to yang
+					// A yang line forms when a Kagi line breaks above the prior peak
+					line.changePoint = prevPeak;
+					if (line.startAs != 'yang') {
+						line.changeTo = 'yang';
+						// line.startAs = 'yin';
+					}
+				}
+			} else if ((line.close > line.open /* going up */
+							&& priceMovement < 0 /* and moving in other direction */
+							&& Math.abs(priceMovement) > reversalThreshold(d) /* and the movement is big enough for reversal */) //d.atr
+					|| (line.close < line.open /* going down */
+							&& priceMovement > 0 /* and moving in other direction */
+							&& Math.abs(priceMovement) > reversalThreshold(d) /* and the movement is big enough for reversal */)) {
+				// reverse direction
+				var nextLineOpen = line.close;
+	
+				direction = (line.close - line.open) / Math.abs(line.close - line.open);
+				/*line.prevPeak = prevPeak;
+				line.prevTrough = prevTrough;*/
+				var nextChangePoint, nextChangeTo;
+				if (direction < 0 /* if direction so far has been -ve*/) {
+					// compare with line.close becomes prevTrough
+					if (prevPeak === undefined) prevPeak = line.open;
+					prevTrough = line.close;
+					if (usePrice(d) > prevPeak) {
+						nextChangePoint = prevPeak;
+						nextChangeTo = 'yang';
+					}
+				} else {
+					if (prevTrough === undefined) prevTrough = line.open;
+					prevPeak = line.close;
+					if (usePrice(d) < prevTrough) {
+						nextChangePoint = prevTrough;
+						nextChangeTo = 'yin';
+					}
+				}
+				if (line.startAs === undefined) {
+					line.startAs = direction > 0 ? 'yang' : 'yin';
+				}
+	
+				var startAs = line.changeTo || line.startAs;
+				kagiData.push(line);
+				direction = -1 * direction; //direction is reversed
+	
+				line = {
+					open: nextLineOpen
+					, close: usePrice(d)
+					, startAs: startAs
+					, changePoint: nextChangePoint
+					, changeTo: nextChangeTo
+				};
+			} else {
+	
+			}
+		});
+	
+		return {
+			data: {'D': kagiData},
+			other: other,
+			options: options
+		};
+	}
+	
+	
+	module.exports = KagiTransformer;
+
+
+/***/ },
+/* 44 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var excludeList = ['transformType', 'options', 'children', 'namespace', '_multiInterval'];
+	var pricingMethod = function (d) { return { high: d.high, low: d.low }; };
 	var usePrice = function (d) { return { high: d.high, low: d.low }; };
 	
 	var defaultOptions = {
@@ -3563,171 +3728,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 44 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var excludeList = ['transformType', 'options', 'children', 'namespace', '_multiInterval'];
-	var pricingMethod = function (d) { return { high: d.high, low: d.low }; };
-	var usePrice = function (d) { return d.close; };
-	
-	var calculateATR = __webpack_require__(47);
-	
-	function KagiTransformer(data, interval, options, other) {
-		if (options === undefined) options = {};
-	
-		var period = options.period || 14;
-	
-		calculateATR(data.D, period);
-		var reversalThreshold = function (d) { return d["atr" + period] }
-	
-		var $__0=       options,_dateAccessor=$__0._dateAccessor,_dateMutator=$__0._dateMutator,_indexAccessor=$__0._indexAccessor,_indexMutator=$__0._indexMutator;
-	
-		var kagiData = new Array();
-	
-		var index = 0, prevPeak, prevTrough, direction;
-		var line = {};
-	
-		data.D.forEach( function (d) {
-			if (line.from === undefined) {
-				_indexMutator(line, index++);
-				_dateMutator(line, _dateAccessor(d));
-				/*line.displayDate = d.displayDate;
-				line.fromDate = d.displayDate;
-				line.toDate = d.displayDate;*/
-				line.from = _dateAccessor(d);
-	
-				if (!line.open) line.open = d.open;
-				line.high = d.high;
-				line.low = d.low;
-				if (!line.close) line.close = usePrice(d);
-				line.startOfYear = d.startOfYear;
-				line.startOfQuarter = d.startOfQuarter;
-				line.startOfMonth = d.startOfMonth;
-				line.startOfWeek = d.startOfWeek;
-				//line.tempClose = d.close;
-			}
-	
-			if (!line.startOfYear) {
-				line.startOfYear = d.startOfYear;
-				if (line.startOfYear) {
-					line.date = d.date;
-					// line.displayDate = d.displayDate;
-				}
-			}
-	
-			if (!line.startOfQuarter) {
-				line.startOfQuarter = d.startOfQuarter;
-				if (line.startOfQuarter && !line.startOfYear) {
-					line.date = d.date;
-					// line.displayDate = d.displayDate;
-				}
-			}
-	
-			if (!line.startOfMonth) {
-				line.startOfMonth = d.startOfMonth;
-				if (line.startOfMonth && !line.startOfQuarter) {
-					line.date = d.date;
-					// line.displayDate = d.displayDate;
-				}
-			}
-			if (!line.startOfWeek) {
-				line.startOfWeek = d.startOfWeek;
-				if (line.startOfWeek && !line.startOfMonth) {
-					line.date = d.date;
-					// line.displayDate = d.displayDate;
-				}
-			}
-			line.volume = (line.volume || 0) + d.volume;
-			line.high = Math.max(line.high, d.high);
-			line.low = Math.min(line.low, d.low);
-			line.to = _dateAccessor(d);
-			//line.toDate = d.displayDate;
-			var priceMovement = (usePrice(d) - line.close);
-	
-			if ((line.close > line.open /* going up */ && priceMovement > 0 /* and moving in same direction */)
-					|| (line.close < line.open /* going down */ && priceMovement < 0 /* and moving in same direction */)) {
-				line.close = usePrice(d);
-				if (prevTrough && line.close < prevTrough) {
-					// going below the prevTrough, so change from yang to yin
-					// A yin line forms when a Kagi line breaks below the prior trough.
-					line.changePoint = prevTrough;
-					if (line.startAs != 'yin') {
-						line.changeTo = 'yin';
-						// line.startAs = 'yang';
-					}
-				}
-				if (prevPeak && line.close > prevPeak) {
-					// going above the prevPeak, so change from yin to yang
-					// A yang line forms when a Kagi line breaks above the prior peak
-					line.changePoint = prevPeak;
-					if (line.startAs != 'yang') {
-						line.changeTo = 'yang';
-						// line.startAs = 'yin';
-					}
-				}
-			} else if ((line.close > line.open /* going up */
-							&& priceMovement < 0 /* and moving in other direction */
-							&& Math.abs(priceMovement) > reversalThreshold(d) /* and the movement is big enough for reversal */) //d.atr
-					|| (line.close < line.open /* going down */
-							&& priceMovement > 0 /* and moving in other direction */
-							&& Math.abs(priceMovement) > reversalThreshold(d) /* and the movement is big enough for reversal */)) {
-				// reverse direction
-				var nextLineOpen = line.close;
-	
-				direction = (line.close - line.open) / Math.abs(line.close - line.open);
-				/*line.prevPeak = prevPeak;
-				line.prevTrough = prevTrough;*/
-				var nextChangePoint, nextChangeTo;
-				if (direction < 0 /* if direction so far has been -ve*/) {
-					// compare with line.close becomes prevTrough
-					if (prevPeak === undefined) prevPeak = line.open;
-					prevTrough = line.close;
-					if (usePrice(d) > prevPeak) {
-						nextChangePoint = prevPeak;
-						nextChangeTo = 'yang';
-					}
-				} else {
-					if (prevTrough === undefined) prevTrough = line.open;
-					prevPeak = line.close;
-					if (usePrice(d) < prevTrough) {
-						nextChangePoint = prevTrough;
-						nextChangeTo = 'yin';
-					}
-				}
-				if (line.startAs === undefined) {
-					line.startAs = direction > 0 ? 'yang' : 'yin';
-				}
-	
-				var startAs = line.changeTo || line.startAs;
-				kagiData.push(line);
-				direction = -1 * direction; //direction is reversed
-	
-				line = {
-					open: nextLineOpen
-					, close: usePrice(d)
-					, startAs: startAs
-					, changePoint: nextChangePoint
-					, changeTo: nextChangeTo
-				};
-			} else {
-	
-			}
-		});
-	
-		return {
-			data: {'D': kagiData},
-			other: other,
-			options: options
-		};
-	}
-	
-	
-	module.exports = KagiTransformer;
-
-
-/***/ },
 /* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -3737,7 +3737,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var pricingMethod = function (d) { return { high: d.high, low: d.low }; };
 	// var pricingMethod = function (d) { return { high: d.close, low: d.close }; };
 	// var usePrice = function (d) { return d.close; };
-	var calculateATR = __webpack_require__(47);
+	var calculateATR = __webpack_require__(48);
 	
 	var defaultOptions = {
 		boxSize: 0.5,
@@ -3908,7 +3908,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	
-	var Utils = __webpack_require__(35);
+	var Utils = __webpack_require__(38);
 	
 	var pluck = Utils.pluck;
 	var sum = Utils.sum;
@@ -3949,46 +3949,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 47 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	function sumOf(array, offset, length) {
-		var sum = 0;
-		for (var i = offset; i < offset + length; i++) {
-			sum += array[i].trueRange;
-		};
-		return sum;
-	}
-	
-	function calculateTR(rawData) {
-		var prev = rawData[0];
-		rawData
-			.filter(function(d, idx)  {return idx > 0;})
-			.forEach(function(d, idx) {
-				d.trueRange = Math.max(d.high - d.low,
-					d.high - prev.close,
-					d.low - prev.close)
-				prev = rawData[idx];
-			});
-	}
-	
-	function calculateATR(rawData, period) {
-		calculateTR(rawData);
-	
-		rawData.forEach(function(d, index) {
-			if (index > period) { // trueRange starts from index 1 so ATR starts from period (not period -1)
-				var num = (sumOf(rawData, index - period, period) / period)
-				d["atr" + period] = (Math.round(num * 100) / 100);
-			}
-		});
-	}
-	
-	module.exports = calculateATR;
-
-
-/***/ },
-/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -4039,6 +3999,46 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	
 	module.exports = shallowEqual;
+
+/***/ },
+/* 48 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	function sumOf(array, offset, length) {
+		var sum = 0;
+		for (var i = offset; i < offset + length; i++) {
+			sum += array[i].trueRange;
+		};
+		return sum;
+	}
+	
+	function calculateTR(rawData) {
+		var prev = rawData[0];
+		rawData
+			.filter(function(d, idx)  {return idx > 0;})
+			.forEach(function(d, idx) {
+				d.trueRange = Math.max(d.high - d.low,
+					d.high - prev.close,
+					d.low - prev.close)
+				prev = rawData[idx];
+			});
+	}
+	
+	function calculateATR(rawData, period) {
+		calculateTR(rawData);
+	
+		rawData.forEach(function(d, index) {
+			if (index > period) { // trueRange starts from index 1 so ATR starts from period (not period -1)
+				var num = (sumOf(rawData, index - period, period) / period)
+				d["atr" + period] = (Math.round(num * 100) / 100);
+			}
+		});
+	}
+	
+	module.exports = calculateATR;
+
 
 /***/ }
 /******/ ])
