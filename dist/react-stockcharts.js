@@ -70,8 +70,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.LineSeries = __webpack_require__(8);
 	exports.CandlestickSeries = __webpack_require__(9);
 	exports.OverlaySeries = __webpack_require__(10);
-	exports.HistogramSeries = __webpack_require__(11);
-	exports.KagiSeries = __webpack_require__(12);
+	exports.HistogramSeries = __webpack_require__(12);
+	exports.KagiSeries = __webpack_require__(11);
 	exports.PointAndFigureSeries = __webpack_require__(13);
 	exports.RenkoSeries = __webpack_require__(14);
 	
@@ -84,15 +84,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	// Tooltips
 	exports.TooltipContainer = __webpack_require__(20);
-	exports.OHLCTooltip = __webpack_require__(21);
-	exports.MovingAverageTooltip = __webpack_require__(23);
+	exports.OHLCTooltip = __webpack_require__(25);
+	exports.MovingAverageTooltip = __webpack_require__(21);
 	
 	// misc
-	exports.EdgeContainer = __webpack_require__(1);
-	exports.EdgeIndicator = __webpack_require__(22);
+	exports.EdgeContainer = __webpack_require__(22);
+	exports.EdgeIndicator = __webpack_require__(23);
 	
 	exports.helper = {};
-	exports.helper.ChartWidthMixin = __webpack_require__(25);
+	exports.helper.ChartWidthMixin = __webpack_require__(1);
 
 
 /***/ },
@@ -100,24 +100,33 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	
 	var React = __webpack_require__(26);
 	
-	var ____Classh=React.Component;for(var ____Classh____Key in ____Classh){if(____Classh.hasOwnProperty(____Classh____Key)){EdgeContainer[____Classh____Key]=____Classh[____Classh____Key];}}var ____SuperProtoOf____Classh=____Classh===null?null:____Classh.prototype;EdgeContainer.prototype=Object.create(____SuperProtoOf____Classh);EdgeContainer.prototype.constructor=EdgeContainer;EdgeContainer.__superConstructor__=____Classh;function EdgeContainer(){if(____Classh!==null){____Classh.apply(this,arguments);}}
-		Object.defineProperty(EdgeContainer.prototype,"shouldComponentUpdate",{writable:true,configurable:true,value:function(nextProps, nextState, nextContext) {
-			return nextContext.chartData !== this.context.chartData;
-		}});
-		Object.defineProperty(EdgeContainer.prototype,"render",{writable:true,configurable:true,value:function() {
-			var children = React.Children.map(this.props.children, function(child)  {return React.cloneElement(child);});
-			return React.createElement("g", null, children)
-		}});
-	;
+	var ChartWidthMixin = {
+		handleWindowResize:function() {
+			var w = $(React.findDOMNode(this)).parent().width();
+			//var w = $(this.getDOMNode()).parent().width();
+			console.log('width = ', w);
 	
-	EdgeContainer.contextTypes = {
-		chartData: React.PropTypes.array.isRequired
+			this.setState({
+				width: w
+			});
+		},
+		componentWillUnMount:function() {
+			window.removeEventListener("resize", this.handleWindowResize);
+		},
+		componentDidMount:function() {
+			window.addEventListener("resize", this.handleWindowResize);
+			var w = $(React.findDOMNode(this)).parent().width();
+			//var w = $(this.getDOMNode()).parent().width();
+			this.setState({
+				width: w
+			});
+		},
 	};
 	
-	module.exports = EdgeContainer;
-	
+	module.exports = ChartWidthMixin;
 
 
 /***/ },
@@ -126,14 +135,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	var React = __webpack_require__(26);
-	var EventCaptureMixin = __webpack_require__(31);
-	var ChartContainerMixin = __webpack_require__(28);
-	var DataTransformMixin = __webpack_require__(32);
-	var ChartTransformer = __webpack_require__(30);
-	var Dummy = __webpack_require__(33);
-	var Utils = __webpack_require__(38);
+	var EventCaptureMixin = __webpack_require__(29);
+	var ChartContainerMixin = __webpack_require__(31);
+	var DataTransformMixin = __webpack_require__(30);
+	var ChartTransformer = __webpack_require__(28);
+	var Dummy = __webpack_require__(34);
+	var Utils = __webpack_require__(32);
 	
-	var polyLinearTimeScale = __webpack_require__(34);
+	var polyLinearTimeScale = __webpack_require__(33);
 	
 	var doNotPassThrough = ['transformType', 'options', 'children', 'namespace'];
 	
@@ -240,15 +249,10 @@ return /******/ (function(modules) { // webpackBootstrap
 			data: React.PropTypes.object,
 			dataTransformOptions: React.PropTypes.object,
 			dataTransformProps: React.PropTypes.object,
-			// plotData: React.PropTypes.array, // Deprecated
 			plotData: React.PropTypes.array,
-			// chartData: React.PropTypes.array, // Deprecated
 			chartData: React.PropTypes.array,
-			// currentItems: React.PropTypes.array, // Deprecated
 			currentItems: React.PropTypes.array,
-			// show: React.PropTypes.bool,  // Deprecated
 			show: React.PropTypes.bool,
-			// mouseXY: React.PropTypes.array, // Deprecated
 			mouseXY: React.PropTypes.array,
 			interval: React.PropTypes.string,
 		},
@@ -257,24 +261,23 @@ return /******/ (function(modules) { // webpackBootstrap
 				data: this.state.data,
 				dataTransformOptions: this.state.dataTransformOptions,
 				dataTransformProps: this.state.dataTransformProps,
-				// plotData: this.state.plotData, // Deprecated
 				plotData: this.state.plotData,
-				chartData: this.state.chartData, // Deprecated
-				// chartData: this.state.chartData,
-				// currentItems: this.state.currentItems, // Deprecated
+				chartData: this.state.chartData,
 				currentItems: this.state.currentItems,
-				// show: this.state.show, // Deprecated
 				show: this.state.show,
-				// mouseXY: this.state.mouseXY, // Deprecated
 				mouseXY: this.state.mouseXY,
 				interval: this.state.interval,
 			}
 		},
 		render:function() {
-			// console.log('DataTransform.render()');
-			// console.error('foobar');
-			var children = React.Children.map(this.props.children, function(child)  {return React.cloneElement(child);});
-			// var children = this.props.children;
+			var children = React.Children.map(this.props.children, function(child)  {
+				var newChild = Utils.isReactVersion13()
+					? React.withContext(this.getChildContext(), function()  {
+						return React.createElement(child.type, Utils.mergeObject({ key: child.key, ref: child.ref}, child.props));
+					})
+					: React.cloneElement(child);
+				return newChild;
+			}.bind(this));
 			return (
 				React.createElement("g", null, children)
 			);
@@ -459,7 +462,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 	
 	var React = __webpack_require__(26),
-		PureComponent = __webpack_require__(37);
+		PureComponent = __webpack_require__(38);
+	
+	var Utils = __webpack_require__(32);
 	
 	for(var PureComponent____Key in PureComponent){if(PureComponent.hasOwnProperty(PureComponent____Key)){Chart[PureComponent____Key]=PureComponent[PureComponent____Key];}}var ____SuperProtoOfPureComponent=PureComponent===null?null:PureComponent.prototype;Chart.prototype=Object.create(____SuperProtoOfPureComponent);Chart.prototype.constructor=Chart;Chart.__superConstructor__=PureComponent;function Chart(){if(PureComponent!==null){PureComponent.apply(this,arguments);}}
 		Object.defineProperty(Chart.prototype,"getChildContext",{writable:true,configurable:true,value:function() {
@@ -476,9 +481,14 @@ return /******/ (function(modules) { // webpackBootstrap
 			var origin = typeof this.props.origin === 'function'
 				? this.props.origin(this.context.width, this.context.height)
 				: this.props.origin;
-	
-			var children = React.Children.map(this.props.children, function(child)  {return React.cloneElement(child);});
-	
+			var children = React.Children.map(this.props.children, function(child)  {
+				var newChild = Utils.isReactVersion13()
+					? React.withContext(this.getChildContext(), function()  {
+						return React.createElement(child.type, Utils.mergeObject({ key: child.key, ref: child.ref}, child.props));
+					})
+					: React.cloneElement(child);
+				return newChild;
+			}.bind(this));
 			return React.createElement("g", {transform: ("translate(" + origin[0] + ", " + origin[1] + ")")}, children);
 		}});
 	;
@@ -506,7 +516,6 @@ return /******/ (function(modules) { // webpackBootstrap
 		width: React.PropTypes.number.isRequired,
 		height: React.PropTypes.number.isRequired,
 		chartData: React.PropTypes.array,
-		_updateMode: React.PropTypes.object
 	};
 	Chart.childContextTypes = {
 		xScale: React.PropTypes.func.isRequired,
@@ -527,10 +536,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 	
 	var React = __webpack_require__(26);
+	var Utils = __webpack_require__(32);
 	
 	var ____Class2=React.Component;for(var ____Class2____Key in ____Class2){if(____Class2.hasOwnProperty(____Class2____Key)){DataSeries[____Class2____Key]=____Class2[____Class2____Key];}}var ____SuperProtoOf____Class2=____Class2===null?null:____Class2.prototype;DataSeries.prototype=Object.create(____SuperProtoOf____Class2);DataSeries.prototype.constructor=DataSeries;DataSeries.__superConstructor__=____Class2;function DataSeries(){if(____Class2!==null){____Class2.apply(this,arguments);}}
 		Object.defineProperty(DataSeries.prototype,"render",{writable:true,configurable:true,value:function() {
-			var children = React.Children.map(this.props.children, function(child)  {return React.cloneElement(child);});
+			var children = React.Children.map(this.props.children, function(child)  {
+				var newChild = Utils.isReactVersion13()
+					? React.withContext(this.context, function()  {
+						return React.createElement(child.type, Utils.mergeObject({ key: child.key, ref: child.ref}, child.props));
+					})
+					: React.cloneElement(child);
+				return newChild;
+			}.bind(this));
 			return (
 				React.createElement("g", {style: { "clipPath": "url(#chart-area-clip)"}}, children)
 			);
@@ -751,6 +768,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 	
 	var React = __webpack_require__(26);
+	var Utils = __webpack_require__(32);
 	
 	var ____Class6=React.Component;for(var ____Class6____Key in ____Class6){if(____Class6.hasOwnProperty(____Class6____Key)){OverlaySeries[____Class6____Key]=____Class6[____Class6____Key];}}var ____SuperProtoOf____Class6=____Class6===null?null:____Class6.prototype;OverlaySeries.prototype=Object.create(____SuperProtoOf____Class6);OverlaySeries.prototype.constructor=OverlaySeries;OverlaySeries.__superConstructor__=____Class6;function OverlaySeries(){if(____Class6!==null){____Class6.apply(this,arguments);}}
 	
@@ -762,8 +780,14 @@ return /******/ (function(modules) { // webpackBootstrap
 			};
 		}});
 		Object.defineProperty(OverlaySeries.prototype,"render",{writable:true,configurable:true,value:function() {
-			var children = React.Children.map(this.props.children, function(child)  {return React.cloneElement(child);});
-	
+			var children = React.Children.map(this.props.children, function(child)  {
+				var newChild = Utils.isReactVersion13()
+					? React.withContext(this.getChildContext(), function()  {
+						return React.createElement(child.type, Utils.mergeObject({ key: child.key, ref: child.ref}, child.props));
+					})
+					: React.cloneElement(child);
+				return newChild;
+			}.bind(this));
 			return (
 				React.createElement("g", null, children)
 			);
@@ -797,9 +821,73 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(26),
 		d3 = __webpack_require__(27);
 	
-	var ____Class7=React.Component;for(var ____Class7____Key in ____Class7){if(____Class7.hasOwnProperty(____Class7____Key)){HistogramSeries[____Class7____Key]=____Class7[____Class7____Key];}}var ____SuperProtoOf____Class7=____Class7===null?null:____Class7.prototype;HistogramSeries.prototype=Object.create(____SuperProtoOf____Class7);HistogramSeries.prototype.constructor=HistogramSeries;HistogramSeries.__superConstructor__=____Class7;
+	var ____Class7=React.Component;for(var ____Class7____Key in ____Class7){if(____Class7.hasOwnProperty(____Class7____Key)){KagiSeries[____Class7____Key]=____Class7[____Class7____Key];}}var ____SuperProtoOf____Class7=____Class7===null?null:____Class7.prototype;KagiSeries.prototype=Object.create(____SuperProtoOf____Class7);KagiSeries.prototype.constructor=KagiSeries;KagiSeries.__superConstructor__=____Class7;function KagiSeries(){if(____Class7!==null){____Class7.apply(this,arguments);}}
+		Object.defineProperty(KagiSeries.prototype,"render",{writable:true,configurable:true,value:function() {
+			var kagiLine = new Array();
+			var kagi = {};
+			for (var i = 0; i < this.context.plotData.length; i++) {
+				var d = this.context.plotData[i];
+				if (d.close === undefined) continue;
+				if (kagi.type === undefined) kagi.type = d.startAs;
+				if (kagi.plot === undefined) kagi.plot = new Array();
+				var idx = this.context.xAccessor(d);
+				kagi.plot.push([idx, d.open]);
+	
+				if (d.changePoint != undefined) {
+					kagi.plot.push([idx, d.changePoint]);
+					kagiLine.push(kagi);
+					kagi = {
+						type: d.changeTo
+						, plot: []
+					};
+					kagi.plot.push([idx, d.changePoint]);
+				}
+			};
+	
+			var props = this.props;
+	
+			var paths = kagiLine.map(function(each, i)  {
+	
+				var dataSeries = d3.svg.line()
+					.x(function(d)  {return this.context.xScale(d[0]);}.bind(this))
+					.y(function(d)  {return this.context.yScale(d[1]);}.bind(this))
+					.interpolate("step-before");
+				return (React.createElement("path", {key: i, d: dataSeries(each.plot), className: each.type}))
+			}.bind(this));
+			return (
+				React.createElement("g", null, 
+					paths
+				)
+			);
+		}});
+	;
+	
+	KagiSeries.defaultProps = {
+		namespace: "ReStock.KagiSeries",
+	};
+	KagiSeries.contextTypes = {
+		xScale: React.PropTypes.func.isRequired,
+		yScale: React.PropTypes.func.isRequired,
+		xAccessor: React.PropTypes.func.isRequired,
+		yAccessor: React.PropTypes.func.isRequired,
+		plotData: React.PropTypes.array.isRequired,
+	};
+	KagiSeries.yAccessor = function(d)  {return {open: d.open, high: d.high, low: d.low, close: d.close};};
+	
+	module.exports = KagiSeries;
+
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(26),
+		d3 = __webpack_require__(27);
+	
+	var ____Class8=React.Component;for(var ____Class8____Key in ____Class8){if(____Class8.hasOwnProperty(____Class8____Key)){HistogramSeries[____Class8____Key]=____Class8[____Class8____Key];}}var ____SuperProtoOf____Class8=____Class8===null?null:____Class8.prototype;HistogramSeries.prototype=Object.create(____SuperProtoOf____Class8);HistogramSeries.prototype.constructor=HistogramSeries;HistogramSeries.__superConstructor__=____Class8;
 		function HistogramSeries(props) {
-			____Class7.call(this,props);
+			____Class8.call(this,props);
 			this.getBars = this.getBars.bind(this);
 		}
 		Object.defineProperty(HistogramSeries.prototype,"getBars",{writable:true,configurable:true,value:function() {
@@ -884,70 +972,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 12 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var React = __webpack_require__(26),
-		d3 = __webpack_require__(27);
-	
-	var ____Class8=React.Component;for(var ____Class8____Key in ____Class8){if(____Class8.hasOwnProperty(____Class8____Key)){KagiSeries[____Class8____Key]=____Class8[____Class8____Key];}}var ____SuperProtoOf____Class8=____Class8===null?null:____Class8.prototype;KagiSeries.prototype=Object.create(____SuperProtoOf____Class8);KagiSeries.prototype.constructor=KagiSeries;KagiSeries.__superConstructor__=____Class8;function KagiSeries(){if(____Class8!==null){____Class8.apply(this,arguments);}}
-		Object.defineProperty(KagiSeries.prototype,"render",{writable:true,configurable:true,value:function() {
-			var kagiLine = new Array();
-			var kagi = {};
-			for (var i = 0; i < this.context.plotData.length; i++) {
-				var d = this.context.plotData[i];
-				if (d.close === undefined) continue;
-				if (kagi.type === undefined) kagi.type = d.startAs;
-				if (kagi.plot === undefined) kagi.plot = new Array();
-				var idx = this.context.xAccessor(d);
-				kagi.plot.push([idx, d.open]);
-	
-				if (d.changePoint != undefined) {
-					kagi.plot.push([idx, d.changePoint]);
-					kagiLine.push(kagi);
-					kagi = {
-						type: d.changeTo
-						, plot: []
-					};
-					kagi.plot.push([idx, d.changePoint]);
-				}
-			};
-	
-			var props = this.props;
-	
-			var paths = kagiLine.map(function(each, i)  {
-	
-				var dataSeries = d3.svg.line()
-					.x(function(d)  {return this.context.xScale(d[0]);}.bind(this))
-					.y(function(d)  {return this.context.yScale(d[1]);}.bind(this))
-					.interpolate("step-before");
-				return (React.createElement("path", {key: i, d: dataSeries(each.plot), className: each.type}))
-			}.bind(this));
-			return (
-				React.createElement("g", null, 
-					paths
-				)
-			);
-		}});
-	;
-	
-	KagiSeries.defaultProps = {
-		namespace: "ReStock.KagiSeries",
-	};
-	KagiSeries.contextTypes = {
-		xScale: React.PropTypes.func.isRequired,
-		yScale: React.PropTypes.func.isRequired,
-		xAccessor: React.PropTypes.func.isRequired,
-		yAccessor: React.PropTypes.func.isRequired,
-		plotData: React.PropTypes.array.isRequired,
-	};
-	KagiSeries.yAccessor = function(d)  {return {open: d.open, high: d.high, low: d.low, close: d.close};};
-	
-	module.exports = KagiSeries;
-
-
-/***/ },
 /* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -955,7 +979,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(26),
 		d3 = __webpack_require__(27);
 	
-	var ____Class9=React.Component;for(var ____Class9____Key in ____Class9){if(____Class9.hasOwnProperty(____Class9____Key)){PointAndFigureSeries[____Class9____Key]=____Class9[____Class9____Key];}}var ____SuperProtoOf____Class9=____Class9===null?null:____Class9.prototype;PointAndFigureSeries.prototype=Object.create(____SuperProtoOf____Class9);PointAndFigureSeries.prototype.constructor=PointAndFigureSeries;PointAndFigureSeries.__superConstructor__=____Class9;function PointAndFigureSeries(){if(____Class9!==null){____Class9.apply(this,arguments);}}
+	var ____Classb=React.Component;for(var ____Classb____Key in ____Classb){if(____Classb.hasOwnProperty(____Classb____Key)){PointAndFigureSeries[____Classb____Key]=____Classb[____Classb____Key];}}var ____SuperProtoOf____Classb=____Classb===null?null:____Classb.prototype;PointAndFigureSeries.prototype=Object.create(____SuperProtoOf____Classb);PointAndFigureSeries.prototype.constructor=PointAndFigureSeries;PointAndFigureSeries.__superConstructor__=____Classb;function PointAndFigureSeries(){if(____Classb!==null){____Classb.apply(this,arguments);}}
 		Object.defineProperty(PointAndFigureSeries.prototype,"handleClick",{writable:true,configurable:true,value:function(idx) {
 			console.log(this.context.plotData[idx]);
 		}});
@@ -1039,7 +1063,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(26),
 		d3 = __webpack_require__(27);
 	
-	var ____Classa=React.Component;for(var ____Classa____Key in ____Classa){if(____Classa.hasOwnProperty(____Classa____Key)){RenkoSeries[____Classa____Key]=____Classa[____Classa____Key];}}var ____SuperProtoOf____Classa=____Classa===null?null:____Classa.prototype;RenkoSeries.prototype=Object.create(____SuperProtoOf____Classa);RenkoSeries.prototype.constructor=RenkoSeries;RenkoSeries.__superConstructor__=____Classa;function RenkoSeries(){if(____Classa!==null){____Classa.apply(this,arguments);}}
+	var ____Class9=React.Component;for(var ____Class9____Key in ____Class9){if(____Class9.hasOwnProperty(____Class9____Key)){RenkoSeries[____Class9____Key]=____Class9[____Class9____Key];}}var ____SuperProtoOf____Class9=____Class9===null?null:____Class9.prototype;RenkoSeries.prototype=Object.create(____SuperProtoOf____Class9);RenkoSeries.prototype.constructor=RenkoSeries;RenkoSeries.__superConstructor__=____Class9;function RenkoSeries(){if(____Class9!==null){____Class9.apply(this,arguments);}}
 		Object.defineProperty(RenkoSeries.prototype,"render",{writable:true,configurable:true,value:function() {
 			var width = this.context.xScale(this.context.xAccessor(this.context.plotData[this.context.plotData.length - 1]))
 				- this.context.xScale(this.context.xAccessor(this.context.plotData[0]));
@@ -1111,11 +1135,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	var React = __webpack_require__(26);
-	var Utils = __webpack_require__(38)
+	var Utils = __webpack_require__(32)
 	
-	var ____Classb=React.Component;for(var ____Classb____Key in ____Classb){if(____Classb.hasOwnProperty(____Classb____Key)){EventCapture[____Classb____Key]=____Classb[____Classb____Key];}}var ____SuperProtoOf____Classb=____Classb===null?null:____Classb.prototype;EventCapture.prototype=Object.create(____SuperProtoOf____Classb);EventCapture.prototype.constructor=EventCapture;EventCapture.__superConstructor__=____Classb;
+	var ____Classa=React.Component;for(var ____Classa____Key in ____Classa){if(____Classa.hasOwnProperty(____Classa____Key)){EventCapture[____Classa____Key]=____Classa[____Classa____Key];}}var ____SuperProtoOf____Classa=____Classa===null?null:____Classa.prototype;EventCapture.prototype=Object.create(____SuperProtoOf____Classa);EventCapture.prototype.constructor=EventCapture;EventCapture.__superConstructor__=____Classa;
 		function EventCapture(props) {
-			____Classb.call(this,props);
+			____Classa.call(this,props);
 			this.toggleFocus = this.toggleFocus.bind(this);
 			this.setFocus = this.setFocus.bind(this);
 			this.handleEnter = this.handleEnter.bind(this);
@@ -1250,7 +1274,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var React = __webpack_require__(26);
 	var CrossHair = __webpack_require__(17)
 	var VerticalMousePointer = __webpack_require__(18)
-	var Utils = __webpack_require__(38)
+	var Utils = __webpack_require__(32)
 	
 	
 	var MouseCoordinates = React.createClass({displayName: "MouseCoordinates",
@@ -1274,7 +1298,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				yDisplayFormat: Utils.displayNumberFormat,
 			}
 		},
-		mixins: [__webpack_require__(35)],
+		mixins: [__webpack_require__(36)],
 		contextTypes: {
 			width: React.PropTypes.number.isRequired,
 			height: React.PropTypes.number.isRequired,
@@ -1328,8 +1352,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	var React = __webpack_require__(26);
-	var EdgeCoordinate = __webpack_require__(36)
-	var Utils = __webpack_require__(38)
+	var EdgeCoordinate = __webpack_require__(37)
+	var Utils = __webpack_require__(32)
 	
 	var ____Classc=React.Component;for(var ____Classc____Key in ____Classc){if(____Classc.hasOwnProperty(____Classc____Key)){CrossHair[____Classc____Key]=____Classc[____Classc____Key];}}var ____SuperProtoOf____Classc=____Classc===null?null:____Classc.prototype;CrossHair.prototype=Object.create(____SuperProtoOf____Classc);CrossHair.prototype.constructor=CrossHair;CrossHair.__superConstructor__=____Classc;
 		function CrossHair(props) {
@@ -1388,8 +1412,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	var React = __webpack_require__(26);
-	var EdgeCoordinate = __webpack_require__(36)
-	var Utils = __webpack_require__(38)
+	var EdgeCoordinate = __webpack_require__(37)
+	var Utils = __webpack_require__(32)
 	
 	
 	var ____Classd=React.Component;for(var ____Classd____Key in ____Classd){if(____Classd.hasOwnProperty(____Classd____Key)){VerticalMousePointer[____Classd____Key]=____Classd[____Classd____Key];}}var ____SuperProtoOf____Classd=____Classd===null?null:____Classd.prototype;VerticalMousePointer.prototype=Object.create(____SuperProtoOf____Classd);VerticalMousePointer.prototype.constructor=VerticalMousePointer;VerticalMousePointer.__superConstructor__=____Classd;function VerticalMousePointer(){if(____Classd!==null){____Classd.apply(this,arguments);}}
@@ -1434,7 +1458,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	var React = __webpack_require__(26),
-		Utils = __webpack_require__(38);
+		Utils = __webpack_require__(32);
 	
 	var ____Classe=React.Component;for(var ____Classe____Key in ____Classe){if(____Classe.hasOwnProperty(____Classe____Key)){CurrentCoordinate[____Classe____Key]=____Classe[____Classe____Key];}}var ____SuperProtoOf____Classe=____Classe===null?null:____Classe.prototype;CurrentCoordinate.prototype=Object.create(____SuperProtoOf____Classe);CurrentCoordinate.prototype.constructor=CurrentCoordinate;CurrentCoordinate.__superConstructor__=____Classe;
 		function CurrentCoordinate(props) {
@@ -1500,13 +1524,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	var React = __webpack_require__(26);
+	var Utils = __webpack_require__(32);
+	var PureComponent = __webpack_require__(38);
 	
-	var ____Classf=React.Component;for(var ____Classf____Key in ____Classf){if(____Classf.hasOwnProperty(____Classf____Key)){TooltipContainer[____Classf____Key]=____Classf[____Classf____Key];}}var ____SuperProtoOf____Classf=____Classf===null?null:____Classf.prototype;TooltipContainer.prototype=Object.create(____SuperProtoOf____Classf);TooltipContainer.prototype.constructor=TooltipContainer;TooltipContainer.__superConstructor__=____Classf;function TooltipContainer(){if(____Classf!==null){____Classf.apply(this,arguments);}}
-		Object.defineProperty(TooltipContainer.prototype,"shouldComponentUpdate",{writable:true,configurable:true,value:function(nextProps, nextState, nextContext) {
-			return nextContext.chartData !== this.context.chartData || nextContext.currentItems !== this.context.currentItems;
-		}});
+	for(var PureComponent____Key in PureComponent){if(PureComponent.hasOwnProperty(PureComponent____Key)){TooltipContainer[PureComponent____Key]=PureComponent[PureComponent____Key];}}var ____SuperProtoOfPureComponent=PureComponent===null?null:PureComponent.prototype;TooltipContainer.prototype=Object.create(____SuperProtoOfPureComponent);TooltipContainer.prototype.constructor=TooltipContainer;TooltipContainer.__superConstructor__=PureComponent;function TooltipContainer(){if(PureComponent!==null){PureComponent.apply(this,arguments);}}
 		Object.defineProperty(TooltipContainer.prototype,"render",{writable:true,configurable:true,value:function() {
-			var children = React.Children.map(this.props.children, function(child)  {return React.cloneElement(child);});
+			var children = React.Children.map(this.props.children, function(child)  {
+				var newChild = Utils.isReactVersion13()
+					? React.withContext(this.context, function()  {
+						return React.createElement(child.type, Utils.mergeObject({ key: child.key, ref: child.ref}, child.props));
+					})
+					: React.cloneElement(child);
+				return newChild;
+			}.bind(this));
 			return (
 				React.createElement("g", {className: "toottip-hover"}, 
 					children
@@ -1532,67 +1562,80 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 	
 	var React = __webpack_require__(26);
-	var Utils = __webpack_require__(38)
+	var Utils = __webpack_require__(32)
 	
-	var billion = 1 * 1000 * 1000 * 1000;
-	var million = 1 * 1000 * 1000;
-	var thousand = 1 * 1000;
+	var ____Classf=React.Component;for(var ____Classf____Key in ____Classf){if(____Classf.hasOwnProperty(____Classf____Key)){SingleMAToolTip[____Classf____Key]=____Classf[____Classf____Key];}}var ____SuperProtoOf____Classf=____Classf===null?null:____Classf.prototype;SingleMAToolTip.prototype=Object.create(____SuperProtoOf____Classf);SingleMAToolTip.prototype.constructor=SingleMAToolTip;SingleMAToolTip.__superConstructor__=____Classf;function SingleMAToolTip(){if(____Classf!==null){____Classf.apply(this,arguments);}}
+		Object.defineProperty(SingleMAToolTip.prototype,"handleClick",{writable:true,configurable:true,value:function(overlay) {
+			if (this.props.onClick) {
+				this.props.onClick(overlay);
+			}
+		}});
+		Object.defineProperty(SingleMAToolTip.prototype,"render",{writable:true,configurable:true,value:function() {
+			var translate = "translate(" + this.props.origin[0] + ", " + this.props.origin[1] + ")";
+			return (
+				React.createElement("g", {transform: translate}, 
+					React.createElement("line", {x1: 0, y1: 2, x2: 0, y2: 28, stroke: this.props.color}), 
+					React.createElement("text", {x: 5, y: 11, className: "legend"}, 
+						React.createElement("tspan", {className: "tooltip-label"}, this.props.displayName), 
+						React.createElement("tspan", {x: "5", dy: "15"}, this.props.value)
+					), 
+					React.createElement("rect", {x: 0, y: 0, width: 55, height: 30, onClick: this.handleClick.bind(this, this.props.overlay)})
+				)
+			);
+		}});
+	;
 	
-	var OHLCTooltip = React.createClass({displayName: "OHLCTooltip",
+	SingleMAToolTip.propTypes = {
+		origin: React.PropTypes.array.isRequired,
+		color: React.PropTypes.string.isRequired,
+		displayName: React.PropTypes.string.isRequired,
+		value: React.PropTypes.string.isRequired,
+		onClick: React.PropTypes.func
+	};
+	
+	var MovingAverageTooltip = React.createClass({displayName: "MovingAverageTooltip",
 		propTypes: {
+			// _currentItem: React.PropTypes.object.isRequired,
+			// _overlays: React.PropTypes.array.isRequired,
 			forChart: React.PropTypes.number.isRequired,
-			accessor: React.PropTypes.func.isRequired,
-			xDisplayFormat: React.PropTypes.func.isRequired,
+			displayFormat: React.PropTypes.func.isRequired,
 			origin: React.PropTypes.array.isRequired,
+			onClick: React.PropTypes.func
 		},
-		mixins: [__webpack_require__(35)],
 		getDefaultProps:function() {
 			return {
-				namespace: "ReStock.OHLCTooltip",
-				accessor: function(d)  {return {date: d.date, open: d.open, high: d.high, low: d.low, close: d.close, volume: d.volume}},
-				xDisplayFormat: Utils.displayDateFormat,
-				origin: [0, 0]
+				namespace: "ReStock.MovingAverageTooltip",
+				displayFormat: Utils.displayNumberFormat,
+				origin: [0, 10],
+				width: 65
 			}
 		},
+		mixins: [__webpack_require__(36)],
 		render:function() {
-			var displayDate, fromDate, toDate, open, high, low, close, volume;
-	
-			displayDate = fromDate = toDate = open = high = low = close = volume = "n/a";
-	
+			var chartData = this.getChartData();
 			var item = this.getCurrentItem();
 	
-			if (item !== undefined && item.close !== undefined) {
-				volume = (item.volume / billion > 1)
-					? (item.volume / billion).toFixed(2) + "b"
-					: (item.volume / million > 1)
-						? (item.volume / million).toFixed(2) + "m"
-						: (item.volume / thousand > 1)
-							? (item.volume / thousand).toFixed(2) + "k"
-							: item.volume;
-	
-				displayDate = this.props.xDisplayFormat(item.date);
-				open = Utils.displayNumberFormat(item.open);
-				high = Utils.displayNumberFormat(item.high);
-				low = Utils.displayNumberFormat(item.low);
-				close = Utils.displayNumberFormat(item.close);
-			}
 			return (
-				React.createElement("g", {transform: "translate(" + this.props.origin[0] + ", " + this.props.origin[1] + ")"}, 
-					React.createElement("text", {x: 0, y: 0, className: "legend"}, 
-						React.createElement("tspan", {key: "label", x: 0, dy: "5", className: "tooltip-label"}, "Date: "), 
-						React.createElement("tspan", {key: "value"}, displayDate), 
-						React.createElement("tspan", {key: "label_O", className: "tooltip-label"}, " O: "), React.createElement("tspan", {key: "value_O"}, open), 
-						React.createElement("tspan", {key: "label_H", className: "tooltip-label"}, " H: "), React.createElement("tspan", {key: "value_H"}, high), 
-						React.createElement("tspan", {key: "label_L", className: "tooltip-label"}, " L: "), React.createElement("tspan", {key: "value_L"}, low), 
-						React.createElement("tspan", {key: "label_C", className: "tooltip-label"}, " C: "), React.createElement("tspan", {key: "value_C"}, close), 
-						React.createElement("tspan", {key: "label_Vol", className: "tooltip-label"}, " Vol: "), React.createElement("tspan", {key: "value_Vol"}, volume)
-					)
+				React.createElement("g", {transform: "translate(" + this.props.origin[0] + ", " + this.props.origin[1] + ")", className: "ma-container"}, 
+					chartData.config.overlays.map(function(eachOverlay, idx)  {
+						var yValue = eachOverlay.yAccessor(item);
+						// console.log(yValue);
+						var yDisplayValue = yValue ? this.props.displayFormat(yValue) : "n/a";
+						return React.createElement(SingleMAToolTip, {
+							key: idx, 
+							origin: [this.props.width * idx, 0], 
+							color: eachOverlay.stroke, 
+							displayName: eachOverlay.tooltipLabel, 
+							value: yDisplayValue, 
+							overlay: eachOverlay, 
+							onClick: this.props.onClick})
+					}.bind(this))
 				)
 			);
 		}
 	});
 	
-	module.exports = OHLCTooltip;
+	module.exports = MovingAverageTooltip;
 
 
 /***/ },
@@ -1601,8 +1644,40 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	var React = __webpack_require__(26);
-	var Utils = __webpack_require__(38)
-	var EdgeCoordinate = __webpack_require__(36)
+	var Utils = __webpack_require__(32);
+	var PureComponent = __webpack_require__(38);
+	
+	for(var PureComponent____Key in PureComponent){if(PureComponent.hasOwnProperty(PureComponent____Key)){EdgeContainer[PureComponent____Key]=PureComponent[PureComponent____Key];}}var ____SuperProtoOfPureComponent=PureComponent===null?null:PureComponent.prototype;EdgeContainer.prototype=Object.create(____SuperProtoOfPureComponent);EdgeContainer.prototype.constructor=EdgeContainer;EdgeContainer.__superConstructor__=PureComponent;function EdgeContainer(){if(PureComponent!==null){PureComponent.apply(this,arguments);}}
+		Object.defineProperty(EdgeContainer.prototype,"render",{writable:true,configurable:true,value:function() {
+			var children = React.Children.map(this.props.children, function(child)  {
+				var newChild = Utils.isReactVersion13()
+					? React.withContext(this.context, function()  {
+						return React.createElement(child.type, Utils.mergeObject({ key: child.key, ref: child.ref}, child.props));
+					})
+					: React.cloneElement(child);
+				return newChild;
+			}.bind(this));
+			return React.createElement("g", null, children)
+		}});
+	;
+	
+	EdgeContainer.contextTypes = {
+		chartData: React.PropTypes.array.isRequired,
+		currentItems: React.PropTypes.array.isRequired,
+	};
+	
+	module.exports = EdgeContainer;
+	
+
+
+/***/ },
+/* 23 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(26);
+	var Utils = __webpack_require__(32)
+	var EdgeCoordinate = __webpack_require__(37)
 	
 	
 	var EdgeIndicator = React.createClass({displayName: "EdgeIndicator",
@@ -1631,7 +1706,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		contextTypes: {
 			width: React.PropTypes.number.isRequired
 		},
-		mixins: [__webpack_require__(35)],
+		mixins: [__webpack_require__(36)],
 		renderEdge:function() {
 			var chartData = this.getChartData();
 			var currentItem = this.getCurrentItem();
@@ -1720,89 +1795,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 23 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(26);
-	var Utils = __webpack_require__(38)
-	
-	var ____Classg=React.Component;for(var ____Classg____Key in ____Classg){if(____Classg.hasOwnProperty(____Classg____Key)){SingleMAToolTip[____Classg____Key]=____Classg[____Classg____Key];}}var ____SuperProtoOf____Classg=____Classg===null?null:____Classg.prototype;SingleMAToolTip.prototype=Object.create(____SuperProtoOf____Classg);SingleMAToolTip.prototype.constructor=SingleMAToolTip;SingleMAToolTip.__superConstructor__=____Classg;function SingleMAToolTip(){if(____Classg!==null){____Classg.apply(this,arguments);}}
-		Object.defineProperty(SingleMAToolTip.prototype,"handleClick",{writable:true,configurable:true,value:function(overlay) {
-			if (this.props.onClick) {
-				this.props.onClick(overlay);
-			}
-		}});
-		Object.defineProperty(SingleMAToolTip.prototype,"render",{writable:true,configurable:true,value:function() {
-			var translate = "translate(" + this.props.origin[0] + ", " + this.props.origin[1] + ")";
-			return (
-				React.createElement("g", {transform: translate}, 
-					React.createElement("line", {x1: 0, y1: 2, x2: 0, y2: 28, stroke: this.props.color}), 
-					React.createElement("text", {x: 5, y: 11, className: "legend"}, 
-						React.createElement("tspan", {className: "tooltip-label"}, this.props.displayName), 
-						React.createElement("tspan", {x: "5", dy: "15"}, this.props.value)
-					), 
-					React.createElement("rect", {x: 0, y: 0, width: 55, height: 30, onClick: this.handleClick.bind(this, this.props.overlay)})
-				)
-			);
-		}});
-	;
-	
-	SingleMAToolTip.propTypes = {
-		origin: React.PropTypes.array.isRequired,
-		color: React.PropTypes.string.isRequired,
-		displayName: React.PropTypes.string.isRequired,
-		value: React.PropTypes.string.isRequired,
-		onClick: React.PropTypes.func
-	};
-	
-	var MovingAverageTooltip = React.createClass({displayName: "MovingAverageTooltip",
-		propTypes: {
-			// _currentItem: React.PropTypes.object.isRequired,
-			// _overlays: React.PropTypes.array.isRequired,
-			forChart: React.PropTypes.number.isRequired,
-			displayFormat: React.PropTypes.func.isRequired,
-			origin: React.PropTypes.array.isRequired,
-			onClick: React.PropTypes.func
-		},
-		getDefaultProps:function() {
-			return {
-				namespace: "ReStock.MovingAverageTooltip",
-				displayFormat: Utils.displayNumberFormat,
-				origin: [0, 10],
-				width: 65
-			}
-		},
-		mixins: [__webpack_require__(35)],
-		render:function() {
-			var chartData = this.getChartData();
-			var item = this.getCurrentItem();
-	
-			return (
-				React.createElement("g", {transform: "translate(" + this.props.origin[0] + ", " + this.props.origin[1] + ")", className: "ma-container"}, 
-					chartData.config.overlays.map(function(eachOverlay, idx)  {
-						var yValue = eachOverlay.yAccessor(item);
-						// console.log(yValue);
-						var yDisplayValue = yValue ? this.props.displayFormat(yValue) : "n/a";
-						return React.createElement(SingleMAToolTip, {
-							key: idx, 
-							origin: [this.props.width * idx, 0], 
-							color: eachOverlay.stroke, 
-							displayName: eachOverlay.tooltipLabel, 
-							value: yDisplayValue, 
-							overlay: eachOverlay, 
-							onClick: this.props.onClick})
-					}.bind(this))
-				)
-			);
-		}
-	});
-	
-	module.exports = MovingAverageTooltip;
-
-
-/***/ },
 /* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -1811,8 +1803,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	// var TestUtils = React.addons.TestUtils;
 	
 	// var EventCaptureMixin = require('./mixin/EventCaptureMixin');
-	var ChartContainerMixin = __webpack_require__(28);
-	var Canvas = __webpack_require__(29);
+	var ChartContainerMixin = __webpack_require__(31);
+	var Canvas = __webpack_require__(35);
+	var Utils = __webpack_require__(32);
 	
 	var ChartCanvas = React.createClass({displayName: "ChartCanvas",
 		mixins: [ChartContainerMixin],
@@ -1892,9 +1885,14 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 		render:function() {
 			var w = this.getAvailableWidth(this.props), h = this.getAvailableHeight(this.props);
-			var children = this.props.children;
-			// var children = this.renderChildren();
-	
+			var children = React.Children.map(this.props.children, function(child)  {
+				var newChild = Utils.isReactVersion13()
+					? React.withContext(this.getChildContext(), function()  {
+						return React.createElement(child.type, Utils.mergeObject({ key: child.key, ref: child.ref}, child.props));
+					})
+					: React.cloneElement(child);
+				return newChild;
+			}.bind(this));
 			return (
 				React.createElement("div", {style: {position: 'relative'}}, 
 					React.createElement("svg", {width: this.props.width, height: this.props.height}, 
@@ -1904,7 +1902,7 @@ return /******/ (function(modules) { // webpackBootstrap
 							)
 						), 
 						React.createElement("g", {transform: ("translate(" + this.props.margin.left + ", " + this.props.margin.top + ")")}, 
-							this.props.children
+							children
 						)
 					)
 				)
@@ -1926,31 +1924,67 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 	
 	var React = __webpack_require__(26);
+	var Utils = __webpack_require__(32)
 	
-	var ChartWidthMixin = {
-		handleWindowResize:function() {
-			var w = $(React.findDOMNode(this)).parent().width();
-			//var w = $(this.getDOMNode()).parent().width();
-			console.log('width = ', w);
+	var billion = 1 * 1000 * 1000 * 1000;
+	var million = 1 * 1000 * 1000;
+	var thousand = 1 * 1000;
 	
-			this.setState({
-				width: w
-			});
+	var OHLCTooltip = React.createClass({displayName: "OHLCTooltip",
+		propTypes: {
+			forChart: React.PropTypes.number.isRequired,
+			accessor: React.PropTypes.func.isRequired,
+			xDisplayFormat: React.PropTypes.func.isRequired,
+			origin: React.PropTypes.array.isRequired,
 		},
-		componentWillUnMount:function() {
-			window.removeEventListener("resize", this.handleWindowResize);
+		mixins: [__webpack_require__(36)],
+		getDefaultProps:function() {
+			return {
+				namespace: "ReStock.OHLCTooltip",
+				accessor: function(d)  {return {date: d.date, open: d.open, high: d.high, low: d.low, close: d.close, volume: d.volume}},
+				xDisplayFormat: Utils.displayDateFormat,
+				origin: [0, 0]
+			}
 		},
-		componentDidMount:function() {
-			window.addEventListener("resize", this.handleWindowResize);
-			var w = $(React.findDOMNode(this)).parent().width();
-			//var w = $(this.getDOMNode()).parent().width();
-			this.setState({
-				width: w
-			});
-		},
-	};
+		render:function() {
+			var displayDate, fromDate, toDate, open, high, low, close, volume;
 	
-	module.exports = ChartWidthMixin;
+			displayDate = fromDate = toDate = open = high = low = close = volume = "n/a";
+	
+			var item = this.getCurrentItem();
+	
+			if (item !== undefined && item.close !== undefined) {
+				volume = (item.volume / billion > 1)
+					? (item.volume / billion).toFixed(2) + "b"
+					: (item.volume / million > 1)
+						? (item.volume / million).toFixed(2) + "m"
+						: (item.volume / thousand > 1)
+							? (item.volume / thousand).toFixed(2) + "k"
+							: item.volume;
+	
+				displayDate = this.props.xDisplayFormat(item.date);
+				open = Utils.displayNumberFormat(item.open);
+				high = Utils.displayNumberFormat(item.high);
+				low = Utils.displayNumberFormat(item.low);
+				close = Utils.displayNumberFormat(item.close);
+			}
+			return (
+				React.createElement("g", {transform: "translate(" + this.props.origin[0] + ", " + this.props.origin[1] + ")"}, 
+					React.createElement("text", {x: 0, y: 0, className: "legend"}, 
+						React.createElement("tspan", {key: "label", x: 0, dy: "5", className: "tooltip-label"}, "Date: "), 
+						React.createElement("tspan", {key: "value"}, displayDate), 
+						React.createElement("tspan", {key: "label_O", className: "tooltip-label"}, " O: "), React.createElement("tspan", {key: "value_O"}, open), 
+						React.createElement("tspan", {key: "label_H", className: "tooltip-label"}, " H: "), React.createElement("tspan", {key: "value_H"}, high), 
+						React.createElement("tspan", {key: "label_L", className: "tooltip-label"}, " L: "), React.createElement("tspan", {key: "value_L"}, low), 
+						React.createElement("tspan", {key: "label_C", className: "tooltip-label"}, " C: "), React.createElement("tspan", {key: "value_C"}, close), 
+						React.createElement("tspan", {key: "label_Vol", className: "tooltip-label"}, " Vol: "), React.createElement("tspan", {key: "value_Vol"}, volume)
+					)
+				)
+			);
+		}
+	});
+	
+	module.exports = OHLCTooltip;
 
 
 /***/ },
@@ -1969,12 +2003,296 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+	
+	var StockScaleTransformer = __webpack_require__(41);
+	var HeikinAshiTransformer = __webpack_require__(42);
+	var KagiTransformer = __webpack_require__(43);
+	var PointAndFigureTransformer = __webpack_require__(44);
+	var RenkoTransformer = __webpack_require__(45);
+	
+	var ChartTransformer = {
+		getTransformerFor:function(type) {
+			if (type === "none")
+				return function(d)  {return d;};
+			if (type === "stockscale")
+				return StockScaleTransformer;
+			if (type === "heikinashi")
+				return HeikinAshiTransformer;
+			if (type === "kagi")
+				return KagiTransformer;
+			if (type === "pointandfigure")
+				return PointAndFigureTransformer;
+			if (type === "renko")
+				return RenkoTransformer;
+			return false;
+		},
+		filter:function(data, dateAccesor, fromDate, toDate) {
+			var filteredData = data.filter(function(each)  {
+				var filtered = dateAccesor(each).getTime() > fromDate.getTime() && dateAccesor(each).getTime() < toDate.getTime()
+				return filtered;
+			});
+			return filteredData;
+		}
+	}
+	
+	module.exports = ChartTransformer;
+
+
+/***/ },
+/* 29 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var React = __webpack_require__(26);
+	var Utils = __webpack_require__(32);
+	
+	function getLongValue(value) {
+		if (value instanceof Date) {
+			return value.getTime();
+		}
+		return value;
+	}
+	
+	var EventCaptureMixin = {
+		childContextTypes: {
+			onMouseMove: React.PropTypes.func,
+			onMouseEnter: React.PropTypes.func,
+			onMouseLeave: React.PropTypes.func,
+			onZoom: React.PropTypes.func,
+			onPanStart: React.PropTypes.func,
+			onPan: React.PropTypes.func,
+			onPanEnd: React.PropTypes.func,
+			panInProgress: React.PropTypes.bool.isRequired,
+			focus: React.PropTypes.bool.isRequired,
+			onFocus: React.PropTypes.func,
+		},
+		getChildContext:function() {
+			return {
+				onMouseMove: this.handleMouseMove,
+				onMouseEnter: this.handleMouseEnter,
+				onMouseLeave: this.handleMouseLeave,
+				onZoom: this.handleZoom,
+				onPanStart: this.handlePanStart,
+				onPan: this.handlePan,
+				onPanEnd: this.handlePanEnd,
+				onFocus: this.handleFocus,
+				panInProgress: this.state.panInProgress,
+				focus: this.state.focus
+			}
+		},
+		handleMouseMove:function(mouseXY) {
+			// console.log('mouse move - ', mouseXY);
+			var currentItems = this.getCurrentItems(this.state.chartData, mouseXY, this.state.plotData)
+				// .filter((eachChartData) => eachChartData.id === this.state.mainChart)
+	
+			this.setState({
+				mouseXY: mouseXY,
+				currentItems: currentItems,
+				show: true
+			});
+		},
+		getCurrentItems:function(chartData, mouseXY, plotData) {
+			return chartData
+				.map(function(eachChartData)  {
+					var xValue = eachChartData.plot.scales.xScale.invert(mouseXY[0]);
+					var item = Utils.getClosestItem(plotData, xValue, eachChartData.config.accessors.xAccessor);
+					return { id: eachChartData.id, data: item };
+				});
+		},
+		handleMouseEnter:function() {
+			// console.log('enter');
+			this.setState({
+				show: true
+			});
+		},
+		handleMouseLeave:function() {
+			// console.log('leave');
+			this.setState({
+				show: false
+			});
+		},
+		handleZoom:function(zoomDirection, mouseXY) {
+			// console.log('zoomDirection ', zoomDirection, ' mouseXY ', mouseXY);
+			var $__0=        this.state,mainChart=$__0.mainChart,chartData=$__0.chartData,data=$__0.data,plotData=$__0.plotData,interval=$__0.interval;
+	
+			var chart = chartData.filter(function(eachChart)  {return eachChart.id === mainChart;})[0],
+				item = this.getClosestItem(mouseXY, chart),
+				xScale = chart.plot.scales.xScale,
+				domain = xScale.domain(),
+				centerX = chart.config.accessors.xAccessor(item),
+				leftX = centerX - domain[0],
+				rightX = domain[1] - centerX,
+				zoom = Math.pow(1 + Math.abs(zoomDirection)/2 , zoomDirection),
+				domainL = (getLongValue(centerX) - ( leftX * zoom)),
+				domainR = (getLongValue(centerX) + (rightX * zoom)),
+				domainRange = Math.abs(domain[1] - domain[0]),
+				fullData = data[interval],
+				last = fullData[fullData.length - 1],
+				first = fullData[0];
+	
+			domainL = Math.max(getLongValue(chart.config.accessors.xAccessor(first)) - Math.floor(domainRange/3), domainL)
+			domainR = Math.min(getLongValue(chart.config.accessors.xAccessor(last)) + Math.floor(domainRange/3), domainR)
+			// xScale(domainR) - xScale(domainL)
+			var dataToPlot = this.getDataToPlotForDomain(domainL, domainR, data, chart.config.width, chart.config.accessors.xAccessor);
+			if (dataToPlot.data.length < 10) return;
+			var newChartData = chartData.map(function(eachChart)  {
+				var plot = this.getChartPlotFor(eachChart.config, dataToPlot.data, domainL, domainR);
+				return {
+					id: eachChart.id,
+					config: eachChart.config,
+					plot: plot
+				}
+			}.bind(this));
+			this.setState({
+				chartData: newChartData,
+				plotData: dataToPlot.data,
+				interval: dataToPlot.interval
+			});
+		},
+		getDataToPlotForDomain:function(domainL, domainR, data, width, xAccessor) {
+			var threshold = 0.5 // number of datapoints per 1 px
+			var allowedIntervals = ['D', 'W', 'M'];
+			// console.log(domainL, domainR, data, width);
+	
+			var dataForInterval, filteredData, interval, leftX, rightX;
+			for (var i=0; i<allowedIntervals.length; i++) {
+				interval = allowedIntervals[i]; 
+				dataForInterval = data[interval];
+	
+				leftX = Utils.getClosestItemIndexes(dataForInterval, domainL, xAccessor);
+				rightX = Utils.getClosestItemIndexes(dataForInterval, domainR, xAccessor);
+	
+				filteredData = dataForInterval.slice(leftX.right, rightX.right);
+	
+				// console.log(filteredData.length, width * threshold);
+				if (filteredData.length < width * threshold) break;
+			}
+	
+			// console.log(leftX, rightX,  (dd[leftX.left]), xAccessor(dd[rightX.right])); 
+	
+			return {
+				interval: interval,
+				data: filteredData
+			}
+		},
+		handlePanStart:function(panStartDomain, panOrigin) {
+			// console.log('panStartDomain - ', panStartDomain, ', panOrigin - ', panOrigin);
+			this.setState({
+				panInProgress: true,
+				panStartDomain: panStartDomain,
+				panOrigin: panOrigin,
+				focus: true,
+			});
+		},
+		handlePan:function(mousePosition, startDomain) {
+			// console.log('mousePosition ', mousePosition);
+			var $__0=          this.state,mainChart=$__0.mainChart,chartData=$__0.chartData,data=$__0.data,plotData=$__0.plotData,interval=$__0.interval,panStartDomain=$__0.panStartDomain,panOrigin=$__0.panOrigin;
+			if (panStartDomain === null) {
+				this.handlePanStart(startDomain, mousePosition);
+			} else {
+				requestAnimationFrame(function()  {
+					
+	
+					var chart = chartData.filter(function(eachChart)  {return eachChart.id === mainChart;})[0],
+						domainRange = panStartDomain[1] - panStartDomain[0],
+						fullData = data[interval],
+						last = fullData[fullData.length - 1],
+						first = fullData[0],
+						dx = mousePosition[0] - panOrigin[0],
+						xAccessor = chart.config.accessors.xAccessor;
+	
+					// console.log('pan -- mouse move - ', mousePosition, ' dragged by ', dx, ' pixels');
+	
+					var domainStart = getLongValue(panStartDomain[0]) - dx/chart.config.width * domainRange
+					if (domainStart < getLongValue(xAccessor(first)) - Math.floor(domainRange/3)) {
+						domainStart = getLongValue(xAccessor(first)) - Math.floor(domainRange/3)
+					} else {
+						domainStart = Math.min(getLongValue(xAccessor(last))
+							+ Math.ceil(domainRange/3), domainStart + domainRange) - domainRange;
+					}
+					var domainL = domainStart, domainR = domainStart + domainRange
+					if (panStartDomain[0] instanceof Date) {
+						domainL = new Date(domainL);
+						domainR = new Date(domainR);
+					}
+	
+					var leftX = Utils.getClosestItemIndexes(fullData, domainL, xAccessor);
+					var rightX = Utils.getClosestItemIndexes(fullData, domainR, xAccessor);
+	
+					var filteredData = fullData.slice(leftX.right, rightX.right);
+	
+					var newChartData = chartData.map(function(eachChart)  {
+						var plot = this.getChartPlotFor(eachChart.config, filteredData, domainL, domainR);
+						return {
+							id: eachChart.id,
+							config: eachChart.config,
+							plot: plot
+						}
+					}.bind(this));
+					var currentItems = this.getCurrentItems(newChartData, mousePosition, filteredData);
+	
+					this.setState({
+						chartData: newChartData,
+						plotData: filteredData,
+						currentItems: currentItems,
+						// show: true,
+						mouseXY: mousePosition
+					});
+				}.bind(this));
+			}
+		},
+		handlePanEnd:function() {
+			this.setState({
+				panInProgress: false,
+				panStartDomain: null
+			});
+		},
+		handleFocus:function(focus) {
+			// console.log(focus);
+			this.setState({
+				focus: focus,
+			});
+		}
+	};
+	
+	module.exports = EventCaptureMixin;
+
+
+/***/ },
+/* 30 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var ChartTransformer = __webpack_require__(28);
+	
+	var DataTransformMixin = {
+		isDataDransform:function() {
+			return true;
+		},
+		transformData:function(props) {
+			var transformer = ChartTransformer.getTransformerFor(props.transformType);
+			var passThroughProps = transformer(this.context.data, props.options, props)
+			// console.log('passThroughProps-------', passThroughProps);
+	
+			// this.setState({ passThroughProps: passThroughProps });
+			return passThroughProps;
+		}
+	};
+	
+	module.exports = DataTransformMixin;
+
+
+/***/ },
+/* 31 */
+/***/ function(module, exports, __webpack_require__) {
+
 	"use strict";
 	var React = __webpack_require__(26),
 		d3 = __webpack_require__(27),
-		ScaleUtils = __webpack_require__(40),
-		OverlayUtils = __webpack_require__(39),
-		Utils = __webpack_require__(38),
+		ScaleUtils = __webpack_require__(39),
+		OverlayUtils = __webpack_require__(40),
+		Utils = __webpack_require__(32),
 		overlayColors = Utils.overlayColors;
 	var pluck = Utils.pluck;
 	var keysAsArray = Utils.keysAsArray;
@@ -2241,372 +2559,142 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 29 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var React = __webpack_require__(26);
-	
-	var ____Classi=React.Component;for(var ____Classi____Key in ____Classi){if(____Classi.hasOwnProperty(____Classi____Key)){Canvas[____Classi____Key]=____Classi[____Classi____Key];}}var ____SuperProtoOf____Classi=____Classi===null?null:____Classi.prototype;Canvas.prototype=Object.create(____SuperProtoOf____Classi);Canvas.prototype.constructor=Canvas;Canvas.__superConstructor__=____Classi;
-		function Canvas(props) {
-			____Classi.call(this,props);
-		}/*,
-		componentDidMount() {
-			console.log(this.getCanvas());
-		},
-		getCanvas() {
-			return React.findDOMNode(this.refs.canvas);
-		},*/
-		Object.defineProperty(Canvas.prototype,"render",{writable:true,configurable:true,value:function() {
-			return (
-				React.createElement("canvas", {ref: "canvas", 
-					width: this.props.width, 
-					height: this.props.height, 
-					style: { position: 'absolute', left: this.props.left, top: this.props.top}})
-			);
-		}});
-	;
-	
-	Canvas.contextTypes = {
-		width: React.PropTypes.number.isRequired,
-		height: React.PropTypes.number.isRequired,
-		left: React.PropTypes.number.isRequired,
-		top: React.PropTypes.number.isRequired
-	}
-	
-	module.exports = Canvas;
-
-
-/***/ },
-/* 30 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var StockScaleTransformer = __webpack_require__(41);
-	var HeikinAshiTransformer = __webpack_require__(42);
-	var KagiTransformer = __webpack_require__(43);
-	var PointAndFigureTransformer = __webpack_require__(44);
-	var RenkoTransformer = __webpack_require__(45);
-	
-	var ChartTransformer = {
-		getTransformerFor:function(type) {
-			if (type === "none")
-				return function(d)  {return d;};
-			if (type === "stockscale")
-				return StockScaleTransformer;
-			if (type === "heikinashi")
-				return HeikinAshiTransformer;
-			if (type === "kagi")
-				return KagiTransformer;
-			if (type === "pointandfigure")
-				return PointAndFigureTransformer;
-			if (type === "renko")
-				return RenkoTransformer;
-			return false;
-		},
-		filter:function(data, dateAccesor, fromDate, toDate) {
-			var filteredData = data.filter(function(each)  {
-				var filtered = dateAccesor(each).getTime() > fromDate.getTime() && dateAccesor(each).getTime() < toDate.getTime()
-				return filtered;
-			});
-			return filteredData;
-		}
-	}
-	
-	module.exports = ChartTransformer;
-
-
-/***/ },
-/* 31 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var React = __webpack_require__(26);
-	var Utils = __webpack_require__(38);
-	
-	function getLongValue(value) {
-		if (value instanceof Date) {
-			return value.getTime();
-		}
-		return value;
-	}
-	
-	var EventCaptureMixin = {
-		childContextTypes: {
-			onMouseMove: React.PropTypes.func,
-			onMouseEnter: React.PropTypes.func,
-			onMouseLeave: React.PropTypes.func,
-			onZoom: React.PropTypes.func,
-			onPanStart: React.PropTypes.func,
-			onPan: React.PropTypes.func,
-			onPanEnd: React.PropTypes.func,
-			panInProgress: React.PropTypes.bool.isRequired,
-			focus: React.PropTypes.bool.isRequired,
-			onFocus: React.PropTypes.func,
-		},
-		getChildContext:function() {
-			return {
-				onMouseMove: this.handleMouseMove,
-				onMouseEnter: this.handleMouseEnter,
-				onMouseLeave: this.handleMouseLeave,
-				onZoom: this.handleZoom,
-				onPanStart: this.handlePanStart,
-				onPan: this.handlePan,
-				onPanEnd: this.handlePanEnd,
-				onFocus: this.handleFocus,
-				panInProgress: this.state.panInProgress,
-				focus: this.state.focus
-			}
-		},
-		handleMouseMove:function(mouseXY) {
-			// console.log('mouse move - ', mouseXY);
-			var currentItems = this.getCurrentItems(this.state.chartData, mouseXY, this.state.plotData)
-				// .filter((eachChartData) => eachChartData.id === this.state.mainChart)
-	
-			this.setState({
-				mouseXY: mouseXY,
-				currentItems: currentItems,
-				show: true
-			});
-		},
-		getCurrentItems:function(chartData, mouseXY, plotData) {
-			return chartData
-				.map(function(eachChartData)  {
-					var xValue = eachChartData.plot.scales.xScale.invert(mouseXY[0]);
-					var item = Utils.getClosestItem(plotData, xValue, eachChartData.config.accessors.xAccessor);
-					return { id: eachChartData.id, data: item };
-				});
-		},
-		handleMouseEnter:function() {
-			// console.log('enter');
-			this.setState({
-				show: true
-			});
-		},
-		handleMouseLeave:function() {
-			// console.log('leave');
-			this.setState({
-				show: false
-			});
-		},
-		handleZoom:function(zoomDirection, mouseXY) {
-			// console.log('zoomDirection ', zoomDirection, ' mouseXY ', mouseXY);
-			var $__0=        this.state,mainChart=$__0.mainChart,chartData=$__0.chartData,data=$__0.data,plotData=$__0.plotData,interval=$__0.interval;
-	
-			var chart = chartData.filter(function(eachChart)  {return eachChart.id === mainChart;})[0],
-				item = this.getClosestItem(mouseXY, chart),
-				xScale = chart.plot.scales.xScale,
-				domain = xScale.domain(),
-				centerX = chart.config.accessors.xAccessor(item),
-				leftX = centerX - domain[0],
-				rightX = domain[1] - centerX,
-				zoom = Math.pow(1 + Math.abs(zoomDirection)/2 , zoomDirection),
-				domainL = (getLongValue(centerX) - ( leftX * zoom)),
-				domainR = (getLongValue(centerX) + (rightX * zoom)),
-				domainRange = Math.abs(domain[1] - domain[0]),
-				fullData = data[interval],
-				last = fullData[fullData.length - 1],
-				first = fullData[0];
-	
-			domainL = Math.max(getLongValue(chart.config.accessors.xAccessor(first)) - Math.floor(domainRange/3), domainL)
-			domainR = Math.min(getLongValue(chart.config.accessors.xAccessor(last)) + Math.floor(domainRange/3), domainR)
-			// xScale(domainR) - xScale(domainL)
-			var dataToPlot = this.getDataToPlotForDomain(domainL, domainR, data, chart.config.width, chart.config.accessors.xAccessor);
-			if (dataToPlot.data.length < 10) return;
-			var newChartData = chartData.map(function(eachChart)  {
-				var plot = this.getChartPlotFor(eachChart.config, dataToPlot.data, domainL, domainR);
-				return {
-					id: eachChart.id,
-					config: eachChart.config,
-					plot: plot
-				}
-			}.bind(this));
-			this.setState({
-				chartData: newChartData,
-				plotData: dataToPlot.data,
-				interval: dataToPlot.interval
-			});
-		},
-		getDataToPlotForDomain:function(domainL, domainR, data, width, xAccessor) {
-			var threshold = 0.5 // number of datapoints per 1 px
-			var allowedIntervals = ['D', 'W', 'M'];
-			// console.log(domainL, domainR, data, width);
-	
-			var dataForInterval, filteredData, interval, leftX, rightX;
-			for (var i=0; i<allowedIntervals.length; i++) {
-				interval = allowedIntervals[i]; 
-				dataForInterval = data[interval];
-	
-				leftX = Utils.getClosestItemIndexes(dataForInterval, domainL, xAccessor);
-				rightX = Utils.getClosestItemIndexes(dataForInterval, domainR, xAccessor);
-	
-				filteredData = dataForInterval.slice(leftX.right, rightX.right);
-	
-				// console.log(filteredData.length, width * threshold);
-				if (filteredData.length < width * threshold) break;
-			}
-	
-			// console.log(leftX, rightX,  (dd[leftX.left]), xAccessor(dd[rightX.right])); 
-	
-			return {
-				interval: interval,
-				data: filteredData
-			}
-		},
-		handlePanStart:function(panStartDomain, panOrigin) {
-			// console.log('panStartDomain - ', panStartDomain, ', panOrigin - ', panOrigin);
-			this.setState({
-				panInProgress: true,
-				panStartDomain: panStartDomain,
-				panOrigin: panOrigin,
-				focus: true,
-			});
-		},
-		handlePan:function(mousePosition, startDomain) {
-			// console.log('mousePosition ', mousePosition);
-			var $__0=          this.state,mainChart=$__0.mainChart,chartData=$__0.chartData,data=$__0.data,plotData=$__0.plotData,interval=$__0.interval,panStartDomain=$__0.panStartDomain,panOrigin=$__0.panOrigin;
-			if (panStartDomain === null) {
-				this.handlePanStart(startDomain, mousePosition);
-			} else {
-				requestAnimationFrame(function()  {
-					
-	
-					var chart = chartData.filter(function(eachChart)  {return eachChart.id === mainChart;})[0],
-						domainRange = panStartDomain[1] - panStartDomain[0],
-						fullData = data[interval],
-						last = fullData[fullData.length - 1],
-						first = fullData[0],
-						dx = mousePosition[0] - panOrigin[0],
-						xAccessor = chart.config.accessors.xAccessor;
-	
-					// console.log('pan -- mouse move - ', mousePosition, ' dragged by ', dx, ' pixels');
-	
-					var domainStart = getLongValue(panStartDomain[0]) - dx/chart.config.width * domainRange
-					if (domainStart < getLongValue(xAccessor(first)) - Math.floor(domainRange/3)) {
-						domainStart = getLongValue(xAccessor(first)) - Math.floor(domainRange/3)
-					} else {
-						domainStart = Math.min(getLongValue(xAccessor(last))
-							+ Math.ceil(domainRange/3), domainStart + domainRange) - domainRange;
-					}
-					var domainL = domainStart, domainR = domainStart + domainRange
-					if (panStartDomain[0] instanceof Date) {
-						domainL = new Date(domainL);
-						domainR = new Date(domainR);
-					}
-	
-					var leftX = Utils.getClosestItemIndexes(fullData, domainL, xAccessor);
-					var rightX = Utils.getClosestItemIndexes(fullData, domainR, xAccessor);
-	
-					var filteredData = fullData.slice(leftX.right, rightX.right);
-	
-					var newChartData = chartData.map(function(eachChart)  {
-						var plot = this.getChartPlotFor(eachChart.config, filteredData, domainL, domainR);
-						return {
-							id: eachChart.id,
-							config: eachChart.config,
-							plot: plot
-						}
-					}.bind(this));
-					var currentItems = this.getCurrentItems(newChartData, mousePosition, filteredData);
-	
-					this.setState({
-						chartData: newChartData,
-						plotData: filteredData,
-						currentItems: currentItems,
-						// show: true,
-						mouseXY: mousePosition
-					});
-				}.bind(this));
-			}
-		},
-		handlePanEnd:function() {
-			this.setState({
-				panInProgress: false,
-				panStartDomain: null
-			});
-		},
-		handleFocus:function(focus) {
-			// console.log(focus);
-			this.setState({
-				focus: focus,
-			});
-		}
-	};
-	
-	module.exports = EventCaptureMixin;
-
-
-/***/ },
 /* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
-	var ChartTransformer = __webpack_require__(30);
+	'use strict';
 	
-	var DataTransformMixin = {
-		isDataDransform:function() {
-			return true;
-		},
-		transformData:function(props) {
-			var transformer = ChartTransformer.getTransformerFor(props.transformType);
-			var passThroughProps = transformer(this.context.data, props.options, props)
-			// console.log('passThroughProps-------', passThroughProps);
+	var d3 = __webpack_require__(27);
+	var React = __webpack_require__(26);
 	
-			// this.setState({ passThroughProps: passThroughProps });
-			return passThroughProps;
+	var overlayColors = d3.scale.category10();
+	
+	function Utils() {
+	}
+	
+	Utils.overlayColors = overlayColors;
+	
+	Utils.isReactVersion13 = function() {
+		var version = React.version.split('.')[1];
+		return version === '13';
+	}
+	Utils.isReactVersion14 = function() {
+		return React.version.split('.')[1] === '14';
+	}
+	Utils.cloneMe = function(obj) {
+		if(obj == null || typeof(obj) !== 'object')
+			return obj;
+		if (obj instanceof Date) {
+			return new Date(obj.getTime());
 		}
-	};
+		var temp = {};//obj.constructor(); // changed
 	
-	module.exports = DataTransformMixin;
+		for(var key in obj) {
+			if(obj.hasOwnProperty(key)) {
+				temp[key] = Utils.cloneMe(obj[key]);
+			}
+		}
+		return temp;
+	}
+	Utils.displayDateFormat = d3.time.format("%Y-%m-%d");
+	Utils.displayNumberFormat = function(x) {
+		return Utils.numberWithCommas(x.toFixed(2));
+	};
+	Utils.numberWithCommas = function(x) {
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	};
+	Utils.isNumeric = function(n) {
+		return !isNaN(parseFloat(n)) && isFinite(n);
+	};
+	Utils.mergeObject = function(a, b) {
+		var newObject = {};
+		Object.keys(a).forEach(function(key)  {
+			newObject[key] = a[key];
+		});
+		Object.keys(b).forEach(function(key)  {
+			newObject[key] = b[key];
+		});
+		return newObject;
+	}
+	Utils.mousePosition = function(e) {
+		var container = e.currentTarget,
+			rect = container.getBoundingClientRect(),
+			x = e.clientX - rect.left - container.clientLeft,
+			y = e.clientY - rect.top - container.clientTop,
+			xy = [ Math.round(x), Math.round(y) ];
+		return xy;
+	}
+	Utils.getValue = function(d) {
+		if (d instanceof Date) {
+			return d.getTime();
+		}
+		return d;
+	}
+	Utils.getClosestItem = function(array, value, accessor) {
+		var lo = 0, hi = array.length - 1;
+		while (hi - lo > 1) {
+			var mid = Math.round((lo + hi)/2);
+			if (accessor(array[mid]) <= value) {
+				lo = mid;
+			} else {
+				hi = mid;
+			}
+		}
+		if (accessor(array[lo]) === value) hi = lo;
+		var closest = (Math.abs(accessor(array[lo]) - value) < Math.abs(accessor(array[hi]) - value))
+							? array[lo]
+							: array[hi]
+		//console.log(array[lo], array[hi], closest, lo, hi);
+		return Utils.cloneMe(closest);
+	}
+	Utils.getClosestItemIndex = function(array, value, accessor) {
+		var lo = 0, hi = array.length - 1;
+		while (hi - lo > 1) {
+			var mid = Math.round((lo + hi)/2);
+			if (accessor(array[mid]) <= value) {
+				lo = mid;
+			} else {
+				hi = mid;
+			}
+		}
+		if (accessor(array[lo]) === value) hi = lo;
+		var closestIndex = (Math.abs(accessor(array[lo]) - value) < Math.abs(accessor(array[hi]) - value))
+							? lo
+							: hi
+		//console.log(array[lo], array[hi], closestIndex, lo, hi);
+		return closestIndex;
+	}
+	Utils.getClosestItemIndexes = function(array, value, accessor) {
+		var lo = 0, hi = array.length - 1;
+		while (hi - lo > 1) {
+			var mid = Math.round((lo + hi)/2);
+			if (accessor(array[mid]) <= value) {
+				lo = mid;
+			} else {
+				hi = mid;
+			}
+		}
+		if (accessor(array[lo]) === value) hi = lo;
+		//console.log(array[lo], array[hi], closestIndex, lo, hi);
+		return { left: lo, right: hi };
+	}
+	Utils.pluck = function(array, key) {
+		return array.map(function(each)  {return each[key];})
+	}
+	Utils.keysAsArray = function(obj) {
+		return Object.keys(obj)
+			.filter(function(key)  {return obj[key] !== null;})
+			.map(function(key)  {return obj[key];});
+	}
+	Utils.sum = function(array) {
+		return array.reduce(function(d1, d2)  {return d1 + d2;});
+	}
+	
+	module.exports = Utils;
 
 
 /***/ },
 /* 33 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var React = __webpack_require__(26);
-	
-	var Dummy = React.createClass({displayName: "Dummy",
-		childContextTypes: {
-			data: React.PropTypes.object,
-			dataTransformOptions: React.PropTypes.object,
-			plotData: React.PropTypes.array,
-			chartData: React.PropTypes.array,
-			currentItems: React.PropTypes.array,
-			show: React.PropTypes.bool,
-			mouseXY: React.PropTypes.array,
-			interval: React.PropTypes.string,
-	
-			// EventCaptureMixin
-			onMouseMove: React.PropTypes.func,
-			onMouseEnter: React.PropTypes.func,
-			onMouseLeave: React.PropTypes.func,
-			onZoom: React.PropTypes.func,
-			onPanStart: React.PropTypes.func,
-			onPan: React.PropTypes.func,
-			onPanEnd: React.PropTypes.func,
-			panInProgress: React.PropTypes.bool.isRequired,
-			focus: React.PropTypes.bool.isRequired,
-			onFocus: React.PropTypes.func,
-		},
-		getChildContext:function() {
-			console.log('kjahfdshfkdashfpodisfhoadsiufhadslfhsdiufhds777777777777');
-			return this.props.contextProps;
-		},
-		render:function() {
-			console.log('Dummy.render()');
-			return this.props.render();
-		}
-	});
-	
-	module.exports = Dummy;
-	
-
-
-/***/ },
-/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2762,7 +2850,88 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = polylineartimescale
 
 /***/ },
+/* 34 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(26);
+	
+	var Dummy = React.createClass({displayName: "Dummy",
+		childContextTypes: {
+			data: React.PropTypes.object,
+			dataTransformOptions: React.PropTypes.object,
+			plotData: React.PropTypes.array,
+			chartData: React.PropTypes.array,
+			currentItems: React.PropTypes.array,
+			show: React.PropTypes.bool,
+			mouseXY: React.PropTypes.array,
+			interval: React.PropTypes.string,
+	
+			// EventCaptureMixin
+			onMouseMove: React.PropTypes.func,
+			onMouseEnter: React.PropTypes.func,
+			onMouseLeave: React.PropTypes.func,
+			onZoom: React.PropTypes.func,
+			onPanStart: React.PropTypes.func,
+			onPan: React.PropTypes.func,
+			onPanEnd: React.PropTypes.func,
+			panInProgress: React.PropTypes.bool.isRequired,
+			focus: React.PropTypes.bool.isRequired,
+			onFocus: React.PropTypes.func,
+		},
+		getChildContext:function() {
+			console.log('kjahfdshfkdashfpodisfhoadsiufhadslfhsdiufhds777777777777');
+			return this.props.contextProps;
+		},
+		render:function() {
+			console.log('Dummy.render()');
+			return this.props.render();
+		}
+	});
+	
+	module.exports = Dummy;
+	
+
+
+/***/ },
 /* 35 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(26);
+	
+	var ____Classg=React.Component;for(var ____Classg____Key in ____Classg){if(____Classg.hasOwnProperty(____Classg____Key)){Canvas[____Classg____Key]=____Classg[____Classg____Key];}}var ____SuperProtoOf____Classg=____Classg===null?null:____Classg.prototype;Canvas.prototype=Object.create(____SuperProtoOf____Classg);Canvas.prototype.constructor=Canvas;Canvas.__superConstructor__=____Classg;
+		function Canvas(props) {
+			____Classg.call(this,props);
+		}/*,
+		componentDidMount() {
+			console.log(this.getCanvas());
+		},
+		getCanvas() {
+			return React.findDOMNode(this.refs.canvas);
+		},*/
+		Object.defineProperty(Canvas.prototype,"render",{writable:true,configurable:true,value:function() {
+			return (
+				React.createElement("canvas", {ref: "canvas", 
+					width: this.props.width, 
+					height: this.props.height, 
+					style: { position: 'absolute', left: this.props.left, top: this.props.top}})
+			);
+		}});
+	;
+	
+	Canvas.contextTypes = {
+		width: React.PropTypes.number.isRequired,
+		height: React.PropTypes.number.isRequired,
+		left: React.PropTypes.number.isRequired,
+		top: React.PropTypes.number.isRequired
+	}
+	
+	module.exports = Canvas;
+
+
+/***/ },
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2789,13 +2958,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 36 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(26);
 	
-	var ____Classj=React.Component;for(var ____Classj____Key in ____Classj){if(____Classj.hasOwnProperty(____Classj____Key)){EdgeCoordinate[____Classj____Key]=____Classj[____Classj____Key];}}var ____SuperProtoOf____Classj=____Classj===null?null:____Classj.prototype;EdgeCoordinate.prototype=Object.create(____SuperProtoOf____Classj);EdgeCoordinate.prototype.constructor=EdgeCoordinate;EdgeCoordinate.__superConstructor__=____Classj;function EdgeCoordinate(){if(____Classj!==null){____Classj.apply(this,arguments);}}
+	var ____Classh=React.Component;for(var ____Classh____Key in ____Classh){if(____Classh.hasOwnProperty(____Classh____Key)){EdgeCoordinate[____Classh____Key]=____Classh[____Classh____Key];}}var ____SuperProtoOf____Classh=____Classh===null?null:____Classh.prototype;EdgeCoordinate.prototype=Object.create(____SuperProtoOf____Classh);EdgeCoordinate.prototype.constructor=EdgeCoordinate;EdgeCoordinate.__superConstructor__=____Classh;function EdgeCoordinate(){if(____Classh!==null){____Classh.apply(this,arguments);}}
 		Object.defineProperty(EdgeCoordinate.prototype,"render",{writable:true,configurable:true,value:function() {
 			if (!this.props.show) return null;
 	
@@ -2862,15 +3031,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 37 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(26);
-	var shallowEqual = __webpack_require__(47);
+	var shallowEqual = __webpack_require__(48);
 	
-	var ____Classk=React.Component;for(var ____Classk____Key in ____Classk){if(____Classk.hasOwnProperty(____Classk____Key)){PureComponent[____Classk____Key]=____Classk[____Classk____Key];}}var ____SuperProtoOf____Classk=____Classk===null?null:____Classk.prototype;PureComponent.prototype=Object.create(____SuperProtoOf____Classk);PureComponent.prototype.constructor=PureComponent;PureComponent.__superConstructor__=____Classk;function PureComponent(){if(____Classk!==null){____Classk.apply(this,arguments);}}
+	var ____Classi=React.Component;for(var ____Classi____Key in ____Classi){if(____Classi.hasOwnProperty(____Classi____Key)){PureComponent[____Classi____Key]=____Classi[____Classi____Key];}}var ____SuperProtoOf____Classi=____Classi===null?null:____Classi.prototype;PureComponent.prototype=Object.create(____SuperProtoOf____Classi);PureComponent.prototype.constructor=PureComponent;PureComponent.__superConstructor__=____Classi;function PureComponent(){if(____Classi!==null){____Classi.apply(this,arguments);}}
 		Object.defineProperty(PureComponent.prototype,"shouldComponentUpdate",{writable:true,configurable:true,value:function(nextProps, nextState, nextContext) {
 			return !shallowEqual(this.props, nextProps)
 				|| !shallowEqual(this.state, nextState)
@@ -2881,128 +3050,60 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = PureComponent;
 
 /***/ },
-/* 38 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var d3 = __webpack_require__(27);
-	
-	var overlayColors = d3.scale.category10();
-	
-	function Utils() {
-	}
-	
-	Utils.overlayColors = overlayColors;
-	Utils.cloneMe = function(obj) {
-		if(obj == null || typeof(obj) !== 'object')
-			return obj;
-		if (obj instanceof Date) {
-			return new Date(obj.getTime());
-		}
-		var temp = {};//obj.constructor(); // changed
-	
-		for(var key in obj) {
-			if(obj.hasOwnProperty(key)) {
-				temp[key] = Utils.cloneMe(obj[key]);
-			}
-		}
-		return temp;
-	}
-	Utils.displayDateFormat = d3.time.format("%Y-%m-%d");
-	Utils.displayNumberFormat = function(x) {
-		return Utils.numberWithCommas(x.toFixed(2));
-	};
-	Utils.numberWithCommas = function(x) {
-		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-	};
-	Utils.isNumeric = function(n) {
-		return !isNaN(parseFloat(n)) && isFinite(n);
-	};
-	Utils.mousePosition = function(e) {
-		var container = e.currentTarget,
-			rect = container.getBoundingClientRect(),
-			x = e.clientX - rect.left - container.clientLeft,
-			y = e.clientY - rect.top - container.clientTop,
-			xy = [ Math.round(x), Math.round(y) ];
-		return xy;
-	}
-	Utils.getValue = function(d) {
-		if (d instanceof Date) {
-			return d.getTime();
-		}
-		return d;
-	}
-	Utils.getClosestItem = function(array, value, accessor) {
-		var lo = 0, hi = array.length - 1;
-		while (hi - lo > 1) {
-			var mid = Math.round((lo + hi)/2);
-			if (accessor(array[mid]) <= value) {
-				lo = mid;
-			} else {
-				hi = mid;
-			}
-		}
-		if (accessor(array[lo]) === value) hi = lo;
-		var closest = (Math.abs(accessor(array[lo]) - value) < Math.abs(accessor(array[hi]) - value))
-							? array[lo]
-							: array[hi]
-		//console.log(array[lo], array[hi], closest, lo, hi);
-		return Utils.cloneMe(closest);
-	}
-	Utils.getClosestItemIndex = function(array, value, accessor) {
-		var lo = 0, hi = array.length - 1;
-		while (hi - lo > 1) {
-			var mid = Math.round((lo + hi)/2);
-			if (accessor(array[mid]) <= value) {
-				lo = mid;
-			} else {
-				hi = mid;
-			}
-		}
-		if (accessor(array[lo]) === value) hi = lo;
-		var closestIndex = (Math.abs(accessor(array[lo]) - value) < Math.abs(accessor(array[hi]) - value))
-							? lo
-							: hi
-		//console.log(array[lo], array[hi], closestIndex, lo, hi);
-		return closestIndex;
-	}
-	Utils.getClosestItemIndexes = function(array, value, accessor) {
-		var lo = 0, hi = array.length - 1;
-		while (hi - lo > 1) {
-			var mid = Math.round((lo + hi)/2);
-			if (accessor(array[mid]) <= value) {
-				lo = mid;
-			} else {
-				hi = mid;
-			}
-		}
-		if (accessor(array[lo]) === value) hi = lo;
-		//console.log(array[lo], array[hi], closestIndex, lo, hi);
-		return { left: lo, right: hi };
-	}
-	Utils.pluck = function(array, key) {
-		return array.map(function(each)  {return each[key];})
-	}
-	Utils.keysAsArray = function(obj) {
-		return Object.keys(obj)
-			.filter(function(key)  {return obj[key] !== null;})
-			.map(function(key)  {return obj[key];});
-	}
-	Utils.sum = function(array) {
-		return array.reduce(function(d1, d2)  {return d1 + d2;});
-	}
-	
-	module.exports = Utils;
-
-
-/***/ },
 /* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Utils = __webpack_require__(38);
+	function pushToValues(values, eachValue) {
+		if (typeof eachValue === 'object' && Object.keys(eachValue).length > 0) {
+			Object.keys(eachValue).forEach(function (key) {
+				if (!isNaN(eachValue[key])) {
+					values.push(eachValue[key]);
+				}
+			});
+		} else {
+			if (!isNaN(eachValue)) {
+				values.push(eachValue);
+			}
+		}
+	}
+	
+	var ScaleUtils = {
+		flattenData:function(data, xAccessors, yAccessors) {
+			// console.log(xAccessors, yAccessors);
+			var xValues = [];
+			var yValues = [];
+			data.forEach( function(row)  {
+				xAccessors.forEach( function(xAccessor)  {
+					var x = xAccessor(row);
+					if (x !== undefined) {
+						pushToValues(xValues, x);
+					}
+				});
+				yAccessors.forEach( function(yAccessor)  {
+					var y = yAccessor(row);
+					if (y !== undefined) {
+						pushToValues(yValues, y);
+					}
+				});
+			})
+			return {
+				xValues: xValues,
+				yValues: yValues
+			};
+		}
+	}
+	module.exports = ScaleUtils;
+
+
+/***/ },
+/* 40 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var Utils = __webpack_require__(32);
 	var MACalculator = __webpack_require__(46);
 	
 	var OverlayUtils = {
@@ -3062,60 +3163,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 40 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	function pushToValues(values, eachValue) {
-		if (typeof eachValue === 'object' && Object.keys(eachValue).length > 0) {
-			Object.keys(eachValue).forEach(function (key) {
-				if (!isNaN(eachValue[key])) {
-					values.push(eachValue[key]);
-				}
-			});
-		} else {
-			if (!isNaN(eachValue)) {
-				values.push(eachValue);
-			}
-		}
-	}
-	
-	var ScaleUtils = {
-		flattenData:function(data, xAccessors, yAccessors) {
-			// console.log(xAccessors, yAccessors);
-			var xValues = [];
-			var yValues = [];
-			data.forEach( function(row)  {
-				xAccessors.forEach( function(xAccessor)  {
-					var x = xAccessor(row);
-					if (x !== undefined) {
-						pushToValues(xValues, x);
-					}
-				});
-				yAccessors.forEach( function(yAccessor)  {
-					var y = yAccessor(row);
-					if (y !== undefined) {
-						pushToValues(yValues, y);
-					}
-				});
-			})
-			return {
-				xValues: xValues,
-				yValues: yValues
-			};
-		}
-	}
-	module.exports = ScaleUtils;
-
-
-/***/ },
 /* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var stockScale = __webpack_require__(34);
+	var stockScale = __webpack_require__(33);
 	
 	var defaultOptions = {
 		_dateAccessor: function(d)  {return d.date;},
@@ -3345,7 +3398,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var pricingMethod = function (d) { return { high: d.high, low: d.low }; };
 	var usePrice = function (d) { return d.close; };
 	
-	var calculateATR = __webpack_require__(48);
+	var calculateATR = __webpack_require__(47);
 	
 	function KagiTransformer(data, interval, options, other) {
 		if (options === undefined) options = {};
@@ -3737,7 +3790,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var pricingMethod = function (d) { return { high: d.high, low: d.low }; };
 	// var pricingMethod = function (d) { return { high: d.close, low: d.close }; };
 	// var usePrice = function (d) { return d.close; };
-	var calculateATR = __webpack_require__(48);
+	var calculateATR = __webpack_require__(47);
 	
 	var defaultOptions = {
 		boxSize: 0.5,
@@ -3908,7 +3961,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 	
-	var Utils = __webpack_require__(38);
+	var Utils = __webpack_require__(32);
 	
 	var pluck = Utils.pluck;
 	var sum = Utils.sum;
@@ -3951,59 +4004,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule shallowEqual
-	 */
-	
-	'use strict';
-	
-	/**
-	 * Performs equality by iterating through keys on an object and returning
-	 * false when any key has values which are not strictly equal between
-	 * objA and objB. Returns true when the values of all keys are strictly equal.
-	 *
-	 * @return {boolean}
-	 */
-	function shallowEqual(objA, objB) {
-	  if (objA === objB) {
-	    return true;
-	  }
-	
-	  if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
-	    return false;
-	  }
-	
-	  var keysA = Object.keys(objA);
-	  var keysB = Object.keys(objB);
-	
-	  if (keysA.length !== keysB.length) {
-	    return false;
-	  }
-	
-	  // Test for A's keys different from B.
-	  var bHasOwnProperty = Object.prototype.hasOwnProperty.bind(objB);
-	  for (var i = 0; i < keysA.length; i++) {
-	    if (!bHasOwnProperty(keysA[i]) || objA[keysA[i]] !== objB[keysA[i]]) {
-	      return false;
-	    }
-	  }
-	
-	  return true;
-	}
-	
-	module.exports = shallowEqual;
-
-/***/ },
-/* 48 */
-/***/ function(module, exports, __webpack_require__) {
-
 	'use strict';
 	
 	function sumOf(array, offset, length) {
@@ -4038,6 +4038,54 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	
 	module.exports = calculateATR;
+
+
+/***/ },
+/* 48 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule shallowEqual
+	 */
+	
+	'use strict';
+	
+	/**
+	 * Performs equality by iterating through keys on an object and returning
+	 * false when any key has values which are not strictly equal between
+	 * objA and objB. Returns true when the values of all keys are strictly equal.
+	 *
+	 * @return {boolean}
+	 */
+	function shallowEqual(objA, objB) {
+	  if (objA === objB) {
+	    return true;
+	  }
+	  var key;
+	  // Test for A's keys different from B.
+	  for (key in objA) {
+	    if (objA.hasOwnProperty(key) &&
+	        (!objB.hasOwnProperty(key) || objA[key] !== objB[key])) {
+	      return false;
+	    }
+	  }
+	  // Test for B's keys missing from A.
+	  for (key in objB) {
+	    if (objB.hasOwnProperty(key) && !objA.hasOwnProperty(key)) {
+	      return false;
+	    }
+	  }
+	  return true;
+	}
+	
+	module.exports = shallowEqual;
 
 
 /***/ }
