@@ -36,7 +36,7 @@ return webpackJsonpReStock([0,2],[
 			// console.log(d);
 		});
 	
-		var CandleStickChartWithEdge = __webpack_require__(9);
+		var CandleStickChartWithEdge = __webpack_require__(7);
 	
 		React.render(React.createElement(CandleStickChartWithEdge, {data: data}), document.getElementById("chart"));
 	});
@@ -61,9 +61,7 @@ return webpackJsonpReStock([0,2],[
 /* 4 */,
 /* 5 */,
 /* 6 */,
-/* 7 */,
-/* 8 */,
-/* 9 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -177,6 +175,8 @@ return webpackJsonpReStock([0,2],[
 
 
 /***/ },
+/* 8 */,
+/* 9 */,
 /* 10 */,
 /* 11 */,
 /* 12 */,
@@ -204,7 +204,7 @@ return webpackJsonpReStock([0,2],[
 	var content = __webpack_require__(29);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(64)(content, {});
+	var update = __webpack_require__(65)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -237,7 +237,7 @@ return webpackJsonpReStock([0,2],[
 	var content = __webpack_require__(31);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(64)(content, {});
+	var update = __webpack_require__(65)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -298,7 +298,8 @@ return webpackJsonpReStock([0,2],[
 /* 61 */,
 /* 62 */,
 /* 63 */,
-/* 64 */
+/* 64 */,
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -523,7 +524,6 @@ return webpackJsonpReStock([0,2],[
 
 
 /***/ },
-/* 65 */,
 /* 66 */,
 /* 67 */
 /***/ function(module, exports, __webpack_require__) {
@@ -752,7 +752,7 @@ return webpackJsonpReStock([0,2],[
 	var EventHandler = __webpack_require__(99);
 	var Utils = __webpack_require__(97);
 	
-	var ____ClassS=React.Component;for(var ____ClassS____Key in ____ClassS){if(____ClassS.hasOwnProperty(____ClassS____Key)){DataTransform[____ClassS____Key]=____ClassS[____ClassS____Key];}}var ____SuperProtoOf____ClassS=____ClassS===null?null:____ClassS.prototype;DataTransform.prototype=Object.create(____SuperProtoOf____ClassS);DataTransform.prototype.constructor=DataTransform;DataTransform.__superConstructor__=____ClassS;function DataTransform(){if(____ClassS!==null){____ClassS.apply(this,arguments);}}
+	var ____ClassR=React.Component;for(var ____ClassR____Key in ____ClassR){if(____ClassR.hasOwnProperty(____ClassR____Key)){DataTransform[____ClassR____Key]=____ClassR[____ClassR____Key];}}var ____SuperProtoOf____ClassR=____ClassR===null?null:____ClassR.prototype;DataTransform.prototype=Object.create(____SuperProtoOf____ClassR);DataTransform.prototype.constructor=DataTransform;DataTransform.__superConstructor__=____ClassR;function DataTransform(){if(____ClassR!==null){____ClassR.apply(this,arguments);}}
 		Object.defineProperty(DataTransform.prototype,"transformData",{writable:true,configurable:true,value:function(props, context) {
 			var transformer = ChartTransformer.getTransformerFor(props.transformType);
 	
@@ -844,9 +844,9 @@ return webpackJsonpReStock([0,2],[
 	var React = __webpack_require__(2),
 		d3 = __webpack_require__(3);
 	
-	var ____ClassR=React.Component;for(var ____ClassR____Key in ____ClassR){if(____ClassR.hasOwnProperty(____ClassR____Key)){XAxis[____ClassR____Key]=____ClassR[____ClassR____Key];}}var ____SuperProtoOf____ClassR=____ClassR===null?null:____ClassR.prototype;XAxis.prototype=Object.create(____SuperProtoOf____ClassR);XAxis.prototype.constructor=XAxis;XAxis.__superConstructor__=____ClassR;
+	var ____ClassS=React.Component;for(var ____ClassS____Key in ____ClassS){if(____ClassS.hasOwnProperty(____ClassS____Key)){XAxis[____ClassS____Key]=____ClassS[____ClassS____Key];}}var ____SuperProtoOf____ClassS=____ClassS===null?null:____ClassS.prototype;XAxis.prototype=Object.create(____SuperProtoOf____ClassS);XAxis.prototype.constructor=XAxis;XAxis.__superConstructor__=____ClassS;
 		function XAxis(props) {
-			____ClassR.call(this,props);
+			____ClassS.call(this,props);
 			this.updateAxis = this.updateAxis.bind(this);
 		}
 		Object.defineProperty(XAxis.prototype,"componentDidMount",{writable:true,configurable:true,value:function() {
@@ -1952,7 +1952,7 @@ return webpackJsonpReStock([0,2],[
 	var Utils = __webpack_require__(97)
 	
 	
-	var ____Class19=React.Component;for(var ____Class19____Key in ____Class19){if(____Class19.hasOwnProperty(____Class19____Key)){VerticalMousePointer[____Class19____Key]=____Class19[____Class19____Key];}}var ____SuperProtoOf____Class19=____Class19===null?null:____Class19.prototype;VerticalMousePointer.prototype=Object.create(____SuperProtoOf____Class19);VerticalMousePointer.prototype.constructor=VerticalMousePointer;VerticalMousePointer.__superConstructor__=____Class19;function VerticalMousePointer(){if(____Class19!==null){____Class19.apply(this,arguments);}}
+	var ____Class15=React.Component;for(var ____Class15____Key in ____Class15){if(____Class15.hasOwnProperty(____Class15____Key)){VerticalMousePointer[____Class15____Key]=____Class15[____Class15____Key];}}var ____SuperProtoOf____Class15=____Class15===null?null:____Class15.prototype;VerticalMousePointer.prototype=Object.create(____SuperProtoOf____Class15);VerticalMousePointer.prototype.constructor=VerticalMousePointer;VerticalMousePointer.__superConstructor__=____Class15;function VerticalMousePointer(){if(____Class15!==null){____Class15.apply(this,arguments);}}
 		Object.defineProperty(VerticalMousePointer.prototype,"shouldComponentUpdate",{writable:true,configurable:true,value:function(nextProps, nextState, nextContext) {
 			return nextProps.mouseXY !== this.props.mouseXY
 		}});
@@ -1996,9 +1996,9 @@ return webpackJsonpReStock([0,2],[
 	var React = __webpack_require__(2),
 		Utils = __webpack_require__(97);
 	
-	var ____Class15=React.Component;for(var ____Class15____Key in ____Class15){if(____Class15.hasOwnProperty(____Class15____Key)){CurrentCoordinate[____Class15____Key]=____Class15[____Class15____Key];}}var ____SuperProtoOf____Class15=____Class15===null?null:____Class15.prototype;CurrentCoordinate.prototype=Object.create(____SuperProtoOf____Class15);CurrentCoordinate.prototype.constructor=CurrentCoordinate;CurrentCoordinate.__superConstructor__=____Class15;
+	var ____Class16=React.Component;for(var ____Class16____Key in ____Class16){if(____Class16.hasOwnProperty(____Class16____Key)){CurrentCoordinate[____Class16____Key]=____Class16[____Class16____Key];}}var ____SuperProtoOf____Class16=____Class16===null?null:____Class16.prototype;CurrentCoordinate.prototype=Object.create(____SuperProtoOf____Class16);CurrentCoordinate.prototype.constructor=CurrentCoordinate;CurrentCoordinate.__superConstructor__=____Class16;
 		function CurrentCoordinate(props) {
-			____Class15.call(this,props);
+			____Class16.call(this,props);
 		}
 		Object.defineProperty(CurrentCoordinate.prototype,"render",{writable:true,configurable:true,value:function() {
 			var chartData = this.context.chartData.filter(function(each)  {return each.id === this.props.forChart;}.bind(this))[0];
@@ -2105,7 +2105,7 @@ return webpackJsonpReStock([0,2],[
 	var million = 1 * 1000 * 1000;
 	var thousand = 1 * 1000;
 	
-	var ____Class16=React.Component;for(var ____Class16____Key in ____Class16){if(____Class16.hasOwnProperty(____Class16____Key)){OHLCTooltip[____Class16____Key]=____Class16[____Class16____Key];}}var ____SuperProtoOf____Class16=____Class16===null?null:____Class16.prototype;OHLCTooltip.prototype=Object.create(____SuperProtoOf____Class16);OHLCTooltip.prototype.constructor=OHLCTooltip;OHLCTooltip.__superConstructor__=____Class16;function OHLCTooltip(){if(____Class16!==null){____Class16.apply(this,arguments);}}
+	var ____Class17=React.Component;for(var ____Class17____Key in ____Class17){if(____Class17.hasOwnProperty(____Class17____Key)){OHLCTooltip[____Class17____Key]=____Class17[____Class17____Key];}}var ____SuperProtoOf____Class17=____Class17===null?null:____Class17.prototype;OHLCTooltip.prototype=Object.create(____SuperProtoOf____Class17);OHLCTooltip.prototype.constructor=OHLCTooltip;OHLCTooltip.__superConstructor__=____Class17;function OHLCTooltip(){if(____Class17!==null){____Class17.apply(this,arguments);}}
 		Object.defineProperty(OHLCTooltip.prototype,"render",{writable:true,configurable:true,value:function() {
 			var displayDate, fromDate, toDate, open, high, low, close, volume;
 	
@@ -2175,7 +2175,7 @@ return webpackJsonpReStock([0,2],[
 	var Utils = __webpack_require__(97)
 	var ChartDataUtil = __webpack_require__(95);
 	
-	var ____Class17=React.Component;for(var ____Class17____Key in ____Class17){if(____Class17.hasOwnProperty(____Class17____Key)){SingleMAToolTip[____Class17____Key]=____Class17[____Class17____Key];}}var ____SuperProtoOf____Class17=____Class17===null?null:____Class17.prototype;SingleMAToolTip.prototype=Object.create(____SuperProtoOf____Class17);SingleMAToolTip.prototype.constructor=SingleMAToolTip;SingleMAToolTip.__superConstructor__=____Class17;function SingleMAToolTip(){if(____Class17!==null){____Class17.apply(this,arguments);}}
+	var ____Class18=React.Component;for(var ____Class18____Key in ____Class18){if(____Class18.hasOwnProperty(____Class18____Key)){SingleMAToolTip[____Class18____Key]=____Class18[____Class18____Key];}}var ____SuperProtoOf____Class18=____Class18===null?null:____Class18.prototype;SingleMAToolTip.prototype=Object.create(____SuperProtoOf____Class18);SingleMAToolTip.prototype.constructor=SingleMAToolTip;SingleMAToolTip.__superConstructor__=____Class18;function SingleMAToolTip(){if(____Class18!==null){____Class18.apply(this,arguments);}}
 		Object.defineProperty(SingleMAToolTip.prototype,"handleClick",{writable:true,configurable:true,value:function(overlay) {
 			if (this.props.onClick) {
 				this.props.onClick(overlay);
@@ -2204,7 +2204,7 @@ return webpackJsonpReStock([0,2],[
 		onClick: React.PropTypes.func
 	};
 	
-	var ____Class18=React.Component;for(var ____Class18____Key in ____Class18){if(____Class18.hasOwnProperty(____Class18____Key)){MovingAverageTooltip[____Class18____Key]=____Class18[____Class18____Key];}}var ____SuperProtoOf____Class18=____Class18===null?null:____Class18.prototype;MovingAverageTooltip.prototype=Object.create(____SuperProtoOf____Class18);MovingAverageTooltip.prototype.constructor=MovingAverageTooltip;MovingAverageTooltip.__superConstructor__=____Class18;function MovingAverageTooltip(){if(____Class18!==null){____Class18.apply(this,arguments);}}
+	var ____Class19=React.Component;for(var ____Class19____Key in ____Class19){if(____Class19.hasOwnProperty(____Class19____Key)){MovingAverageTooltip[____Class19____Key]=____Class19[____Class19____Key];}}var ____SuperProtoOf____Class19=____Class19===null?null:____Class19.prototype;MovingAverageTooltip.prototype=Object.create(____SuperProtoOf____Class19);MovingAverageTooltip.prototype.constructor=MovingAverageTooltip;MovingAverageTooltip.__superConstructor__=____Class19;function MovingAverageTooltip(){if(____Class19!==null){____Class19.apply(this,arguments);}}
 		Object.defineProperty(MovingAverageTooltip.prototype,"render",{writable:true,configurable:true,value:function() {
 			var chartData = ChartDataUtil.getChartDataForChart(this.props, this.context);
 			var item = ChartDataUtil.getCurrentItemForChart(this.props, this.context);
@@ -2767,9 +2767,9 @@ return webpackJsonpReStock([0,2],[
 	'use strict';
 	var React = __webpack_require__(2);
 	
-	var ____Class1b=React.Component;for(var ____Class1b____Key in ____Class1b){if(____Class1b.hasOwnProperty(____Class1b____Key)){Canvas[____Class1b____Key]=____Class1b[____Class1b____Key];}}var ____SuperProtoOf____Class1b=____Class1b===null?null:____Class1b.prototype;Canvas.prototype=Object.create(____SuperProtoOf____Class1b);Canvas.prototype.constructor=Canvas;Canvas.__superConstructor__=____Class1b;
+	var ____Class1d=React.Component;for(var ____Class1d____Key in ____Class1d){if(____Class1d.hasOwnProperty(____Class1d____Key)){Canvas[____Class1d____Key]=____Class1d[____Class1d____Key];}}var ____SuperProtoOf____Class1d=____Class1d===null?null:____Class1d.prototype;Canvas.prototype=Object.create(____SuperProtoOf____Class1d);Canvas.prototype.constructor=Canvas;Canvas.__superConstructor__=____Class1d;
 		function Canvas(props) {
-			____Class1b.call(this,props);
+			____Class1d.call(this,props);
 		}/*,
 		componentDidMount() {
 			console.log(this.getCanvas());
@@ -2991,9 +2991,9 @@ return webpackJsonpReStock([0,2],[
 		return value;
 	}
 	
-	var ____Class1c=React.Component;for(var ____Class1c____Key in ____Class1c){if(____Class1c.hasOwnProperty(____Class1c____Key)){EventHandler[____Class1c____Key]=____Class1c[____Class1c____Key];}}var ____SuperProtoOf____Class1c=____Class1c===null?null:____Class1c.prototype;EventHandler.prototype=Object.create(____SuperProtoOf____Class1c);EventHandler.prototype.constructor=EventHandler;EventHandler.__superConstructor__=____Class1c;
+	var ____Class1b=React.Component;for(var ____Class1b____Key in ____Class1b){if(____Class1b.hasOwnProperty(____Class1b____Key)){EventHandler[____Class1b____Key]=____Class1b[____Class1b____Key];}}var ____SuperProtoOf____Class1b=____Class1b===null?null:____Class1b.prototype;EventHandler.prototype=Object.create(____SuperProtoOf____Class1b);EventHandler.prototype.constructor=EventHandler;EventHandler.__superConstructor__=____Class1b;
 		function EventHandler(props, context) {
-			____Class1c.call(this,props, context);
+			____Class1b.call(this,props, context);
 			this.handleMouseMove = this.handleMouseMove.bind(this);
 			this.handleMouseEnter = this.handleMouseEnter.bind(this);
 			this.handleMouseLeave = this.handleMouseLeave.bind(this);
@@ -3268,9 +3268,9 @@ return webpackJsonpReStock([0,2],[
 	'use strict';
 	
 	var React = __webpack_require__(2);
-	var shallowEqual = __webpack_require__(112);
+	var shallowEqual = __webpack_require__(109);
 	
-	var ____Class1d=React.Component;for(var ____Class1d____Key in ____Class1d){if(____Class1d.hasOwnProperty(____Class1d____Key)){PureComponent[____Class1d____Key]=____Class1d[____Class1d____Key];}}var ____SuperProtoOf____Class1d=____Class1d===null?null:____Class1d.prototype;PureComponent.prototype=Object.create(____SuperProtoOf____Class1d);PureComponent.prototype.constructor=PureComponent;PureComponent.__superConstructor__=____Class1d;function PureComponent(){if(____Class1d!==null){____Class1d.apply(this,arguments);}}
+	var ____Class1c=React.Component;for(var ____Class1c____Key in ____Class1c){if(____Class1c.hasOwnProperty(____Class1c____Key)){PureComponent[____Class1c____Key]=____Class1c[____Class1c____Key];}}var ____SuperProtoOf____Class1c=____Class1c===null?null:____Class1c.prototype;PureComponent.prototype=Object.create(____SuperProtoOf____Class1c);PureComponent.prototype.constructor=PureComponent;PureComponent.__superConstructor__=____Class1c;function PureComponent(){if(____Class1c!==null){____Class1c.apply(this,arguments);}}
 		Object.defineProperty(PureComponent.prototype,"shouldComponentUpdate",{writable:true,configurable:true,value:function(nextProps, nextState, nextContext) {
 			return !shallowEqual(this.props, nextProps)
 				|| !shallowEqual(this.state, nextState)
@@ -3408,7 +3408,7 @@ return webpackJsonpReStock([0,2],[
 	'use strict';
 	
 	var Utils = __webpack_require__(97);
-	var MACalculator = __webpack_require__(109);
+	var MACalculator = __webpack_require__(110);
 	
 	var OverlayUtils = {
 		getToolTipLabel:function(props) {
@@ -3472,7 +3472,7 @@ return webpackJsonpReStock([0,2],[
 
 	'use strict';
 	
-	var stockScale = __webpack_require__(110);
+	var stockScale = __webpack_require__(111);
 	
 	var defaultOptions = {
 		dateAccessor: function(d)  {return d.date;},
@@ -3698,7 +3698,7 @@ return webpackJsonpReStock([0,2],[
 	var pricingMethod = function (d) { return { high: d.high, low: d.low }; };
 	var usePrice = function (d) { return d.close; };
 	
-	var calculateATR = __webpack_require__(111);
+	var calculateATR = __webpack_require__(112);
 	
 	function KagiTransformer(data, interval, options, other) {
 		if (options === undefined) options = {};
@@ -4088,7 +4088,7 @@ return webpackJsonpReStock([0,2],[
 	var pricingMethod = function (d) { return { high: d.high, low: d.low }; };
 	// var pricingMethod = function (d) { return { high: d.close, low: d.close }; };
 	// var usePrice = function (d) { return d.close; };
-	var calculateATR = __webpack_require__(111);
+	var calculateATR = __webpack_require__(112);
 	
 	var defaultOptions = {
 		boxSize: 0.5,
@@ -4257,6 +4257,54 @@ return webpackJsonpReStock([0,2],[
 /* 109 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule shallowEqual
+	 */
+	
+	'use strict';
+	
+	/**
+	 * Performs equality by iterating through keys on an object and returning
+	 * false when any key has values which are not strictly equal between
+	 * objA and objB. Returns true when the values of all keys are strictly equal.
+	 *
+	 * @return {boolean}
+	 */
+	function shallowEqual(objA, objB) {
+	  if (objA === objB) {
+	    return true;
+	  }
+	  var key;
+	  // Test for A's keys different from B.
+	  for (key in objA) {
+	    if (objA.hasOwnProperty(key) &&
+	        (!objB.hasOwnProperty(key) || objA[key] !== objB[key])) {
+	      return false;
+	    }
+	  }
+	  // Test for B's keys missing from A.
+	  for (key in objB) {
+	    if (objB.hasOwnProperty(key) && !objA.hasOwnProperty(key)) {
+	      return false;
+	    }
+	  }
+	  return true;
+	}
+	
+	module.exports = shallowEqual;
+
+
+/***/ },
+/* 110 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 	
 	var Utils = __webpack_require__(97);
@@ -4299,7 +4347,7 @@ return webpackJsonpReStock([0,2],[
 
 
 /***/ },
-/* 110 */
+/* 111 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4455,7 +4503,7 @@ return webpackJsonpReStock([0,2],[
 	module.exports = polylineartimescale
 
 /***/ },
-/* 111 */
+/* 112 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4492,54 +4540,6 @@ return webpackJsonpReStock([0,2],[
 	}
 	
 	module.exports = calculateATR;
-
-
-/***/ },
-/* 112 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule shallowEqual
-	 */
-	
-	'use strict';
-	
-	/**
-	 * Performs equality by iterating through keys on an object and returning
-	 * false when any key has values which are not strictly equal between
-	 * objA and objB. Returns true when the values of all keys are strictly equal.
-	 *
-	 * @return {boolean}
-	 */
-	function shallowEqual(objA, objB) {
-	  if (objA === objB) {
-	    return true;
-	  }
-	  var key;
-	  // Test for A's keys different from B.
-	  for (key in objA) {
-	    if (objA.hasOwnProperty(key) &&
-	        (!objB.hasOwnProperty(key) || objA[key] !== objB[key])) {
-	      return false;
-	    }
-	  }
-	  // Test for B's keys missing from A.
-	  for (key in objB) {
-	    if (objB.hasOwnProperty(key) && !objA.hasOwnProperty(key)) {
-	      return false;
-	    }
-	  }
-	  return true;
-	}
-	
-	module.exports = shallowEqual;
 
 
 /***/ }
