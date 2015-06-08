@@ -18,8 +18,8 @@ return webpackJsonpReStock([1,2],[
 	var d3 = __webpack_require__(3);
 	var parseDate = d3.time.format("%Y-%m-%d").parse
 	
-	__webpack_require__(29);
-	__webpack_require__(27);
+	__webpack_require__(30);
+	__webpack_require__(28);
 	
 	var Nav = __webpack_require__(4);
 	var Sidebar = __webpack_require__(5);
@@ -36,8 +36,8 @@ return webpackJsonpReStock([1,2],[
 		__webpack_require__(17),
 		__webpack_require__(18),
 		__webpack_require__(19),
-		__webpack_require__(20),
 		__webpack_require__(21),
+		__webpack_require__(20),
 		__webpack_require__(22),
 		__webpack_require__(23),
 		__webpack_require__(24),
@@ -66,8 +66,8 @@ return webpackJsonpReStock([1,2],[
 			// console.log(d);
 		});
 	
-		var SyncMouseMove = __webpack_require__(6).init(data);
-		var AreaChartWithZoom = __webpack_require__(7).init(data);
+		var SyncMouseMove = __webpack_require__(7).init(data);
+		var AreaChartWithZoom = __webpack_require__(6).init(data);
 		var AreaChartWithZoomPan = __webpack_require__(8).init(data);
 	
 	
@@ -78,19 +78,20 @@ return webpackJsonpReStock([1,2],[
 	
 		// console.log(selected, selectedPage, firstPage);
 	
-		var ExamplesPage = React.createClass({displayName: "ExamplesPage",
-			//mixins: [ScrollMixin],
-			getInitialState:function() {
-				return {
+		var ____ClassO=React.Component;for(var ____ClassO____Key in ____ClassO){if(____ClassO.hasOwnProperty(____ClassO____Key)){ExamplesPage[____ClassO____Key]=____ClassO[____ClassO____Key];}}var ____SuperProtoOf____ClassO=____ClassO===null?null:____ClassO.prototype;ExamplesPage.prototype=Object.create(____SuperProtoOf____ClassO);ExamplesPage.prototype.constructor=ExamplesPage;ExamplesPage.__superConstructor__=____ClassO;
+			function ExamplesPage(props) {
+				____ClassO.call(this,props);
+				this.handleRouteChange = this.handleRouteChange.bind(this);
+				this.state = {
 					selectedPage: firstPage
-				};
-			},
-			handleRouteChange:function(newPage) {
+				}
+			}
+			Object.defineProperty(ExamplesPage.prototype,"handleRouteChange",{writable:true,configurable:true,value:function(newPage) {
 				this.setState({
 					selectedPage: newPage
 				});
-			},
-			render:function() {
+			}});
+			Object.defineProperty(ExamplesPage.prototype,"render",{writable:true,configurable:true,value:function() {
 				var Page = this.state.selectedPage;
 				return (
 					React.createElement("div", null, 
@@ -105,8 +106,8 @@ return webpackJsonpReStock([1,2],[
 						)
 					)
 				);
-			}
-		});
+			}});
+		;
 	
 		React.render(React.createElement(ExamplesPage, null), document.getElementById("chart-goes-here"));
 	}
@@ -154,18 +155,17 @@ return webpackJsonpReStock([1,2],[
 		// CandleStickStockScaleChartWithVolumeHistogramV1
 		// CandleStickStockScaleChartWithVolumeHistogramV2
 		// CandleStickChartWithZoomPan
-		var Chart = __webpack_require__(9);
+		var Chart = __webpack_require__(27);
 	
-		var ExamplesPage = React.createClass({displayName: "ExamplesPage",
-			//mixins: [ScrollMixin],
-			render:function() {
+		var ____ClassP=React.Component;for(var ____ClassP____Key in ____ClassP){if(____ClassP.hasOwnProperty(____ClassP____Key)){ExamplesPage[____ClassP____Key]=____ClassP[____ClassP____Key];}}var ____SuperProtoOf____ClassP=____ClassP===null?null:____ClassP.prototype;ExamplesPage.prototype=Object.create(____SuperProtoOf____ClassP);ExamplesPage.prototype.constructor=ExamplesPage;ExamplesPage.__superConstructor__=____ClassP;function ExamplesPage(){if(____ClassP!==null){____ClassP.apply(this,arguments);}}
+			Object.defineProperty(ExamplesPage.prototype,"render",{writable:true,configurable:true,value:function() {
 				return (
 					React.createElement("div", {className: "container react-stockchart"}, 
 						React.createElement(Chart, {data: data})
 					)
 				)
-			}
-		});
+			}});
+		;
 		React.render(React.createElement(ExamplesPage, null), document.getElementById("chart-goes-here"));
 	}
 
@@ -173,7 +173,7 @@ return webpackJsonpReStock([1,2],[
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "<p>Also known as &quot;average bar&quot;, used to identify trends and filter out noise. Learn more about how to construct one <a href=\"http://stockcharts.com/school/doku.php?id=chart_school:chart_analysis:heikin_ashi\">here</a> and <a href=\"http://www.investopedia.com/articles/technical/04/092204.asp\">here</a></p>\n<p>checkout the <a href=\"https://gist.github.com/rrag/51379c24e9751d46dcea\">source</a>, <a href=\"http://bl.ocks.org/rrag/51379c24e9751d46dcea\">block</a>, <a href=\"http://plnkr.co/edit/gist:51379c24e9751d46dcea?p=preview\">plunker</a> of this example</p>\n";
+	module.exports = "<p>checkout the <a href=\"https://gist.github.com/rrag/70ea3fe28ad35bf3ed4c\">source</a>, <a href=\"http://bl.ocks.org/rrag/70ea3fe28ad35bf3ed4c\">block</a>, <a href=\"http://plnkr.co/edit/gist:70ea3fe28ad35bf3ed4c?p=preview\">plunker</a> of this example</p>\n<p><code>EdgeIndicator</code>s are inside the <code>EdgeContainer</code> and can be of type <code>first</code> or <code>last</code>, can be located <code>left</code> or <code>right</code> and orient <code>left</code> or <code>right</code>. Below you see edges <code>first</code> and <code>last</code> for all the overlays and also for the <code>volume</code> histogram.</p>\n<p>The edge values are updated on zoom and pan too</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EdgeContainer</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EdgeIndicator</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">\"horizontal\"</span> <span class=\"hljs-attribute\">itemType</span>=<span class=\"hljs-value\">\"last\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"right\"</span>\n        <span class=\"hljs-attribute\">edgeAt</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{0}</span> /&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EdgeIndicator</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">\"horizontal\"</span> <span class=\"hljs-attribute\">itemType</span>=<span class=\"hljs-value\">\"last\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"right\"</span>\n        <span class=\"hljs-attribute\">edgeAt</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{1}</span> /&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EdgeIndicator</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">\"horizontal\"</span> <span class=\"hljs-attribute\">itemType</span>=<span class=\"hljs-value\">\"last\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"right\"</span>\n        <span class=\"hljs-attribute\">edgeAt</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{2}</span> /&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EdgeIndicator</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">\"horizontal\"</span> <span class=\"hljs-attribute\">itemType</span>=<span class=\"hljs-value\">\"first\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"left\"</span>\n        <span class=\"hljs-attribute\">edgeAt</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{0}</span> /&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EdgeIndicator</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">\"horizontal\"</span> <span class=\"hljs-attribute\">itemType</span>=<span class=\"hljs-value\">\"first\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"left\"</span>\n        <span class=\"hljs-attribute\">edgeAt</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{1}</span> /&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EdgeIndicator</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">\"horizontal\"</span> <span class=\"hljs-attribute\">itemType</span>=<span class=\"hljs-value\">\"first\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"left\"</span>\n        <span class=\"hljs-attribute\">edgeAt</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{2}</span> /&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EdgeIndicator</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">\"horizontal\"</span> <span class=\"hljs-attribute\">itemType</span>=<span class=\"hljs-value\">\"first\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"left\"</span>\n        <span class=\"hljs-attribute\">edgeAt</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{2}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{3}</span> <span class=\"hljs-attribute\">displayFormat</span>=<span class=\"hljs-value\">{d3.format(\".4s\")}</span> /&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EdgeIndicator</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">\"horizontal\"</span> <span class=\"hljs-attribute\">itemType</span>=<span class=\"hljs-value\">\"last\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"right\"</span>\n        <span class=\"hljs-attribute\">edgeAt</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{2}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{3}</span> <span class=\"hljs-attribute\">displayFormat</span>=<span class=\"hljs-value\">{d3.format(\".4s\")}</span> /&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EdgeIndicator</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">\"horizontal\"</span> <span class=\"hljs-attribute\">itemType</span>=<span class=\"hljs-value\">\"first\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"left\"</span>\n        <span class=\"hljs-attribute\">edgeAt</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{2}</span> <span class=\"hljs-attribute\">displayFormat</span>=<span class=\"hljs-value\">{d3.format(\".4s\")}</span> /&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EdgeIndicator</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">\"horizontal\"</span> <span class=\"hljs-attribute\">itemType</span>=<span class=\"hljs-value\">\"last\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"right\"</span>\n        <span class=\"hljs-attribute\">edgeAt</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{2}</span> <span class=\"hljs-attribute\">displayFormat</span>=<span class=\"hljs-value\">{d3.format(\".4s\")}</span> /&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">EdgeContainer</span>&gt;</span>\n</code></pre>\n";
 
 /***/ },
 /* 2 */
@@ -229,94 +229,6 @@ return webpackJsonpReStock([1,2],[
 
 /***/ },
 /* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(2);
-	var d3 = __webpack_require__(3);
-	
-	var ReStock = __webpack_require__(67);
-	
-	
-	module.exports = {
-		init:function(data) {
-			var AreaChartWithEdgeCoordinates = __webpack_require__(66).init(data);
-	
-			var SyncMouseMove = React.createClass({displayName: "SyncMouseMove",
-				getInitialState:function() {
-					return {
-						width: 500,
-						height: 400
-					};
-				},
-				handleMATooltipClick:function(overlay) {
-					console.log('You clicked on ', overlay, ' handle your onclick event here...');
-				},
-				componentDidMount:function() {
-					var eventStore = this.refs.left.getEventStore();
-					this.refs.right.updateEventStore(eventStore);
-					// console.log('SyncMouseMove.componentDidMount', eventStore);
-				},
-				componentDidUpdate:function() {
-					// console.log('SyncMouseMove.componentDidUpdate');
-				},
-				render:function() {
-					var parseDate = d3.time.format("%Y-%m-%d").parse
-					var dateRange = { from: parseDate("2012-06-01"), to: parseDate("2012-12-31")}
-					var dateFormat = d3.time.format("%Y-%m-%d");
-	
-					return (
-					React.createElement("div", null, 
-						React.createElement("div", {className: "col-md-6 react-stockchart"}, 
-							React.createElement(AreaChartWithEdgeCoordinates, {ref: "left"})
-						), 
-						React.createElement("div", {className: "col-md-6 react-stockchart"}, 
-							React.createElement(AreaChartWithEdgeCoordinates, {ref: "right"})
-						)
-					)
-	
-					);
-				}
-			});
-	
-			return SyncMouseMove;
-		}
-	}
-	
-	/*
-	
-								
-								
-	
-							<EdgeContainer>
-	
-							</EdgeContainer>
-	
-	
-								<EdgeIndicator
-									type="horizontal"
-									className="horizontal"
-									itemType="last"
-									orient="right"
-									edgeAt="right"
-									forSeries={1}
-									displayFormat={(d) => (d)}
-									/>
-								<EdgeIndicator
-									type="horizontal"
-									className="horizontal"
-									itemType="first"
-									orient="left"
-									edgeAt="left"
-									forSeries={1}
-									displayFormat={(d) => (d)}
-									/>
-	*/
-
-
-/***/ },
-/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -456,6 +368,94 @@ return webpackJsonpReStock([1,2],[
 			return AreaChartWithZoom;
 		}
 	}
+
+
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(2);
+	var d3 = __webpack_require__(3);
+	
+	var ReStock = __webpack_require__(67);
+	
+	
+	module.exports = {
+		init:function(data) {
+			var AreaChartWithEdgeCoordinates = __webpack_require__(66).init(data);
+	
+			var SyncMouseMove = React.createClass({displayName: "SyncMouseMove",
+				getInitialState:function() {
+					return {
+						width: 500,
+						height: 400
+					};
+				},
+				handleMATooltipClick:function(overlay) {
+					console.log('You clicked on ', overlay, ' handle your onclick event here...');
+				},
+				componentDidMount:function() {
+					var eventStore = this.refs.left.getEventStore();
+					this.refs.right.updateEventStore(eventStore);
+					// console.log('SyncMouseMove.componentDidMount', eventStore);
+				},
+				componentDidUpdate:function() {
+					// console.log('SyncMouseMove.componentDidUpdate');
+				},
+				render:function() {
+					var parseDate = d3.time.format("%Y-%m-%d").parse
+					var dateRange = { from: parseDate("2012-06-01"), to: parseDate("2012-12-31")}
+					var dateFormat = d3.time.format("%Y-%m-%d");
+	
+					return (
+					React.createElement("div", null, 
+						React.createElement("div", {className: "col-md-6 react-stockchart"}, 
+							React.createElement(AreaChartWithEdgeCoordinates, {ref: "left"})
+						), 
+						React.createElement("div", {className: "col-md-6 react-stockchart"}, 
+							React.createElement(AreaChartWithEdgeCoordinates, {ref: "right"})
+						)
+					)
+	
+					);
+				}
+			});
+	
+			return SyncMouseMove;
+		}
+	}
+	
+	/*
+	
+								
+								
+	
+							<EdgeContainer>
+	
+							</EdgeContainer>
+	
+	
+								<EdgeIndicator
+									type="horizontal"
+									className="horizontal"
+									itemType="last"
+									orient="right"
+									edgeAt="right"
+									forSeries={1}
+									displayFormat={(d) => (d)}
+									/>
+								<EdgeIndicator
+									type="horizontal"
+									className="horizontal"
+									itemType="first"
+									orient="left"
+									edgeAt="left"
+									forSeries={1}
+									displayFormat={(d) => (d)}
+									/>
+	*/
 
 
 /***/ },
@@ -717,7 +717,7 @@ return webpackJsonpReStock([1,2],[
 
 	'use strict';
 	var React = __webpack_require__(2);
-	var Row = __webpack_require__(32);
+	var Row = __webpack_require__(33);
 	
 	var MainContainer = React.createClass({displayName: "MainContainer",
 		render:function() {
@@ -790,9 +790,9 @@ return webpackJsonpReStock([1,2],[
 	'use strict';
 	
 	var React = __webpack_require__(2);
-	var ContentSection = __webpack_require__(33);
-	var Row = __webpack_require__(32);
-	var Section = __webpack_require__(34);
+	var ContentSection = __webpack_require__(34);
+	var Row = __webpack_require__(33);
+	var Section = __webpack_require__(35);
 	
 	var OverviewPage = React.createClass({displayName: "OverviewPage",
 		statics: {
@@ -803,7 +803,7 @@ return webpackJsonpReStock([1,2],[
 				React.createElement(ContentSection, {title: OverviewPage.title}, 
 					React.createElement(Row, null, 
 						React.createElement(Section, {colSpan: 2}, 
-							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(35)}})
+							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(36)}})
 						)
 					)
 				)
@@ -821,12 +821,12 @@ return webpackJsonpReStock([1,2],[
 	'use strict';
 	
 	var React = __webpack_require__(2);
-	var ContentSection = __webpack_require__(33);
-	var Row = __webpack_require__(32);
-	var Section = __webpack_require__(34);
+	var ContentSection = __webpack_require__(34);
+	var Row = __webpack_require__(33);
+	var Section = __webpack_require__(35);
 	
-	var AreaChart = __webpack_require__(36);
-	var AreaChartWithYPercent = __webpack_require__(37);
+	var AreaChart = __webpack_require__(37);
+	var AreaChartWithYPercent = __webpack_require__(38);
 	
 	var OverviewPage = React.createClass({displayName: "OverviewPage",
 		statics: {
@@ -842,7 +842,7 @@ return webpackJsonpReStock([1,2],[
 					), 
 					React.createElement(Row, null, 
 						React.createElement(Section, {colSpan: 2}, 
-							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(38)}})
+							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(39)}})
 						)
 					), 
 					React.createElement(Row, null, 
@@ -865,12 +865,12 @@ return webpackJsonpReStock([1,2],[
 	'use strict';
 	
 	var React = __webpack_require__(2);
-	var ContentSection = __webpack_require__(33);
-	var Row = __webpack_require__(32);
-	var Section = __webpack_require__(34);
+	var ContentSection = __webpack_require__(34);
+	var Row = __webpack_require__(33);
+	var Section = __webpack_require__(35);
 	
-	var CandleStickChart = __webpack_require__(39);
-	var CandleStickStockScaleChart = __webpack_require__(40);
+	var CandleStickChart = __webpack_require__(40);
+	var CandleStickStockScaleChart = __webpack_require__(41);
 	
 	var CandleStickChartPage = React.createClass({displayName: "CandleStickChartPage",
 		statics: {
@@ -886,7 +886,7 @@ return webpackJsonpReStock([1,2],[
 					), 
 					React.createElement(Row, null, 
 						React.createElement(Section, {colSpan: 2}, 
-							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(41)}})
+							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(42)}})
 						)
 					), 
 					React.createElement(Row, null, 
@@ -896,12 +896,12 @@ return webpackJsonpReStock([1,2],[
 					), 
 					React.createElement(Row, null, 
 						React.createElement(Section, {colSpan: 2}, 
-							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(42)}})
+							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(43)}})
 						)
 					), 
 					React.createElement(Row, {title: "stocktime scale"}, 
 						React.createElement(Section, {colSpan: 2}, 
-							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(43)}})
+							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(44)}})
 						)
 					)
 				)
@@ -919,12 +919,12 @@ return webpackJsonpReStock([1,2],[
 	'use strict';
 	
 	var React = __webpack_require__(2);
-	var ContentSection = __webpack_require__(33);
-	var Row = __webpack_require__(32);
-	var Section = __webpack_require__(34);
+	var ContentSection = __webpack_require__(34);
+	var Row = __webpack_require__(33);
+	var Section = __webpack_require__(35);
 	
-	var CandleStickStockScaleChartWithVolumeHistogramV1 = __webpack_require__(44);
-	var CandleStickStockScaleChartWithVolumeHistogramV2 = __webpack_require__(45);
+	var CandleStickStockScaleChartWithVolumeHistogramV1 = __webpack_require__(45);
+	var CandleStickStockScaleChartWithVolumeHistogramV2 = __webpack_require__(46);
 	
 	var VolumeHistogramPage = React.createClass({displayName: "VolumeHistogramPage",
 		statics: {
@@ -935,7 +935,7 @@ return webpackJsonpReStock([1,2],[
 				React.createElement(ContentSection, {title: VolumeHistogramPage.title}, 
 					React.createElement(Row, null, 
 						React.createElement(Section, {colSpan: 2}, 
-							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(46)}})
+							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(47)}})
 						)
 					), 
 					React.createElement(Row, null, 
@@ -945,7 +945,7 @@ return webpackJsonpReStock([1,2],[
 					), 
 					React.createElement(Row, null, 
 						React.createElement(Section, {colSpan: 2}, 
-							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(47)}})
+							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(48)}})
 						)
 					), 
 					React.createElement(Row, null, 
@@ -955,7 +955,7 @@ return webpackJsonpReStock([1,2],[
 					), 
 					React.createElement(Row, null, 
 						React.createElement(Section, {colSpan: 2}, 
-							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(48)}})
+							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(49)}})
 						)
 					)
 				)
@@ -973,11 +973,11 @@ return webpackJsonpReStock([1,2],[
 	'use strict';
 	
 	var React = __webpack_require__(2);
-	var ContentSection = __webpack_require__(33);
-	var Row = __webpack_require__(32);
-	var Section = __webpack_require__(34);
+	var ContentSection = __webpack_require__(34);
+	var Row = __webpack_require__(33);
+	var Section = __webpack_require__(35);
 	
-	var CandleStickChartWithCHMousePointer = __webpack_require__(49);
+	var CandleStickChartWithCHMousePointer = __webpack_require__(50);
 	
 	var MousePointerPage = React.createClass({displayName: "MousePointerPage",
 		statics: {
@@ -993,7 +993,7 @@ return webpackJsonpReStock([1,2],[
 					), 
 					React.createElement(Row, null, 
 						React.createElement(Section, {colSpan: 2}, 
-							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(50)}})
+							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(51)}})
 						)
 					)
 				)
@@ -1011,11 +1011,11 @@ return webpackJsonpReStock([1,2],[
 	'use strict';
 	
 	var React = __webpack_require__(2);
-	var ContentSection = __webpack_require__(33);
-	var Row = __webpack_require__(32);
-	var Section = __webpack_require__(34);
+	var ContentSection = __webpack_require__(34);
+	var Row = __webpack_require__(33);
+	var Section = __webpack_require__(35);
 	
-	var CandleStickChartWithZoomPan = __webpack_require__(51);
+	var CandleStickChartWithZoomPan = __webpack_require__(52);
 	
 	var ZoomAndPanPage = React.createClass({displayName: "ZoomAndPanPage",
 		statics: {
@@ -1031,7 +1031,7 @@ return webpackJsonpReStock([1,2],[
 					), 
 					React.createElement(Row, null, 
 						React.createElement(Section, {colSpan: 2}, 
-							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(52)}})
+							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(53)}})
 						)
 					)
 				)
@@ -1049,11 +1049,11 @@ return webpackJsonpReStock([1,2],[
 	'use strict';
 	
 	var React = __webpack_require__(2);
-	var ContentSection = __webpack_require__(33);
-	var Row = __webpack_require__(32);
-	var Section = __webpack_require__(34);
+	var ContentSection = __webpack_require__(34);
+	var Row = __webpack_require__(33);
+	var Section = __webpack_require__(35);
 	
-	var CandleStickChartWithMA = __webpack_require__(53);
+	var CandleStickChartWithMA = __webpack_require__(54);
 	
 	var OverlayPage = React.createClass({displayName: "OverlayPage",
 		statics: {
@@ -1069,7 +1069,7 @@ return webpackJsonpReStock([1,2],[
 					), 
 					React.createElement(Row, null, 
 						React.createElement(Section, {colSpan: 2}, 
-							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(54)}})
+							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(55)}})
 						)
 					)
 				)
@@ -1087,47 +1087,9 @@ return webpackJsonpReStock([1,2],[
 	'use strict';
 	
 	var React = __webpack_require__(2);
-	var ContentSection = __webpack_require__(33);
-	var Row = __webpack_require__(32);
-	var Section = __webpack_require__(34);
-	
-	var CandleStickChartWithEdge = __webpack_require__(9);
-	
-	var EdgeCoordinatesPage = React.createClass({displayName: "EdgeCoordinatesPage",
-		statics: {
-			title: 'Edge coordinate'
-		},
-		render:function() {
-			return (
-				React.createElement(ContentSection, {title: EdgeCoordinatesPage.title}, 
-					React.createElement(Row, null, 
-						React.createElement(Section, {colSpan: 2, className: "react-stockchart"}, 
-							React.createElement(CandleStickChartWithEdge, {data: this.props.someData})
-						)
-					), 
-					React.createElement(Row, null, 
-						React.createElement(Section, {colSpan: 2}, 
-							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(55)}})
-						)
-					)
-				)
-			);
-		}
-	});
-	
-	module.exports = EdgeCoordinatesPage;
-
-
-/***/ },
-/* 21 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(2);
-	var ContentSection = __webpack_require__(33);
-	var Row = __webpack_require__(32);
-	var Section = __webpack_require__(34);
+	var ContentSection = __webpack_require__(34);
+	var Row = __webpack_require__(33);
+	var Section = __webpack_require__(35);
 	
 	var CandleStickChartWithEdge = __webpack_require__(9);
 	
@@ -1157,15 +1119,53 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
+/* 21 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(2);
+	var ContentSection = __webpack_require__(34);
+	var Row = __webpack_require__(33);
+	var Section = __webpack_require__(35);
+	
+	var CandleStickChartWithEdge = __webpack_require__(9);
+	
+	var EdgeCoordinatesPage = React.createClass({displayName: "EdgeCoordinatesPage",
+		statics: {
+			title: 'Edge coordinate'
+		},
+		render:function() {
+			return (
+				React.createElement(ContentSection, {title: EdgeCoordinatesPage.title}, 
+					React.createElement(Row, null, 
+						React.createElement(Section, {colSpan: 2, className: "react-stockchart"}, 
+							React.createElement(CandleStickChartWithEdge, {data: this.props.someData})
+						)
+					), 
+					React.createElement(Row, null, 
+						React.createElement(Section, {colSpan: 2}, 
+							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(1)}})
+						)
+					)
+				)
+			);
+		}
+	});
+	
+	module.exports = EdgeCoordinatesPage;
+
+
+/***/ },
 /* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(2);
-	var ContentSection = __webpack_require__(33);
-	var Row = __webpack_require__(32);
-	var Section = __webpack_require__(34);
+	var ContentSection = __webpack_require__(34);
+	var Row = __webpack_require__(33);
+	var Section = __webpack_require__(35);
 	
 	var HeikinAshiChart = __webpack_require__(57);
 	
@@ -1178,7 +1178,7 @@ return webpackJsonpReStock([1,2],[
 				React.createElement(ContentSection, {title: HeikinAshiPage.title}, 
 					React.createElement(Row, null, 
 						React.createElement(Section, {colSpan: 2}, 
-							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(1)}})
+							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(58)}})
 						)
 					), 
 					React.createElement(Row, null, 
@@ -1201,11 +1201,11 @@ return webpackJsonpReStock([1,2],[
 	'use strict';
 	
 	var React = __webpack_require__(2);
-	var ContentSection = __webpack_require__(33);
-	var Row = __webpack_require__(32);
-	var Section = __webpack_require__(34);
+	var ContentSection = __webpack_require__(34);
+	var Row = __webpack_require__(33);
+	var Section = __webpack_require__(35);
 	
-	var Kagi = __webpack_require__(58);
+	var Kagi = __webpack_require__(59);
 	
 	var KagiPage = React.createClass({displayName: "KagiPage",
 		statics: {
@@ -1216,7 +1216,7 @@ return webpackJsonpReStock([1,2],[
 				React.createElement(ContentSection, {title: KagiPage.title}, 
 					React.createElement(Row, null, 
 						React.createElement(Section, {colSpan: 2}, 
-							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(59)}})
+							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(60)}})
 						)
 					), 
 					React.createElement(Row, null, 
@@ -1239,11 +1239,11 @@ return webpackJsonpReStock([1,2],[
 	'use strict';
 	
 	var React = __webpack_require__(2);
-	var ContentSection = __webpack_require__(33);
-	var Row = __webpack_require__(32);
-	var Section = __webpack_require__(34);
+	var ContentSection = __webpack_require__(34);
+	var Row = __webpack_require__(33);
+	var Section = __webpack_require__(35);
 	
-	var PointAndFigure = __webpack_require__(60);
+	var PointAndFigure = __webpack_require__(27);
 	
 	var PointAndFigurePage = React.createClass({displayName: "PointAndFigurePage",
 		statics: {
@@ -1277,9 +1277,9 @@ return webpackJsonpReStock([1,2],[
 	'use strict';
 	
 	var React = __webpack_require__(2);
-	var ContentSection = __webpack_require__(33);
-	var Row = __webpack_require__(32);
-	var Section = __webpack_require__(34);
+	var ContentSection = __webpack_require__(34);
+	var Row = __webpack_require__(33);
+	var Section = __webpack_require__(35);
 	
 	var Renko = __webpack_require__(62);
 	
@@ -1315,9 +1315,9 @@ return webpackJsonpReStock([1,2],[
 	'use strict';
 	
 	var React = __webpack_require__(2);
-	var ContentSection = __webpack_require__(33);
-	var Row = __webpack_require__(32);
-	var Section = __webpack_require__(34);
+	var ContentSection = __webpack_require__(34);
+	var Row = __webpack_require__(33);
+	var Section = __webpack_require__(35);
 	
 	var ComingSoonPage = React.createClass({displayName: "ComingSoonPage",
 		statics: {
@@ -1328,7 +1328,7 @@ return webpackJsonpReStock([1,2],[
 				React.createElement(ContentSection, {title: ComingSoonPage.title}, 
 					React.createElement(Row, null, 
 						React.createElement(Section, {colSpan: 2}, 
-							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(64)}})
+							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(65)}})
 						)
 					)
 				)
@@ -1343,13 +1343,89 @@ return webpackJsonpReStock([1,2],[
 /* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+	
+	var React = __webpack_require__(2);
+	var d3 = __webpack_require__(3);
+	
+	var ReStock = __webpack_require__(67);
+	
+	var ChartCanvas = ReStock.ChartCanvas
+		, XAxis = ReStock.XAxis
+		, YAxis = ReStock.YAxis
+		, PointAndFigureSeries = ReStock.PointAndFigureSeries
+		, DataTransform = ReStock.DataTransform
+		, Chart = ReStock.Chart
+		, DataSeries = ReStock.DataSeries
+		, ChartWidthMixin = ReStock.helper.ChartWidthMixin
+		, HistogramSeries = ReStock.HistogramSeries
+		, EventCapture = ReStock.EventCapture
+		, MouseCoordinates = ReStock.MouseCoordinates
+		, CrossHair = ReStock.CrossHair
+		, TooltipContainer = ReStock.TooltipContainer
+		, OHLCTooltip = ReStock.OHLCTooltip
+		, OverlaySeries = ReStock.OverlaySeries
+		, LineSeries = ReStock.LineSeries
+		, MovingAverageTooltip = ReStock.MovingAverageTooltip
+		, CurrentCoordinate = ReStock.CurrentCoordinate
+		, AreaSeries = ReStock.AreaSeries
+		, EdgeContainer = ReStock.EdgeContainer
+		, EdgeIndicator = ReStock.EdgeIndicator
+	;
+	var PointAndFigure = React.createClass({displayName: "PointAndFigure",
+		mixins: [ChartWidthMixin],
+		render:function() {
+			if (this.state === null || !this.state.width) return React.createElement("div", null);
+	
+			var dateFormat = d3.time.format("%Y-%m-%d");
+	
+			return (
+				React.createElement(ChartCanvas, {width: this.state.width, height: 400, 
+					margin: {left: 90, right: 70, top:10, bottom: 30}, data: this.props.data, interval: "D", initialDisplay: 30}, 
+					React.createElement(DataTransform, {transformType: "stockscale"}, 
+					React.createElement(DataTransform, {transformType: "pointandfigure", options: { boxSize: 0.5}}, 
+						React.createElement(Chart, {id: 1}, 
+							React.createElement(XAxis, {axisAt: "bottom", orient: "bottom"}), 
+							React.createElement(YAxis, {axisAt: "right", orient: "right", ticks: 5}), 
+							React.createElement(DataSeries, {yAccessor: PointAndFigureSeries.yAccessor}, 
+								React.createElement(PointAndFigureSeries, null)
+							)
+						), 
+						React.createElement(Chart, {id: 2, height: 150, origin: function(w, h)  {return [0, h - 150];}}, 
+							React.createElement(YAxis, {axisAt: "left", orient: "left", ticks: 5, tickFormat: d3.format("s")}), 
+							React.createElement(DataSeries, {yAccessor: function(d)  {return d.volume;}}, 
+								React.createElement(HistogramSeries, {className: function(d)  {return d.close > d.open ? 'up' : 'down';}}), 
+								React.createElement(OverlaySeries, {id: 3, type: "sma", options: { period: 10, pluck:'volume'}}, 
+									React.createElement(AreaSeries, null)
+								)
+							)
+						), 
+						React.createElement(MouseCoordinates, {forChart: 1, xDisplayFormat: dateFormat, yDisplayFormat: function(y)  {return y.toFixed(2);}, type: "crosshair"}), 
+						React.createElement(EventCapture, {mouseMove: true, zoom: true, pan: true, mainChart: 1, defaultFocus: false}), 
+						React.createElement(TooltipContainer, null, 
+							React.createElement(OHLCTooltip, {forChart: 1, origin: [-50, 0]})
+						)
+					)
+					)
+				)
+			);
+		}
+	});
+	
+	module.exports = PointAndFigure;
+
+
+/***/ },
+/* 28 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(28);
+	var content = __webpack_require__(29);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(65)(content, {});
+	var update = __webpack_require__(64)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -1366,23 +1442,23 @@ return webpackJsonpReStock([1,2],[
 	}
 
 /***/ },
-/* 28 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(68)();
 	exports.push([module.id, "/* Move down content because we have a fixed navbar that is 50px tall */\n/*! normalize.css v3.0.2 | MIT License | git.io/normalize */\n/* #MainContainer {\n   position: fixed;\n   top: 50px;\n   padding-left: 100px;\n} */\naside table {\n  border: 1;\n  border-spacing: 1px;\n  border-collapse: collapse;\n  max-width: 100%;\n  margin-bottom: 20px;\n}\n\naside table tbody > tr > td,\naside table tbody > tr > th,\naside table tfoot > tr > td,\naside table tfoot > tr > th,\naside table thead > tr > td,\naside table thead > tr > th {\n  padding: 8px;\n  line-height: 1.42857;\n  vertical-align: top;\n  border-top: 1px solid #DDD;\n}\n\na.button {\n  background: transparent url("+__webpack_require__(94)+") 0 0 no-repeat;\n  width: 203px;\n  height: 80px;\n  padding-left: 60px;\n  color: #fff !important;\n}\n\na.button small {\n  display: inline;\n  font-size: 13px;\n  margin-top: 15px;\n}\n\n.jumbotron {\n  background: steelblue;\n  padding: 0px;\n  color: white;\n}\n\n.jumbotron a {\n  color: yellow;\n}\n\n.top-spacing {\n  padding-top: 10px;\n}\n\n.navbar {\n  background-color: steelblue;\n}\n\n.navbar a {\n  color: white;\n}\n\n/*\n * Top navigation\n * Hide default border to remove 1px line.\n */\n.navbar-fixed-top {\n  border: 0;\n}\n\n/*\n * Sidebar\n */\n/* Hide for mobile, show later */\n.sidebar {\n  display: none;\n}\n\n@media (min-width: 768px) {\n  .sidebar {\n    position: fixed;\n    top: 51px;\n    bottom: 0;\n    left: 0;\n    z-index: 1000;\n    display: block;\n    padding: 20px;\n    overflow-x: hidden;\n    overflow-y: auto;\n    /* Scrollable contents if viewport is shorter than content. */\n    background-color: #f5f5f5;\n    border-right: 1px solid #eee;\n  }\n}\n\n/* Sidebar navigation */\n.nav-sidebar {\n  margin-right: -21px;\n  /* 20px padding + 1px border */\n  margin-bottom: 20px;\n  margin-left: -20px;\n}\n\n.nav-sidebar > li > a {\n  padding-right: 20px;\n  padding-left: 20px;\n}\n\n.nav-sidebar > .active a, .nav-sidebar > .active a:hover, .nav-sidebar > .active a:focus {\n  color: #fff;\n  background-color: #428bca;\n}\n\n/*\n * Main content\n */\n.main {\n  padding: 20px;\n}\n\n@media (min-width: 768px) {\n  .main {\n    padding-right: 40px;\n    padding-left: 40px;\n  }\n}\n\n.main .page-header {\n  margin-top: 0;\n}\n", ""]);
 
 /***/ },
-/* 29 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(30);
+	var content = __webpack_require__(31);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(65)(content, {});
+	var update = __webpack_require__(64)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -1399,15 +1475,15 @@ return webpackJsonpReStock([1,2],[
 	}
 
 /***/ },
-/* 30 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(68)();
 	exports.push([module.id, "body {\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  font-size: 13px;\n}\n\n.react-stockchart .axis path, .react-stockchart .axis line {\n  fill: none;\n  stroke: #000000;\n}\n\n.react-stockchart .current-coordinate {\n  fill: none;\n  stroke: steelblue;\n  stroke-width: 3px;\n}\n\n.react-stockchart .grid.axis path, .react-stockchart .grid.axis line {\n  fill: none;\n  stroke: #000000;\n  shape-rendering: crispEdges;\n  opacity: 0.2;\n}\n\n.react-stockchart .y.axis path {\n  display: none;\n}\n\n.react-stockchart .candle .up {\n  fill: #6BA583;\n  stroke: #6BA583;\n  stroke-width: 1px;\n  shape-rendering: crispEdges;\n}\n\n.react-stockchart .candle .down {\n  fill: #ff0000;\n  stroke: #ff0000;\n  stroke-width: 1px;\n  shape-rendering: crispEdges;\n}\n\n.react-stockchart .candle line {\n  stroke: #000000;\n}\n\n.react-stockchart .wick .up, .react-stockchart .wick .down {\n  stroke: #000000;\n  stroke-width: 1px;\n  shape-rendering: crispEdges;\n}\n\n.react-stockchart .line {\n  fill: none;\n  stroke-width: 1px;\n}\n\n.react-stockchart .line-stroke {\n  shape-rendering: crispEdges;\n  stroke: steelblue;\n}\n\n.react-stockchart .overlay-stroke {\n  stroke: steelblue;\n}\n\n.react-stockchart .yin {\n  fill: none;\n  stroke: #ff0000;\n  stroke-width: 2px;\n}\n\n.react-stockchart .yang {\n  fill: none;\n  stroke: #6BA583;\n  stroke-width: 2px;\n}\n\n.react-stockchart .point_figure_up {\n  fill: none;\n  stroke: green;\n  stroke-width: 1px;\n}\n\n.react-stockchart .point_figure_down {\n  fill: none;\n  stroke: #ff0000;\n  stroke-width: 1px;\n}\n\n.react-stockchart .area {\n  fill: lightsteelblue;\n  opacity: 0.5;\n}\n\n.react-stockchart .backgroundText {\n  text-anchor: middle;\n  fill: #8a8a8a;\n  opacity: 0.15;\n}\n\n.react-stockchart .cross-hair {\n  stroke: #000000;\n  stroke-width: 1px;\n  shape-rendering: crispEdges;\n  opacity: 0.2;\n}\n\n.react-stockchart .horizontal2 .textbg {\n  opacity: 0.95;\n  fill: #f0e68c;\n}\n\n.react-stockchart .horizontal2 text {\n  fill: #757575;\n}\n\n.react-stockchart .horizontal3 .textbg {\n  opacity: 0.95;\n  fill: #000000;\n}\n\n.react-stockchart .horizontal3 text {\n  fill: #757575;\n}\n\n.react-stockchart .edge-coordinate .textbg {\n  opacity: 0.95;\n}\n\n.react-stockchart .edge-coordinate text {\n  fill: #ffffff;\n}\n\n.react-stockchart .vertical .textbg, .react-stockchart .horizontal .textbg {\n  opacity: 0.9;\n  fill: #8a8a8a;\n}\n\n.react-stockchart .vertical text, .react-stockchart .horizontal text {\n  fill: #ffffff;\n}\n\n.react-stockchart .grab {\n  cursor: grab;\n  cursor: -webkit-grab;\n}\n\n.react-stockchart .grabbing {\n  cursor: grabbing;\n  cursor: -webkit-grabbing;\n}\n\n.react-stockchart .crosshair {\n  cursor: crosshair;\n}\n\n.react-stockchart .toottip-hover {\n  pointer-events: all;\n  cursor: pointer;\n}\n\n.react-stockchart .histogram .bar {\n  fill: steelblue;\n  opacity: 0.3;\n  stroke: none;\n}\n\n.react-stockchart .histogram .up {\n  fill: #6BA583;\n  opacity: 0.3;\n  stroke: none;\n}\n\n.react-stockchart .histogram .down {\n  fill: #ff0000;\n  opacity: 0.3;\n  stroke: none;\n}\n\n.react-stockchart .histogram line.up {\n  stroke: #6BA583;\n}\n\n.react-stockchart .histogram line.down {\n  stroke: #ff0000;\n}\n\n.react-stockchart .ma-container rect {\n  fill: none;\n  stroke: none;\n}\n\n.react-stockchart .ma-container rect:hover {\n  fill: #8a8a8a;\n  opacity: 0.3;\n}\n\n.react-stockchart .ma-container line {\n  stroke-width: 4px;\n}\n\n.react-stockchart .legend {\n  font-size: 11px;\n}\n\n.react-stockchart .legend .tooltip-label {\n  fill: steelblue;\n  font-weight: bold;\n}\n", ""]);
 
 /***/ },
-/* 31 */,
-/* 32 */
+/* 32 */,
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1436,7 +1512,7 @@ return webpackJsonpReStock([1,2],[
 	module.exports = Row;
 
 /***/ },
-/* 33 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1459,7 +1535,7 @@ return webpackJsonpReStock([1,2],[
 	module.exports = ContentSection;
 
 /***/ },
-/* 34 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1491,13 +1567,13 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 35 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = "<h4>React Stockcharts - Built with <a href=\"http://facebook.github.io/react/\">React JS</a> and <a href=\"http://d3js.org/\">d3</a></h4>\n<p>React Stockcharts project provides a flexible library to create charts that represent time series data. It is easy to learn and can be customized by</p>\n<ul>\n<li>adding custom chart components</li>\n<li>access the <code>svg</code> elements</li>\n<li>styling with CSS</li>\n</ul>\n<p>There are many charting libraries available, but I feel there are very few that provide the features and flexibility to create stock charts that compete with the likes of the ones provided by commercial trading systems.</p>\n<h4>SVG vs Canvas</h4>\n<p>When deciding on a web technology for charts - not just charts, but ones which are interactive too -  representing many many data points, the decision of performance is bound to come up, and HTML5 presents options.</p>\n<p>I am not going to debate between the pros and cons between SVG and Canvas. They are discussed at great length <a href=\"http://stackoverflow.com/questions/12310024/fast-and-responsive-interactive-charts-graphs-svg-canvas-other\">here</a> and <a href=\"http://stackoverflow.com/questions/5882716/html5-canvas-vs-svg-vs-div\">here</a>. Needless to say they are both very powerful and for charting, there really is no right answer. I have chosen to use SVG for React Stockcharts because,</p>\n<ul>\n<li>you will see very soon the performance is not an issue really, thanks to React JS and the virtual dom</li>\n<li>the flexibility of development and the convinenience of debuging a DOM is hard to beat</li>\n<li>styling with css is something I cannot give up</li>\n</ul>\n<p>That said, I do wish to some day create a fork of this on Canvas.</p>\n<h4>DOM Manipulation</h4>\n<p>The only place where DOM Manipulation is used is in the <code>XAxis</code> and <code>YAxis</code> components, I will soon migrate to use the native <code>svg</code> axes provided by <a href=\"https://github.com/esbullington/react-d3\">react-d3</a>, at which time the entire project will be built with native svg components making server side rendering possible.</p>\n<p>Now let us get started with a very simple AreaChart</p>\n";
 
 /***/ },
-/* 36 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1535,7 +1611,7 @@ return webpackJsonpReStock([1,2],[
 	module.exports = AreaChart;
 
 /***/ },
-/* 37 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1712,13 +1788,13 @@ return webpackJsonpReStock([1,2],[
 	*/
 
 /***/ },
-/* 38 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = "<p>checkout the <a href=\"https://gist.github.com/rrag/b9658ffa431f1ffb8d6b\">source</a>, <a href=\"http://bl.ocks.org/rrag/b9658ffa431f1ffb8d6b\">block</a>, <a href=\"http://plnkr.co/edit/gist:b9658ffa431f1ffb8d6b?p=preview\">plunker</a> of this example</p>\n<p><code>data.tsv</code></p>\n<table>\n<thead>\n<tr><th>date</th><th>close</th></tr>\n</thead>\n<tbody>\n<tr><td>2011-01-24</td><td>5743.25</td></tr>\n<tr><td>2011-01-25</td><td>5687.4</td></tr>\n<tr><td>2011-01-27</td><td>5604.3</td></tr>\n<tr><td>2011-01-28</td><td>5512.15</td></tr>\n<tr><td>…</td><td>…</td></tr>\n</tbody>\n</table>\n<pre><code class=\"language-js\"><span class=\"hljs-keyword\">var</span> d3 = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'d3'</span>);\n<span class=\"hljs-keyword\">var</span> parseDate = d3.time.format(<span class=\"hljs-string\">\"%Y-%m-%d\"</span>).parse\n\nd3.tsv(<span class=\"hljs-string\">\"path/to/data.tsv\"</span>, <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span><span class=\"hljs-params\">(err, data)</span> </span>{\n    data.forEach((d, i) =&gt; {\n        d.date = <span class=\"hljs-keyword\">new</span> <span class=\"hljs-built_in\">Date</span>(parseDate(d.date).getTime());\n        d.close = +d.close;\n    });\n...\n</code></pre>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">ChartCanvas</span> <span class=\"hljs-attribute\">width</span>=<span class=\"hljs-value\">{...}</span> <span class=\"hljs-attribute\">height</span>=<span class=\"hljs-value\">{...}</span> <span class=\"hljs-attribute\">margin</span>=<span class=\"hljs-value\">{{left:</span> <span class=\"hljs-attribute\">50</span>, <span class=\"hljs-attribute\">right:</span> <span class=\"hljs-attribute\">50</span>, <span class=\"hljs-attribute\">top:10</span>, <span class=\"hljs-attribute\">bottom:</span> <span class=\"hljs-attribute\">30</span>}} <span class=\"hljs-attribute\">data</span>=<span class=\"hljs-value\">{data}</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">Chart</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{0}</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">XAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"bottom\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"bottom\"</span> <span class=\"hljs-attribute\">ticks</span>=<span class=\"hljs-value\">{6}</span>/&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">YAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"left\"</span> /&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataSeries</span> <span class=\"hljs-attribute\">yAccessor</span>=<span class=\"hljs-value\">{(d)</span> =&gt;</span> d.close} xAccessor={(d) =&gt; d.date}&gt;\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">AreaSeries</span> /&gt;</span>\n        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataSeries</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">Chart</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">ChartCanvas</span>&gt;</span>\n</code></pre>\n<p>Let us review each line</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">ChartCanvas</span> <span class=\"hljs-attribute\">width</span>=<span class=\"hljs-value\">{...}</span> <span class=\"hljs-attribute\">height</span>=<span class=\"hljs-value\">{...}</span> <span class=\"hljs-attribute\">margin</span>=<span class=\"hljs-value\">{{left:</span> <span class=\"hljs-attribute\">50</span>, <span class=\"hljs-attribute\">right:</span> <span class=\"hljs-attribute\">50</span>, <span class=\"hljs-attribute\">top:10</span>, <span class=\"hljs-attribute\">bottom:</span> <span class=\"hljs-attribute\">30</span>}} <span class=\"hljs-attribute\">data</span>=<span class=\"hljs-value\">{data}</span>&gt;</span>\n</code></pre>\n<p>Creates an <code>svg</code> element with the provided <code>height</code> and <code>width</code> and creates a <code>svg:g</code> element with the provided <code>margin</code>. <code>data</code> is well the data used to plot.</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">Chart</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{0}</span>&gt;</span>\n</code></pre>\n<p>There can be one or more <code>Chart</code>s in each <code>ChartCanvas</code> and hence the need for an <code>id</code> attribute.</p>\n<p>If you are not familiar with <a href=\"https://github.com/mbostock/d3/wiki/Scales\">scales</a> in d3 I recommend doing so. Each <code>Chart</code> defines an <code>xScale</code> and <code>yScale</code>. For starters, it is easier to understand scale as a function which converts a <code>domain</code> say 2011-01-01 to 2014-12-31 to a <code>range</code> say 0 to 500 pixels. This scale can now interpolate an input date to a value in pixels which can be drawn.</p>\n<p>With SVG it is important to understand the coordinate system and where the origin <code>(0, 0)</code> is located. for a SVG of size 300x100, the</p>\n<p><img src=\"http://www.w3.org/TR/SVG/images/coords/InitialCoords.png\" alt=\"alt text\" title=\"Logo Title Text 1\"></p>\n<p>For more details about the SVG coordinate system see <a href=\"http://www.w3.org/TR/SVG/coords.html\">here</a></p>\n<p>Back to scales,</p>\n<p>A time scale converts a date/time domain to a range, this is used as the xScale, the xDomain is calculated from the input data, and the range is calculated as <code>height - margin.left - margin.right</code>.</p>\n<p>A Linear scale converts a <code>domain</code> say 4600 - 6200 to a <code>range</code> say 0 to 300 pixels. Like the name represents the data in between is interpolated linear, similarly there is log scale which creates a logrithmic scale, which is not linear.</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">XAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"bottom\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"bottom\"</span> <span class=\"hljs-attribute\">ticks</span>=<span class=\"hljs-value\">{6}</span>/&gt;</span>\n</code></pre>\n<p>The <code>ticks</code> attribute simple passes on the value to the <a href=\"https://github.com/mbostock/d3/wiki/SVG-Axes#ticks\">d3.axis</a>, the <code>XAxis</code> also has the following optional attributes <code>innerTickSize, outerTickSize, tickFormat, tickPadding, tickSize, ticks, tickValues</code> all of which correspond to a function with the same name in d3.axis.</p>\n<p><code>axisAt</code> takes on possible values as <code>top, middle, bottom</code> for advanced cases, you can also pass in a number indicating the pixel position where the axis has to be drawn.</p>\n<p><code>orient</code> takes on possible values as <code>top, bottom</code>, this orients the axis ticks on the top/bottom</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">YAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"left\"</span> /&gt;</span>\n</code></pre>\n<p>Similar to <code>XAxis</code> except left/right instead of top/bottom</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataSeries</span> <span class=\"hljs-attribute\">yAccessor</span>=<span class=\"hljs-value\">{(d)</span> =&gt;</span> d.close} xAccessor={(d) =&gt; d.date}&gt;\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">AreaSeries</span> /&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataSeries</span>&gt;</span>\n</code></pre>\n<p>A <code>DataSeries</code> is a shell component intended to house the x and y Accessor. You will find in other examples below how <code>DataSeries</code> helps create a yAccessor with more than one y  value to plot for a given x, like in candlestick.</p>\n<p>If you are not clear what the arrow functions mean, read more about them <a href=\"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions\">here</a>. In short</p>\n<p><code>(d) =&gt; d.close</code> means <code>function (d) { return d.close; }</code></p>\n<p><code>(d) =&gt; d.date</code> means <code>function (d) { return d.date; }</code></p>\n<h3>Highly customizable you say, how?</h3>\n<p>So you dont want to display the <code>YAxis</code> at all, go ahead and just remove that.</p>\n<p>Want to display <code>YAxis</code> on both left and right? add</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">YAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"right\"</span> /&gt;</span>\n</code></pre>\n<p>next to the existing <code>YAxis</code></p>\n<p>Create custom components and use them, it is explained <a href=\"http://add.link.here\">here</a></p>\n<p>Want to add a <code>YAxis</code> with a percent scale on the right? add</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">YAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">percentScale</span>=<span class=\"hljs-value\">{true}</span> <span class=\"hljs-attribute\">tickFormat</span>=<span class=\"hljs-value\">{d3.format(\".0%\")}</span>/&gt;</span>\n</code></pre>\n<p>and you get.</p>\n";
 
 /***/ },
-/* 39 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1760,7 +1836,7 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 40 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1806,25 +1882,25 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 41 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = "<p>checkout the <a href=\"https://gist.github.com/rrag/b13b739458e65ff93f4a\">source</a>, <a href=\"http://bl.ocks.org/rrag/b13b739458e65ff93f4a\">block</a>, <a href=\"http://plnkr.co/edit/gist:b13b739458e65ff93f4a?p=preview\">plunker</a> of this example</p>\n<p>well, that looks ok, but something is not right. Look closer, you will find that the candles are not spread at regular intervals, there is a gap of say 2 candles every so often. That gap is because the data is plot on a continious time scale, and a continious time scale has week ends and national holidays, days when trading does not happen. Now we dont want to show non trading days on the chart. If it is an intra day chart, you want to see only 9:30 AM to 4:00 PM (or 1:00 PM if it is holiday hours)</p>\n<p>What we need here is to show time that is not continious on the x axis. Enter <strong>stocktime scale</strong> (or <strong>financetime scale</strong>).</p>\n";
 
 /***/ },
-/* 42 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = "<p>checkout the <a href=\"https://gist.github.com/rrag/1eac0cb78f27b31415ac\">source</a>, <a href=\"http://bl.ocks.org/rrag/1eac0cb78f27b31415ac\">block</a>, <a href=\"http://plnkr.co/edit/gist:1eac0cb78f27b31415ac?p=preview\">plunker</a> of this example</p>\n<p>That is better. let us see how to create it</p>\n<p><code>data.tsv</code></p>\n<table>\n<thead>\n<tr><th>date</th><th>open</th><th>high</th><th>low</th><th>close</th></tr>\n</thead>\n<tbody>\n<tr><td>2013-08-16</td><td>5705.45</td><td>5716.6</td><td>5496.05</td><td>5507.85</td></tr>\n<tr><td>2013-08-19</td><td>5497.55</td><td>5499.65</td><td>5360.65</td><td>5414.75</td></tr>\n<tr><td>2013-08-20</td><td>5353.45</td><td>5417.8</td><td>5306.35</td><td>5401.45</td></tr>\n<tr><td>…</td><td>…</td><td>…</td><td>…</td><td>…</td></tr>\n</tbody>\n</table>\n<pre><code class=\"language-js\"><span class=\"hljs-keyword\">var</span> d3 = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'d3'</span>);\n<span class=\"hljs-keyword\">var</span> parseDate = d3.time.format(<span class=\"hljs-string\">\"%Y-%m-%d\"</span>).parse;\n\nd3.tsv(<span class=\"hljs-string\">\"path/to/data.tsv\"</span>, <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span><span class=\"hljs-params\">(err, data)</span> </span>{\n    data.forEach((d, i) =&gt; {\n        d.date = <span class=\"hljs-keyword\">new</span> <span class=\"hljs-built_in\">Date</span>(parseDate(d.date).getTime());\n        d.open = +d.open;\n        d.high = +d.high;\n        d.low = +d.low;\n        d.close = +d.close;\n    });\n...\n</code></pre>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">ChartCanvas</span> <span class=\"hljs-attribute\">width</span>=<span class=\"hljs-value\">{...}</span> <span class=\"hljs-attribute\">height</span>=<span class=\"hljs-value\">{...}</span> <span class=\"hljs-attribute\">margin</span>=<span class=\"hljs-value\">{{left:</span> <span class=\"hljs-attribute\">50</span>, <span class=\"hljs-attribute\">right:</span> <span class=\"hljs-attribute\">50</span>, <span class=\"hljs-attribute\">top:10</span>, <span class=\"hljs-attribute\">bottom:</span> <span class=\"hljs-attribute\">30</span>}} <span class=\"hljs-attribute\">data</span>=<span class=\"hljs-value\">{data}</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataTransform</span> <span class=\"hljs-attribute\">transformType</span>=<span class=\"hljs-value\">\"stockscale\"</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">Chart</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{1}</span> &gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">XAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"bottom\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"bottom\"</span> <span class=\"hljs-attribute\">ticks</span>=<span class=\"hljs-value\">{5}</span>/&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">YAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">ticks</span>=<span class=\"hljs-value\">{5}</span> /&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataSeries</span> <span class=\"hljs-attribute\">yAccessor</span>=<span class=\"hljs-value\">{CandlestickSeries.yAccessor}</span> &gt;</span>\n                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CandlestickSeries</span> /&gt;</span>\n            <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataSeries</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">Chart</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataTransform</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">ChartCanvas</span>&gt;</span>\n</code></pre>\n<p>Compare this with the simpler <code>AreaChart</code> example from before</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">ChartCanvas</span> <span class=\"hljs-attribute\">width</span>=<span class=\"hljs-value\">{...}</span> <span class=\"hljs-attribute\">height</span>=<span class=\"hljs-value\">{...}</span> <span class=\"hljs-attribute\">margin</span>=<span class=\"hljs-value\">{{left:</span> <span class=\"hljs-attribute\">50</span>, <span class=\"hljs-attribute\">right:</span> <span class=\"hljs-attribute\">50</span>, <span class=\"hljs-attribute\">top:10</span>, <span class=\"hljs-attribute\">bottom:</span> <span class=\"hljs-attribute\">30</span>}} <span class=\"hljs-attribute\">data</span>=<span class=\"hljs-value\">{data}</span>&gt;</span>\n</code></pre>\n<p>It is the same as for <code>AreaChart</code></p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataTransform</span> <span class=\"hljs-attribute\">transformType</span>=<span class=\"hljs-value\">\"stockscale\"</span>&gt;</span>\n</code></pre>\n<p>Converting the data provided as input which when taken as a linear scale includes weekend time breaks, into a linear scale over the input domain. More usecases of <code>DataTransform</code> are listed below.</p>\n<p><strong>Coming Soon</strong> Create your own transforms and register them for use</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">Chart</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{1}</span> &gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">XAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"bottom\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"bottom\"</span> <span class=\"hljs-attribute\">ticks</span>=<span class=\"hljs-value\">{5}</span>/&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">YAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">ticks</span>=<span class=\"hljs-value\">{5}</span> /&gt;</span>\n</code></pre>\n<p>Same as for <code>AreaChart</code> example above</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataSeries</span> <span class=\"hljs-attribute\">yAccessor</span>=<span class=\"hljs-value\">{CandlestickSeries.yAccessor}</span> &gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CandlestickSeries</span> /&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataSeries</span>&gt;</span>\n</code></pre>\n<p>You will notice that the <code>DataSeries</code> component does not include the <code>xAccessor</code>, that is because it is defined inside the stockscale <code>DataTransform</code> which provides the <code>xAccessor</code> behind the scenes</p>\n<p><code>yAccessor={CandlestickSeries.yAccessor}</code> is just a convenience <code>yAccessor</code> available, it can also be represented as</p>\n<pre><code class=\"language-js\">yAccessor={(d) =&gt; ({open: d.open, high: d.high, low: d.low, close: d.close})}\n</code></pre>\n<p>or if arrow functions is not your thing, use</p>\n<pre><code class=\"language-js\">yAccessor={<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span> <span class=\"hljs-params\">(d)</span> </span>{ <span class=\"hljs-keyword\">return</span> {open: d.open, high: d.high, low: d.low, close: d.close}; }}\n</code></pre>\n";
 
 /***/ },
-/* 43 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = "<p>The financetime scale takes the input data and converts to linear and plots time on the axis. The outcome is quite interesting. This scale is particularly of use not just for simple time series data, but more importantly for charts which are dependent on price movement, think Point &amp; Figure, Line break, Kagi, Renko.</p>\n<p>scale provides ticks of the format</p>\n<ul>\n<li>Start of year as <code>YYYY</code> e.g. 2013</li>\n<li>Start of Quarter as <code>mmm YYYY</code> e.g. Oct 2013</li>\n<li>Start of Month <code>as mmm</code> e.g. Nov</li>\n<li>Start of Week as <code>dd mmm</code> e.g. 25 Nov</li>\n<li>day as <code>a dd</code> e.g. Wed 27</li>\n</ul>\n<p><strong>Coming Soon</strong> updated financetime scale for intra day</p>\n";
 
 /***/ },
-/* 44 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1887,7 +1963,7 @@ return webpackJsonpReStock([1,2],[
 	*/
 
 /***/ },
-/* 45 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1940,25 +2016,25 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 46 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = "<p>There are a couple of ways Volume histogram is usually displayed. Let us see them.</p>\n";
 
 /***/ },
-/* 47 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = "<p>checkout the <a href=\"https://gist.github.com/rrag/88cd65baa331d57caa83\">source</a>, <a href=\"http://bl.ocks.org/rrag/88cd65baa331d57caa83\">block</a>, <a href=\"http://plnkr.co/edit/gist:88cd65baa331d57caa83?p=preview\">plunker</a> of this example</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">ChartCanvas</span> <span class=\"hljs-attribute\">width</span>=<span class=\"hljs-value\">{this.state.width}</span> <span class=\"hljs-attribute\">height</span>=<span class=\"hljs-value\">{400}</span> <span class=\"hljs-attribute\">margin</span>=<span class=\"hljs-value\">{{left:</span> <span class=\"hljs-attribute\">50</span>, <span class=\"hljs-attribute\">right:</span> <span class=\"hljs-attribute\">50</span>, <span class=\"hljs-attribute\">top:10</span>, <span class=\"hljs-attribute\">bottom:</span> <span class=\"hljs-attribute\">30</span>}} <span class=\"hljs-attribute\">data</span>=<span class=\"hljs-value\">{data}</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataTransform</span> <span class=\"hljs-attribute\">transformType</span>=<span class=\"hljs-value\">\"stockscale\"</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">Chart</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{1}</span> &gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">XAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"bottom\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"bottom\"</span>/&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">YAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">ticks</span>=<span class=\"hljs-value\">{5}</span> /&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataSeries</span> <span class=\"hljs-attribute\">yAccessor</span>=<span class=\"hljs-value\">{CandlestickSeries.yAccessor}</span> &gt;</span>\n                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CandlestickSeries</span> /&gt;</span>\n            <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataSeries</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">Chart</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">Chart</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{2}</span>&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">YAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">ticks</span>=<span class=\"hljs-value\">{5}</span> <span class=\"hljs-attribute\">tickFormat</span>=<span class=\"hljs-value\">{d3.format(\"s\")}</span>/&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataSeries</span> <span class=\"hljs-attribute\">yAccessor</span>=<span class=\"hljs-value\">{(d)</span> =&gt;</span> d.volume} &gt;\n                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">HistogramSeries</span> /&gt;</span>\n            <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataSeries</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">Chart</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataTransform</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">ChartCanvas</span>&gt;</span>\n</code></pre>\n<p>Look!!! there is more than one <code>Chart</code> there.</p>\n<p>Each <code>Chart</code> has a pair of <code>xScale</code> and <code>yScale</code> since <code>volume</code> is on a different domain from <code>open</code>/<code>high</code>/<code>low</code>/<code>close</code>, It has to be created as a different <code>Chart</code>.</p>\n<p>To summarize, All <code>Chart</code>s use the same <code>data</code> but each <code>Chart</code> has different <code>xScale</code> and <code>yScale</code>. In this example above the <code>xScale</code> of chart 2 has the same <code>domain</code> and <code>range</code> as the <code>xScale</code> of <code>Chart</code> 1, so we did not draw the <code>XAxis</code> again for the Volume.</p>\n<h5>But… I dont want the Volume chart to span the whole chart height.</h5>\n<p>I got you covered.</p>\n";
 
 /***/ },
-/* 48 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = "<p>checkout the <a href=\"https://gist.github.com/rrag/0a54ca33b05001f17f8f\">source</a>, <a href=\"http://bl.ocks.org/rrag/0a54ca33b05001f17f8f\">block</a>, <a href=\"http://plnkr.co/edit/gist:0a54ca33b05001f17f8f?p=preview\">plunker</a> of this example</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">ChartCanvas</span> <span class=\"hljs-attribute\">width</span>=<span class=\"hljs-value\">{this.state.width}</span> <span class=\"hljs-attribute\">height</span>=<span class=\"hljs-value\">{400}</span> <span class=\"hljs-attribute\">margin</span>=<span class=\"hljs-value\">{{left:</span> <span class=\"hljs-attribute\">50</span>, <span class=\"hljs-attribute\">right:</span> <span class=\"hljs-attribute\">50</span>, <span class=\"hljs-attribute\">top:10</span>, <span class=\"hljs-attribute\">bottom:</span> <span class=\"hljs-attribute\">30</span>}} <span class=\"hljs-attribute\">data</span>=<span class=\"hljs-value\">{data}</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataTransform</span> <span class=\"hljs-attribute\">transformType</span>=<span class=\"hljs-value\">\"stockscale\"</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">Chart</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{1}</span> &gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">XAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"bottom\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"bottom\"</span>/&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">YAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">ticks</span>=<span class=\"hljs-value\">{5}</span> /&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataSeries</span> <span class=\"hljs-attribute\">yAccessor</span>=<span class=\"hljs-value\">{CandlestickSeries.yAccessor}</span> &gt;</span>\n                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CandlestickSeries</span> /&gt;</span>\n            <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataSeries</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">Chart</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">Chart</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{2}</span> <span class=\"hljs-attribute\">height</span>=<span class=\"hljs-value\">{150}</span> <span class=\"hljs-attribute\">origin</span>=<span class=\"hljs-value\">{(w,</span> <span class=\"hljs-attribute\">h</span>) =&gt;</span> [0, h - 150]}&gt;\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">YAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">ticks</span>=<span class=\"hljs-value\">{5}</span> <span class=\"hljs-attribute\">tickFormat</span>=<span class=\"hljs-value\">{d3.format(\"s\")}</span>/&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataSeries</span> <span class=\"hljs-attribute\">yAccessor</span>=<span class=\"hljs-value\">{(d)</span> =&gt;</span> d.volume} &gt;\n                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">HistogramSeries</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">{(d)</span> =&gt;</span> d.close &gt; d.open ? 'up' : 'down'} /&gt;\n            <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataSeries</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">Chart</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataTransform</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">ChartCanvas</span>&gt;</span>\n</code></pre>\n<p>The portion of interest here is</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">Chart</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{2}</span> <span class=\"hljs-attribute\">height</span>=<span class=\"hljs-value\">{150}</span> <span class=\"hljs-attribute\">origin</span>=<span class=\"hljs-value\">{(w,</span> <span class=\"hljs-attribute\">h</span>) =&gt;</span> [0, h - 150]}&gt;\n</code></pre>\n<p>the chart has a defined <code>height</code> of 150, which is good.</p>\n<p><code>origin</code> can be either a function which returns a <code>[x, y]</code> to be used as origin or it can be an array with 2 elements representing <code>[x, y]</code>. The default value for <code>origin</code> is <code>[0, 0]</code></p>\n<p><code>(w, h) =&gt; [0, h - 150]</code> is the same as <code>function (w, h) { return [0, h - 150]; }</code></p>\n<p>given the <code>width</code> and <code>height</code> available inside the <code>ChartCanvas</code> as input, this function returns an origin of <code>[0, height - 150]</code> to draw the volume histogram</p>\n<p>Similarly the <code>className</code> of <code>HistogramSeries</code> accepts either</p>\n<ul>\n<li>a function which returns a string</li>\n<li>or a string</li>\n</ul>\n<p>which is used as the css class</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">HistogramSeries</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">{(d)</span> =&gt;</span> d.close &gt; d.open ? 'up' : 'down'} /&gt;\n</code></pre>\n<p>a class of ‘up’ is applied if <code>close &gt; open</code> for that day and ‘down’ otherwise</p>\n";
 
 /***/ },
-/* 49 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2022,13 +2098,13 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 50 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = "<p>checkout the <a href=\"https://gist.github.com/rrag/261fa4bc7b67536eb789\">source</a>, <a href=\"http://bl.ocks.org/rrag/261fa4bc7b67536eb789\">block</a>, <a href=\"http://plnkr.co/edit/gist:261fa4bc7b67536eb789?p=preview\">plunker</a> of this example</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">ChartCanvas</span> <span class=\"hljs-attribute\">width</span>=<span class=\"hljs-value\">{this.state.width}</span> <span class=\"hljs-attribute\">height</span>=<span class=\"hljs-value\">{400}</span> <span class=\"hljs-attribute\">margin</span>=<span class=\"hljs-value\">{{left:</span> <span class=\"hljs-attribute\">40</span>, <span class=\"hljs-attribute\">right:</span> <span class=\"hljs-attribute\">70</span>, <span class=\"hljs-attribute\">top:10</span>, <span class=\"hljs-attribute\">bottom:</span> <span class=\"hljs-attribute\">30</span>}} <span class=\"hljs-attribute\">data</span>=<span class=\"hljs-value\">{data}</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataTransform</span> <span class=\"hljs-attribute\">transformType</span>=<span class=\"hljs-value\">\"stockscale\"</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">Chart</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{1}</span> &gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">XAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"bottom\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"bottom\"</span>/&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">YAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">ticks</span>=<span class=\"hljs-value\">{5}</span> /&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataSeries</span> <span class=\"hljs-attribute\">yAccessor</span>=<span class=\"hljs-value\">{CandlestickSeries.yAccessor}</span> &gt;</span>\n                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CandlestickSeries</span> /&gt;</span>\n            <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataSeries</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">Chart</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">Chart</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{2}</span> <span class=\"hljs-attribute\">height</span>=<span class=\"hljs-value\">{150}</span> <span class=\"hljs-attribute\">origin</span>=<span class=\"hljs-value\">{(w,</span> <span class=\"hljs-attribute\">h</span>) =&gt;</span> [0, h - 150]}&gt;\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">YAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">ticks</span>=<span class=\"hljs-value\">{5}</span> <span class=\"hljs-attribute\">tickFormat</span>=<span class=\"hljs-value\">{d3.format(\"s\")}</span>/&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataSeries</span> <span class=\"hljs-attribute\">yAccessor</span>=<span class=\"hljs-value\">{(d)</span> =&gt;</span> d.volume} &gt;\n                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">HistogramSeries</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">{(d)</span> =&gt;</span> d.close &gt; d.open ? 'up' : 'down'} /&gt;\n            <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataSeries</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">Chart</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">MouseCoordinates</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">xDisplayFormat</span>=<span class=\"hljs-value\">{d3.time.format(\"%Y-%m-%d\")}</span> <span class=\"hljs-attribute\">yDisplayFormat</span>=<span class=\"hljs-value\">{(y)</span> =&gt;</span> y.toFixed(2)}&gt;\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CrossHair</span> /&gt;</span>\n        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">MouseCoordinates</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EventCapture</span> <span class=\"hljs-attribute\">mouseMove</span>=<span class=\"hljs-value\">{true}</span> <span class=\"hljs-attribute\">mainChart</span>=<span class=\"hljs-value\">{1}</span>/&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">TooltipContainer</span>&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OHLCTooltip</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">origin</span>=<span class=\"hljs-value\">{[-40,</span> <span class=\"hljs-attribute\">0</span>]}/&gt;</span>\n        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">TooltipContainer</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataTransform</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">ChartCanvas</span>&gt;</span>\n</code></pre>\n<p><code>EventCapture</code> is used to capture mousemove, scroll/zoom and drag events</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EventCapture</span> <span class=\"hljs-attribute\">mouseMove</span>=<span class=\"hljs-value\">{true}</span> <span class=\"hljs-attribute\">mainChart</span>=<span class=\"hljs-value\">{1}</span>/&gt;</span>\n</code></pre>\n<p>By default none of the events are captured, and each has to be enabled individually <code>mouseMove</code> is enabled above. <code>mainChart</code> as the name describes is used to refer to the <code>Chart</code> from which the <code>xScale</code> and <code>yScale</code> are used to determine the nearest value to the mouse position.</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">MouseCoordinates</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">xDisplayFormat</span>=<span class=\"hljs-value\">{d3.time.format(\"%Y-%m-%d\")}</span> <span class=\"hljs-attribute\">yDisplayFormat</span>=<span class=\"hljs-value\">{(y)</span> =&gt;</span> y.toFixed(2)}&gt;\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CrossHair</span> /&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">MouseCoordinates</span>&gt;</span>\n</code></pre>\n<p>Displays the crosshair at the mouse position, the attributes of <code>MouseCoordinates</code> are self explanatory. You can swap out with <code>CrossHair</code> with <code>VerticalMousePointer</code> if crosshair is not your thing.</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">TooltipContainer</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OHLCTooltip</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">origin</span>=<span class=\"hljs-value\">{[-40,</span> <span class=\"hljs-attribute\">0</span>]}/&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">TooltipContainer</span>&gt;</span>\n</code></pre>\n<p>Displays the tooltip on the top left, use the <code>origin</code> and <code>margin</code> of <code>ChartCanvas</code> to adjust the position of the tooltip. You can also create your custom tooltip, by swapping out <code>OHLCTooltip</code> with your own</p>\n";
 
 /***/ },
-/* 51 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2094,13 +2170,13 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 52 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = "<p>The only change is enabling <code>zoom</code> and <code>pan</code></p>\n<p>checkout the <a href=\"https://gist.github.com/rrag/a8465abe0061df1b7976\">source</a>, <a href=\"http://bl.ocks.org/rrag/a8465abe0061df1b7976\">block</a>, <a href=\"http://plnkr.co/edit/gist:a8465abe0061df1b7976?p=preview\">plunker</a> of this example</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EventCapture</span> <span class=\"hljs-attribute\">mouseMove</span>=<span class=\"hljs-value\">{true}</span> <span class=\"hljs-attribute\">zoom</span>=<span class=\"hljs-value\">{true}</span> <span class=\"hljs-attribute\">pan</span>=<span class=\"hljs-value\">{true}</span> <span class=\"hljs-attribute\">mainChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">defaultFocus</span>=<span class=\"hljs-value\">{false}</span> /&gt;</span>\n</code></pre>\n<p>other than enabling <code>zoom</code> and <code>pan</code>, <code>defaultFocus</code> of <code>true</code> means mouse scroll over the chart, triggers zoom action if zoom is enabled. If <code>defaultFocus</code> is <code>false</code>, you have to click on the chart to get focus and then all scroll events are zoom events if <code>zoom</code> is enabled</p>\n<p>You could set the focus programatically by adding a ref to the <code>EventCapture</code></p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EventCapture</span> <span class=\"hljs-attribute\">ref</span>=<span class=\"hljs-value\">\"eventCapture\"</span> <span class=\"hljs-attribute\">mouseMove</span>=<span class=\"hljs-value\">{true}</span> <span class=\"hljs-attribute\">zoom</span>=<span class=\"hljs-value\">{true}</span> <span class=\"hljs-attribute\">pan</span>=<span class=\"hljs-value\">{true}</span> <span class=\"hljs-attribute\">mainChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">defaultFocus</span>=<span class=\"hljs-value\">{false}</span> /&gt;</span>\n</code></pre>\n<pre><code class=\"language-js\"><span class=\"hljs-keyword\">this</span>.refs.eventCapture.toggleFocus(); <span class=\"hljs-comment\">// to toggle focus so scroll events over the chart will either simulate zoom or perform the default action</span>\n\n<span class=\"hljs-keyword\">this</span>.refs.eventCapture.setFocus(<span class=\"hljs-literal\">false</span>); <span class=\"hljs-comment\">// set the focus </span>\n</code></pre>\n";
 
 /***/ },
-/* 53 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2189,16 +2265,10 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 54 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = "<p>checkout the <a href=\"https://gist.github.com/rrag/a27298bb7ae613d48ba2\">source</a>, <a href=\"http://bl.ocks.org/rrag/a27298bb7ae613d48ba2\">block</a>, <a href=\"http://plnkr.co/edit/gist:a27298bb7ae613d48ba2?p=preview\">plunker</a> of this example</p>\n<p><code>Overlay</code>s share the scales of a <code>Chart</code> and contribute to the <code>domain</code> of the <code>Chart</code> they belong to.</p>\n<p>In this chart we are introducing</p>\n<ul>\n<li>Moving average on daily <code>close</code> as a <code>LineSeries</code></li>\n<li>Moving average on daily <code>volume</code> as an <code>AreaSeries</code></li>\n<li>Current item indicator as a circle over the different moving averages</li>\n<li>Moving average tooltip</li>\n</ul>\n<p>Let us review each of these in a little more detail</p>\n<h4>Moving average on daily <code>close</code> as a <code>LineSeries</code></h4>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataSeries</span> <span class=\"hljs-attribute\">yAccessor</span>=<span class=\"hljs-value\">{CandlestickSeries.yAccessor}</span> &gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CandlestickSeries</span> /&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OverlaySeries</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{0}</span> <span class=\"hljs-attribute\">type</span>=<span class=\"hljs-value\">\"sma\"</span> <span class=\"hljs-attribute\">options</span>=<span class=\"hljs-value\">{{</span> <span class=\"hljs-attribute\">period:</span> <span class=\"hljs-attribute\">20</span>, <span class=\"hljs-attribute\">pluck:</span> '<span class=\"hljs-attribute\">close</span>' }}&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">LineSeries</span>/&gt;</span>\n    <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">OverlaySeries</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OverlaySeries</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">type</span>=<span class=\"hljs-value\">\"sma\"</span> <span class=\"hljs-attribute\">options</span>=<span class=\"hljs-value\">{{</span> <span class=\"hljs-attribute\">period:</span> <span class=\"hljs-attribute\">30</span> }} &gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">LineSeries</span>/&gt;</span>\n    <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">OverlaySeries</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OverlaySeries</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{2}</span> <span class=\"hljs-attribute\">type</span>=<span class=\"hljs-value\">\"sma\"</span> <span class=\"hljs-attribute\">options</span>=<span class=\"hljs-value\">{{</span> <span class=\"hljs-attribute\">period:</span> <span class=\"hljs-attribute\">50</span> }} &gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">LineSeries</span>/&gt;</span>\n    <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">OverlaySeries</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataSeries</span>&gt;</span>\n</code></pre>\n<p><code>type</code> indicates it is a simple moving average, <code>options</code> used to specify the moving average <code>period</code>, and <code>pluck</code> to specify attribute against which moving average is to be calculated. If not specified, <code>pluck</code> defaults to <code>close</code></p>\n<h4>Moving average on daily <code>volume</code> as an <code>AreaSeries</code></h4>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataSeries</span> <span class=\"hljs-attribute\">yAccessor</span>=<span class=\"hljs-value\">{(d)</span> =&gt;</span> d.volume} &gt;\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">HistogramSeries</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">{(d)</span> =&gt;</span> d.close &gt; d.open ? 'up' : 'down'} /&gt;\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OverlaySeries</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{3}</span> <span class=\"hljs-attribute\">type</span>=<span class=\"hljs-value\">\"sma\"</span> <span class=\"hljs-attribute\">options</span>=<span class=\"hljs-value\">{{</span> <span class=\"hljs-attribute\">period:</span> <span class=\"hljs-attribute\">10</span>, <span class=\"hljs-attribute\">pluck:</span>'<span class=\"hljs-attribute\">volume</span>' }} &gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">AreaSeries</span>/&gt;</span>\n    <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">OverlaySeries</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataSeries</span>&gt;</span>\n</code></pre>\n<p>Similar to above</p>\n<h4>Current item indicator as a circle over the different moving averages</h4>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CurrentCoordinate</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{0}</span> /&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CurrentCoordinate</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{1}</span> /&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CurrentCoordinate</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{2}</span> /&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CurrentCoordinate</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{2}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{3}</span> /&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CurrentCoordinate</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{2}</span>/&gt;</span>\n</code></pre>\n<p>That was easy, right?</p>\n<p><code>forOverlay</code> is an optional attribute, and absense of that will default the <code>CurrentCoordinate</code> to display a circle on the main series. This only makes sense if the main series plots a single value on y. For <code>CandlestickSeries</code> as it plots 4 attributes, <code>CurrentCoordinate</code> is not valid for <code>CandlestickSeries</code></p>\n<h4>Moving average tooltip</h4>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">TooltipContainer</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OHLCTooltip</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">origin</span>=<span class=\"hljs-value\">{[-40,</span> <span class=\"hljs-attribute\">0</span>]}/&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">MovingAverageTooltip</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">onClick</span>=<span class=\"hljs-value\">{(e)</span> =&gt;</span> console.log(e)} origin={[-38, 15]}/&gt;\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">TooltipContainer</span>&gt;</span>\n</code></pre>\n<p>Open the dev console and see what is logged on click of the moving average tooltip</p>\n<p>adding it all together</p>\n<pre><code class=\"language-jsx\"><span class=\"xml\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">ChartCanvas</span> <span class=\"hljs-attribute\">width</span>=<span class=\"hljs-value\">{this.state.width}</span> <span class=\"hljs-attribute\">height</span>=<span class=\"hljs-value\">{400}</span> <span class=\"hljs-attribute\">margin</span>=</span></span><span class=\"hljs-expression\">{{<span class=\"hljs-variable\">left</span>: 40, <span class=\"hljs-variable\">right</span>: 70, <span class=\"hljs-variable\">top</span>:10, <span class=\"hljs-variable\">bottom</span>: 30}}</span><span class=\"xml\"><span class=\"hljs-tag\"> <span class=\"hljs-attribute\">data</span>=<span class=\"hljs-value\">{data}</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataTransform</span> <span class=\"hljs-attribute\">transformType</span>=<span class=\"hljs-value\">\"stockscale\"</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">Chart</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{1}</span> &gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">XAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"bottom\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"bottom\"</span>/&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">YAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">ticks</span>=<span class=\"hljs-value\">{5}</span> /&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataSeries</span> <span class=\"hljs-attribute\">yAccessor</span>=<span class=\"hljs-value\">{CandlestickSeries.yAccessor}</span> &gt;</span>\n                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CandlestickSeries</span> /&gt;</span>\n                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OverlaySeries</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{0}</span> <span class=\"hljs-attribute\">type</span>=<span class=\"hljs-value\">\"sma\"</span> <span class=\"hljs-attribute\">options</span>=</span></span><span class=\"hljs-expression\">{{ <span class=\"hljs-variable\">period</span>: 20, <span class=\"hljs-variable\">pluck</span>: '<span class=\"hljs-variable\">close</span>' }}</span><span class=\"xml\"><span class=\"hljs-tag\">&gt;</span>\n                    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">LineSeries</span>/&gt;</span>\n                <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">OverlaySeries</span>&gt;</span>\n                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OverlaySeries</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">type</span>=<span class=\"hljs-value\">\"sma\"</span> <span class=\"hljs-attribute\">options</span>=</span></span><span class=\"hljs-expression\">{{ <span class=\"hljs-variable\">period</span>: 30 }}</span><span class=\"xml\"><span class=\"hljs-tag\"> &gt;</span>\n                    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">LineSeries</span>/&gt;</span>\n                <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">OverlaySeries</span>&gt;</span>\n                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OverlaySeries</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{2}</span> <span class=\"hljs-attribute\">type</span>=<span class=\"hljs-value\">\"sma\"</span> <span class=\"hljs-attribute\">options</span>=</span></span><span class=\"hljs-expression\">{{ <span class=\"hljs-variable\">period</span>: 50 }}</span><span class=\"xml\"><span class=\"hljs-tag\"> &gt;</span>\n                    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">LineSeries</span>/&gt;</span>\n                <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">OverlaySeries</span>&gt;</span>\n            <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataSeries</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">Chart</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CurrentCoordinate</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{0}</span> /&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CurrentCoordinate</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{1}</span> /&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CurrentCoordinate</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{2}</span> /&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">Chart</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{2}</span> <span class=\"hljs-attribute\">height</span>=<span class=\"hljs-value\">{150}</span> <span class=\"hljs-attribute\">origin</span>=<span class=\"hljs-value\">{(w,</span> <span class=\"hljs-attribute\">h</span>) =&gt;</span> [0, h - 150]}&gt;\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">YAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">ticks</span>=<span class=\"hljs-value\">{5}</span> <span class=\"hljs-attribute\">tickFormat</span>=<span class=\"hljs-value\">{d3.format(\"s\")}</span>/&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataSeries</span> <span class=\"hljs-attribute\">yAccessor</span>=<span class=\"hljs-value\">{(d)</span> =&gt;</span> d.volume} &gt;\n                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">HistogramSeries</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">{(d)</span> =&gt;</span> d.close &gt; d.open ? 'up' : 'down'} /&gt;\n                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OverlaySeries</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{3}</span> <span class=\"hljs-attribute\">type</span>=<span class=\"hljs-value\">\"sma\"</span> <span class=\"hljs-attribute\">options</span>=</span></span><span class=\"hljs-expression\">{{ <span class=\"hljs-variable\">period</span>: 10, <span class=\"hljs-variable\">pluck</span>:'<span class=\"hljs-variable\">volume</span>' }}</span><span class=\"xml\"><span class=\"hljs-tag\"> &gt;</span>\n                    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">AreaSeries</span>/&gt;</span>\n                <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">OverlaySeries</span>&gt;</span>\n            <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataSeries</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">Chart</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CurrentCoordinate</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{2}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{3}</span> /&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CurrentCoordinate</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{2}</span>/&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">MouseCoordinates</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">xDisplayFormat</span>=<span class=\"hljs-value\">{dateFormat}</span> <span class=\"hljs-attribute\">yDisplayFormat</span>=<span class=\"hljs-value\">{(y)</span> =&gt;</span> y.toFixed(2)}&gt;\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CrossHair</span> /&gt;</span>\n        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">MouseCoordinates</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EventCapture</span> <span class=\"hljs-attribute\">mouseMove</span>=<span class=\"hljs-value\">{true}</span> <span class=\"hljs-attribute\">zoom</span>=<span class=\"hljs-value\">{true}</span> <span class=\"hljs-attribute\">pan</span>=<span class=\"hljs-value\">{true}</span> <span class=\"hljs-attribute\">mainChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">defaultFocus</span>=<span class=\"hljs-value\">{false}</span> /&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">TooltipContainer</span>&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OHLCTooltip</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">origin</span>=<span class=\"hljs-value\">{[-40,</span> <span class=\"hljs-attribute\">0</span>]}/&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">MovingAverageTooltip</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">onClick</span>=<span class=\"hljs-value\">{(e)</span> =&gt;</span> console.log(e)} origin={[-38, 15]}/&gt;\n        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">TooltipContainer</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataTransform</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">ChartCanvas</span>&gt;</span>\n</span></code></pre>\n";
-
-/***/ },
 /* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "<p>checkout the <a href=\"https://gist.github.com/rrag/70ea3fe28ad35bf3ed4c\">source</a>, <a href=\"http://bl.ocks.org/rrag/70ea3fe28ad35bf3ed4c\">block</a>, <a href=\"http://plnkr.co/edit/gist:70ea3fe28ad35bf3ed4c?p=preview\">plunker</a> of this example</p>\n<p><code>EdgeIndicator</code>s are inside the <code>EdgeContainer</code> and can be of type <code>first</code> or <code>last</code>, can be located <code>left</code> or <code>right</code> and orient <code>left</code> or <code>right</code>. Below you see edges <code>first</code> and <code>last</code> for all the overlays and also for the <code>volume</code> histogram.</p>\n<p>The edge values are updated on zoom and pan too</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EdgeContainer</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EdgeIndicator</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">\"horizontal\"</span> <span class=\"hljs-attribute\">itemType</span>=<span class=\"hljs-value\">\"last\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"right\"</span>\n        <span class=\"hljs-attribute\">edgeAt</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{0}</span> /&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EdgeIndicator</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">\"horizontal\"</span> <span class=\"hljs-attribute\">itemType</span>=<span class=\"hljs-value\">\"last\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"right\"</span>\n        <span class=\"hljs-attribute\">edgeAt</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{1}</span> /&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EdgeIndicator</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">\"horizontal\"</span> <span class=\"hljs-attribute\">itemType</span>=<span class=\"hljs-value\">\"last\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"right\"</span>\n        <span class=\"hljs-attribute\">edgeAt</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{2}</span> /&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EdgeIndicator</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">\"horizontal\"</span> <span class=\"hljs-attribute\">itemType</span>=<span class=\"hljs-value\">\"first\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"left\"</span>\n        <span class=\"hljs-attribute\">edgeAt</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{0}</span> /&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EdgeIndicator</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">\"horizontal\"</span> <span class=\"hljs-attribute\">itemType</span>=<span class=\"hljs-value\">\"first\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"left\"</span>\n        <span class=\"hljs-attribute\">edgeAt</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{1}</span> /&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EdgeIndicator</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">\"horizontal\"</span> <span class=\"hljs-attribute\">itemType</span>=<span class=\"hljs-value\">\"first\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"left\"</span>\n        <span class=\"hljs-attribute\">edgeAt</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{2}</span> /&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EdgeIndicator</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">\"horizontal\"</span> <span class=\"hljs-attribute\">itemType</span>=<span class=\"hljs-value\">\"first\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"left\"</span>\n        <span class=\"hljs-attribute\">edgeAt</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{2}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{3}</span> <span class=\"hljs-attribute\">displayFormat</span>=<span class=\"hljs-value\">{d3.format(\".4s\")}</span> /&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EdgeIndicator</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">\"horizontal\"</span> <span class=\"hljs-attribute\">itemType</span>=<span class=\"hljs-value\">\"last\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"right\"</span>\n        <span class=\"hljs-attribute\">edgeAt</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{2}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{3}</span> <span class=\"hljs-attribute\">displayFormat</span>=<span class=\"hljs-value\">{d3.format(\".4s\")}</span> /&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EdgeIndicator</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">\"horizontal\"</span> <span class=\"hljs-attribute\">itemType</span>=<span class=\"hljs-value\">\"first\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"left\"</span>\n        <span class=\"hljs-attribute\">edgeAt</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{2}</span> <span class=\"hljs-attribute\">displayFormat</span>=<span class=\"hljs-value\">{d3.format(\".4s\")}</span> /&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EdgeIndicator</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">\"horizontal\"</span> <span class=\"hljs-attribute\">itemType</span>=<span class=\"hljs-value\">\"last\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"right\"</span>\n        <span class=\"hljs-attribute\">edgeAt</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{2}</span> <span class=\"hljs-attribute\">displayFormat</span>=<span class=\"hljs-value\">{d3.format(\".4s\")}</span> /&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">EdgeContainer</span>&gt;</span>\n</code></pre>\n";
+	module.exports = "<p>checkout the <a href=\"https://gist.github.com/rrag/a27298bb7ae613d48ba2\">source</a>, <a href=\"http://bl.ocks.org/rrag/a27298bb7ae613d48ba2\">block</a>, <a href=\"http://plnkr.co/edit/gist:a27298bb7ae613d48ba2?p=preview\">plunker</a> of this example</p>\n<p><code>Overlay</code>s share the scales of a <code>Chart</code> and contribute to the <code>domain</code> of the <code>Chart</code> they belong to.</p>\n<p>In this chart we are introducing</p>\n<ul>\n<li>Moving average on daily <code>close</code> as a <code>LineSeries</code></li>\n<li>Moving average on daily <code>volume</code> as an <code>AreaSeries</code></li>\n<li>Current item indicator as a circle over the different moving averages</li>\n<li>Moving average tooltip</li>\n</ul>\n<p>Let us review each of these in a little more detail</p>\n<h4>Moving average on daily <code>close</code> as a <code>LineSeries</code></h4>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataSeries</span> <span class=\"hljs-attribute\">yAccessor</span>=<span class=\"hljs-value\">{CandlestickSeries.yAccessor}</span> &gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CandlestickSeries</span> /&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OverlaySeries</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{0}</span> <span class=\"hljs-attribute\">type</span>=<span class=\"hljs-value\">\"sma\"</span> <span class=\"hljs-attribute\">options</span>=<span class=\"hljs-value\">{{</span> <span class=\"hljs-attribute\">period:</span> <span class=\"hljs-attribute\">20</span>, <span class=\"hljs-attribute\">pluck:</span> '<span class=\"hljs-attribute\">close</span>' }}&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">LineSeries</span>/&gt;</span>\n    <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">OverlaySeries</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OverlaySeries</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">type</span>=<span class=\"hljs-value\">\"sma\"</span> <span class=\"hljs-attribute\">options</span>=<span class=\"hljs-value\">{{</span> <span class=\"hljs-attribute\">period:</span> <span class=\"hljs-attribute\">30</span> }} &gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">LineSeries</span>/&gt;</span>\n    <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">OverlaySeries</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OverlaySeries</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{2}</span> <span class=\"hljs-attribute\">type</span>=<span class=\"hljs-value\">\"sma\"</span> <span class=\"hljs-attribute\">options</span>=<span class=\"hljs-value\">{{</span> <span class=\"hljs-attribute\">period:</span> <span class=\"hljs-attribute\">50</span> }} &gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">LineSeries</span>/&gt;</span>\n    <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">OverlaySeries</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataSeries</span>&gt;</span>\n</code></pre>\n<p><code>type</code> indicates it is a simple moving average, <code>options</code> used to specify the moving average <code>period</code>, and <code>pluck</code> to specify attribute against which moving average is to be calculated. If not specified, <code>pluck</code> defaults to <code>close</code></p>\n<h4>Moving average on daily <code>volume</code> as an <code>AreaSeries</code></h4>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataSeries</span> <span class=\"hljs-attribute\">yAccessor</span>=<span class=\"hljs-value\">{(d)</span> =&gt;</span> d.volume} &gt;\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">HistogramSeries</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">{(d)</span> =&gt;</span> d.close &gt; d.open ? 'up' : 'down'} /&gt;\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OverlaySeries</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{3}</span> <span class=\"hljs-attribute\">type</span>=<span class=\"hljs-value\">\"sma\"</span> <span class=\"hljs-attribute\">options</span>=<span class=\"hljs-value\">{{</span> <span class=\"hljs-attribute\">period:</span> <span class=\"hljs-attribute\">10</span>, <span class=\"hljs-attribute\">pluck:</span>'<span class=\"hljs-attribute\">volume</span>' }} &gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">AreaSeries</span>/&gt;</span>\n    <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">OverlaySeries</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataSeries</span>&gt;</span>\n</code></pre>\n<p>Similar to above</p>\n<h4>Current item indicator as a circle over the different moving averages</h4>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CurrentCoordinate</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{0}</span> /&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CurrentCoordinate</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{1}</span> /&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CurrentCoordinate</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{2}</span> /&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CurrentCoordinate</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{2}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{3}</span> /&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CurrentCoordinate</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{2}</span>/&gt;</span>\n</code></pre>\n<p>That was easy, right?</p>\n<p><code>forOverlay</code> is an optional attribute, and absense of that will default the <code>CurrentCoordinate</code> to display a circle on the main series. This only makes sense if the main series plots a single value on y. For <code>CandlestickSeries</code> as it plots 4 attributes, <code>CurrentCoordinate</code> is not valid for <code>CandlestickSeries</code></p>\n<h4>Moving average tooltip</h4>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">TooltipContainer</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OHLCTooltip</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">origin</span>=<span class=\"hljs-value\">{[-40,</span> <span class=\"hljs-attribute\">0</span>]}/&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">MovingAverageTooltip</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">onClick</span>=<span class=\"hljs-value\">{(e)</span> =&gt;</span> console.log(e)} origin={[-38, 15]}/&gt;\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">TooltipContainer</span>&gt;</span>\n</code></pre>\n<p>Open the dev console and see what is logged on click of the moving average tooltip</p>\n<p>adding it all together</p>\n<pre><code class=\"language-jsx\"><span class=\"xml\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">ChartCanvas</span> <span class=\"hljs-attribute\">width</span>=<span class=\"hljs-value\">{this.state.width}</span> <span class=\"hljs-attribute\">height</span>=<span class=\"hljs-value\">{400}</span> <span class=\"hljs-attribute\">margin</span>=</span></span><span class=\"hljs-expression\">{{<span class=\"hljs-variable\">left</span>: 40, <span class=\"hljs-variable\">right</span>: 70, <span class=\"hljs-variable\">top</span>:10, <span class=\"hljs-variable\">bottom</span>: 30}}</span><span class=\"xml\"><span class=\"hljs-tag\"> <span class=\"hljs-attribute\">data</span>=<span class=\"hljs-value\">{data}</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataTransform</span> <span class=\"hljs-attribute\">transformType</span>=<span class=\"hljs-value\">\"stockscale\"</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">Chart</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{1}</span> &gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">XAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"bottom\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"bottom\"</span>/&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">YAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">ticks</span>=<span class=\"hljs-value\">{5}</span> /&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataSeries</span> <span class=\"hljs-attribute\">yAccessor</span>=<span class=\"hljs-value\">{CandlestickSeries.yAccessor}</span> &gt;</span>\n                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CandlestickSeries</span> /&gt;</span>\n                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OverlaySeries</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{0}</span> <span class=\"hljs-attribute\">type</span>=<span class=\"hljs-value\">\"sma\"</span> <span class=\"hljs-attribute\">options</span>=</span></span><span class=\"hljs-expression\">{{ <span class=\"hljs-variable\">period</span>: 20, <span class=\"hljs-variable\">pluck</span>: '<span class=\"hljs-variable\">close</span>' }}</span><span class=\"xml\"><span class=\"hljs-tag\">&gt;</span>\n                    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">LineSeries</span>/&gt;</span>\n                <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">OverlaySeries</span>&gt;</span>\n                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OverlaySeries</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">type</span>=<span class=\"hljs-value\">\"sma\"</span> <span class=\"hljs-attribute\">options</span>=</span></span><span class=\"hljs-expression\">{{ <span class=\"hljs-variable\">period</span>: 30 }}</span><span class=\"xml\"><span class=\"hljs-tag\"> &gt;</span>\n                    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">LineSeries</span>/&gt;</span>\n                <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">OverlaySeries</span>&gt;</span>\n                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OverlaySeries</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{2}</span> <span class=\"hljs-attribute\">type</span>=<span class=\"hljs-value\">\"sma\"</span> <span class=\"hljs-attribute\">options</span>=</span></span><span class=\"hljs-expression\">{{ <span class=\"hljs-variable\">period</span>: 50 }}</span><span class=\"xml\"><span class=\"hljs-tag\"> &gt;</span>\n                    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">LineSeries</span>/&gt;</span>\n                <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">OverlaySeries</span>&gt;</span>\n            <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataSeries</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">Chart</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CurrentCoordinate</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{0}</span> /&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CurrentCoordinate</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{1}</span> /&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CurrentCoordinate</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{2}</span> /&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">Chart</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{2}</span> <span class=\"hljs-attribute\">height</span>=<span class=\"hljs-value\">{150}</span> <span class=\"hljs-attribute\">origin</span>=<span class=\"hljs-value\">{(w,</span> <span class=\"hljs-attribute\">h</span>) =&gt;</span> [0, h - 150]}&gt;\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">YAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">ticks</span>=<span class=\"hljs-value\">{5}</span> <span class=\"hljs-attribute\">tickFormat</span>=<span class=\"hljs-value\">{d3.format(\"s\")}</span>/&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataSeries</span> <span class=\"hljs-attribute\">yAccessor</span>=<span class=\"hljs-value\">{(d)</span> =&gt;</span> d.volume} &gt;\n                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">HistogramSeries</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">{(d)</span> =&gt;</span> d.close &gt; d.open ? 'up' : 'down'} /&gt;\n                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OverlaySeries</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{3}</span> <span class=\"hljs-attribute\">type</span>=<span class=\"hljs-value\">\"sma\"</span> <span class=\"hljs-attribute\">options</span>=</span></span><span class=\"hljs-expression\">{{ <span class=\"hljs-variable\">period</span>: 10, <span class=\"hljs-variable\">pluck</span>:'<span class=\"hljs-variable\">volume</span>' }}</span><span class=\"xml\"><span class=\"hljs-tag\"> &gt;</span>\n                    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">AreaSeries</span>/&gt;</span>\n                <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">OverlaySeries</span>&gt;</span>\n            <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataSeries</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">Chart</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CurrentCoordinate</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{2}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{3}</span> /&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CurrentCoordinate</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{2}</span>/&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">MouseCoordinates</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">xDisplayFormat</span>=<span class=\"hljs-value\">{dateFormat}</span> <span class=\"hljs-attribute\">yDisplayFormat</span>=<span class=\"hljs-value\">{(y)</span> =&gt;</span> y.toFixed(2)}&gt;\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CrossHair</span> /&gt;</span>\n        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">MouseCoordinates</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EventCapture</span> <span class=\"hljs-attribute\">mouseMove</span>=<span class=\"hljs-value\">{true}</span> <span class=\"hljs-attribute\">zoom</span>=<span class=\"hljs-value\">{true}</span> <span class=\"hljs-attribute\">pan</span>=<span class=\"hljs-value\">{true}</span> <span class=\"hljs-attribute\">mainChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">defaultFocus</span>=<span class=\"hljs-value\">{false}</span> /&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">TooltipContainer</span>&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OHLCTooltip</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">origin</span>=<span class=\"hljs-value\">{[-40,</span> <span class=\"hljs-attribute\">0</span>]}/&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">MovingAverageTooltip</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">onClick</span>=<span class=\"hljs-value\">{(e)</span> =&gt;</span> console.log(e)} origin={[-38, 15]}/&gt;\n        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">TooltipContainer</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataTransform</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">ChartCanvas</span>&gt;</span>\n</span></code></pre>\n";
 
 /***/ },
 /* 56 */
@@ -2323,6 +2393,12 @@ return webpackJsonpReStock([1,2],[
 /* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
+	module.exports = "<p>Also known as &quot;average bar&quot;, used to identify trends and filter out noise. Learn more about how to construct one <a href=\"http://stockcharts.com/school/doku.php?id=chart_school:chart_analysis:heikin_ashi\">here</a> and <a href=\"http://www.investopedia.com/articles/technical/04/092204.asp\">here</a></p>\n<p>checkout the <a href=\"https://gist.github.com/rrag/51379c24e9751d46dcea\">source</a>, <a href=\"http://bl.ocks.org/rrag/51379c24e9751d46dcea\">block</a>, <a href=\"http://plnkr.co/edit/gist:51379c24e9751d46dcea?p=preview\">plunker</a> of this example</p>\n";
+
+/***/ },
+/* 59 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 	
 	var React = __webpack_require__(2);
@@ -2397,86 +2473,10 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 59 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = "<p>Advanced chart type plots price action. Notice that the x axis is not linear.</p>\n<p>Learn more about it <a href=\"http://stockcharts.com/school/doku.php?id=chart_school:chart_analysis:kagi\">here</a></p>\n<p>Kagi consists of <em>Yin</em> and <em>Yang</em>, which is represented as red and green respectively. An overly simple rule is buy on Yang and sell on Yin.</p>\n<p>ATR(14) is used as the default reversal amount.</p>\n<p>checkout the <a href=\"https://gist.github.com/rrag/d1e5b75ac12f754bb21d\">source</a>, <a href=\"http://bl.ocks.org/rrag/d1e5b75ac12f754bb21d\">block</a>, <a href=\"http://plnkr.co/edit/gist:d1e5b75ac12f754bb21d?p=preview\">plunker</a> of this example</p>\n";
-
-/***/ },
 /* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	
-	var React = __webpack_require__(2);
-	var d3 = __webpack_require__(3);
-	
-	var ReStock = __webpack_require__(67);
-	
-	var ChartCanvas = ReStock.ChartCanvas
-		, XAxis = ReStock.XAxis
-		, YAxis = ReStock.YAxis
-		, PointAndFigureSeries = ReStock.PointAndFigureSeries
-		, DataTransform = ReStock.DataTransform
-		, Chart = ReStock.Chart
-		, DataSeries = ReStock.DataSeries
-		, ChartWidthMixin = ReStock.helper.ChartWidthMixin
-		, HistogramSeries = ReStock.HistogramSeries
-		, EventCapture = ReStock.EventCapture
-		, MouseCoordinates = ReStock.MouseCoordinates
-		, CrossHair = ReStock.CrossHair
-		, TooltipContainer = ReStock.TooltipContainer
-		, OHLCTooltip = ReStock.OHLCTooltip
-		, OverlaySeries = ReStock.OverlaySeries
-		, LineSeries = ReStock.LineSeries
-		, MovingAverageTooltip = ReStock.MovingAverageTooltip
-		, CurrentCoordinate = ReStock.CurrentCoordinate
-		, AreaSeries = ReStock.AreaSeries
-		, EdgeContainer = ReStock.EdgeContainer
-		, EdgeIndicator = ReStock.EdgeIndicator
-	;
-	var PointAndFigure = React.createClass({displayName: "PointAndFigure",
-		mixins: [ChartWidthMixin],
-		render:function() {
-			if (this.state === null || !this.state.width) return React.createElement("div", null);
-	
-			var dateFormat = d3.time.format("%Y-%m-%d");
-	
-			return (
-				React.createElement(ChartCanvas, {width: this.state.width, height: 400, 
-					margin: {left: 90, right: 70, top:10, bottom: 30}, data: this.props.data, interval: "D", initialDisplay: 30}, 
-					React.createElement(DataTransform, {transformType: "stockscale"}, 
-					React.createElement(DataTransform, {transformType: "pointandfigure", options: { boxSize: 0.5}}, 
-						React.createElement(Chart, {id: 1}, 
-							React.createElement(XAxis, {axisAt: "bottom", orient: "bottom"}), 
-							React.createElement(YAxis, {axisAt: "right", orient: "right", ticks: 5}), 
-							React.createElement(DataSeries, {yAccessor: PointAndFigureSeries.yAccessor}, 
-								React.createElement(PointAndFigureSeries, null)
-							)
-						), 
-						React.createElement(Chart, {id: 2, height: 150, origin: function(w, h)  {return [0, h - 150];}}, 
-							React.createElement(YAxis, {axisAt: "left", orient: "left", ticks: 5, tickFormat: d3.format("s")}), 
-							React.createElement(DataSeries, {yAccessor: function(d)  {return d.volume;}}, 
-								React.createElement(HistogramSeries, {className: function(d)  {return d.close > d.open ? 'up' : 'down';}}), 
-								React.createElement(OverlaySeries, {id: 3, type: "sma", options: { period: 10, pluck:'volume'}}, 
-									React.createElement(AreaSeries, null)
-								)
-							)
-						), 
-						React.createElement(MouseCoordinates, {forChart: 1, xDisplayFormat: dateFormat, yDisplayFormat: function(y)  {return y.toFixed(2);}, type: "crosshair"}), 
-						React.createElement(EventCapture, {mouseMove: true, zoom: true, pan: true, mainChart: 1, defaultFocus: false}), 
-						React.createElement(TooltipContainer, null, 
-							React.createElement(OHLCTooltip, {forChart: 1, origin: [-50, 0]})
-						)
-					)
-					)
-				)
-			);
-		}
-	});
-	
-	module.exports = PointAndFigure;
-
+	module.exports = "<p>Advanced chart type plots price action. Notice that the x axis is not linear.</p>\n<p>Learn more about it <a href=\"http://stockcharts.com/school/doku.php?id=chart_school:chart_analysis:kagi\">here</a></p>\n<p>Kagi consists of <em>Yin</em> and <em>Yang</em>, which is represented as red and green respectively. An overly simple rule is buy on Yang and sell on Yin.</p>\n<p>ATR(14) is used as the default reversal amount.</p>\n<p>checkout the <a href=\"https://gist.github.com/rrag/d1e5b75ac12f754bb21d\">source</a>, <a href=\"http://bl.ocks.org/rrag/d1e5b75ac12f754bb21d\">block</a>, <a href=\"http://plnkr.co/edit/gist:d1e5b75ac12f754bb21d?p=preview\">plunker</a> of this example</p>\n";
 
 /***/ },
 /* 61 */
@@ -2569,12 +2569,6 @@ return webpackJsonpReStock([1,2],[
 
 /***/ },
 /* 64 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = "<h4>Overlays</h4>\n<ul>\n<li>Exponential Moving Average (EMA) - v0.2</li>\n<li>Bolinger Bands - v0.2</li>\n<li>Compare with another stock - v0.1</li>\n</ul>\n<h4>Indicators</h4>\n<ul>\n<li>Moving Average Convergence Divergence (MACD) - v0.1</li>\n<li>Relative Strength Index (RSI) - v0.2</li>\n<li>Stochastics - v0.2</li>\n</ul>\n<h4>Chart types</h4>\n<ul>\n<li><del>Heikin Ashi - v0.1</del></li>\n<li><del>Kagi - v0.1</del></li>\n<li><del>Point and Figure - v0.1</del></li>\n<li><del>Renko - v0.1</del></li>\n<li>Better Renko/Mean Renko - v0.2</li>\n<li>Line break - v0.2</li>\n<li>Volume Profile - v0.3</li>\n</ul>\n<h4>Chart features</h4>\n<ul>\n<li><del>Change interval on zoom out/zoom in - v0.1</del></li>\n<li>Add custom data transforms - v0.3</li>\n</ul>\n<h4>More examples</h4>\n<ul>\n<li><del>gists, fiddle and <a href=\"http://bl.ocks.org/\">blocks</a> for each chart type - v0.1</del></li>\n</ul>\n<h4>Open issues</h4>\n<ul>\n<li><del>Window Resize after zoom/pan messes up the chart</del></li>\n<li><del>zoom out changes the interval, but zoom in does not change</del></li>\n<li><del>Refactor pan and zoom</del></li>\n<li>Add tests and coverage</li>\n</ul>\n<h4>Dependencies</h4>\n<ul>\n<li>Experiment with React 0.13 instead of React 0.14 - v0.1</li>\n<li>Remove Freezer-js dependency - v0.1</li>\n</ul>\n";
-
-/***/ },
-/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -2799,6 +2793,12 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
+/* 65 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = "<h4>Overlays</h4>\n<ul>\n<li>Exponential Moving Average (EMA) - v0.2</li>\n<li>Bolinger Bands - v0.2</li>\n<li>Compare with another stock - v0.1</li>\n</ul>\n<h4>Indicators</h4>\n<ul>\n<li>Moving Average Convergence Divergence (MACD) - v0.1</li>\n<li>Relative Strength Index (RSI) - v0.2</li>\n<li>Stochastics - v0.2</li>\n</ul>\n<h4>Chart types</h4>\n<ul>\n<li><del>Heikin Ashi - v0.1</del></li>\n<li><del>Kagi - v0.1</del></li>\n<li><del>Point and Figure - v0.1</del></li>\n<li><del>Renko - v0.1</del></li>\n<li>Better Renko/Mean Renko - v0.2</li>\n<li>Line break - v0.2</li>\n<li>Volume Profile - v0.3</li>\n</ul>\n<h4>Chart features</h4>\n<ul>\n<li><del>Change interval on zoom out/zoom in - v0.1</del></li>\n<li>Add custom data transforms - v0.3</li>\n</ul>\n<h4>More examples</h4>\n<ul>\n<li><del>gists, fiddle and <a href=\"http://bl.ocks.org/\">blocks</a> for each chart type - v0.1</del></li>\n</ul>\n<h4>Open issues</h4>\n<ul>\n<li><del>Window Resize after zoom/pan messes up the chart</del></li>\n<li><del>zoom out changes the interval, but zoom in does not change</del></li>\n<li><del>Refactor pan and zoom</del></li>\n</ul>\n<h4>Tasks</h4>\n<ul>\n<li>Use ES6 Classes\n<ul>\n<li>Do not use EventCaptureMixin, ChartContainerMixin</li>\n<li>Update examples to not use ChartWidthMixin</li>\n</ul></li>\n<li>Add tests and coverage</li>\n<li>Publish to npm - v0.1-alpha</li>\n<li>configure options for advanced chart types</li>\n</ul>\n<h4>Dependencies</h4>\n<ul>\n<li><del>Experiment with React 0.13 instead of React 0.14 - v0.1</del></li>\n<li><del>Remove Freezer-js dependency - v0.1</del></li>\n</ul>\n";
+
+/***/ },
 /* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -2954,29 +2954,29 @@ return webpackJsonpReStock([1,2],[
 	'use strict';
 	
 	// common components
-	exports.ChartCanvas = __webpack_require__(86);
-	exports.DataTransform = __webpack_require__(69);
+	exports.ChartCanvas = __webpack_require__(69);
+	exports.DataTransform = __webpack_require__(70);
 	
-	exports.XAxis = __webpack_require__(70);
-	exports.YAxis = __webpack_require__(71);
-	exports.Chart = __webpack_require__(72);
-	exports.DataSeries = __webpack_require__(75);
+	exports.XAxis = __webpack_require__(71);
+	exports.YAxis = __webpack_require__(72);
+	exports.Chart = __webpack_require__(73);
+	exports.DataSeries = __webpack_require__(74);
 	
 	// chart types & Series
-	exports.AreaSeries = __webpack_require__(73);
-	exports.LineSeries = __webpack_require__(74);
-	exports.CandlestickSeries = __webpack_require__(76);
-	exports.OverlaySeries = __webpack_require__(79);
-	exports.HistogramSeries = __webpack_require__(77);
-	exports.KagiSeries = __webpack_require__(78);
-	exports.PointAndFigureSeries = __webpack_require__(80);
-	exports.RenkoSeries = __webpack_require__(81);
+	exports.AreaSeries = __webpack_require__(75);
+	exports.LineSeries = __webpack_require__(76);
+	exports.CandlestickSeries = __webpack_require__(77);
+	exports.OverlaySeries = __webpack_require__(78);
+	exports.HistogramSeries = __webpack_require__(79);
+	exports.KagiSeries = __webpack_require__(80);
+	exports.PointAndFigureSeries = __webpack_require__(81);
+	exports.RenkoSeries = __webpack_require__(82);
 	
 	// interaction components
-	exports.EventCapture = __webpack_require__(82);
-	exports.MouseCoordinates = __webpack_require__(83);
-	exports.CrossHair = __webpack_require__(84);
-	exports.VerticalMousePointer = __webpack_require__(85);
+	exports.EventCapture = __webpack_require__(83);
+	exports.MouseCoordinates = __webpack_require__(84);
+	exports.CrossHair = __webpack_require__(85);
+	exports.VerticalMousePointer = __webpack_require__(86);
 	exports.CurrentCoordinate = __webpack_require__(87);
 	
 	// Tooltips
@@ -3054,45 +3054,129 @@ return webpackJsonpReStock([1,2],[
 
 	'use strict';
 	var React = __webpack_require__(2);
-	var EventCaptureMixin = __webpack_require__(96);
-	var ChartContainerMixin = __webpack_require__(97);
-	var DataTransformMixin = __webpack_require__(98);
-	var ChartTransformer = __webpack_require__(95);
-	var Dummy = __webpack_require__(99);
-	var Utils = __webpack_require__(100);
+	var ChartDataUtil = __webpack_require__(95);
 	
-	var polyLinearTimeScale = __webpack_require__(101);
+	var Canvas = __webpack_require__(96);
+	var Utils = __webpack_require__(97);
 	
-	var doNotPassThrough = ['transformType', 'options', 'children', 'namespace'];
-	
-	var DataTransform = React.createClass({displayName: "DataTransform",
-		mixins: [/* DataTransformMixin, */ChartContainerMixin, EventCaptureMixin],
-		propTypes: {
-			transformType: React.PropTypes.string.isRequired, // stockscale, none
-			options: React.PropTypes.object
-		},
-		contextTypes: {
-			width: React.PropTypes.number.isRequired,
-			height: React.PropTypes.number.isRequired,
-			data: React.PropTypes.object.isRequired,
-			dataTransformOptions: React.PropTypes.object,
-			dataTransformProps: React.PropTypes.object,
-			interval: React.PropTypes.string.isRequired,
-			initialDisplay: React.PropTypes.number.isRequired,
-		},
-		getInitialState:function() {
+	var ____ClassQ=React.Component;for(var ____ClassQ____Key in ____ClassQ){if(____ClassQ.hasOwnProperty(____ClassQ____Key)){ChartCanvas[____ClassQ____Key]=____ClassQ[____ClassQ____Key];}}var ____SuperProtoOf____ClassQ=____ClassQ===null?null:____ClassQ.prototype;ChartCanvas.prototype=Object.create(____SuperProtoOf____ClassQ);ChartCanvas.prototype.constructor=ChartCanvas;ChartCanvas.__superConstructor__=____ClassQ;function ChartCanvas(){if(____ClassQ!==null){____ClassQ.apply(this,arguments);}}
+		Object.defineProperty(ChartCanvas.prototype,"getAvailableHeight",{writable:true,configurable:true,value:function(props) {
+			return props.height - props.margin.top - props.margin.bottom;
+		}});
+		Object.defineProperty(ChartCanvas.prototype,"getAvailableWidth",{writable:true,configurable:true,value:function(props) {
+			return props.width - props.margin.left - props.margin.right;
+		}});
+		Object.defineProperty(ChartCanvas.prototype,"getChildContext",{writable:true,configurable:true,value:function() {
 			return {
-				panInProgress: false,
-				focus: false
-			};
-		},
-		getDefaultProps:function() {
-			return {
-				namespace: "ReStock.DataTransform",
-				transformType: "none"
-			};
-		},
-		transformData:function(props, context) {
+				width: this.getAvailableWidth(this.props),
+				height: this.getAvailableHeight(this.props),
+				data: this.state.data,
+				interval: this.props.interval,
+				initialDisplay: this.props.initialDisplay || this.state.plotData.length,
+				plotData: this.state.plotData,
+				chartData: this.state.chartData,
+			}
+		}});
+		Object.defineProperty(ChartCanvas.prototype,"componentWillMount",{writable:true,configurable:true,value:function() {
+			var $__0=     this,props=$__0.props,context=$__0.context;
+	
+			var data = {};
+			data[this.props.interval] = this.props.data;
+	
+			var state = {
+				data: data,
+				plotData: this.props.data
+			}
+			if (ChartDataUtil.containsChart(props)) {
+				var defaultOptions = {
+					width: this.getAvailableWidth(props),
+					height: this.getAvailableHeight(props),
+				}
+				var plotData = props.data;
+				var chartData = ChartDataUtil.getChartData(props, context, plotData, data, defaultOptions);
+				// console.log(chartData);
+				var mainChart = ChartDataUtil.getMainChart(props.children);
+	
+				state.chartData = chartData;
+				state.plotData = plotData;
+			}
+			this.setState(state);
+		}});
+		Object.defineProperty(ChartCanvas.prototype,"getCanvas",{writable:true,configurable:true,value:function() {
+			return this.refs.canvas.getCanvas();
+		}});
+		Object.defineProperty(ChartCanvas.prototype,"render",{writable:true,configurable:true,value:function() {
+			var w = this.getAvailableWidth(this.props), h = this.getAvailableHeight(this.props);
+			var children = React.Children.map(this.props.children, function(child)  {
+				var newChild = Utils.isReactVersion13()
+					? React.withContext(this.getChildContext(), function()  {
+						return React.createElement(child.type, Utils.mergeObject({ key: child.key, ref: child.ref}, child.props));
+					})
+					: React.cloneElement(child);
+				return newChild;
+			}.bind(this));
+			return (
+				React.createElement("div", {style: {position: 'relative'}}, 
+					React.createElement("svg", {width: this.props.width, height: this.props.height}, 
+						React.createElement("defs", null, 
+							React.createElement("clipPath", {id: "chart-area-clip"}, 
+								React.createElement("rect", {x: "0", y: "0", width: w, height: h})
+							)
+						), 
+						React.createElement("g", {transform: ("translate(" + this.props.margin.left + ", " + this.props.margin.top + ")")}, 
+							children
+						)
+					)
+				)
+			);
+		}});
+	;
+	
+	ChartCanvas.propTypes = {
+		width: React.PropTypes.number.isRequired,
+		height: React.PropTypes.number.isRequired,
+		margin: React.PropTypes.object,
+		interval: React.PropTypes.oneOf(['D']).isRequired, //,'m1', 'm5', 'm15', 'W', 'M'
+		data: React.PropTypes.array.isRequired,
+		initialDisplay: React.PropTypes.number,
+	}
+	ChartCanvas.childContextTypes = {
+		width: React.PropTypes.number.isRequired,
+		height: React.PropTypes.number.isRequired,
+		data: React.PropTypes.object.isRequired,
+		interval: React.PropTypes.string.isRequired,
+		initialDisplay: React.PropTypes.number.isRequired,
+		plotData: React.PropTypes.array,
+		// canvas: React.PropTypes.any,
+	
+		chartData: React.PropTypes.array,
+	}
+	ChartCanvas.defaultProps = {
+		margin: {top: 20, right: 30, bottom: 30, left: 80},
+		interval: "D",
+	}
+	
+	
+	module.exports = ChartCanvas;
+	
+	/*
+					<Canvas ref="canvas" width={w} height={h} left={this.props.margin.left} top={this.props.margin.top} />
+	*/
+
+
+/***/ },
+/* 70 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(2);
+	var ChartDataUtil = __webpack_require__(95);
+	var ChartTransformer = __webpack_require__(98);
+	var EventHandler = __webpack_require__(99);
+	var Utils = __webpack_require__(97);
+	
+	var ____ClassS=React.Component;for(var ____ClassS____Key in ____ClassS){if(____ClassS.hasOwnProperty(____ClassS____Key)){DataTransform[____ClassS____Key]=____ClassS[____ClassS____Key];}}var ____SuperProtoOf____ClassS=____ClassS===null?null:____ClassS.prototype;DataTransform.prototype=Object.create(____SuperProtoOf____ClassS);DataTransform.prototype.constructor=DataTransform;DataTransform.__superConstructor__=____ClassS;function DataTransform(){if(____ClassS!==null){____ClassS.apply(this,arguments);}}
+		Object.defineProperty(DataTransform.prototype,"transformData",{writable:true,configurable:true,value:function(props, context) {
 			var transformer = ChartTransformer.getTransformerFor(props.transformType);
 	
 			if (context.dataTransformOptions || props.options) {
@@ -3103,92 +3187,37 @@ return webpackJsonpReStock([1,2],[
 					Object.keys(props.options).forEach(function(key)  {return options[key] = props.options[key];});
 			}
 	
-			// console.log(options);
 			var passThroughProps = transformer(context.data, context.interval, options, context.dataTransformProps)
-			// console.log('passThroughProps-------', passThroughProps);
-	
-			// this.setState({ passThroughProps: passThroughProps });
 			return passThroughProps;
-		},
-		componentWillMount:function() {
+		}});
+		Object.defineProperty(DataTransform.prototype,"componentWillMount",{writable:true,configurable:true,value:function() {
 			var $__0=     this,props=$__0.props,context=$__0.context;
 			var passThroughProps = this.transformData(props, context);
-			var state = {
+			this.setState({
 				data: passThroughProps.data,
 				dataTransformOptions: passThroughProps.options,
 				dataTransformProps: passThroughProps.other,
 				interval: context.interval
-			}
-			if (this.containsChart(props)) {
-				var data = passThroughProps.data[context.interval];
-				var beginIndex = Math.max(data.length - context.initialDisplay, 0);
-				var plotData = data.slice(beginIndex);
-				var chartData = this.getChartData(props, context, plotData, passThroughProps.data, passThroughProps.other);
-				var mainChart = this.getMainChart(props.children);
-	
-				state.chartData = chartData;
-				state.plotData = plotData;
-				state.currentItems = [];
-				state.show = false;
-				state.mouseXY = [0, 0];
-				state.mainChart = mainChart;
-			}
-			this.setState(state);
-		},
-		componentWillReceiveProps:function(props, context) {
+			});
+		}});
+		Object.defineProperty(DataTransform.prototype,"componentWillReceiveProps",{writable:true,configurable:true,value:function(props, context) {
 			var passThroughProps = this.transformData(props, context);
-			var state = {
+			this.setState({
 				data: passThroughProps.data,
 				dataTransformOptions: passThroughProps.options,
 				dataTransformProps: passThroughProps.other,
 				interval: context.interval
-			}
-			if (this.containsChart(props)) {
-				var $__0=      this.state,interval=$__0.interval,chartData=$__0.chartData,plotData=$__0.plotData
-	
-				var data = passThroughProps.data[interval];
-				var mainChart = this.getMainChart(props.children);
-				var mainChartData = chartData.filter(function(each)  {return each.id === mainChart;})[0];
-				var beginIndex = Utils.getClosestItemIndexes(data, mainChartData.config.accessors.xAccessor(plotData[0]), mainChartData.config.accessors.xAccessor).left;
-				var endIndex = Utils.getClosestItemIndexes(data, mainChartData.config.accessors.xAccessor(plotData[plotData.length - 1]), mainChartData.config.accessors.xAccessor).right;
-	
-				var plotData = data.slice(beginIndex, endIndex);
-				var chartData = this.getChartData(props, context, plotData, passThroughProps.data, passThroughProps.other);
-	
-				state.chartData = chartData;
-				state.plotData = plotData;
-				state.currentItems = [];
-				state.show = false;
-				state.mouseXY = [0, 0];
-				state.mainChart = mainChart;
-			}
-			this.setState(state);
-		},
-		childContextTypes: {
-			data: React.PropTypes.object,
-			dataTransformOptions: React.PropTypes.object,
-			dataTransformProps: React.PropTypes.object,
-			plotData: React.PropTypes.array,
-			chartData: React.PropTypes.array,
-			currentItems: React.PropTypes.array,
-			show: React.PropTypes.bool,
-			mouseXY: React.PropTypes.array,
-			interval: React.PropTypes.string,
-		},
-		getChildContext:function() {
+			});
+		}});
+		Object.defineProperty(DataTransform.prototype,"getChildContext",{writable:true,configurable:true,value:function() {
 			return {
 				data: this.state.data,
 				dataTransformOptions: this.state.dataTransformOptions,
 				dataTransformProps: this.state.dataTransformProps,
-				plotData: this.state.plotData,
-				chartData: this.state.chartData,
-				currentItems: this.state.currentItems,
-				show: this.state.show,
-				mouseXY: this.state.mouseXY,
 				interval: this.state.interval,
 			}
-		},
-		render:function() {
+		}});
+		Object.defineProperty(DataTransform.prototype,"render",{writable:true,configurable:true,value:function() {
 			var children = React.Children.map(this.props.children, function(child)  {
 				var newChild = Utils.isReactVersion13()
 					? React.withContext(this.getChildContext(), function()  {
@@ -3197,35 +3226,50 @@ return webpackJsonpReStock([1,2],[
 					: React.cloneElement(child);
 				return newChild;
 			}.bind(this));
-			return (
-				React.createElement("g", null, children)
-			);
-		}/*
-		render() {
-			// console.log('DataTransform.render()');
-			// console.error('foobar');
-			var children = React.Children.map(this.props.children, (child) => React.cloneElement(child));
-			// var children = this.props.children;
-			return (
-				<Dummy contextProps={this.getCh22ildContext()} render={() => <g>{children}</g>} />
-			);
-		}*/
-	});
+			return (ChartDataUtil.containsChart(this.props))
+				? React.createElement(EventHandler, null, children)
+				: React.createElement("g", null, children);
+		}});
+	;
+	
+	DataTransform.propTypes = {
+		transformType: React.PropTypes.string.isRequired, // stockscale, none
+		options: React.PropTypes.object
+	}
+	DataTransform.contextTypes = {
+		width: React.PropTypes.number.isRequired,
+		height: React.PropTypes.number.isRequired,
+		data: React.PropTypes.object.isRequired,
+		dataTransformOptions: React.PropTypes.object,
+		dataTransformProps: React.PropTypes.object,
+		interval: React.PropTypes.string.isRequired,
+		initialDisplay: React.PropTypes.number.isRequired,
+	}
+	DataTransform.childContextTypes = {
+		data: React.PropTypes.object,
+		dataTransformOptions: React.PropTypes.object,
+		dataTransformProps: React.PropTypes.object,
+		interval: React.PropTypes.string,
+	}
+	DataTransform.defaultProps = {
+		namespace: "ReStock.DataTransform",
+		transformType: "none"
+	}
 	
 	module.exports = DataTransform;
 
 
 /***/ },
-/* 70 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(2),
 		d3 = __webpack_require__(3);
 	
-	var ____ClassC=React.Component;for(var ____ClassC____Key in ____ClassC){if(____ClassC.hasOwnProperty(____ClassC____Key)){XAxis[____ClassC____Key]=____ClassC[____ClassC____Key];}}var ____SuperProtoOf____ClassC=____ClassC===null?null:____ClassC.prototype;XAxis.prototype=Object.create(____SuperProtoOf____ClassC);XAxis.prototype.constructor=XAxis;XAxis.__superConstructor__=____ClassC;
+	var ____ClassR=React.Component;for(var ____ClassR____Key in ____ClassR){if(____ClassR.hasOwnProperty(____ClassR____Key)){XAxis[____ClassR____Key]=____ClassR[____ClassR____Key];}}var ____SuperProtoOf____ClassR=____ClassR===null?null:____ClassR.prototype;XAxis.prototype=Object.create(____SuperProtoOf____ClassR);XAxis.prototype.constructor=XAxis;XAxis.__superConstructor__=____ClassR;
 		function XAxis(props) {
-			____ClassC.call(this,props);
+			____ClassR.call(this,props);
 			this.updateAxis = this.updateAxis.bind(this);
 		}
 		Object.defineProperty(XAxis.prototype,"componentDidMount",{writable:true,configurable:true,value:function() {
@@ -3295,16 +3339,16 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 71 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(2)
 		, d3 = __webpack_require__(3);
 	
-	var ____ClassD=React.Component;for(var ____ClassD____Key in ____ClassD){if(____ClassD.hasOwnProperty(____ClassD____Key)){YAxis[____ClassD____Key]=____ClassD[____ClassD____Key];}}var ____SuperProtoOf____ClassD=____ClassD===null?null:____ClassD.prototype;YAxis.prototype=Object.create(____SuperProtoOf____ClassD);YAxis.prototype.constructor=YAxis;YAxis.__superConstructor__=____ClassD;
+	var ____ClassT=React.Component;for(var ____ClassT____Key in ____ClassT){if(____ClassT.hasOwnProperty(____ClassT____Key)){YAxis[____ClassT____Key]=____ClassT[____ClassT____Key];}}var ____SuperProtoOf____ClassT=____ClassT===null?null:____ClassT.prototype;YAxis.prototype=Object.create(____SuperProtoOf____ClassT);YAxis.prototype.constructor=YAxis;YAxis.__superConstructor__=____ClassT;
 		function YAxis(props) {
-			____ClassD.call(this,props);
+			____ClassT.call(this,props);
 			this.updateAxis = this.updateAxis.bind(this);
 		}
 		Object.defineProperty(YAxis.prototype,"componentDidMount",{writable:true,configurable:true,value:function() {
@@ -3375,15 +3419,15 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 72 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(2),
-		PureComponent = __webpack_require__(102);
+		PureComponent = __webpack_require__(100);
 	
-	var Utils = __webpack_require__(100);
+	var Utils = __webpack_require__(97);
 	
 	for(var PureComponent____Key in PureComponent){if(PureComponent.hasOwnProperty(PureComponent____Key)){Chart[PureComponent____Key]=PureComponent[PureComponent____Key];}}var ____SuperProtoOfPureComponent=PureComponent===null?null:PureComponent.prototype;Chart.prototype=Object.create(____SuperProtoOfPureComponent);Chart.prototype.constructor=Chart;Chart.__superConstructor__=PureComponent;function Chart(){if(PureComponent!==null){PureComponent.apply(this,arguments);}}
 		Object.defineProperty(Chart.prototype,"getChildContext",{writable:true,configurable:true,value:function() {
@@ -3443,23 +3487,55 @@ return webpackJsonpReStock([1,2],[
 		yAccessor: React.PropTypes.func.isRequired,
 		overlays: React.PropTypes.array.isRequired,
 	};
-	
-	
 	module.exports = Chart;
 
 
 /***/ },
-/* 73 */
+/* 74 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(2);
+	var Utils = __webpack_require__(97);
+	
+	var ____ClassU=React.Component;for(var ____ClassU____Key in ____ClassU){if(____ClassU.hasOwnProperty(____ClassU____Key)){DataSeries[____ClassU____Key]=____ClassU[____ClassU____Key];}}var ____SuperProtoOf____ClassU=____ClassU===null?null:____ClassU.prototype;DataSeries.prototype=Object.create(____SuperProtoOf____ClassU);DataSeries.prototype.constructor=DataSeries;DataSeries.__superConstructor__=____ClassU;function DataSeries(){if(____ClassU!==null){____ClassU.apply(this,arguments);}}
+		Object.defineProperty(DataSeries.prototype,"render",{writable:true,configurable:true,value:function() {
+			var children = React.Children.map(this.props.children, function(child)  {
+				var newChild = Utils.isReactVersion13()
+					? React.withContext(this.context, function()  {
+						return React.createElement(child.type, Utils.mergeObject({ key: child.key, ref: child.ref}, child.props));
+					})
+					: React.cloneElement(child);
+				return newChild;
+			}.bind(this));
+			return (
+				React.createElement("g", {style: { "clipPath": "url(#chart-area-clip)"}}, children)
+			);
+		}});
+	;
+	
+	DataSeries.propTypes = {
+		xAccessor: React.PropTypes.func,
+		yAccessor: React.PropTypes.func.isRequired,
+	}
+	
+	DataSeries.defaultProps = { namespace: "ReStock.DataSeries" };
+	
+	module.exports = DataSeries;
+
+
+/***/ },
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(2),
 		d3 = __webpack_require__(3);
 	
-	// var AreaSeries = React.createClass({
-	var ____ClassE=React.Component;for(var ____ClassE____Key in ____ClassE){if(____ClassE.hasOwnProperty(____ClassE____Key)){AreaSeries[____ClassE____Key]=____ClassE[____ClassE____Key];}}var ____SuperProtoOf____ClassE=____ClassE===null?null:____ClassE.prototype;AreaSeries.prototype=Object.create(____SuperProtoOf____ClassE);AreaSeries.prototype.constructor=AreaSeries;AreaSeries.__superConstructor__=____ClassE;
+	var ____ClassV=React.Component;for(var ____ClassV____Key in ____ClassV){if(____ClassV.hasOwnProperty(____ClassV____Key)){AreaSeries[____ClassV____Key]=____ClassV[____ClassV____Key];}}var ____SuperProtoOf____ClassV=____ClassV===null?null:____ClassV.prototype;AreaSeries.prototype=Object.create(____SuperProtoOf____ClassV);AreaSeries.prototype.constructor=AreaSeries;AreaSeries.__superConstructor__=____ClassV;
 		function AreaSeries(props) {
-			____ClassE.call(this,props);
+			____ClassV.call(this,props);
 			this.getPath = this.getPath.bind(this);
 			this.getArea = this.getArea.bind(this);
 		}
@@ -3504,16 +3580,16 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 74 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(2),
 		d3 = __webpack_require__(3);
 	
-	var ____ClassF=React.Component;for(var ____ClassF____Key in ____ClassF){if(____ClassF.hasOwnProperty(____ClassF____Key)){LineSeries[____ClassF____Key]=____ClassF[____ClassF____Key];}}var ____SuperProtoOf____ClassF=____ClassF===null?null:____ClassF.prototype;LineSeries.prototype=Object.create(____SuperProtoOf____ClassF);LineSeries.prototype.constructor=LineSeries;LineSeries.__superConstructor__=____ClassF;
+	var ____ClassW=React.Component;for(var ____ClassW____Key in ____ClassW){if(____ClassW.hasOwnProperty(____ClassW____Key)){LineSeries[____ClassW____Key]=____ClassW[____ClassW____Key];}}var ____SuperProtoOf____ClassW=____ClassW===null?null:____ClassW.prototype;LineSeries.prototype=Object.create(____SuperProtoOf____ClassW);LineSeries.prototype.constructor=LineSeries;LineSeries.__superConstructor__=____ClassW;
 		function LineSeries(props) {
-			____ClassF.call(this,props);
+			____ClassW.call(this,props);
 			this.getPath = this.getPath.bind(this);
 		}
 		Object.defineProperty(LineSeries.prototype,"getPath",{writable:true,configurable:true,value:function() {
@@ -3552,51 +3628,16 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 75 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(2);
-	var Utils = __webpack_require__(100);
-	
-	var ____ClassG=React.Component;for(var ____ClassG____Key in ____ClassG){if(____ClassG.hasOwnProperty(____ClassG____Key)){DataSeries[____ClassG____Key]=____ClassG[____ClassG____Key];}}var ____SuperProtoOf____ClassG=____ClassG===null?null:____ClassG.prototype;DataSeries.prototype=Object.create(____SuperProtoOf____ClassG);DataSeries.prototype.constructor=DataSeries;DataSeries.__superConstructor__=____ClassG;function DataSeries(){if(____ClassG!==null){____ClassG.apply(this,arguments);}}
-		Object.defineProperty(DataSeries.prototype,"render",{writable:true,configurable:true,value:function() {
-			var children = React.Children.map(this.props.children, function(child)  {
-				var newChild = Utils.isReactVersion13()
-					? React.withContext(this.context, function()  {
-						return React.createElement(child.type, Utils.mergeObject({ key: child.key, ref: child.ref}, child.props));
-					})
-					: React.cloneElement(child);
-				return newChild;
-			}.bind(this));
-			return (
-				React.createElement("g", {style: { "clipPath": "url(#chart-area-clip)"}}, children)
-			);
-		}});
-	;
-	
-	DataSeries.propTypes = {
-		xAccessor: React.PropTypes.func,
-		yAccessor: React.PropTypes.func.isRequired,
-	}
-	
-	DataSeries.defaultProps = { namespace: "ReStock.DataSeries" };
-	
-	module.exports = DataSeries;
-
-
-/***/ },
-/* 76 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(2),
 		d3 = __webpack_require__(3);
 	
-	var ____ClassH=React.Component;for(var ____ClassH____Key in ____ClassH){if(____ClassH.hasOwnProperty(____ClassH____Key)){CandlestickSeries[____ClassH____Key]=____ClassH[____ClassH____Key];}}var ____SuperProtoOf____ClassH=____ClassH===null?null:____ClassH.prototype;CandlestickSeries.prototype=Object.create(____SuperProtoOf____ClassH);CandlestickSeries.prototype.constructor=CandlestickSeries;CandlestickSeries.__superConstructor__=____ClassH;
+	var ____ClassX=React.Component;for(var ____ClassX____Key in ____ClassX){if(____ClassX.hasOwnProperty(____ClassX____Key)){CandlestickSeries[____ClassX____Key]=____ClassX[____ClassX____Key];}}var ____SuperProtoOf____ClassX=____ClassX===null?null:____ClassX.prototype;CandlestickSeries.prototype=Object.create(____SuperProtoOf____ClassX);CandlestickSeries.prototype.constructor=CandlestickSeries;CandlestickSeries.__superConstructor__=____ClassX;
 		function CandlestickSeries(props) {
-			____ClassH.call(this,props);
+			____ClassX.call(this,props);
 			this.getWicks = this.getWicks.bind(this);
 			this.getCandles = this.getCandles.bind(this);
 		}
@@ -3681,16 +3722,68 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 77 */
+/* 78 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(2);
+	var Utils = __webpack_require__(97);
+	
+	var ____ClassY=React.Component;for(var ____ClassY____Key in ____ClassY){if(____ClassY.hasOwnProperty(____ClassY____Key)){OverlaySeries[____ClassY____Key]=____ClassY[____ClassY____Key];}}var ____SuperProtoOf____ClassY=____ClassY===null?null:____ClassY.prototype;OverlaySeries.prototype=Object.create(____SuperProtoOf____ClassY);OverlaySeries.prototype.constructor=OverlaySeries;OverlaySeries.__superConstructor__=____ClassY;function OverlaySeries(){if(____ClassY!==null){____ClassY.apply(this,arguments);}}
+	
+		Object.defineProperty(OverlaySeries.prototype,"getChildContext",{writable:true,configurable:true,value:function() {
+			var overlay = this.context.overlays.filter(function(each)  {return each.id === this.props.id;}.bind(this))[0];
+			return {
+				yAccessor: overlay.yAccessor,
+				stroke: overlay.stroke
+			};
+		}});
+		Object.defineProperty(OverlaySeries.prototype,"render",{writable:true,configurable:true,value:function() {
+			var children = React.Children.map(this.props.children, function(child)  {
+				var newChild = Utils.isReactVersion13()
+					? React.withContext(this.getChildContext(), function()  {
+						return React.createElement(child.type, Utils.mergeObject({ key: child.key, ref: child.ref}, child.props));
+					})
+					: React.cloneElement(child);
+				return newChild;
+			}.bind(this));
+			return (
+				React.createElement("g", null, children)
+			);
+		}});
+	;
+	
+	OverlaySeries.propTypes = {
+		type: React.PropTypes.oneOf(['sma', 'ema']),
+		options: React.PropTypes.object.isRequired,
+		id: React.PropTypes.number.isRequired,
+		stroke: React.PropTypes.string
+	};
+	OverlaySeries.defaultProps = {
+		namespace: "ReStock.OverlaySeries"
+	};
+	OverlaySeries.contextTypes = {
+		overlays: React.PropTypes.array.isRequired,
+	};
+	OverlaySeries.childContextTypes = {
+		yAccessor: React.PropTypes.func.isRequired,
+		stroke: React.PropTypes.string.isRequired,
+	};
+	module.exports = OverlaySeries;
+
+
+/***/ },
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(2),
 		d3 = __webpack_require__(3);
 	
-	var ____ClassI=React.Component;for(var ____ClassI____Key in ____ClassI){if(____ClassI.hasOwnProperty(____ClassI____Key)){HistogramSeries[____ClassI____Key]=____ClassI[____ClassI____Key];}}var ____SuperProtoOf____ClassI=____ClassI===null?null:____ClassI.prototype;HistogramSeries.prototype=Object.create(____SuperProtoOf____ClassI);HistogramSeries.prototype.constructor=HistogramSeries;HistogramSeries.__superConstructor__=____ClassI;
+	var ____ClassZ=React.Component;for(var ____ClassZ____Key in ____ClassZ){if(____ClassZ.hasOwnProperty(____ClassZ____Key)){HistogramSeries[____ClassZ____Key]=____ClassZ[____ClassZ____Key];}}var ____SuperProtoOf____ClassZ=____ClassZ===null?null:____ClassZ.prototype;HistogramSeries.prototype=Object.create(____SuperProtoOf____ClassZ);HistogramSeries.prototype.constructor=HistogramSeries;HistogramSeries.__superConstructor__=____ClassZ;
 		function HistogramSeries(props) {
-			____ClassI.call(this,props);
+			____ClassZ.call(this,props);
 			this.getBars = this.getBars.bind(this);
 		}
 		Object.defineProperty(HistogramSeries.prototype,"getBars",{writable:true,configurable:true,value:function() {
@@ -3775,14 +3868,14 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 78 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(2),
 		d3 = __webpack_require__(3);
 	
-	var ____ClassJ=React.Component;for(var ____ClassJ____Key in ____ClassJ){if(____ClassJ.hasOwnProperty(____ClassJ____Key)){KagiSeries[____ClassJ____Key]=____ClassJ[____ClassJ____Key];}}var ____SuperProtoOf____ClassJ=____ClassJ===null?null:____ClassJ.prototype;KagiSeries.prototype=Object.create(____SuperProtoOf____ClassJ);KagiSeries.prototype.constructor=KagiSeries;KagiSeries.__superConstructor__=____ClassJ;function KagiSeries(){if(____ClassJ!==null){____ClassJ.apply(this,arguments);}}
+	var ____Class10=React.Component;for(var ____Class10____Key in ____Class10){if(____Class10.hasOwnProperty(____Class10____Key)){KagiSeries[____Class10____Key]=____Class10[____Class10____Key];}}var ____SuperProtoOf____Class10=____Class10===null?null:____Class10.prototype;KagiSeries.prototype=Object.create(____SuperProtoOf____Class10);KagiSeries.prototype.constructor=KagiSeries;KagiSeries.__superConstructor__=____Class10;function KagiSeries(){if(____Class10!==null){____Class10.apply(this,arguments);}}
 		Object.defineProperty(KagiSeries.prototype,"render",{writable:true,configurable:true,value:function() {
 			var kagiLine = new Array();
 			var kagi = {};
@@ -3839,66 +3932,14 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 79 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(2);
-	var Utils = __webpack_require__(100);
-	
-	var ____ClassK=React.Component;for(var ____ClassK____Key in ____ClassK){if(____ClassK.hasOwnProperty(____ClassK____Key)){OverlaySeries[____ClassK____Key]=____ClassK[____ClassK____Key];}}var ____SuperProtoOf____ClassK=____ClassK===null?null:____ClassK.prototype;OverlaySeries.prototype=Object.create(____SuperProtoOf____ClassK);OverlaySeries.prototype.constructor=OverlaySeries;OverlaySeries.__superConstructor__=____ClassK;function OverlaySeries(){if(____ClassK!==null){____ClassK.apply(this,arguments);}}
-	
-		Object.defineProperty(OverlaySeries.prototype,"getChildContext",{writable:true,configurable:true,value:function() {
-			var overlay = this.context.overlays.filter(function(each)  {return each.id === this.props.id;}.bind(this))[0];
-			return {
-				yAccessor: overlay.yAccessor,
-				stroke: overlay.stroke
-			};
-		}});
-		Object.defineProperty(OverlaySeries.prototype,"render",{writable:true,configurable:true,value:function() {
-			var children = React.Children.map(this.props.children, function(child)  {
-				var newChild = Utils.isReactVersion13()
-					? React.withContext(this.getChildContext(), function()  {
-						return React.createElement(child.type, Utils.mergeObject({ key: child.key, ref: child.ref}, child.props));
-					})
-					: React.cloneElement(child);
-				return newChild;
-			}.bind(this));
-			return (
-				React.createElement("g", null, children)
-			);
-		}});
-	;
-	
-	OverlaySeries.propTypes = {
-		type: React.PropTypes.oneOf(['sma', 'ema']),
-		options: React.PropTypes.object.isRequired,
-		id: React.PropTypes.number.isRequired,
-		stroke: React.PropTypes.string
-	};
-	OverlaySeries.defaultProps = {
-		namespace: "ReStock.OverlaySeries"
-	};
-	OverlaySeries.contextTypes = {
-		overlays: React.PropTypes.array.isRequired,
-	};
-	OverlaySeries.childContextTypes = {
-		yAccessor: React.PropTypes.func.isRequired,
-		stroke: React.PropTypes.string.isRequired,
-	};
-	module.exports = OverlaySeries;
-
-
-/***/ },
-/* 80 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(2),
 		d3 = __webpack_require__(3);
 	
-	var ____ClassL=React.Component;for(var ____ClassL____Key in ____ClassL){if(____ClassL.hasOwnProperty(____ClassL____Key)){PointAndFigureSeries[____ClassL____Key]=____ClassL[____ClassL____Key];}}var ____SuperProtoOf____ClassL=____ClassL===null?null:____ClassL.prototype;PointAndFigureSeries.prototype=Object.create(____SuperProtoOf____ClassL);PointAndFigureSeries.prototype.constructor=PointAndFigureSeries;PointAndFigureSeries.__superConstructor__=____ClassL;function PointAndFigureSeries(){if(____ClassL!==null){____ClassL.apply(this,arguments);}}
+	var ____Class11=React.Component;for(var ____Class11____Key in ____Class11){if(____Class11.hasOwnProperty(____Class11____Key)){PointAndFigureSeries[____Class11____Key]=____Class11[____Class11____Key];}}var ____SuperProtoOf____Class11=____Class11===null?null:____Class11.prototype;PointAndFigureSeries.prototype=Object.create(____SuperProtoOf____Class11);PointAndFigureSeries.prototype.constructor=PointAndFigureSeries;PointAndFigureSeries.__superConstructor__=____Class11;function PointAndFigureSeries(){if(____Class11!==null){____Class11.apply(this,arguments);}}
 		Object.defineProperty(PointAndFigureSeries.prototype,"handleClick",{writable:true,configurable:true,value:function(idx) {
 			console.log(this.context.plotData[idx]);
 		}});
@@ -3975,14 +4016,14 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 81 */
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(2),
 		d3 = __webpack_require__(3);
 	
-	var ____ClassM=React.Component;for(var ____ClassM____Key in ____ClassM){if(____ClassM.hasOwnProperty(____ClassM____Key)){RenkoSeries[____ClassM____Key]=____ClassM[____ClassM____Key];}}var ____SuperProtoOf____ClassM=____ClassM===null?null:____ClassM.prototype;RenkoSeries.prototype=Object.create(____SuperProtoOf____ClassM);RenkoSeries.prototype.constructor=RenkoSeries;RenkoSeries.__superConstructor__=____ClassM;function RenkoSeries(){if(____ClassM!==null){____ClassM.apply(this,arguments);}}
+	var ____Class12=React.Component;for(var ____Class12____Key in ____Class12){if(____Class12.hasOwnProperty(____Class12____Key)){RenkoSeries[____Class12____Key]=____Class12[____Class12____Key];}}var ____SuperProtoOf____Class12=____Class12===null?null:____Class12.prototype;RenkoSeries.prototype=Object.create(____SuperProtoOf____Class12);RenkoSeries.prototype.constructor=RenkoSeries;RenkoSeries.__superConstructor__=____Class12;function RenkoSeries(){if(____Class12!==null){____Class12.apply(this,arguments);}}
 		Object.defineProperty(RenkoSeries.prototype,"render",{writable:true,configurable:true,value:function() {
 			var width = this.context.xScale(this.context.xAccessor(this.context.plotData[this.context.plotData.length - 1]))
 				- this.context.xScale(this.context.xAccessor(this.context.plotData[0]));
@@ -4049,16 +4090,16 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 82 */
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(2);
-	var Utils = __webpack_require__(100)
+	var Utils = __webpack_require__(97)
 	
-	var ____ClassN=React.Component;for(var ____ClassN____Key in ____ClassN){if(____ClassN.hasOwnProperty(____ClassN____Key)){EventCapture[____ClassN____Key]=____ClassN[____ClassN____Key];}}var ____SuperProtoOf____ClassN=____ClassN===null?null:____ClassN.prototype;EventCapture.prototype=Object.create(____SuperProtoOf____ClassN);EventCapture.prototype.constructor=EventCapture;EventCapture.__superConstructor__=____ClassN;
+	var ____Class13=React.Component;for(var ____Class13____Key in ____Class13){if(____Class13.hasOwnProperty(____Class13____Key)){EventCapture[____Class13____Key]=____Class13[____Class13____Key];}}var ____SuperProtoOf____Class13=____Class13===null?null:____Class13.prototype;EventCapture.prototype=Object.create(____SuperProtoOf____Class13);EventCapture.prototype.constructor=EventCapture;EventCapture.__superConstructor__=____Class13;
 		function EventCapture(props) {
-			____ClassN.call(this,props);
+			____Class13.call(this,props);
 			this.toggleFocus = this.toggleFocus.bind(this);
 			this.setFocus = this.setFocus.bind(this);
 			this.handleEnter = this.handleEnter.bind(this);
@@ -4186,97 +4227,96 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 83 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var React = __webpack_require__(2);
-	var CrossHair = __webpack_require__(84)
-	var VerticalMousePointer = __webpack_require__(85)
-	var Utils = __webpack_require__(100)
-	
-	
-	var MouseCoordinates = React.createClass({displayName: "MouseCoordinates",
-		propTypes: {
-			forChart: React.PropTypes.number.isRequired, 
-			xDisplayFormat: React.PropTypes.func.isRequired,
-			yDisplayFormat: React.PropTypes.func.isRequired,
-			type: React.PropTypes.oneOf(['crosshair', 'vertical']).isRequired
-		},
-		shouldComponentUpdate:function(nextProps, nextState, nextContext) {
-			return nextContext.currentItems != this.context.currentItems
-					|| nextContext.mouseXY !== this.context.mouseXY
-					|| nextContext.show !== this.context.show
-		},
-		getDefaultProps:function() {
-			return {
-				namespace: "ReStock.MouseCoordinates",
-				show: false,
-				snapX: true,
-				xDisplayFormat: Utils.displayDateFormat,
-				yDisplayFormat: Utils.displayNumberFormat,
-			}
-		},
-		mixins: [__webpack_require__(103)],
-		contextTypes: {
-			width: React.PropTypes.number.isRequired,
-			height: React.PropTypes.number.isRequired,
-			show: React.PropTypes.bool,
-			mouseXY: React.PropTypes.array,
-			dataTransformOptions: React.PropTypes.object,
-		},
-		getPointer:function() {
-			var chartData = this.getChartData();
-			var item = this.getCurrentItem();
-	
-			var xValue = chartData.config.accessors.xAccessor(item);
-			var xDisplayValue = this.context.dataTransformOptions === undefined
-				? xValue
-				: this.context.dataTransformOptions._dateAccessor(item);
-	
-			var yValue = chartData.plot.scales.yScale.invert(this.context.mouseXY[1]);
-	
-			if (xValue === undefined || yValue === undefined) return null;
-			var x = this.props.snapX ? Math.round(chartData.plot.scales.xScale(xValue)) : this.context.mouseXY[0];
-			var y = this.context.mouseXY[1];
-			switch (this.props.type) {
-				case 'crosshair':
-					return React.createElement(CrossHair, {height: this.context.height, width: this.context.width, mouseXY: [x, y], 
-						xDisplayValue: this.props.xDisplayFormat(xDisplayValue), yDisplayValue: this.props.yDisplayFormat(yValue)})
-				case 'vertical':
-					return React.createElement(VerticalMousePointer, null)
-			}
-		},
-		render:function() {
-	
-			var pointer = this.getPointer()
-			/*if (this.context.show) {
-				//children = this.props.children;
-				children = ;
-			};*/
-			return (
-				React.createElement("g", {className: this.context.show ? 'show' : 'hide'}, 
-					pointer
-				)
-			);
-		}
-	});
-	
-	module.exports = MouseCoordinates;
-
-
-/***/ },
 /* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(2);
-	var EdgeCoordinate = __webpack_require__(104)
-	var Utils = __webpack_require__(100)
+	var CrossHair = __webpack_require__(85)
+	var VerticalMousePointer = __webpack_require__(86)
+	var Utils = __webpack_require__(97)
+	var ChartDataUtil = __webpack_require__(95);
+	var PureComponent = __webpack_require__(100);
 	
-	var ____ClassO=React.Component;for(var ____ClassO____Key in ____ClassO){if(____ClassO.hasOwnProperty(____ClassO____Key)){CrossHair[____ClassO____Key]=____ClassO[____ClassO____Key];}}var ____SuperProtoOf____ClassO=____ClassO===null?null:____ClassO.prototype;CrossHair.prototype=Object.create(____SuperProtoOf____ClassO);CrossHair.prototype.constructor=CrossHair;CrossHair.__superConstructor__=____ClassO;
+	for(var PureComponent____Key in PureComponent){if(PureComponent.hasOwnProperty(PureComponent____Key)){MouseCoordinates[PureComponent____Key]=PureComponent[PureComponent____Key];}}var ____SuperProtoOfPureComponent=PureComponent===null?null:PureComponent.prototype;MouseCoordinates.prototype=Object.create(____SuperProtoOfPureComponent);MouseCoordinates.prototype.constructor=MouseCoordinates;MouseCoordinates.__superConstructor__=PureComponent;
+		function MouseCoordinates(props, context) {
+			PureComponent.call(this,props, context);
+			this.getPointer = this.getPointer.bind(this);
+		}
+		Object.defineProperty(MouseCoordinates.prototype,"getPointer",{writable:true,configurable:true,value:function(context) {
+			var chartData = ChartDataUtil.getChartDataForChart(this.props, this.context);
+			var item = ChartDataUtil.getCurrentItemForChart(this.props, this.context);
+	
+			var xValue = chartData.config.accessors.xAccessor(item);
+	
+			var xDisplayValue = context.dataTransformOptions === undefined
+				? xValue
+				: context.dataTransformOptions.dateAccessor(item);
+	
+			var yValue = chartData.plot.scales.yScale.invert(context.mouseXY[1]);
+	
+			if (xValue === undefined || yValue === undefined) return null;
+			var x = this.props.snapX ? Math.round(chartData.plot.scales.xScale(xValue)) : context.mouseXY[0];
+			var y = context.mouseXY[1];
+			switch (this.props.type) {
+				case 'crosshair':
+					return React.createElement(CrossHair, {height: context.height, width: context.width, mouseXY: [x, y], 
+						xDisplayValue: this.props.xDisplayFormat(xDisplayValue), yDisplayValue: this.props.yDisplayFormat(yValue)})
+				case 'vertical':
+					return React.createElement(VerticalMousePointer, null)
+			}
+		}});
+		Object.defineProperty(MouseCoordinates.prototype,"render",{writable:true,configurable:true,value:function() {
+			var pointer = this.getPointer(this.context)
+	
+			return (
+				React.createElement("g", {className: this.context.show ? 'show' : 'hide'}, 
+					pointer
+				)
+			);
+		}});
+	;
+	
+	MouseCoordinates.contextTypes = {
+		width: React.PropTypes.number.isRequired,
+		height: React.PropTypes.number.isRequired,
+		show: React.PropTypes.bool,
+		mouseXY: React.PropTypes.array,
+		dataTransformOptions: React.PropTypes.object,
+		chartData: React.PropTypes.array.isRequired,
+		currentItems: React.PropTypes.array.isRequired,
+	}
+	MouseCoordinates.propTypes = {
+		forChart: React.PropTypes.number.isRequired, 
+		xDisplayFormat: React.PropTypes.func.isRequired,
+		yDisplayFormat: React.PropTypes.func.isRequired,
+		type: React.PropTypes.oneOf(['crosshair', 'vertical']).isRequired
+	
+	}
+	
+	MouseCoordinates.defaultProps = { 
+		namespace: "ReStock.MouseCoordinates",
+		show: false,
+		snapX: true,
+		xDisplayFormat: Utils.displayDateFormat,
+		yDisplayFormat: Utils.displayNumberFormat,
+	};
+	
+	
+	module.exports = MouseCoordinates;
+
+/***/ },
+/* 85 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(2);
+	var EdgeCoordinate = __webpack_require__(101)
+	var Utils = __webpack_require__(97)
+	
+	var ____Class14=React.Component;for(var ____Class14____Key in ____Class14){if(____Class14.hasOwnProperty(____Class14____Key)){CrossHair[____Class14____Key]=____Class14[____Class14____Key];}}var ____SuperProtoOf____Class14=____Class14===null?null:____Class14.prototype;CrossHair.prototype=Object.create(____SuperProtoOf____Class14);CrossHair.prototype.constructor=CrossHair;CrossHair.__superConstructor__=____Class14;
 		function CrossHair(props) {
-			____ClassO.call(this,props);
+			____Class14.call(this,props);
 		}
 		Object.defineProperty(CrossHair.prototype,"shouldComponentUpdate",{writable:true,configurable:true,value:function(nextProps, nextState, nextContext) {
 			return nextProps.mouseXY !== this.props.mouseXY
@@ -4326,16 +4366,16 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 85 */
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(2);
-	var EdgeCoordinate = __webpack_require__(104)
-	var Utils = __webpack_require__(100)
+	var EdgeCoordinate = __webpack_require__(101)
+	var Utils = __webpack_require__(97)
 	
 	
-	var ____ClassP=React.Component;for(var ____ClassP____Key in ____ClassP){if(____ClassP.hasOwnProperty(____ClassP____Key)){VerticalMousePointer[____ClassP____Key]=____ClassP[____ClassP____Key];}}var ____SuperProtoOf____ClassP=____ClassP===null?null:____ClassP.prototype;VerticalMousePointer.prototype=Object.create(____SuperProtoOf____ClassP);VerticalMousePointer.prototype.constructor=VerticalMousePointer;VerticalMousePointer.__superConstructor__=____ClassP;function VerticalMousePointer(){if(____ClassP!==null){____ClassP.apply(this,arguments);}}
+	var ____Class19=React.Component;for(var ____Class19____Key in ____Class19){if(____Class19.hasOwnProperty(____Class19____Key)){VerticalMousePointer[____Class19____Key]=____Class19[____Class19____Key];}}var ____SuperProtoOf____Class19=____Class19===null?null:____Class19.prototype;VerticalMousePointer.prototype=Object.create(____SuperProtoOf____Class19);VerticalMousePointer.prototype.constructor=VerticalMousePointer;VerticalMousePointer.__superConstructor__=____Class19;function VerticalMousePointer(){if(____Class19!==null){____Class19.apply(this,arguments);}}
 		Object.defineProperty(VerticalMousePointer.prototype,"shouldComponentUpdate",{writable:true,configurable:true,value:function(nextProps, nextState, nextContext) {
 			return nextProps.mouseXY !== this.props.mouseXY
 		}});
@@ -4372,139 +4412,16 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 86 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var React = __webpack_require__(2);
-	// var TestUtils = React.addons.TestUtils;
-	
-	// var EventCaptureMixin = require('./mixin/EventCaptureMixin');
-	var ChartContainerMixin = __webpack_require__(97);
-	var Canvas = __webpack_require__(105);
-	var Utils = __webpack_require__(100);
-	
-	var ChartCanvas = React.createClass({displayName: "ChartCanvas",
-		mixins: [ChartContainerMixin],
-		propTypes: {
-			width: React.PropTypes.number.isRequired,
-			height: React.PropTypes.number.isRequired,
-			margin: React.PropTypes.object,
-			interval: React.PropTypes.oneOf(['D']).isRequired, //,'m1', 'm5', 'm15', 'W', 'M'
-			data: React.PropTypes.array.isRequired,
-			initialDisplay: React.PropTypes.number,
-		},
-		getAvailableHeight:function(props) {
-			return props.height - props.margin.top - props.margin.bottom;
-		},
-		getAvailableWidth:function(props) {
-			return props.width - props.margin.left - props.margin.right;
-		},
-		getInitialState:function() {
-			return {};
-		},
-		getDefaultProps:function() {
-			return {
-				margin: {top: 20, right: 30, bottom: 30, left: 80},
-				interval: "D",
-				// initialDisplay: 30,
-			};
-		},
-		childContextTypes: {
-			width: React.PropTypes.number.isRequired,
-			height: React.PropTypes.number.isRequired,
-			data: React.PropTypes.object.isRequired,
-			interval: React.PropTypes.string.isRequired,
-			initialDisplay: React.PropTypes.number.isRequired,
-			plotData: React.PropTypes.array,
-			// canvas: React.PropTypes.any,
-	
-			chartData: React.PropTypes.array,
-		},
-		getChildContext:function() {
-			return {
-				width: this.getAvailableWidth(this.props),
-				height: this.getAvailableHeight(this.props),
-				data: this.state.data,
-				interval: this.props.interval,
-				initialDisplay: this.props.initialDisplay || this.state.plotData.length,
-				plotData: this.state.plotData,
-				chartData: this.state.chartData,
-			}
-		},
-		componentWillMount:function() {
-			var $__0=     this,props=$__0.props,context=$__0.context;
-	
-			var data = {};
-			data[this.props.interval] = this.props.data;
-	
-			var state = {
-				data: data,
-				plotData: this.props.data
-			}
-			if (this.containsChart(props)) {
-				var defaultOptions = {
-					width: this.getAvailableWidth(props),
-					height: this.getAvailableHeight(props),
-				}
-				var plotData = props.data;
-				var chartData = this.getChartData(props, context, plotData, data, defaultOptions);
-				// console.log(chartData);
-				var mainChart = this.getMainChart(props.children);
-	
-				state.chartData = chartData;
-				state.plotData = plotData;
-			}
-			this.setState(state);
-		},
-		getCanvas:function() {
-			return this.refs.canvas.getCanvas();
-		},
-		render:function() {
-			var w = this.getAvailableWidth(this.props), h = this.getAvailableHeight(this.props);
-			var children = React.Children.map(this.props.children, function(child)  {
-				var newChild = Utils.isReactVersion13()
-					? React.withContext(this.getChildContext(), function()  {
-						return React.createElement(child.type, Utils.mergeObject({ key: child.key, ref: child.ref}, child.props));
-					})
-					: React.cloneElement(child);
-				return newChild;
-			}.bind(this));
-			return (
-				React.createElement("div", {style: {position: 'relative'}}, 
-					React.createElement("svg", {width: this.props.width, height: this.props.height}, 
-						React.createElement("defs", null, 
-							React.createElement("clipPath", {id: "chart-area-clip"}, 
-								React.createElement("rect", {x: "0", y: "0", width: w, height: h})
-							)
-						), 
-						React.createElement("g", {transform: ("translate(" + this.props.margin.left + ", " + this.props.margin.top + ")")}, 
-							children
-						)
-					)
-				)
-			);
-		}
-	});
-	
-	module.exports = ChartCanvas;
-	
-	/*
-					<Canvas ref="canvas" width={w} height={h} left={this.props.margin.left} top={this.props.margin.top} />
-	*/
-
-
-/***/ },
 /* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(2),
-		Utils = __webpack_require__(100);
+		Utils = __webpack_require__(97);
 	
-	var ____ClassQ=React.Component;for(var ____ClassQ____Key in ____ClassQ){if(____ClassQ.hasOwnProperty(____ClassQ____Key)){CurrentCoordinate[____ClassQ____Key]=____ClassQ[____ClassQ____Key];}}var ____SuperProtoOf____ClassQ=____ClassQ===null?null:____ClassQ.prototype;CurrentCoordinate.prototype=Object.create(____SuperProtoOf____ClassQ);CurrentCoordinate.prototype.constructor=CurrentCoordinate;CurrentCoordinate.__superConstructor__=____ClassQ;
+	var ____Class15=React.Component;for(var ____Class15____Key in ____Class15){if(____Class15.hasOwnProperty(____Class15____Key)){CurrentCoordinate[____Class15____Key]=____Class15[____Class15____Key];}}var ____SuperProtoOf____Class15=____Class15===null?null:____Class15.prototype;CurrentCoordinate.prototype=Object.create(____SuperProtoOf____Class15);CurrentCoordinate.prototype.constructor=CurrentCoordinate;CurrentCoordinate.__superConstructor__=____Class15;
 		function CurrentCoordinate(props) {
-			____ClassQ.call(this,props);
+			____Class15.call(this,props);
 		}
 		Object.defineProperty(CurrentCoordinate.prototype,"render",{writable:true,configurable:true,value:function() {
 			var chartData = this.context.chartData.filter(function(each)  {return each.id === this.props.forChart;}.bind(this))[0];
@@ -4566,8 +4483,8 @@ return webpackJsonpReStock([1,2],[
 
 	'use strict';
 	var React = __webpack_require__(2);
-	var Utils = __webpack_require__(100);
-	var PureComponent = __webpack_require__(102);
+	var Utils = __webpack_require__(97);
+	var PureComponent = __webpack_require__(100);
 	
 	for(var PureComponent____Key in PureComponent){if(PureComponent.hasOwnProperty(PureComponent____Key)){TooltipContainer[PureComponent____Key]=PureComponent[PureComponent____Key];}}var ____SuperProtoOfPureComponent=PureComponent===null?null:PureComponent.prototype;TooltipContainer.prototype=Object.create(____SuperProtoOfPureComponent);TooltipContainer.prototype.constructor=TooltipContainer;TooltipContainer.__superConstructor__=PureComponent;function TooltipContainer(){if(PureComponent!==null){PureComponent.apply(this,arguments);}}
 		Object.defineProperty(TooltipContainer.prototype,"render",{writable:true,configurable:true,value:function() {
@@ -4604,34 +4521,20 @@ return webpackJsonpReStock([1,2],[
 	'use strict';
 	
 	var React = __webpack_require__(2);
-	var Utils = __webpack_require__(100)
+	var Utils = __webpack_require__(97)
+	var ChartDataUtil = __webpack_require__(95);
 	
 	var billion = 1 * 1000 * 1000 * 1000;
 	var million = 1 * 1000 * 1000;
 	var thousand = 1 * 1000;
 	
-	var OHLCTooltip = React.createClass({displayName: "OHLCTooltip",
-		propTypes: {
-			forChart: React.PropTypes.number.isRequired,
-			accessor: React.PropTypes.func.isRequired,
-			xDisplayFormat: React.PropTypes.func.isRequired,
-			origin: React.PropTypes.array.isRequired,
-		},
-		mixins: [__webpack_require__(103)],
-		getDefaultProps:function() {
-			return {
-				namespace: "ReStock.OHLCTooltip",
-				accessor: function(d)  {return {date: d.date, open: d.open, high: d.high, low: d.low, close: d.close, volume: d.volume}},
-				xDisplayFormat: Utils.displayDateFormat,
-				origin: [0, 0]
-			}
-		},
-		render:function() {
+	var ____Class16=React.Component;for(var ____Class16____Key in ____Class16){if(____Class16.hasOwnProperty(____Class16____Key)){OHLCTooltip[____Class16____Key]=____Class16[____Class16____Key];}}var ____SuperProtoOf____Class16=____Class16===null?null:____Class16.prototype;OHLCTooltip.prototype=Object.create(____SuperProtoOf____Class16);OHLCTooltip.prototype.constructor=OHLCTooltip;OHLCTooltip.__superConstructor__=____Class16;function OHLCTooltip(){if(____Class16!==null){____Class16.apply(this,arguments);}}
+		Object.defineProperty(OHLCTooltip.prototype,"render",{writable:true,configurable:true,value:function() {
 			var displayDate, fromDate, toDate, open, high, low, close, volume;
 	
 			displayDate = fromDate = toDate = open = high = low = close = volume = "n/a";
 	
-			var item = this.getCurrentItem();
+			var item = ChartDataUtil.getCurrentItemForChart(this.props, this.context);
 	
 			if (item !== undefined && item.close !== undefined) {
 				volume = (item.volume / billion > 1)
@@ -4661,8 +4564,26 @@ return webpackJsonpReStock([1,2],[
 					)
 				)
 			);
-		}
-	});
+		}});
+	;
+	
+	OHLCTooltip.contextTypes = {
+		chartData: React.PropTypes.array.isRequired,
+		currentItems: React.PropTypes.array.isRequired,
+	}
+	OHLCTooltip.propTypes = {
+		forChart: React.PropTypes.number.isRequired,
+		accessor: React.PropTypes.func.isRequired,
+		xDisplayFormat: React.PropTypes.func.isRequired,
+		origin: React.PropTypes.array.isRequired,
+	}
+	
+	OHLCTooltip.defaultProps = { 
+		namespace: "ReStock.OHLCTooltip",
+		accessor: function(d)  {return {date: d.date, open: d.open, high: d.high, low: d.low, close: d.close, volume: d.volume}},
+		xDisplayFormat: Utils.displayDateFormat,
+		origin: [0, 0]
+	};
 	
 	module.exports = OHLCTooltip;
 
@@ -4674,9 +4595,10 @@ return webpackJsonpReStock([1,2],[
 	'use strict';
 	
 	var React = __webpack_require__(2);
-	var Utils = __webpack_require__(100)
+	var Utils = __webpack_require__(97)
+	var ChartDataUtil = __webpack_require__(95);
 	
-	var ____ClassR=React.Component;for(var ____ClassR____Key in ____ClassR){if(____ClassR.hasOwnProperty(____ClassR____Key)){SingleMAToolTip[____ClassR____Key]=____ClassR[____ClassR____Key];}}var ____SuperProtoOf____ClassR=____ClassR===null?null:____ClassR.prototype;SingleMAToolTip.prototype=Object.create(____SuperProtoOf____ClassR);SingleMAToolTip.prototype.constructor=SingleMAToolTip;SingleMAToolTip.__superConstructor__=____ClassR;function SingleMAToolTip(){if(____ClassR!==null){____ClassR.apply(this,arguments);}}
+	var ____Class17=React.Component;for(var ____Class17____Key in ____Class17){if(____Class17.hasOwnProperty(____Class17____Key)){SingleMAToolTip[____Class17____Key]=____Class17[____Class17____Key];}}var ____SuperProtoOf____Class17=____Class17===null?null:____Class17.prototype;SingleMAToolTip.prototype=Object.create(____SuperProtoOf____Class17);SingleMAToolTip.prototype.constructor=SingleMAToolTip;SingleMAToolTip.__superConstructor__=____Class17;function SingleMAToolTip(){if(____Class17!==null){____Class17.apply(this,arguments);}}
 		Object.defineProperty(SingleMAToolTip.prototype,"handleClick",{writable:true,configurable:true,value:function(overlay) {
 			if (this.props.onClick) {
 				this.props.onClick(overlay);
@@ -4705,27 +4627,10 @@ return webpackJsonpReStock([1,2],[
 		onClick: React.PropTypes.func
 	};
 	
-	var MovingAverageTooltip = React.createClass({displayName: "MovingAverageTooltip",
-		propTypes: {
-			// _currentItem: React.PropTypes.object.isRequired,
-			// _overlays: React.PropTypes.array.isRequired,
-			forChart: React.PropTypes.number.isRequired,
-			displayFormat: React.PropTypes.func.isRequired,
-			origin: React.PropTypes.array.isRequired,
-			onClick: React.PropTypes.func
-		},
-		getDefaultProps:function() {
-			return {
-				namespace: "ReStock.MovingAverageTooltip",
-				displayFormat: Utils.displayNumberFormat,
-				origin: [0, 10],
-				width: 65
-			}
-		},
-		mixins: [__webpack_require__(103)],
-		render:function() {
-			var chartData = this.getChartData();
-			var item = this.getCurrentItem();
+	var ____Class18=React.Component;for(var ____Class18____Key in ____Class18){if(____Class18.hasOwnProperty(____Class18____Key)){MovingAverageTooltip[____Class18____Key]=____Class18[____Class18____Key];}}var ____SuperProtoOf____Class18=____Class18===null?null:____Class18.prototype;MovingAverageTooltip.prototype=Object.create(____SuperProtoOf____Class18);MovingAverageTooltip.prototype.constructor=MovingAverageTooltip;MovingAverageTooltip.__superConstructor__=____Class18;function MovingAverageTooltip(){if(____Class18!==null){____Class18.apply(this,arguments);}}
+		Object.defineProperty(MovingAverageTooltip.prototype,"render",{writable:true,configurable:true,value:function() {
+			var chartData = ChartDataUtil.getChartDataForChart(this.props, this.context);
+			var item = ChartDataUtil.getCurrentItemForChart(this.props, this.context);
 	
 			return (
 				React.createElement("g", {transform: "translate(" + this.props.origin[0] + ", " + this.props.origin[1] + ")", className: "ma-container"}, 
@@ -4744,8 +4649,26 @@ return webpackJsonpReStock([1,2],[
 					}.bind(this))
 				)
 			);
-		}
-	});
+		}});
+	;
+	
+	MovingAverageTooltip.contextTypes = {
+		chartData: React.PropTypes.array.isRequired,
+		currentItems: React.PropTypes.array.isRequired,
+	};
+	MovingAverageTooltip.propTypes = {
+		forChart: React.PropTypes.number.isRequired,
+		displayFormat: React.PropTypes.func.isRequired,
+		origin: React.PropTypes.array.isRequired,
+		onClick: React.PropTypes.func
+	};
+	MovingAverageTooltip.defaultProps = { 
+		namespace: "ReStock.MovingAverageTooltip",
+		displayFormat: Utils.displayNumberFormat,
+		origin: [0, 10],
+		width: 65
+	};
+	
 	
 	module.exports = MovingAverageTooltip;
 
@@ -4756,8 +4679,8 @@ return webpackJsonpReStock([1,2],[
 
 	'use strict';
 	var React = __webpack_require__(2);
-	var Utils = __webpack_require__(100);
-	var PureComponent = __webpack_require__(102);
+	var Utils = __webpack_require__(97);
+	var PureComponent = __webpack_require__(100);
 	
 	for(var PureComponent____Key in PureComponent){if(PureComponent.hasOwnProperty(PureComponent____Key)){EdgeContainer[PureComponent____Key]=PureComponent[PureComponent____Key];}}var ____SuperProtoOfPureComponent=PureComponent===null?null:PureComponent.prototype;EdgeContainer.prototype=Object.create(____SuperProtoOfPureComponent);EdgeContainer.prototype.constructor=EdgeContainer;EdgeContainer.__superConstructor__=PureComponent;function EdgeContainer(){if(PureComponent!==null){PureComponent.apply(this,arguments);}}
 		Object.defineProperty(EdgeContainer.prototype,"render",{writable:true,configurable:true,value:function() {
@@ -4788,40 +4711,14 @@ return webpackJsonpReStock([1,2],[
 
 	'use strict';
 	var React = __webpack_require__(2);
-	var Utils = __webpack_require__(100)
-	var EdgeCoordinate = __webpack_require__(104)
+	var Utils = __webpack_require__(97)
+	var EdgeCoordinate = __webpack_require__(101)
+	var ChartDataUtil = __webpack_require__(95);
 	
-	
-	var EdgeIndicator = React.createClass({displayName: "EdgeIndicator",
-		propTypes: {
-			type: React.PropTypes.oneOf(['horizontal']).isRequired,
-			className: React.PropTypes.string,
-			itemType: React.PropTypes.oneOf(['first', 'last', 'current']).isRequired,
-			orient: React.PropTypes.oneOf(['left', 'right']),
-			edgeAt: React.PropTypes.oneOf(['left', 'right']),
-	
-			forChart: React.PropTypes.number.isRequired,
-			forOverlay: React.PropTypes.number, // undefined means main Data series of that chart
-	
-			displayFormat: React.PropTypes.func.isRequired,
-		},
-		getDefaultProps:function() {
-			return {
-				type: 'horizontal',
-				orient: 'left',
-				edgeAt: 'left',
-				displayFormat: Utils.displayNumberFormat,
-				yAxisPad: 5,
-				namespace: "ReStock.EdgeIndicator"
-			};
-		},
-		contextTypes: {
-			width: React.PropTypes.number.isRequired
-		},
-		mixins: [__webpack_require__(103)],
-		renderEdge:function() {
-			var chartData = this.getChartData();
-			var currentItem = this.getCurrentItem();
+	var ____Class1a=React.Component;for(var ____Class1a____Key in ____Class1a){if(____Class1a.hasOwnProperty(____Class1a____Key)){EdgeIndicator[____Class1a____Key]=____Class1a[____Class1a____Key];}}var ____SuperProtoOf____Class1a=____Class1a===null?null:____Class1a.prototype;EdgeIndicator.prototype=Object.create(____SuperProtoOf____Class1a);EdgeIndicator.prototype.constructor=EdgeIndicator;EdgeIndicator.__superConstructor__=____Class1a;function EdgeIndicator(){if(____Class1a!==null){____Class1a.apply(this,arguments);}}
+		Object.defineProperty(EdgeIndicator.prototype,"render",{writable:true,configurable:true,value:function() {
+			var chartData = ChartDataUtil.getChartDataForChart(this.props, this.context);
+			var currentItem = ChartDataUtil.getCurrentItemForChart(this.props, this.context);
 			var edge = null, item, yAccessor;
 			if (this.props.forOverlay !== undefined
 					&& chartData.config.overlays.length > 0
@@ -4897,11 +4794,35 @@ return webpackJsonpReStock([1,2],[
 				}
 			}
 			return edge;
-		},
-		render:function() {
-			return this.renderEdge();
-		}
-	});
+		}});
+	;
+	
+	EdgeIndicator.contextTypes = {
+		width: React.PropTypes.number.isRequired,
+		chartData: React.PropTypes.array.isRequired,
+		currentItems: React.PropTypes.array.isRequired,
+	}
+	EdgeIndicator.propTypes = {
+		type: React.PropTypes.oneOf(['horizontal']).isRequired,
+		className: React.PropTypes.string,
+		itemType: React.PropTypes.oneOf(['first', 'last', 'current']).isRequired,
+		orient: React.PropTypes.oneOf(['left', 'right']),
+		edgeAt: React.PropTypes.oneOf(['left', 'right']),
+	
+		forChart: React.PropTypes.number.isRequired,
+		forOverlay: React.PropTypes.number, // undefined means main Data series of that chart
+	
+		displayFormat: React.PropTypes.func.isRequired,
+	}
+	
+	EdgeIndicator.defaultProps = { 
+		type: 'horizontal',
+		orient: 'left',
+		edgeAt: 'left',
+		displayFormat: Utils.displayNumberFormat,
+		yAxisPad: 5,
+		namespace: "ReStock.EdgeIndicator"
+	};
 	
 	module.exports = EdgeIndicator;
 
@@ -4950,272 +4871,12 @@ return webpackJsonpReStock([1,2],[
 /* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	
-	var StockScaleTransformer = __webpack_require__(108);
-	var HeikinAshiTransformer = __webpack_require__(109);
-	var KagiTransformer = __webpack_require__(110);
-	var PointAndFigureTransformer = __webpack_require__(111);
-	var RenkoTransformer = __webpack_require__(112);
-	
-	var ChartTransformer = {
-		getTransformerFor:function(type) {
-			if (type === "none")
-				return function(d)  {return d;};
-			if (type === "stockscale")
-				return StockScaleTransformer;
-			if (type === "heikinashi")
-				return HeikinAshiTransformer;
-			if (type === "kagi")
-				return KagiTransformer;
-			if (type === "pointandfigure")
-				return PointAndFigureTransformer;
-			if (type === "renko")
-				return RenkoTransformer;
-			return false;
-		},
-		filter:function(data, dateAccesor, fromDate, toDate) {
-			var filteredData = data.filter(function(each)  {
-				var filtered = dateAccesor(each).getTime() > fromDate.getTime() && dateAccesor(each).getTime() < toDate.getTime()
-				return filtered;
-			});
-			return filteredData;
-		}
-	}
-	
-	module.exports = ChartTransformer;
-
-
-/***/ },
-/* 96 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var React = __webpack_require__(2);
-	var Utils = __webpack_require__(100);
-	
-	function getLongValue(value) {
-		if (value instanceof Date) {
-			return value.getTime();
-		}
-		return value;
-	}
-	
-	var EventCaptureMixin = {
-		childContextTypes: {
-			onMouseMove: React.PropTypes.func,
-			onMouseEnter: React.PropTypes.func,
-			onMouseLeave: React.PropTypes.func,
-			onZoom: React.PropTypes.func,
-			onPanStart: React.PropTypes.func,
-			onPan: React.PropTypes.func,
-			onPanEnd: React.PropTypes.func,
-			panInProgress: React.PropTypes.bool.isRequired,
-			focus: React.PropTypes.bool.isRequired,
-			onFocus: React.PropTypes.func,
-		},
-		getChildContext:function() {
-			return {
-				onMouseMove: this.handleMouseMove,
-				onMouseEnter: this.handleMouseEnter,
-				onMouseLeave: this.handleMouseLeave,
-				onZoom: this.handleZoom,
-				onPanStart: this.handlePanStart,
-				onPan: this.handlePan,
-				onPanEnd: this.handlePanEnd,
-				onFocus: this.handleFocus,
-				panInProgress: this.state.panInProgress,
-				focus: this.state.focus
-			}
-		},
-		handleMouseMove:function(mouseXY) {
-			// console.log('mouse move - ', mouseXY);
-			var currentItems = this.getCurrentItems(this.state.chartData, mouseXY, this.state.plotData)
-				// .filter((eachChartData) => eachChartData.id === this.state.mainChart)
-	
-			this.setState({
-				mouseXY: mouseXY,
-				currentItems: currentItems,
-				show: true
-			});
-		},
-		getCurrentItems:function(chartData, mouseXY, plotData) {
-			return chartData
-				.map(function(eachChartData)  {
-					var xValue = eachChartData.plot.scales.xScale.invert(mouseXY[0]);
-					var item = Utils.getClosestItem(plotData, xValue, eachChartData.config.accessors.xAccessor);
-					return { id: eachChartData.id, data: item };
-				});
-		},
-		handleMouseEnter:function() {
-			// console.log('enter');
-			this.setState({
-				show: true
-			});
-		},
-		handleMouseLeave:function() {
-			// console.log('leave');
-			this.setState({
-				show: false
-			});
-		},
-		handleZoom:function(zoomDirection, mouseXY) {
-			// console.log('zoomDirection ', zoomDirection, ' mouseXY ', mouseXY);
-			var $__0=        this.state,mainChart=$__0.mainChart,chartData=$__0.chartData,data=$__0.data,plotData=$__0.plotData,interval=$__0.interval;
-	
-			var chart = chartData.filter(function(eachChart)  {return eachChart.id === mainChart;})[0],
-				item = this.getClosestItem(mouseXY, chart),
-				xScale = chart.plot.scales.xScale,
-				domain = xScale.domain(),
-				centerX = chart.config.accessors.xAccessor(item),
-				leftX = centerX - domain[0],
-				rightX = domain[1] - centerX,
-				zoom = Math.pow(1 + Math.abs(zoomDirection)/2 , zoomDirection),
-				domainL = (getLongValue(centerX) - ( leftX * zoom)),
-				domainR = (getLongValue(centerX) + (rightX * zoom)),
-				domainRange = Math.abs(domain[1] - domain[0]),
-				fullData = data[interval],
-				last = fullData[fullData.length - 1],
-				first = fullData[0];
-	
-			domainL = Math.max(getLongValue(chart.config.accessors.xAccessor(first)) - Math.floor(domainRange/3), domainL)
-			domainR = Math.min(getLongValue(chart.config.accessors.xAccessor(last)) + Math.floor(domainRange/3), domainR)
-			// xScale(domainR) - xScale(domainL)
-			var dataToPlot = this.getDataToPlotForDomain(domainL, domainR, data, chart.config.width, chart.config.accessors.xAccessor);
-			if (dataToPlot.data.length < 10) return;
-			var newChartData = chartData.map(function(eachChart)  {
-				var plot = this.getChartPlotFor(eachChart.config, dataToPlot.data, domainL, domainR);
-				return {
-					id: eachChart.id,
-					config: eachChart.config,
-					plot: plot
-				}
-			}.bind(this));
-			this.setState({
-				chartData: newChartData,
-				plotData: dataToPlot.data,
-				interval: dataToPlot.interval
-			});
-		},
-		getDataToPlotForDomain:function(domainL, domainR, data, width, xAccessor) {
-			var threshold = 0.5 // number of datapoints per 1 px
-			var allowedIntervals = ['D', 'W', 'M'];
-			// console.log(domainL, domainR, data, width);
-	
-			var dataForInterval, filteredData, interval, leftX, rightX;
-			for (var i=0; i<allowedIntervals.length; i++) {
-				interval = allowedIntervals[i]; 
-				dataForInterval = data[interval];
-	
-				leftX = Utils.getClosestItemIndexes(dataForInterval, domainL, xAccessor);
-				rightX = Utils.getClosestItemIndexes(dataForInterval, domainR, xAccessor);
-	
-				filteredData = dataForInterval.slice(leftX.right, rightX.right);
-	
-				// console.log(filteredData.length, width * threshold);
-				if (filteredData.length < width * threshold) break;
-			}
-	
-			// console.log(leftX, rightX,  (dd[leftX.left]), xAccessor(dd[rightX.right])); 
-	
-			return {
-				interval: interval,
-				data: filteredData
-			}
-		},
-		handlePanStart:function(panStartDomain, panOrigin) {
-			// console.log('panStartDomain - ', panStartDomain, ', panOrigin - ', panOrigin);
-			this.setState({
-				panInProgress: true,
-				panStartDomain: panStartDomain,
-				panOrigin: panOrigin,
-				focus: true,
-			});
-		},
-		handlePan:function(mousePosition, startDomain) {
-			// console.log('mousePosition ', mousePosition);
-			var $__0=          this.state,mainChart=$__0.mainChart,chartData=$__0.chartData,data=$__0.data,plotData=$__0.plotData,interval=$__0.interval,panStartDomain=$__0.panStartDomain,panOrigin=$__0.panOrigin;
-			if (panStartDomain === null) {
-				this.handlePanStart(startDomain, mousePosition);
-			} else {
-				requestAnimationFrame(function()  {
-					
-	
-					var chart = chartData.filter(function(eachChart)  {return eachChart.id === mainChart;})[0],
-						domainRange = panStartDomain[1] - panStartDomain[0],
-						fullData = data[interval],
-						last = fullData[fullData.length - 1],
-						first = fullData[0],
-						dx = mousePosition[0] - panOrigin[0],
-						xAccessor = chart.config.accessors.xAccessor;
-	
-					// console.log('pan -- mouse move - ', mousePosition, ' dragged by ', dx, ' pixels');
-	
-					var domainStart = getLongValue(panStartDomain[0]) - dx/chart.config.width * domainRange
-					if (domainStart < getLongValue(xAccessor(first)) - Math.floor(domainRange/3)) {
-						domainStart = getLongValue(xAccessor(first)) - Math.floor(domainRange/3)
-					} else {
-						domainStart = Math.min(getLongValue(xAccessor(last))
-							+ Math.ceil(domainRange/3), domainStart + domainRange) - domainRange;
-					}
-					var domainL = domainStart, domainR = domainStart + domainRange
-					if (panStartDomain[0] instanceof Date) {
-						domainL = new Date(domainL);
-						domainR = new Date(domainR);
-					}
-	
-					var leftX = Utils.getClosestItemIndexes(fullData, domainL, xAccessor);
-					var rightX = Utils.getClosestItemIndexes(fullData, domainR, xAccessor);
-	
-					var filteredData = fullData.slice(leftX.right, rightX.right);
-	
-					var newChartData = chartData.map(function(eachChart)  {
-						var plot = this.getChartPlotFor(eachChart.config, filteredData, domainL, domainR);
-						return {
-							id: eachChart.id,
-							config: eachChart.config,
-							plot: plot
-						}
-					}.bind(this));
-					var currentItems = this.getCurrentItems(newChartData, mousePosition, filteredData);
-	
-					this.setState({
-						chartData: newChartData,
-						plotData: filteredData,
-						currentItems: currentItems,
-						// show: true,
-						mouseXY: mousePosition
-					});
-				}.bind(this));
-			}
-		},
-		handlePanEnd:function() {
-			this.setState({
-				panInProgress: false,
-				panStartDomain: null
-			});
-		},
-		handleFocus:function(focus) {
-			// console.log(focus);
-			this.setState({
-				focus: focus,
-			});
-		}
-	};
-	
-	module.exports = EventCaptureMixin;
-
-
-/***/ },
-/* 97 */
-/***/ function(module, exports, __webpack_require__) {
-
 	"use strict";
 	var React = __webpack_require__(2),
 		d3 = __webpack_require__(3),
-		ScaleUtils = __webpack_require__(106),
-		OverlayUtils = __webpack_require__(107),
-		Utils = __webpack_require__(100),
+		ScaleUtils = __webpack_require__(102),
+		OverlayUtils = __webpack_require__(103),
+		Utils = __webpack_require__(97),
 		overlayColors = Utils.overlayColors;
 	var pluck = Utils.pluck;
 	var keysAsArray = Utils.keysAsArray;
@@ -5228,13 +4889,14 @@ return webpackJsonpReStock([1,2],[
 		getCharts:function(props) {
 			return this.getChildren(props.children, /Chart$/)
 		},
-		getChildren:function(children, regex) {
-			var newChildren = Array.isArray(children)
-				? children
-				: [children];
-	
-			return newChildren
-				.filter(function(child)  {return regex.test(child.props.namespace);})
+		getChartDataForChart:function(props, context) {
+			var chartData = context.chartData.filter(function(each)  {return each.id === props.forChart;})[0];
+			return chartData;
+		},
+		getCurrentItemForChart:function(props, context) {
+			var currentItem = context.currentItems.filter(function(each)  {return each.id === props.forChart;})[0];
+			var item = currentItem ? currentItem.data : {}
+			return item;
 		},
 		getChartData:function(props, context, partialData, fullData, other) {
 	
@@ -5253,15 +4915,22 @@ return webpackJsonpReStock([1,2],[
 				};
 			}.bind(this));
 		},
+		getChildren:function(children, regex) {
+			var matchingChildren = [];
+			React.Children.forEach(children, function(child)  {
+				if (regex.test(child.props.namespace)) matchingChildren.push(child);
+			});
+			return matchingChildren;
+		},
 		getMainChart:function(children) {
 			var eventCapture = this.getChildren(children, /EventCapture$/);
 			if (eventCapture.length > 1) throw new Error("only one EventCapture allowed");
 			if (eventCapture.length > 0) return eventCapture[0].props.mainChart;
 		},
-		getClosestItem:function(mouseXY, chartData) {
+		getClosestItem:function(plotData, mouseXY, chartData) {
 			// console.log(chartData);
 			var xValue = chartData.plot.scales.xScale.invert(mouseXY[0]);
-			var item = Utils.getClosestItem(this.state.plotData, xValue, chartData.config.accessors.xAccessor);
+			var item = Utils.getClosestItem(plotData, xValue, chartData.config.accessors.xAccessor);
 			return item;
 		},
 		getInnerDimensions:function(ctx, other) {
@@ -5348,10 +5017,10 @@ return webpackJsonpReStock([1,2],[
 			return plot;
 		},
 		defineScales:function(props, data, passThroughProps) {
-			var xScale = props.xScale || props._xScale,
+			var xScale = props.xScale,
 				yScale = props.yScale;
 	
-			if (xScale === undefined && passThroughProps) xScale = passThroughProps._xScale;
+			if (xScale === undefined && passThroughProps) xScale = passThroughProps.xScale;
 	
 			if (xScale === undefined) {
 				var each = data[0];
@@ -5378,8 +5047,8 @@ return webpackJsonpReStock([1,2],[
 						.indexOf(child.props.namespace) > -1) {
 					if (child.props) {
 	
-						var xAccessor = passThroughProps !== undefined && passThroughProps._stockScale
-							? passThroughProps._xAccessor
+						var xAccessor = passThroughProps !== undefined && passThroughProps.stockScale
+							? passThroughProps.xAccessor
 							: child.props.xAccessor
 						accessor.xAccessor = xAccessor;
 						accessor.yAccessor = child.props.yAccessor;
@@ -5450,7 +5119,6 @@ return webpackJsonpReStock([1,2],[
 						last: OverlayUtils.lastDefined(data, eachOverlay.yAccessor)
 					})/**/
 				})
-			// console.log(_overlayValues);
 			return overlayValues;
 		},
 		updateScales:function(xyValues, scales, data, width, height) {
@@ -5476,81 +5144,84 @@ return webpackJsonpReStock([1,2],[
 				yScale: scales.yScale.copy()
 			};
 		},
+		getCurrentItems:function(chartData, mouseXY, plotData) {
+			return chartData
+				.map(function(eachChartData)  {
+					var xValue = eachChartData.plot.scales.xScale.invert(mouseXY[0]);
+					var item = Utils.getClosestItem(plotData, xValue, eachChartData.config.accessors.xAccessor);
+					return { id: eachChartData.id, data: item };
+				});
+		},
+		getDataToPlotForDomain:function(domainL, domainR, data, width, xAccessor) {
+			var threshold = 0.5 // number of datapoints per 1 px
+			var allowedIntervals = ['D', 'W', 'M'];
+			// console.log(domainL, domainR, data, width);
+	
+			var dataForInterval, filteredData, interval, leftX, rightX;
+			for (var i=0; i<allowedIntervals.length; i++) {
+				interval = allowedIntervals[i]; 
+				dataForInterval = data[interval];
+	
+				leftX = Utils.getClosestItemIndexes(dataForInterval, domainL, xAccessor);
+				rightX = Utils.getClosestItemIndexes(dataForInterval, domainR, xAccessor);
+	
+				filteredData = dataForInterval.slice(leftX.right, rightX.right);
+	
+				// console.log(filteredData.length, width * threshold);
+				if (filteredData.length < width * threshold) break;
+			}
+	
+			// console.log(leftX, rightX,  (dd[leftX.left]), xAccessor(dd[rightX.right])); 
+	
+			return {
+				interval: interval,
+				data: filteredData
+			}
+		}
 	};
 	
 	module.exports = ChartContainerMixin;
 
 
 /***/ },
-/* 98 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var ChartTransformer = __webpack_require__(95);
-	
-	var DataTransformMixin = {
-		isDataDransform:function() {
-			return true;
-		},
-		transformData:function(props) {
-			var transformer = ChartTransformer.getTransformerFor(props.transformType);
-			var passThroughProps = transformer(this.context.data, props.options, props)
-			// console.log('passThroughProps-------', passThroughProps);
-	
-			// this.setState({ passThroughProps: passThroughProps });
-			return passThroughProps;
-		}
-	};
-	
-	module.exports = DataTransformMixin;
-
-
-/***/ },
-/* 99 */
+/* 96 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(2);
 	
-	var Dummy = React.createClass({displayName: "Dummy",
-		childContextTypes: {
-			data: React.PropTypes.object,
-			dataTransformOptions: React.PropTypes.object,
-			plotData: React.PropTypes.array,
-			chartData: React.PropTypes.array,
-			currentItems: React.PropTypes.array,
-			show: React.PropTypes.bool,
-			mouseXY: React.PropTypes.array,
-			interval: React.PropTypes.string,
-	
-			// EventCaptureMixin
-			onMouseMove: React.PropTypes.func,
-			onMouseEnter: React.PropTypes.func,
-			onMouseLeave: React.PropTypes.func,
-			onZoom: React.PropTypes.func,
-			onPanStart: React.PropTypes.func,
-			onPan: React.PropTypes.func,
-			onPanEnd: React.PropTypes.func,
-			panInProgress: React.PropTypes.bool.isRequired,
-			focus: React.PropTypes.bool.isRequired,
-			onFocus: React.PropTypes.func,
+	var ____Class1b=React.Component;for(var ____Class1b____Key in ____Class1b){if(____Class1b.hasOwnProperty(____Class1b____Key)){Canvas[____Class1b____Key]=____Class1b[____Class1b____Key];}}var ____SuperProtoOf____Class1b=____Class1b===null?null:____Class1b.prototype;Canvas.prototype=Object.create(____SuperProtoOf____Class1b);Canvas.prototype.constructor=Canvas;Canvas.__superConstructor__=____Class1b;
+		function Canvas(props) {
+			____Class1b.call(this,props);
+		}/*,
+		componentDidMount() {
+			console.log(this.getCanvas());
 		},
-		getChildContext:function() {
-			console.log('kjahfdshfkdashfpodisfhoadsiufhadslfhsdiufhds777777777777');
-			return this.props.contextProps;
-		},
-		render:function() {
-			console.log('Dummy.render()');
-			return this.props.render();
-		}
-	});
+		getCanvas() {
+			return React.findDOMNode(this.refs.canvas);
+		},*/
+		Object.defineProperty(Canvas.prototype,"render",{writable:true,configurable:true,value:function() {
+			return (
+				React.createElement("canvas", {ref: "canvas", 
+					width: this.props.width, 
+					height: this.props.height, 
+					style: { position: 'absolute', left: this.props.left, top: this.props.top}})
+			);
+		}});
+	;
 	
-	module.exports = Dummy;
+	Canvas.contextTypes = {
+		width: React.PropTypes.number.isRequired,
+		height: React.PropTypes.number.isRequired,
+		left: React.PropTypes.number.isRequired,
+		top: React.PropTypes.number.isRequired
+	}
 	
+	module.exports = Canvas;
 
 
 /***/ },
-/* 100 */
+/* 97 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5587,6 +5258,7 @@ return webpackJsonpReStock([1,2],[
 		}
 		return temp;
 	}
+	
 	Utils.displayDateFormat = d3.time.format("%Y-%m-%d");
 	Utils.displayNumberFormat = function(x) {
 		return Utils.numberWithCommas(x.toFixed(2));
@@ -5600,10 +5272,12 @@ return webpackJsonpReStock([1,2],[
 	Utils.mergeObject = function(a, b) {
 		var newObject = {};
 		Object.keys(a).forEach(function(key)  {
-			newObject[key] = a[key];
+			if (a[key] != null)
+				newObject[key] = a[key];
 		});
 		Object.keys(b).forEach(function(key)  {
-			newObject[key] = b[key];
+			if (b[key] != null)
+				newObject[key] = b[key];
 		});
 		return newObject;
 	}
@@ -5685,7 +5359,1370 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
+/* 98 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var StockScaleTransformer = __webpack_require__(104);
+	var HeikinAshiTransformer = __webpack_require__(105);
+	var KagiTransformer = __webpack_require__(106);
+	var PointAndFigureTransformer = __webpack_require__(107);
+	var RenkoTransformer = __webpack_require__(108);
+	
+	var ChartTransformer = {
+		getTransformerFor:function(type) {
+			if (type === "none")
+				return function(d)  {return d;};
+			if (type === "stockscale")
+				return StockScaleTransformer;
+			if (type === "heikinashi")
+				return HeikinAshiTransformer;
+			if (type === "kagi")
+				return KagiTransformer;
+			if (type === "pointandfigure")
+				return PointAndFigureTransformer;
+			if (type === "renko")
+				return RenkoTransformer;
+			return false;
+		},
+		filter:function(data, dateAccesor, fromDate, toDate) {
+			var filteredData = data.filter(function(each)  {
+				var filtered = dateAccesor(each).getTime() > fromDate.getTime() && dateAccesor(each).getTime() < toDate.getTime()
+				return filtered;
+			});
+			return filteredData;
+		}
+	}
+	
+	module.exports = ChartTransformer;
+
+
+/***/ },
+/* 99 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var React = __webpack_require__(2);
+	var Utils = __webpack_require__(97);
+	var ChartContainerMixin = __webpack_require__(95);
+	
+	function getLongValue(value) {
+		if (value instanceof Date) {
+			return value.getTime();
+		}
+		return value;
+	}
+	
+	var ____Class1c=React.Component;for(var ____Class1c____Key in ____Class1c){if(____Class1c.hasOwnProperty(____Class1c____Key)){EventHandler[____Class1c____Key]=____Class1c[____Class1c____Key];}}var ____SuperProtoOf____Class1c=____Class1c===null?null:____Class1c.prototype;EventHandler.prototype=Object.create(____SuperProtoOf____Class1c);EventHandler.prototype.constructor=EventHandler;EventHandler.__superConstructor__=____Class1c;
+		function EventHandler(props, context) {
+			____Class1c.call(this,props, context);
+			this.handleMouseMove = this.handleMouseMove.bind(this);
+			this.handleMouseEnter = this.handleMouseEnter.bind(this);
+			this.handleMouseLeave = this.handleMouseLeave.bind(this);
+			this.handleZoom = this.handleZoom.bind(this);
+			this.handlePanStart = this.handlePanStart.bind(this);
+			this.handlePan = this.handlePan.bind(this);
+			this.handlePanEnd = this.handlePanEnd.bind(this);
+			this.handleFocus = this.handleFocus.bind(this);
+	
+			this.state = {
+				focus: false,
+				currentItems: [],
+				show: false,
+				mouseXY: [0, 0],
+				panInProgress: false
+			};
+		}
+		Object.defineProperty(EventHandler.prototype,"componentWillMount",{writable:true,configurable:true,value:function() {
+			var $__0=     this,props=$__0.props,context=$__0.context;
+			var $__1=       context,data=$__1.data,initialDisplay=$__1.initialDisplay,dataTransformProps=$__1.dataTransformProps,interval=$__1.interval;
+	
+			var dataForInterval = data[interval];
+			var mainChart = ChartContainerMixin.getMainChart(props.children);
+			var beginIndex = Math.max(dataForInterval.length - initialDisplay, 0);
+			var plotData = dataForInterval.slice(beginIndex);
+			var chartData = ChartContainerMixin.getChartData(props, context, plotData, data, dataTransformProps);
+	
+			this.setState({
+				plotData: plotData,
+				chartData: chartData,
+				interval: this.context.interval,
+				mainChart: mainChart
+			});
+		}});
+		Object.defineProperty(EventHandler.prototype,"componentWillReceiveProps",{writable:true,configurable:true,value:function(props, context) {
+			var $__0=      this.state,interval=$__0.interval,chartData=$__0.chartData,plotData=$__0.plotData;
+			var $__1=     context,data=$__1.data,dataTransformProps=$__1.dataTransformProps;
+	
+			var dataForInterval = data[interval];
+			var mainChart = ChartContainerMixin.getMainChart(props.children);
+			var mainChartData = chartData.filter(function(each)  {return each.id === mainChart;})[0];
+			var beginIndex = Utils.getClosestItemIndexes(dataForInterval, mainChartData.config.accessors.xAccessor(plotData[0]), mainChartData.config.accessors.xAccessor).left;
+			var endIndex = Utils.getClosestItemIndexes(dataForInterval, mainChartData.config.accessors.xAccessor(plotData[plotData.length - 1]), mainChartData.config.accessors.xAccessor).right;
+	
+			var plotData = dataForInterval.slice(beginIndex, endIndex);
+			var chartData = ChartContainerMixin.getChartData(props, context, plotData, data, dataTransformProps);
+	
+			this.setState({
+				chartData: chartData,
+				plotData: plotData,
+				currentItems: [],
+				show: false,
+				mouseXY: [0, 0],
+				mainChart: mainChart
+			});
+		}});
+		Object.defineProperty(EventHandler.prototype,"getChildContext",{writable:true,configurable:true,value:function() {
+			return {
+				plotData: this.state.plotData,
+				chartData: this.state.chartData,
+				currentItems: this.state.currentItems,
+				show: this.state.show,
+				mouseXY: this.state.mouseXY,
+				interval: this.state.interval,
+	
+				onMouseMove: this.handleMouseMove,
+				onMouseEnter: this.handleMouseEnter,
+				onMouseLeave: this.handleMouseLeave,
+				onZoom: this.handleZoom,
+				onPanStart: this.handlePanStart,
+				onPan: this.handlePan,
+				onPanEnd: this.handlePanEnd,
+				onFocus: this.handleFocus,
+				panInProgress: this.state.panInProgress,
+				focus: this.state.focus
+			}
+		}});
+		Object.defineProperty(EventHandler.prototype,"handleMouseMove",{writable:true,configurable:true,value:function(mouseXY) {
+			// console.log('mouse move - ', mouseXY);
+			var currentItems = ChartContainerMixin.getCurrentItems(this.state.chartData, mouseXY, this.state.plotData)
+				// .filter((eachChartData) => eachChartData.id === this.state.mainChart)
+	
+			this.setState({
+				mouseXY: mouseXY,
+				currentItems: currentItems,
+				show: true
+			});
+		}});
+		Object.defineProperty(EventHandler.prototype,"handleMouseEnter",{writable:true,configurable:true,value:function() {
+			// console.log('enter');
+			this.setState({
+				show: true
+			});
+		}});
+		Object.defineProperty(EventHandler.prototype,"handleMouseLeave",{writable:true,configurable:true,value:function() {
+			// console.log('leave');
+			this.setState({
+				show: false
+			});
+		}});
+		Object.defineProperty(EventHandler.prototype,"handleZoom",{writable:true,configurable:true,value:function(zoomDirection, mouseXY) {
+			// console.log('zoomDirection ', zoomDirection, ' mouseXY ', mouseXY);
+			var $__0=       this.state,mainChart=$__0.mainChart,chartData=$__0.chartData,plotData=$__0.plotData,interval=$__0.interval;
+			var $__1=    this.context,data=$__1.data;
+	
+			var chart = chartData.filter(function(eachChart)  {return eachChart.id === mainChart;})[0],
+				item = ChartContainerMixin.getClosestItem(plotData, mouseXY, chart),
+				xScale = chart.plot.scales.xScale,
+				domain = xScale.domain(),
+				centerX = chart.config.accessors.xAccessor(item),
+				leftX = centerX - domain[0],
+				rightX = domain[1] - centerX,
+				zoom = Math.pow(1 + Math.abs(zoomDirection)/2 , zoomDirection),
+				domainL = (getLongValue(centerX) - ( leftX * zoom)),
+				domainR = (getLongValue(centerX) + (rightX * zoom)),
+				domainRange = Math.abs(domain[1] - domain[0]),
+				fullData = data[interval],
+				last = fullData[fullData.length - 1],
+				first = fullData[0];
+	
+			domainL = Math.max(getLongValue(chart.config.accessors.xAccessor(first)) - Math.floor(domainRange/3), domainL)
+			domainR = Math.min(getLongValue(chart.config.accessors.xAccessor(last)) + Math.floor(domainRange/3), domainR)
+			// xScale(domainR) - xScale(domainL)
+			var dataToPlot = ChartContainerMixin.getDataToPlotForDomain(domainL, domainR, data, chart.config.width, chart.config.accessors.xAccessor);
+			if (dataToPlot.data.length < 10) return;
+			var newChartData = chartData.map(function(eachChart)  {
+				var plot = ChartContainerMixin.getChartPlotFor(eachChart.config, dataToPlot.data, domainL, domainR);
+				return {
+					id: eachChart.id,
+					config: eachChart.config,
+					plot: plot
+				}
+			});
+			this.setState({
+				chartData: newChartData,
+				plotData: dataToPlot.data,
+				interval: dataToPlot.interval
+			});
+		}});
+	
+		Object.defineProperty(EventHandler.prototype,"handlePanStart",{writable:true,configurable:true,value:function(panStartDomain, panOrigin) {
+			// console.log('panStartDomain - ', panStartDomain, ', panOrigin - ', panOrigin);
+			this.setState({
+				panInProgress: true,
+				panStartDomain: panStartDomain,
+				panOrigin: panOrigin,
+				focus: true,
+			});
+		}});
+		Object.defineProperty(EventHandler.prototype,"handlePan",{writable:true,configurable:true,value:function(mousePosition, startDomain) {
+			// console.log('mousePosition ', mousePosition);
+			var $__0=         this.state,mainChart=$__0.mainChart,chartData=$__0.chartData,plotData=$__0.plotData,interval=$__0.interval,panStartDomain=$__0.panStartDomain,panOrigin=$__0.panOrigin;
+			var $__1=    this.context,data=$__1.data;
+			if (panStartDomain === null) {
+				this.handlePanStart(startDomain, mousePosition);
+			} else {
+				requestAnimationFrame(function()  {
+					var chart = chartData.filter(function(eachChart)  {return eachChart.id === mainChart;})[0],
+						domainRange = panStartDomain[1] - panStartDomain[0],
+						fullData = data[interval],
+						last = fullData[fullData.length - 1],
+						first = fullData[0],
+						dx = mousePosition[0] - panOrigin[0],
+						xAccessor = chart.config.accessors.xAccessor;
+	
+					// console.log('pan -- mouse move - ', mousePosition, ' dragged by ', dx, ' pixels');
+	
+					var domainStart = getLongValue(panStartDomain[0]) - dx/chart.config.width * domainRange
+					if (domainStart < getLongValue(xAccessor(first)) - Math.floor(domainRange/3)) {
+						domainStart = getLongValue(xAccessor(first)) - Math.floor(domainRange/3)
+					} else {
+						domainStart = Math.min(getLongValue(xAccessor(last))
+							+ Math.ceil(domainRange/3), domainStart + domainRange) - domainRange;
+					}
+					var domainL = domainStart, domainR = domainStart + domainRange
+					if (panStartDomain[0] instanceof Date) {
+						domainL = new Date(domainL);
+						domainR = new Date(domainR);
+					}
+	
+					var leftX = Utils.getClosestItemIndexes(fullData, domainL, xAccessor);
+					var rightX = Utils.getClosestItemIndexes(fullData, domainR, xAccessor);
+	
+					var filteredData = fullData.slice(leftX.right, rightX.right);
+	
+					var newChartData = chartData.map(function(eachChart)  {
+						var plot = ChartContainerMixin.getChartPlotFor(eachChart.config, filteredData, domainL, domainR);
+						return {
+							id: eachChart.id,
+							config: eachChart.config,
+							plot: plot
+						}
+					});
+					var currentItems = ChartContainerMixin.getCurrentItems(newChartData, mousePosition, filteredData);
+	
+					this.setState({
+						chartData: newChartData,
+						plotData: filteredData,
+						currentItems: currentItems,
+						// show: true,
+						mouseXY: mousePosition
+					});
+				}.bind(this));
+			}
+		}});
+		Object.defineProperty(EventHandler.prototype,"handlePanEnd",{writable:true,configurable:true,value:function() {
+			this.setState({
+				panInProgress: false,
+				panStartDomain: null
+			});
+		}});
+		Object.defineProperty(EventHandler.prototype,"handleFocus",{writable:true,configurable:true,value:function(focus) {
+			// console.log(focus);
+			this.setState({
+				focus: focus,
+			});
+		}});
+		Object.defineProperty(EventHandler.prototype,"render",{writable:true,configurable:true,value:function() {
+			var children = React.Children.map(this.props.children, function(child)  {
+				var newChild = Utils.isReactVersion13()
+					? React.withContext(this.getChildContext(), function()  {
+						return React.createElement(child.type, Utils.mergeObject({ key: child.key, ref: child.ref}, child.props));
+					})
+					: React.cloneElement(child);
+				return newChild;
+			}.bind(this));
+			return (
+				React.createElement("g", null, children)
+			);
+		}});
+	;
+	
+	EventHandler.contextTypes = {
+		width: React.PropTypes.number.isRequired,
+		height: React.PropTypes.number.isRequired,
+		data: React.PropTypes.object,
+		dataTransformOptions: React.PropTypes.object,
+		dataTransformProps: React.PropTypes.object,
+		plotData: React.PropTypes.array,
+		chartData: React.PropTypes.array,
+		initialDisplay: React.PropTypes.number.isRequired,
+		interval: React.PropTypes.string,
+	}
+	EventHandler.childContextTypes = {
+		plotData: React.PropTypes.array,
+		chartData: React.PropTypes.array,
+		currentItems: React.PropTypes.array,
+		show: React.PropTypes.bool,
+		mouseXY: React.PropTypes.array,
+		interval: React.PropTypes.string,
+	
+	
+		onMouseMove: React.PropTypes.func,
+		onMouseEnter: React.PropTypes.func,
+		onMouseLeave: React.PropTypes.func,
+		onZoom: React.PropTypes.func,
+		onPanStart: React.PropTypes.func,
+		onPan: React.PropTypes.func,
+		onPanEnd: React.PropTypes.func, 
+		panInProgress: React.PropTypes.bool.isRequired,
+		focus: React.PropTypes.bool.isRequired,
+		onFocus: React.PropTypes.func,
+	}
+	
+	module.exports = EventHandler;
+
+
+/***/ },
+/* 100 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(2);
+	var shallowEqual = __webpack_require__(112);
+	
+	var ____Class1d=React.Component;for(var ____Class1d____Key in ____Class1d){if(____Class1d.hasOwnProperty(____Class1d____Key)){PureComponent[____Class1d____Key]=____Class1d[____Class1d____Key];}}var ____SuperProtoOf____Class1d=____Class1d===null?null:____Class1d.prototype;PureComponent.prototype=Object.create(____SuperProtoOf____Class1d);PureComponent.prototype.constructor=PureComponent;PureComponent.__superConstructor__=____Class1d;function PureComponent(){if(____Class1d!==null){____Class1d.apply(this,arguments);}}
+		Object.defineProperty(PureComponent.prototype,"shouldComponentUpdate",{writable:true,configurable:true,value:function(nextProps, nextState, nextContext) {
+			return !shallowEqual(this.props, nextProps)
+				|| !shallowEqual(this.state, nextState)
+				|| !shallowEqual(this.context, nextContext);
+		}});
+	
+	
+	module.exports = PureComponent;
+
+/***/ },
 /* 101 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(2);
+	
+	var ____Class1e=React.Component;for(var ____Class1e____Key in ____Class1e){if(____Class1e.hasOwnProperty(____Class1e____Key)){EdgeCoordinate[____Class1e____Key]=____Class1e[____Class1e____Key];}}var ____SuperProtoOf____Class1e=____Class1e===null?null:____Class1e.prototype;EdgeCoordinate.prototype=Object.create(____SuperProtoOf____Class1e);EdgeCoordinate.prototype.constructor=EdgeCoordinate;EdgeCoordinate.__superConstructor__=____Class1e;function EdgeCoordinate(){if(____Class1e!==null){____Class1e.apply(this,arguments);}}
+		Object.defineProperty(EdgeCoordinate.prototype,"render",{writable:true,configurable:true,value:function() {
+			if (!this.props.show) return null;
+	
+			var displayCoordinate = this.props.coordinate;
+			var rectWidth = this.props.rectWidth
+				? this.props.rectWidth
+				: (this.props.type === 'horizontal')
+					? 60
+					: 100,
+				rectHeight = 20;
+	
+			var edgeXRect, edgeYRect, edgeXText, edgeYText;
+	
+			if (this.props.type === 'horizontal') {
+	
+				edgeXRect = (this.props.orient === 'right') ? this.props.edgeAt + 1 : this.props.edgeAt - rectWidth - 1;
+				edgeYRect = this.props.y1 - (rectHeight / 2);
+				edgeXText = (this.props.orient === 'right') ? this.props.edgeAt + (rectWidth / 2) : this.props.edgeAt - (rectWidth / 2);
+				edgeYText = this.props.y1;
+			} else {
+				edgeXRect = this.props.x1 - (rectWidth / 2);
+				edgeYRect = (this.props.orient === 'bottom') ? this.props.edgeAt : this.props.edgeAt - rectHeight;
+				edgeXText = this.props.x1;
+				edgeYText = (this.props.orient === 'bottom') ? this.props.edgeAt + (rectHeight / 2) : this.props.edgeAt - (rectHeight / 2);
+			}
+			var coordinateBase = null, coordinate = null;
+			if (displayCoordinate !== undefined) {
+					coordinateBase = (React.createElement("rect", {key: 1, className: "textbg", 
+										x: edgeXRect, 
+										y: edgeYRect, 
+										height: rectHeight, width: rectWidth, fill: this.props.fill}));
+					coordinate = (React.createElement("text", {key: 2, x: edgeXText, 
+										y: edgeYText, 
+										style: {"textAnchor": "middle"}, 
+										dy: ".32em"}, displayCoordinate));
+			}
+			return (
+				React.createElement("g", {className: (this.props.show ? 'show ' : 'hide ') + this.props.className}, 
+						React.createElement("line", {className: "cross-hair", 
+							x1: this.props.x1, y1: this.props.y1, 
+							x2: this.props.x2, y2: this.props.y2}), 
+						coordinateBase, 
+						coordinate
+				)
+			);
+		}});
+	;
+	
+	EdgeCoordinate.propTypes = {
+		type: React.PropTypes.oneOf(['vertical', 'horizontal']).isRequired,
+		coordinate: React.PropTypes.any.isRequired,
+		x1: React.PropTypes.number.isRequired,
+		y1: React.PropTypes.number.isRequired,
+		x2: React.PropTypes.number.isRequired,
+		y2: React.PropTypes.number.isRequired,
+		orient: React.PropTypes.oneOf(['bottom', 'top', 'left', 'right']),
+		rectWidth: React.PropTypes.number
+	};
+	EdgeCoordinate.defaultProps = {
+		namespace: "ReStock.EdgeCoordinate",
+		orient: 'left'
+	};
+	module.exports = EdgeCoordinate;
+
+
+/***/ },
+/* 102 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	function pushToValues(values, eachValue) {
+		if (typeof eachValue === 'object' && Object.keys(eachValue).length > 0) {
+			Object.keys(eachValue).forEach(function (key) {
+				if (!isNaN(eachValue[key])) {
+					values.push(eachValue[key]);
+				}
+			});
+		} else {
+			if (!isNaN(eachValue)) {
+				values.push(eachValue);
+			}
+		}
+	}
+	
+	var ScaleUtils = {
+		flattenData:function(data, xAccessors, yAccessors) {
+			// console.log(xAccessors, yAccessors);
+			var xValues = [];
+			var yValues = [];
+			data.forEach( function(row)  {
+				xAccessors.forEach( function(xAccessor)  {
+					var x = xAccessor(row);
+					if (x !== undefined) {
+						pushToValues(xValues, x);
+					}
+				});
+				yAccessors.forEach( function(yAccessor)  {
+					var y = yAccessor(row);
+					if (y !== undefined) {
+						pushToValues(yValues, y);
+					}
+				});
+			})
+			return {
+				xValues: xValues,
+				yValues: yValues
+			};
+		}
+	}
+	module.exports = ScaleUtils;
+
+
+/***/ },
+/* 103 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var Utils = __webpack_require__(97);
+	var MACalculator = __webpack_require__(109);
+	
+	var OverlayUtils = {
+		getToolTipLabel:function(props) {
+			if (props.type === "sma" || props.type === "ema") {
+				var tooltip = props.type.toUpperCase() + '(' + props.options.period + ')';
+				return tooltip;
+			}
+			return 'N/A';
+		},/*
+		getYAccessor(chartId, props) {
+			if (props.type === "sma" || props.type === "ema") {
+				var key = props.type + props.options.period + '_chart_' + chartId;
+				return (d) => d[key];
+			}
+			return false;
+		},*/
+		getYAccessorKey:function(chartId, props) {
+			if (props.type === "sma" || props.type === "ema") {
+				var key = props.type + props.options.period + '_chart_' + chartId;
+				return key;
+			}
+			return false;
+		},
+		calculateOverlay:function(data, overlay) {
+			// console.log(overlay);
+			if (overlay.type === 'sma') {
+				data = MACalculator.calculateSMA(data, overlay.options.period, overlay.key, overlay.options.pluck);
+			} else if (overlay.type === 'ema') {
+				data = MACalculator.calculateEMA(data, overlay.options.period, overlay.key, overlay.options.pluck);
+			}
+			return data;
+		},
+		firstDefined:function(data, accessor) {
+			var each;
+			for (var i = 0; i < data.length; i++) {
+				if (accessor(data[i]) === undefined) continue;
+				each = data[i];
+				// console.log(i, each, accessor(each));
+				break;
+			};
+			return Utils.cloneMe(each);
+		},
+		lastDefined:function(data, accessor) {
+			var each;
+			for (var i = data.length - 1; i >= 0; i--) {
+				if (accessor(data[i]) === undefined) continue;
+				each = data[i];
+				// console.log(i, each, accessor(each));
+				break;
+			};
+			return Utils.cloneMe(each);
+		}
+	}
+	
+	module.exports = OverlayUtils;
+
+
+/***/ },
+/* 104 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var stockScale = __webpack_require__(110);
+	
+	var defaultOptions = {
+		dateAccessor: function(d)  {return d.date;},
+		indexAccessor: function(d)  {return d._idx;},
+		dateMutator: function(d, date)  {d.date = date},
+		indexMutator: function(d, i)  {d._idx = i;}
+	}
+	
+	function StockScaleTransformer(data, interval, options) {
+		var newOptions = {};
+		Object.keys(defaultOptions).forEach(function(key)  {return newOptions[key] = defaultOptions[key];});
+	
+		if (options) Object.keys(options).forEach(function(key)  {return newOptions[key] = options[key];});
+	
+		var $__0=       newOptions,dateAccessor=$__0.dateAccessor,dateMutator=$__0.dateMutator,indexAccessor=$__0.indexAccessor,indexMutator=$__0.indexMutator;
+	
+		var prevDate;
+		var responseData = {}
+		var dd = data[interval];
+		responseData.D = dd
+			//.filter((each) => Math.random() > 0.9)
+			.map(function(each, i)  {
+				var row = each;
+				// console.log(each);
+				//console.log(row);
+				indexMutator(row,  i);
+	
+				row.startOfWeek = false;
+				row.startOfMonth = false;
+				row.startOfQuarter = false;
+				row.startOfYear = false;
+				var date = dateAccessor(row);
+				//row.displayDate = dateFormat(date);
+				if (prevDate !== undefined) {
+					// According to ISO calendar
+					// Sunday = 0, Monday = 1, ... Saturday = 6
+					// day of week of today < day of week of yesterday then today is start of week
+					row.startOfWeek = date.getDay() < prevDate.getDay();
+					// month of today != month of yesterday then today is start of month
+					row.startOfMonth = date.getMonth() != prevDate.getMonth();
+					//if start of month and month % 3 === 0 then it is start of quarter
+					row.startOfQuarter = row.startOfMonth && date.getMonth() % 3 === 0;
+					// year of today != year of yesterday then today is start of year
+					row.startOfYear = date.getYear() != prevDate.getYear();
+				}
+				prevDate = date;
+				return row;
+			});
+		// console.table(responseData);
+		responseData.W = buildWeeklyData(responseData.D, indexMutator, dateAccessor, dateMutator);
+		responseData.M = buildMonthlyData(responseData.D, indexMutator, dateAccessor, dateMutator);
+	
+		// console.table(responseData.W);
+	
+		return {
+				data: responseData,
+				other: {
+					xScale: stockScale(newOptions.indexAccessor),
+					xAccessor: newOptions.indexAccessor,
+					stockScale: true,
+				},
+				options: newOptions
+			};
+	}
+	
+	function buildWeeklyData(daily, indexMutator, dateAccesor, dateMutator) {
+		var weekly = [], prevWeek, eachWeek = {};
+		for (var i = 0; i < daily.length; i++) {
+			var d = daily[i];
+	
+			if (dateAccesor(eachWeek)) indexMutator(eachWeek,  i);
+	
+			dateMutator(eachWeek, dateAccesor(d));
+	
+			eachWeek.startOfWeek = eachWeek.startOfWeek || d.startOfWeek;
+			eachWeek.startOfMonth = eachWeek.startOfMonth || d.startOfMonth;
+			eachWeek.startOfQuarter = eachWeek.startOfQuarter || d.startOfQuarter;
+			eachWeek.startOfYear = eachWeek.startOfYear || d.startOfYear;
+	
+			if (!eachWeek.open) eachWeek.open = d.open;
+			if (!eachWeek.high) eachWeek.high = d.high;
+			if (!eachWeek.low) eachWeek.low = d.low;
+	
+			eachWeek.close = d.close;
+	
+			eachWeek.high = Math.max(eachWeek.high, d.high);
+			eachWeek.low = Math.min(eachWeek.low, d.low);
+	
+			if (!eachWeek.volume) eachWeek.volume = 0;
+			eachWeek.volume += d.volume;
+	
+			if (d.startOfWeek) {
+				if (prevWeek) {
+					eachWeek.trueRange = Math.max(
+						eachWeek.high - eachWeek.low
+						, eachWeek.high - prevWeek.close
+						, eachWeek.low - prevWeek.close
+					);
+				}
+				prevWeek = eachWeek
+				weekly.push(eachWeek);
+				eachWeek = {};
+			}
+		}
+		return weekly;
+	}
+	
+	function buildMonthlyData(daily, indexMutator, dateAccesor) {
+		var monthly = [], prevMonth, eachMonth = {};
+		for (var i = 0; i < daily.length; i++) {
+			var d = daily[i];
+	
+			if (!eachMonth.date) indexMutator(eachMonth,  i);
+	
+			eachMonth.date = dateAccesor(d);
+	
+			eachMonth.startOfMonth = eachMonth.startOfMonth || d.startOfMonth;
+			eachMonth.startOfQuarter = eachMonth.startOfQuarter || d.startOfQuarter;
+			eachMonth.startOfYear = eachMonth.startOfYear || d.startOfYear;
+	
+			if (!eachMonth.open) eachMonth.open = d.open;
+			if (!eachMonth.high) eachMonth.high = d.high;
+			if (!eachMonth.low) eachMonth.low = d.low;
+	
+			eachMonth.close = d.close;
+	
+			eachMonth.high = Math.max(eachMonth.high, d.high);
+			eachMonth.low = Math.min(eachMonth.low, d.low);
+	
+			if (!eachMonth.volume) eachMonth.volume = 0;
+			eachMonth.volume += d.volume;
+	
+			if (d.startOfMonth) {
+				eachMonth.startOfWeek = d.startOfWeek;
+				if (prevMonth) {
+					eachMonth.trueRange = Math.max(
+						eachMonth.high - eachMonth.low
+						, eachMonth.high - prevMonth.close
+						, eachMonth.low - prevMonth.close
+					);
+				}
+				prevMonth = eachMonth
+				monthly.push(eachMonth);
+				eachMonth = {};
+			}
+		}
+		return monthly;
+	}
+	
+	module.exports = StockScaleTransformer;
+
+
+/***/ },
+/* 105 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	function HeikinAshiTransformer(data, interval, options, other) {
+	
+		var $__0=       options,dateAccessor=$__0.dateAccessor,dateMutator=$__0.dateMutator,indexAccessor=$__0.indexAccessor,indexMutator=$__0.indexMutator;
+		// console.log(data, options);
+	
+		var haData = {};
+		Object.keys(data)
+			.forEach(function(key)  {return haData[key] = buildHA(data[key], indexAccessor, indexMutator, dateAccessor, dateMutator);});
+	
+		return {
+			data: haData,
+			other: other,
+			options: options
+		};
+	}
+	
+	function buildHA(data, indexAccessor, indexMutator, dateAccessor, dateMutator) {
+		var prevEach;
+	
+		var haData = data.map(function (d, i) {
+			var each = {};
+			indexMutator(each, indexAccessor(d));
+			each.close = (d.open + d.high + d.low + d.close) / 4;
+	
+			dateMutator(each, dateAccessor(d));
+			//each.displayDate = d.displayDate;
+	
+			if (!prevEach) {
+				each.open = d.open;
+				each.high = d.high;
+				each.low = d.low;
+			} else {
+				each.open = (prevEach.open + prevEach.close) / 2;
+				each.high = Math.max(each.open, d.high, each.close);
+				each.low = Math.min(each.open, d.low, each.close);
+				each.trueRange = Math.max(
+						d.high - d.low
+						, d.high - prevEach.close
+						, d.low - prevEach.close
+					);
+			}
+			each.volume = d.volume;
+	
+			each.startOfWeek = d.startOfWeek;
+			each.startOfMonth = d.startOfMonth;
+			each.startOfQuarter = d.startOfQuarter;
+			each.startOfYear = d.startOfYear;
+	
+			prevEach = each;
+			return each;
+		});
+		// console.table(haData);
+		return haData;
+	};
+	
+	module.exports = HeikinAshiTransformer;
+
+
+/***/ },
+/* 106 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var pricingMethod = function (d) { return { high: d.high, low: d.low }; };
+	var usePrice = function (d) { return d.close; };
+	
+	var calculateATR = __webpack_require__(111);
+	
+	function KagiTransformer(data, interval, options, other) {
+		if (options === undefined) options = {};
+	
+		var period = options.period || 14;
+	
+		calculateATR(data.D, period);
+		var reversalThreshold = function (d) { return d["atr" + period] }
+	
+		var $__0=       options,dateAccessor=$__0.dateAccessor,dateMutator=$__0.dateMutator,indexAccessor=$__0.indexAccessor,indexMutator=$__0.indexMutator;
+	
+		var kagiData = new Array();
+	
+		var index = 0, prevPeak, prevTrough, direction;
+		var line = {};
+	
+		data.D.forEach( function (d) {
+			if (line.from === undefined) {
+				indexMutator(line, index++);
+				dateMutator(line, dateAccessor(d));
+				/*line.displayDate = d.displayDate;
+				line.fromDate = d.displayDate;
+				line.toDate = d.displayDate;*/
+				line.from = dateAccessor(d);
+	
+				if (!line.open) line.open = d.open;
+				line.high = d.high;
+				line.low = d.low;
+				if (!line.close) line.close = usePrice(d);
+				line.startOfYear = d.startOfYear;
+				line.startOfQuarter = d.startOfQuarter;
+				line.startOfMonth = d.startOfMonth;
+				line.startOfWeek = d.startOfWeek;
+				//line.tempClose = d.close;
+			}
+	
+			if (!line.startOfYear) {
+				line.startOfYear = d.startOfYear;
+				if (line.startOfYear) {
+					line.date = d.date;
+					// line.displayDate = d.displayDate;
+				}
+			}
+	
+			if (!line.startOfQuarter) {
+				line.startOfQuarter = d.startOfQuarter;
+				if (line.startOfQuarter && !line.startOfYear) {
+					line.date = d.date;
+					// line.displayDate = d.displayDate;
+				}
+			}
+	
+			if (!line.startOfMonth) {
+				line.startOfMonth = d.startOfMonth;
+				if (line.startOfMonth && !line.startOfQuarter) {
+					line.date = d.date;
+					// line.displayDate = d.displayDate;
+				}
+			}
+			if (!line.startOfWeek) {
+				line.startOfWeek = d.startOfWeek;
+				if (line.startOfWeek && !line.startOfMonth) {
+					line.date = d.date;
+					// line.displayDate = d.displayDate;
+				}
+			}
+			line.volume = (line.volume || 0) + d.volume;
+			line.high = Math.max(line.high, d.high);
+			line.low = Math.min(line.low, d.low);
+			line.to = dateAccessor(d);
+			//line.toDate = d.displayDate;
+			var priceMovement = (usePrice(d) - line.close);
+	
+			if ((line.close > line.open /* going up */ && priceMovement > 0 /* and moving in same direction */)
+					|| (line.close < line.open /* going down */ && priceMovement < 0 /* and moving in same direction */)) {
+				line.close = usePrice(d);
+				if (prevTrough && line.close < prevTrough) {
+					// going below the prevTrough, so change from yang to yin
+					// A yin line forms when a Kagi line breaks below the prior trough.
+					line.changePoint = prevTrough;
+					if (line.startAs != 'yin') {
+						line.changeTo = 'yin';
+						// line.startAs = 'yang';
+					}
+				}
+				if (prevPeak && line.close > prevPeak) {
+					// going above the prevPeak, so change from yin to yang
+					// A yang line forms when a Kagi line breaks above the prior peak
+					line.changePoint = prevPeak;
+					if (line.startAs != 'yang') {
+						line.changeTo = 'yang';
+						// line.startAs = 'yin';
+					}
+				}
+			} else if ((line.close > line.open /* going up */
+							&& priceMovement < 0 /* and moving in other direction */
+							&& Math.abs(priceMovement) > reversalThreshold(d) /* and the movement is big enough for reversal */) //d.atr
+					|| (line.close < line.open /* going down */
+							&& priceMovement > 0 /* and moving in other direction */
+							&& Math.abs(priceMovement) > reversalThreshold(d) /* and the movement is big enough for reversal */)) {
+				// reverse direction
+				var nextLineOpen = line.close;
+	
+				direction = (line.close - line.open) / Math.abs(line.close - line.open);
+				/*line.prevPeak = prevPeak;
+				line.prevTrough = prevTrough;*/
+				var nextChangePoint, nextChangeTo;
+				if (direction < 0 /* if direction so far has been -ve*/) {
+					// compare with line.close becomes prevTrough
+					if (prevPeak === undefined) prevPeak = line.open;
+					prevTrough = line.close;
+					if (usePrice(d) > prevPeak) {
+						nextChangePoint = prevPeak;
+						nextChangeTo = 'yang';
+					}
+				} else {
+					if (prevTrough === undefined) prevTrough = line.open;
+					prevPeak = line.close;
+					if (usePrice(d) < prevTrough) {
+						nextChangePoint = prevTrough;
+						nextChangeTo = 'yin';
+					}
+				}
+				if (line.startAs === undefined) {
+					line.startAs = direction > 0 ? 'yang' : 'yin';
+				}
+	
+				var startAs = line.changeTo || line.startAs;
+				kagiData.push(line);
+				direction = -1 * direction; //direction is reversed
+	
+				line = {
+					open: nextLineOpen
+					, close: usePrice(d)
+					, startAs: startAs
+					, changePoint: nextChangePoint
+					, changeTo: nextChangeTo
+				};
+			} else {
+	
+			}
+		});
+	
+		return {
+			data: {'D': kagiData},
+			other: other,
+			options: options
+		};
+	}
+	
+	
+	module.exports = KagiTransformer;
+
+
+/***/ },
+/* 107 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var pricingMethod = function (d) { return { high: d.high, low: d.low }; };
+	var usePrice = function (d) { return { high: d.high, low: d.low }; };
+	
+	var defaultOptions = {
+		boxSize: 0.5,
+		reversal: 3,
+	}
+	
+	function createBox(d, dateAccessor, dateMutator) {
+		var box = {
+			open: d.open
+			, fromDate: dateAccessor(d)
+			, toDate: dateAccessor(d)
+			//, displayDate: d.displayDate
+			, startOfYear: d.startOfYear
+			, startOfQuarter: d.startOfQuarter
+			, startOfMonth: d.startOfMonth
+			, startOfWeek: d.startOfWeek
+		};
+		dateMutator(box, dateAccessor(d));
+		return box;
+	}
+	
+	function updateColumns(columnData, dateAccessor, dateMutator) {
+	
+		columnData.forEach(function (d, i) {
+			var lastBox = d.boxes[d.boxes.length - 1];
+	
+			d.startOfYear = false;
+			d.startOfQuarter = false;
+			d.startOfMonth = false;
+			d.startOfWeek = false;
+	
+			d.boxes.forEach(function(eachBox) {
+				if (d.open === undefined) d.open = eachBox.open;
+				d.close = eachBox.close;
+				d.high = Math.max(d.open, d.close);
+				d.low = Math.min(d.open, d.close);
+	
+				if (d.fromDate === undefined) d.fromDate = eachBox.fromDate;
+				if (d.date === undefined) d.date = eachBox.date;
+				// if (d.displayDate === undefined) d.displayDate = eachBox.displayDate;
+				d.toDate = eachBox.toDate;
+	
+				if (eachBox.startOfYear) {
+					d.startOfYear = d.startOfYear || eachBox.startOfYear;
+					d.startOfQuarter = eachBox.startOfQuarter;
+					d.startOfMonth = eachBox.startOfMonth;
+					d.startOfWeek = eachBox.startOfWeek;
+					//d.displayDate = eachBox.displayDate;
+					dateMutator(d, dateAccessor(eachBox));
+				}
+				if (d.startOfQuarter !== true && eachBox.startOfQuarter) {
+					d.startOfQuarter = eachBox.startOfQuarter;
+					d.startOfMonth = eachBox.startOfMonth;
+					d.startOfWeek = eachBox.startOfWeek;
+					// d.displayDate = eachBox.displayDate;
+					dateMutator(d, dateAccessor(eachBox));
+				}
+				if (d.startOfMonth !== true && eachBox.startOfMonth) {
+					d.startOfMonth = eachBox.startOfMonth;
+					d.startOfWeek = eachBox.startOfWeek;
+					// d.displayDate = eachBox.displayDate;
+					dateMutator(d, dateAccessor(eachBox));
+				}
+				if (d.startOfWeek !== true && eachBox.startOfWeek) {
+					d.startOfWeek = eachBox.startOfWeek;
+					// d.displayDate = eachBox.displayDate;
+					dateMutator(d, dateAccessor(eachBox));
+				}
+			});
+	
+		});
+	
+		// console.table(columnData);
+		// console.table(rawData);
+		return columnData;
+	};
+	
+	function PointAndFigureTransformer(rawData, interval, options, other) {
+	
+		var newOptions = {};
+		Object.keys(defaultOptions).forEach(function(key)  {return newOptions[key] = defaultOptions[key];});
+	
+		if (options) Object.keys(options).forEach(function(key)  {return newOptions[key] = options[key];});
+	
+		var $__0=         newOptions,dateAccessor=$__0.dateAccessor,dateMutator=$__0.dateMutator,indexAccessor=$__0.indexAccessor,indexMutator=$__0.indexMutator,reversal=$__0.reversal,boxSize=$__0.boxSize;
+	
+		var columnData = new Array();
+	
+		var index = 0, direction;
+		var column = {
+			boxes: [],
+			open: rawData.D[0].open
+		}, box = createBox(rawData.D[0], dateAccessor, dateMutator);
+	
+		indexMutator(column, 0);
+		columnData.push(column);
+	
+		rawData.D.forEach( function (d) {
+			column.volume = column.volume || 0;
+			column.volume += d.volume;
+	
+			if (!box.startOfYear) {
+				box.startOfYear = d.startOfYear;
+				if (box.startOfYear) {
+					dateMutator(box, dateAccessor(d));
+					// box.displayDate = d.displayDate;
+				}
+			}
+	
+			if (!box.startOfYear && !box.startOfQuarter) {
+				box.startOfQuarter = d.startOfQuarter;
+				if (box.startOfQuarter && !box.startOfYear) {
+					dateMutator(box, dateAccessor(d));
+					// box.displayDate = d.displayDate;
+				}
+			}
+	
+			if (!box.startOfQuarter && !box.startOfMonth) {
+				box.startOfMonth = d.startOfMonth;
+				if (box.startOfMonth && !box.startOfQuarter) {
+					dateMutator(box, dateAccessor(d));
+					// box.displayDate = d.displayDate;
+				}
+			}
+			if (!box.startOfMonth && !box.startOfWeek) {
+				box.startOfWeek = d.startOfWeek;
+				if (box.startOfWeek && !box.startOfMonth) {
+					dateMutator(box, dateAccessor(d));
+					// box.displayDate = d.displayDate;
+				}
+			}
+	
+			if (columnData.length === 1 && column.boxes.length === 0) {
+				var upwardMovement = (Math.max((usePrice(d).high - column.open), 0)) //upward movement
+				var downwardMovement = Math.abs(Math.min((column.open - usePrice(d).low), 0)) // downward movement
+				column.direction = upwardMovement > downwardMovement ? 1 : -1;
+				if (boxSize * reversal < upwardMovement
+					|| boxSize * reversal < downwardMovement) {
+					// enough movement to trigger a reversal
+					box.toDate = dateAccessor(d);
+					box.open = column.open;
+					var noOfBoxes = column.direction > 0
+										? Math.floor(upwardMovement / boxSize)
+										: Math.floor(downwardMovement / boxSize);
+					for (var i = 0; i < noOfBoxes; i++) {
+						box.close = box.open + column.direction * boxSize;
+						var prevBoxClose = box.close;
+						column.boxes.push(box);
+						box = createBox(box, dateAccessor, dateMutator);
+						// box = cloneMe(box);
+						box.open = prevBoxClose;
+					}
+					box.fromDate = dateAccessor(d);
+					box.date = dateAccessor(d);
+				}
+			} else {
+				// one or more boxes already formed in the current column
+				var upwardMovement = (Math.max((usePrice(d).high - box.open), 0)) //upward movement
+				var downwardMovement = Math.abs(Math.min((usePrice(d).low - box.open), 0)) // downward movement
+	
+				if ((column.direction > 0 && upwardMovement > boxSize) /* rising column AND box can be formed */
+						|| (column.direction < 0 && downwardMovement > boxSize) /* falling column AND box can be formed */ ) {
+					// form another box
+					box.close = box.open + column.direction * boxSize;
+					box.toDate = dateAccessor(d);
+					var prevBoxClose = box.close;
+					column.boxes.push(box);
+					box = createBox(d, dateAccessor, dateMutator);
+					box.open = prevBoxClose;
+					box.fromDate = dateAccessor(d);
+					dateMutator(box, dateAccessor(d));
+				} else if ((column.direction > 0 && downwardMovement > boxSize * reversal) /* rising column and there is downward movement to trigger a reversal */
+						|| (column.direction < 0 && upwardMovement > boxSize * reversal)/* falling column and there is downward movement to trigger a reversal */) {
+					// reversal
+	
+					box.open = box.open + -1 * column.direction * boxSize;
+					box.toDate = dateAccessor(d);
+					// box.displayDate = d.displayDate;
+					dateMutator(box, dateAccessor(d));
+					// box.startOfYear = d.startOfYear;
+					// box.startOfQuarter = d.startOfQuarter;
+					// box.startOfMonth = d.startOfMonth;
+					// box.startOfWeek = d.startOfWeek;
+					// console.table(column.boxes);
+					var idx = indexAccessor(column) + 1;
+					column = {
+						boxes: [],
+						//, index: column.index + 1
+						direction: -1 * column.direction
+					};
+					indexMutator(column, idx);
+					var noOfBoxes = column.direction > 0
+										? Math.floor(upwardMovement / boxSize)
+										: Math.floor(downwardMovement / boxSize);
+					for (var i = 0; i < noOfBoxes; i++) {
+						box.close = box.open + column.direction * boxSize;
+						var prevBoxClose = box.close;
+						column.boxes.push(box);
+						box = createBox(d, dateAccessor, dateMutator);
+						box.open = prevBoxClose;
+					}
+	
+					columnData.push(column);
+				}
+			}
+		});
+		updateColumns(columnData, dateAccessor, dateMutator);
+	
+		return {
+			data: {'D': columnData},
+			other: other,
+			options: newOptions
+		};
+	}
+	
+	module.exports = PointAndFigureTransformer;
+
+
+/***/ },
+/* 108 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var pricingMethod = function (d) { return { high: d.high, low: d.low }; };
+	// var pricingMethod = function (d) { return { high: d.close, low: d.close }; };
+	// var usePrice = function (d) { return d.close; };
+	var calculateATR = __webpack_require__(111);
+	
+	var defaultOptions = {
+		boxSize: 0.5,
+		reversal: 3,
+		period: 14
+	}
+	
+	function RenkoTransformer(rawData, interval, options, other) {
+		var newOptions = {};
+		Object.keys(defaultOptions).forEach(function(key)  {return newOptions[key] = defaultOptions[key];});
+	
+		if (options) Object.keys(options).forEach(function(key)  {return newOptions[key] = options[key];});
+	
+		var $__0=          newOptions,dateAccessor=$__0.dateAccessor,dateMutator=$__0.dateMutator,indexAccessor=$__0.indexAccessor,indexMutator=$__0.indexMutator,reversal=$__0.reversal,boxSize=$__0.boxSize,period=$__0.period;
+	
+		calculateATR(rawData.D, period);
+		var brickSize = function (d) { return d["atr" + period]}
+	
+		var renkoData = new Array();
+	
+		var index = 0, prevBrickClose = rawData.D[index].open, prevBrickOpen = rawData.D[index].open;
+		var brick = {}, direction = 0;
+	
+	
+		rawData.D.forEach( function (d) {
+			if (brick.from === undefined) {
+				// brick.index = index++;
+				// brick.date = d.date;
+				// brick.displayDate = d.displayDate;
+				// brick.fromDate = d.displayDate;
+				// brick.from = d.index;
+				brick.high = d.high;
+				brick.low = d.low;
+				brick.startOfYear = d.startOfYear;
+				brick.startOfQuarter = d.startOfQuarter;
+				brick.startOfMonth = d.startOfMonth;
+				brick.startOfWeek = d.startOfWeek;
+				//brick.tempClose = d.close;
+				brick.from = indexAccessor(d);
+				brick.fromDate = dateAccessor(d);
+				indexMutator(brick, index++);
+				dateMutator(brick, dateAccessor(d));
+			}
+			brick.volume = (brick.volume || 0) + d.volume;
+	
+			var prevCloseToHigh = (prevBrickClose - pricingMethod(d).high),
+				prevCloseToLow = (prevBrickClose - pricingMethod(d).low),
+				prevOpenToHigh = (prevBrickOpen - pricingMethod(d).high),
+				prevOpenToLow = (prevBrickOpen - pricingMethod(d).low),
+				priceMovement = Math.min(
+					Math.abs(prevCloseToHigh),
+					Math.abs(prevCloseToLow),
+					Math.abs(prevOpenToHigh),
+					Math.abs(prevOpenToLow));
+	
+	
+			brick.high = Math.max(brick.high, d.high);
+			brick.low = Math.min(brick.low, d.low);
+	
+			if (!brick.startOfYear) {
+				brick.startOfYear = d.startOfYear;
+				if (brick.startOfYear) {
+					dateMutator(brick, dateAccessor(d));
+					// brick.displayDate = d.displayDate;
+				}
+			}
+	
+			if (!brick.startOfQuarter) {
+				brick.startOfQuarter = d.startOfQuarter;
+				if (brick.startOfQuarter && !brick.startOfYear) {
+					dateMutator(brick, dateAccessor(d));
+					// brick.displayDate = d.displayDate;
+				}
+			}
+	
+			if (!brick.startOfMonth) {
+				brick.startOfMonth = d.startOfMonth;
+				if (brick.startOfMonth && !brick.startOfQuarter) {
+					dateMutator(brick, dateAccessor(d));
+					// brick.displayDate = d.displayDate;
+				}
+			}
+			if (!brick.startOfWeek) {
+				brick.startOfWeek = d.startOfWeek;
+				if (brick.startOfWeek && !brick.startOfMonth) {
+					dateMutator(brick, dateAccessor(d));
+					// brick.displayDate = d.displayDate;
+				}
+			}
+	
+			//d.brick = JSON.stringify(brick);
+			if (brickSize(d)) {
+				var noOfBricks = Math.floor(priceMovement / brickSize(d))
+	
+				brick.open = (Math.abs(prevCloseToHigh) < Math.abs(prevOpenToHigh)
+				 || Math.abs(prevCloseToLow) < Math.abs(prevOpenToLow))
+								? prevBrickClose
+								: prevBrickOpen;
+	
+				if (noOfBricks >= 1) {
+					for (var j = 0; j < noOfBricks; j++) {
+						brick.close = (brick.open < pricingMethod(d).high)
+										// if brick open is less than current price it means it is green/hollow brick
+											? brick.open + brickSize(d)
+											: brick.open - brickSize(d);
+						direction = brick.close > brick.open ? 1 : -1;
+						brick.direction = direction;
+						brick.to = indexAccessor(d);
+						brick.toDate = dateAccessor(d);
+						// brick.diff = brick.open - brick.close;
+						// brick.atr = d.atr;
+						brick.fullyFormed = true;
+						renkoData.push(brick);
+	
+						prevBrickClose = brick.close;
+						prevBrickOpen = brick.open;
+	
+						var newBrick = {
+							// index : index + j
+							// , date : d.date
+							// , displayDate : d.displayDate
+							//, from : d.index
+							high : brick.high
+							, low : brick.low
+							, open : brick.close
+							// , fromDate : d.displayDate
+							, startOfYear : false
+							, startOfMonth : false
+							, startOfQuarter : false
+							, startOfWeek : false
+						};
+						brick = newBrick;
+						brick.from = indexAccessor(d);
+						brick.fromDate = dateAccessor(d);
+						indexMutator(brick, index + j);
+						dateMutator(brick, dateAccessor(d));
+						brick.volume = (brick.volume || 0) + d.volume;
+					}
+					index = index + j - 1;
+					brick = {};
+				} else {
+					if (indexAccessor(d) === rawData.D.length - 1) {
+						brick.close = direction > 0 ? pricingMethod(d).high : pricingMethod(d).low;
+						brick.to = indexAccessor(d);
+						brick.toDate = dateAccessor(d);
+						dateMutator(brick, dateAccessor(d));
+	
+						brick.fullyFormed = false;
+						renkoData.push(brick);
+					}
+				}
+			}
+	
+		});
+		return {
+			data: {'D': renkoData},
+			other: other,
+			options: newOptions
+		};
+	}
+	
+	module.exports = RenkoTransformer;
+
+
+/***/ },
+/* 109 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var Utils = __webpack_require__(97);
+	
+	var pluck = Utils.pluck;
+	var sum = Utils.sum;
+	
+	function MACalculator() {
+	
+	};
+	MACalculator.calculateSMA = function(data, period, key, pluckKey) {
+		// console.log('calculateSMA');
+	
+		var l = data.length - 1;//, key = 'sma' + period;
+		var maKey = pluckKey || 'close';
+	
+		data.map(function(each, i)  {return data.slice(i - period, i);})
+			.filter(function(array)  {return array.length === period && array.length > 0;})
+			.map(function(array)  {return pluck(array, maKey);})
+			.map(function(array)  {return sum(array);})
+			.map(function(sum)  {return sum / period;})
+			.reverse()
+			.forEach(function(avg, i)  {
+				// Object.defineProperty(data[l - i], key, { value: avg });
+				data[l - i][key] = avg;
+				// console.log(data[l - i][key]);
+			})
+		if (key === 'sma53_chart_2') {
+			console.table(data);
+		}
+		return data;
+	}
+	
+	MACalculator.calculateEMA = function (data, period) {
+		console.log('calculating EMA');
+		return false;
+	}
+	
+	module.exports = MACalculator;
+
+
+/***/ },
+/* 110 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5841,1069 +6878,47 @@ return webpackJsonpReStock([1,2],[
 	module.exports = polylineartimescale
 
 /***/ },
-/* 102 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(2);
-	var shallowEqual = __webpack_require__(113);
-	
-	var ____ClassS=React.Component;for(var ____ClassS____Key in ____ClassS){if(____ClassS.hasOwnProperty(____ClassS____Key)){PureComponent[____ClassS____Key]=____ClassS[____ClassS____Key];}}var ____SuperProtoOf____ClassS=____ClassS===null?null:____ClassS.prototype;PureComponent.prototype=Object.create(____SuperProtoOf____ClassS);PureComponent.prototype.constructor=PureComponent;PureComponent.__superConstructor__=____ClassS;function PureComponent(){if(____ClassS!==null){____ClassS.apply(this,arguments);}}
-		Object.defineProperty(PureComponent.prototype,"shouldComponentUpdate",{writable:true,configurable:true,value:function(nextProps, nextState, nextContext) {
-			return !shallowEqual(this.props, nextProps)
-				|| !shallowEqual(this.state, nextState)
-				|| !shallowEqual(this.context, nextContext);
-		}});
-	
-	
-	module.exports = PureComponent;
-
-/***/ },
-/* 103 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	var React = __webpack_require__(2);
-	
-	var ForChartMixin = {
-		contextTypes: {
-			chartData: React.PropTypes.array.isRequired,
-			currentItems: React.PropTypes.array.isRequired,
-		},
-		getChartData:function() {
-			var chartData = this.context.chartData.filter(function(each)  {return each.id === this.props.forChart;}.bind(this))[0];
-			return chartData;
-		},
-		getCurrentItem:function() {
-			var currentItem = this.context.currentItems.filter(function(each)  {return each.id === this.props.forChart;}.bind(this))[0];
-			var item = currentItem ? currentItem.data : {}
-			return item;
-		}
-	};
-	
-	module.exports = ForChartMixin;
-
-
-/***/ },
-/* 104 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var React = __webpack_require__(2);
-	
-	var ____ClassT=React.Component;for(var ____ClassT____Key in ____ClassT){if(____ClassT.hasOwnProperty(____ClassT____Key)){EdgeCoordinate[____ClassT____Key]=____ClassT[____ClassT____Key];}}var ____SuperProtoOf____ClassT=____ClassT===null?null:____ClassT.prototype;EdgeCoordinate.prototype=Object.create(____SuperProtoOf____ClassT);EdgeCoordinate.prototype.constructor=EdgeCoordinate;EdgeCoordinate.__superConstructor__=____ClassT;function EdgeCoordinate(){if(____ClassT!==null){____ClassT.apply(this,arguments);}}
-		Object.defineProperty(EdgeCoordinate.prototype,"render",{writable:true,configurable:true,value:function() {
-			if (!this.props.show) return null;
-	
-			var displayCoordinate = this.props.coordinate;
-			var rectWidth = this.props.rectWidth
-				? this.props.rectWidth
-				: (this.props.type === 'horizontal')
-					? 60
-					: 100,
-				rectHeight = 20;
-	
-			var edgeXRect, edgeYRect, edgeXText, edgeYText;
-	
-			if (this.props.type === 'horizontal') {
-	
-				edgeXRect = (this.props.orient === 'right') ? this.props.edgeAt + 1 : this.props.edgeAt - rectWidth - 1;
-				edgeYRect = this.props.y1 - (rectHeight / 2);
-				edgeXText = (this.props.orient === 'right') ? this.props.edgeAt + (rectWidth / 2) : this.props.edgeAt - (rectWidth / 2);
-				edgeYText = this.props.y1;
-			} else {
-				edgeXRect = this.props.x1 - (rectWidth / 2);
-				edgeYRect = (this.props.orient === 'bottom') ? this.props.edgeAt : this.props.edgeAt - rectHeight;
-				edgeXText = this.props.x1;
-				edgeYText = (this.props.orient === 'bottom') ? this.props.edgeAt + (rectHeight / 2) : this.props.edgeAt - (rectHeight / 2);
-			}
-			var coordinateBase = null, coordinate = null;
-			if (displayCoordinate !== undefined) {
-					coordinateBase = (React.createElement("rect", {key: 1, className: "textbg", 
-										x: edgeXRect, 
-										y: edgeYRect, 
-										height: rectHeight, width: rectWidth, fill: this.props.fill}));
-					coordinate = (React.createElement("text", {key: 2, x: edgeXText, 
-										y: edgeYText, 
-										style: {"textAnchor": "middle"}, 
-										dy: ".32em"}, displayCoordinate));
-			}
-			return (
-				React.createElement("g", {className: (this.props.show ? 'show ' : 'hide ') + this.props.className}, 
-						React.createElement("line", {className: "cross-hair", 
-							x1: this.props.x1, y1: this.props.y1, 
-							x2: this.props.x2, y2: this.props.y2}), 
-						coordinateBase, 
-						coordinate
-				)
-			);
-		}});
-	;
-	
-	EdgeCoordinate.propTypes = {
-		type: React.PropTypes.oneOf(['vertical', 'horizontal']).isRequired,
-		coordinate: React.PropTypes.any.isRequired,
-		x1: React.PropTypes.number.isRequired,
-		y1: React.PropTypes.number.isRequired,
-		x2: React.PropTypes.number.isRequired,
-		y2: React.PropTypes.number.isRequired,
-		orient: React.PropTypes.oneOf(['bottom', 'top', 'left', 'right']),
-		rectWidth: React.PropTypes.number
-	};
-	EdgeCoordinate.defaultProps = {
-		namespace: "ReStock.EdgeCoordinate",
-		orient: 'left'
-	};
-	module.exports = EdgeCoordinate;
-
-
-/***/ },
-/* 105 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var React = __webpack_require__(2);
-	
-	var ____ClassU=React.Component;for(var ____ClassU____Key in ____ClassU){if(____ClassU.hasOwnProperty(____ClassU____Key)){Canvas[____ClassU____Key]=____ClassU[____ClassU____Key];}}var ____SuperProtoOf____ClassU=____ClassU===null?null:____ClassU.prototype;Canvas.prototype=Object.create(____SuperProtoOf____ClassU);Canvas.prototype.constructor=Canvas;Canvas.__superConstructor__=____ClassU;
-		function Canvas(props) {
-			____ClassU.call(this,props);
-		}/*,
-		componentDidMount() {
-			console.log(this.getCanvas());
-		},
-		getCanvas() {
-			return React.findDOMNode(this.refs.canvas);
-		},*/
-		Object.defineProperty(Canvas.prototype,"render",{writable:true,configurable:true,value:function() {
-			return (
-				React.createElement("canvas", {ref: "canvas", 
-					width: this.props.width, 
-					height: this.props.height, 
-					style: { position: 'absolute', left: this.props.left, top: this.props.top}})
-			);
-		}});
-	;
-	
-	Canvas.contextTypes = {
-		width: React.PropTypes.number.isRequired,
-		height: React.PropTypes.number.isRequired,
-		left: React.PropTypes.number.isRequired,
-		top: React.PropTypes.number.isRequired
-	}
-	
-	module.exports = Canvas;
-
-
-/***/ },
-/* 106 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	function pushToValues(values, eachValue) {
-		if (typeof eachValue === 'object' && Object.keys(eachValue).length > 0) {
-			Object.keys(eachValue).forEach(function (key) {
-				if (!isNaN(eachValue[key])) {
-					values.push(eachValue[key]);
-				}
-			});
-		} else {
-			if (!isNaN(eachValue)) {
-				values.push(eachValue);
-			}
-		}
-	}
-	
-	var ScaleUtils = {
-		flattenData:function(data, xAccessors, yAccessors) {
-			// console.log(xAccessors, yAccessors);
-			var xValues = [];
-			var yValues = [];
-			data.forEach( function(row)  {
-				xAccessors.forEach( function(xAccessor)  {
-					var x = xAccessor(row);
-					if (x !== undefined) {
-						pushToValues(xValues, x);
-					}
-				});
-				yAccessors.forEach( function(yAccessor)  {
-					var y = yAccessor(row);
-					if (y !== undefined) {
-						pushToValues(yValues, y);
-					}
-				});
-			})
-			return {
-				xValues: xValues,
-				yValues: yValues
-			};
-		}
-	}
-	module.exports = ScaleUtils;
-
-
-/***/ },
-/* 107 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var Utils = __webpack_require__(100);
-	var MACalculator = __webpack_require__(114);
-	
-	var OverlayUtils = {
-		getToolTipLabel:function(props) {
-			if (props.type === "sma" || props.type === "ema") {
-				var tooltip = props.type.toUpperCase() + '(' + props.options.period + ')';
-				return tooltip;
-			}
-			return 'N/A';
-		},/*
-		getYAccessor(chartId, props) {
-			if (props.type === "sma" || props.type === "ema") {
-				var key = props.type + props.options.period + '_chart_' + chartId;
-				return (d) => d[key];
-			}
-			return false;
-		},*/
-		getYAccessorKey:function(chartId, props) {
-			if (props.type === "sma" || props.type === "ema") {
-				var key = props.type + props.options.period + '_chart_' + chartId;
-				return key;
-			}
-			return false;
-		},
-		calculateOverlay:function(data, overlay) {
-			// console.log(overlay);
-			if (overlay.type === 'sma') {
-				data = MACalculator.calculateSMA(data, overlay.options.period, overlay.key, overlay.options.pluck);
-			} else if (overlay.type === 'ema') {
-				data = MACalculator.calculateEMA(data, overlay.options.period, overlay.key, overlay.options.pluck);
-			}
-			return data;
-		},
-		firstDefined:function(data, accessor) {
-			var each;
-			for (var i = 0; i < data.length; i++) {
-				if (accessor(data[i]) === undefined) continue;
-				each = data[i];
-				// console.log(i, each, accessor(each));
-				break;
-			};
-			return Utils.cloneMe(each);
-		},
-		lastDefined:function(data, accessor) {
-			var each;
-			for (var i = data.length - 1; i >= 0; i--) {
-				if (accessor(data[i]) === undefined) continue;
-				each = data[i];
-				// console.log(i, each, accessor(each));
-				break;
-			};
-			return Utils.cloneMe(each);
-		}
-	}
-	
-	module.exports = OverlayUtils;
-
-
-/***/ },
-/* 108 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var stockScale = __webpack_require__(101);
-	
-	var defaultOptions = {
-		_dateAccessor: function(d)  {return d.date;},
-		_indexAccessor: function(d)  {return d._idx;},
-		_dateMutator: function(d, date)  {d.date = date},
-		_indexMutator: function(d, i)  {d._idx = i;}
-	}
-	
-	function StockScaleTransformer(data, interval, options) {
-		var newOptions = {};
-		Object.keys(defaultOptions).forEach(function(key)  {return newOptions[key] = defaultOptions[key];});
-	
-		if (options) Object.keys(options).forEach(function(key)  {return newOptions[key] = options[key];});
-	
-		var $__0=       newOptions,_dateAccessor=$__0._dateAccessor,_dateMutator=$__0._dateMutator,_indexAccessor=$__0._indexAccessor,_indexMutator=$__0._indexMutator;
-	
-		var prevDate;
-		var responseData = {}
-		var dd = data[interval];
-		responseData.D = dd
-			//.filter((each) => Math.random() > 0.9)
-			.map(function(each, i)  {
-				var row = each;
-				// console.log(each);
-				//console.log(row);
-				_indexMutator(row,  i);
-	
-				row.startOfWeek = false;
-				row.startOfMonth = false;
-				row.startOfQuarter = false;
-				row.startOfYear = false;
-				var date = _dateAccessor(row);
-				//row.displayDate = dateFormat(date);
-				if (prevDate !== undefined) {
-					// According to ISO calendar
-					// Sunday = 0, Monday = 1, ... Saturday = 6
-					// day of week of today < day of week of yesterday then today is start of week
-					row.startOfWeek = date.getDay() < prevDate.getDay();
-					// month of today != month of yesterday then today is start of month
-					row.startOfMonth = date.getMonth() != prevDate.getMonth();
-					//if start of month and month % 3 === 0 then it is start of quarter
-					row.startOfQuarter = row.startOfMonth && date.getMonth() % 3 === 0;
-					// year of today != year of yesterday then today is start of year
-					row.startOfYear = date.getYear() != prevDate.getYear();
-				}
-				prevDate = date;
-				return row;
-			});
-		// console.table(responseData);
-		responseData.W = buildWeeklyData(responseData.D, _indexMutator, _dateAccessor, _dateMutator);
-		responseData.M = buildMonthlyData(responseData.D, _indexMutator, _dateAccessor, _dateMutator);
-	
-		// console.table(responseData.W);
-	
-		return {
-				data: responseData,
-				other: {
-					_xScale: stockScale(newOptions._indexAccessor),
-					_xAccessor: newOptions._indexAccessor,
-					_stockScale: true,
-				},
-				options: newOptions
-			};
-	}
-	
-	function buildWeeklyData(daily, indexMutator, dateAccesor, dateMutator) {
-		var weekly = [], prevWeek, eachWeek = {};
-		for (var i = 0; i < daily.length; i++) {
-			var d = daily[i];
-	
-			if (dateAccesor(eachWeek)) indexMutator(eachWeek,  i);
-	
-			dateMutator(eachWeek, dateAccesor(d));
-	
-			eachWeek.startOfWeek = eachWeek.startOfWeek || d.startOfWeek;
-			eachWeek.startOfMonth = eachWeek.startOfMonth || d.startOfMonth;
-			eachWeek.startOfQuarter = eachWeek.startOfQuarter || d.startOfQuarter;
-			eachWeek.startOfYear = eachWeek.startOfYear || d.startOfYear;
-	
-			if (!eachWeek.open) eachWeek.open = d.open;
-			if (!eachWeek.high) eachWeek.high = d.high;
-			if (!eachWeek.low) eachWeek.low = d.low;
-	
-			eachWeek.close = d.close;
-	
-			eachWeek.high = Math.max(eachWeek.high, d.high);
-			eachWeek.low = Math.min(eachWeek.low, d.low);
-	
-			if (!eachWeek.volume) eachWeek.volume = 0;
-			eachWeek.volume += d.volume;
-	
-			if (d.startOfWeek) {
-				if (prevWeek) {
-					eachWeek.trueRange = Math.max(
-						eachWeek.high - eachWeek.low
-						, eachWeek.high - prevWeek.close
-						, eachWeek.low - prevWeek.close
-					);
-				}
-				prevWeek = eachWeek
-				weekly.push(eachWeek);
-				eachWeek = {};
-			}
-		}
-		return weekly;
-	}
-	
-	function buildMonthlyData(daily, indexMutator, dateAccesor) {
-		var monthly = [], prevMonth, eachMonth = {};
-		for (var i = 0; i < daily.length; i++) {
-			var d = daily[i];
-	
-			if (!eachMonth.date) indexMutator(eachMonth,  i);
-	
-			eachMonth.date = dateAccesor(d);
-	
-			eachMonth.startOfMonth = eachMonth.startOfMonth || d.startOfMonth;
-			eachMonth.startOfQuarter = eachMonth.startOfQuarter || d.startOfQuarter;
-			eachMonth.startOfYear = eachMonth.startOfYear || d.startOfYear;
-	
-			if (!eachMonth.open) eachMonth.open = d.open;
-			if (!eachMonth.high) eachMonth.high = d.high;
-			if (!eachMonth.low) eachMonth.low = d.low;
-	
-			eachMonth.close = d.close;
-	
-			eachMonth.high = Math.max(eachMonth.high, d.high);
-			eachMonth.low = Math.min(eachMonth.low, d.low);
-	
-			if (!eachMonth.volume) eachMonth.volume = 0;
-			eachMonth.volume += d.volume;
-	
-			if (d.startOfMonth) {
-				eachMonth.startOfWeek = d.startOfWeek;
-				if (prevMonth) {
-					eachMonth.trueRange = Math.max(
-						eachMonth.high - eachMonth.low
-						, eachMonth.high - prevMonth.close
-						, eachMonth.low - prevMonth.close
-					);
-				}
-				prevMonth = eachMonth
-				monthly.push(eachMonth);
-				eachMonth = {};
-			}
-		}
-		return monthly;
-	}
-	
-	module.exports = StockScaleTransformer;
-
-
-/***/ },
-/* 109 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var excludeList = ['transformType', 'options', 'children', 'namespace'];
-	
-	
-	function HeikinAshiTransformer(data, interval, options, other) {
-	
-		var $__0=       options,_dateAccessor=$__0._dateAccessor,_dateMutator=$__0._dateMutator,_indexAccessor=$__0._indexAccessor,_indexMutator=$__0._indexMutator;
-		// console.log(data, options);
-	
-		var haData = {};
-		Object.keys(data)
-			.forEach(function(key)  {return haData[key] = buildHA(data[key], _indexAccessor, _indexMutator, _dateAccessor, _dateMutator);});
-	
-		return {
-			data: haData,
-			other: other,
-			options: options
-		};
-	}
-	
-	function buildHA(data, indexAccessor, indexMutator, dateAccessor, dateMutator) {
-		var prevEach;
-	
-		var haData = data.map(function (d, i) {
-			var each = {};
-			indexMutator(each, indexAccessor(d));
-			each.close = (d.open + d.high + d.low + d.close) / 4;
-	
-			dateMutator(each, dateAccessor(d));
-			//each.displayDate = d.displayDate;
-	
-			if (!prevEach) {
-				each.open = d.open;
-				each.high = d.high;
-				each.low = d.low;
-			} else {
-				each.open = (prevEach.open + prevEach.close) / 2;
-				each.high = Math.max(each.open, d.high, each.close);
-				each.low = Math.min(each.open, d.low, each.close);
-				each.trueRange = Math.max(
-						d.high - d.low
-						, d.high - prevEach.close
-						, d.low - prevEach.close
-					);
-			}
-			each.volume = d.volume;
-	
-			each.startOfWeek = d.startOfWeek;
-			each.startOfMonth = d.startOfMonth;
-			each.startOfQuarter = d.startOfQuarter;
-			each.startOfYear = d.startOfYear;
-	
-			prevEach = each;
-			return each;
-		});
-		// console.table(haData);
-		return haData;
-	};
-	
-	module.exports = HeikinAshiTransformer;
-
-
-/***/ },
-/* 110 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var excludeList = ['transformType', 'options', 'children', 'namespace', '_multiInterval'];
-	var pricingMethod = function (d) { return { high: d.high, low: d.low }; };
-	var usePrice = function (d) { return d.close; };
-	
-	var calculateATR = __webpack_require__(115);
-	
-	function KagiTransformer(data, interval, options, other) {
-		if (options === undefined) options = {};
-	
-		var period = options.period || 14;
-	
-		calculateATR(data.D, period);
-		var reversalThreshold = function (d) { return d["atr" + period] }
-	
-		var $__0=       options,_dateAccessor=$__0._dateAccessor,_dateMutator=$__0._dateMutator,_indexAccessor=$__0._indexAccessor,_indexMutator=$__0._indexMutator;
-	
-		var kagiData = new Array();
-	
-		var index = 0, prevPeak, prevTrough, direction;
-		var line = {};
-	
-		data.D.forEach( function (d) {
-			if (line.from === undefined) {
-				_indexMutator(line, index++);
-				_dateMutator(line, _dateAccessor(d));
-				/*line.displayDate = d.displayDate;
-				line.fromDate = d.displayDate;
-				line.toDate = d.displayDate;*/
-				line.from = _dateAccessor(d);
-	
-				if (!line.open) line.open = d.open;
-				line.high = d.high;
-				line.low = d.low;
-				if (!line.close) line.close = usePrice(d);
-				line.startOfYear = d.startOfYear;
-				line.startOfQuarter = d.startOfQuarter;
-				line.startOfMonth = d.startOfMonth;
-				line.startOfWeek = d.startOfWeek;
-				//line.tempClose = d.close;
-			}
-	
-			if (!line.startOfYear) {
-				line.startOfYear = d.startOfYear;
-				if (line.startOfYear) {
-					line.date = d.date;
-					// line.displayDate = d.displayDate;
-				}
-			}
-	
-			if (!line.startOfQuarter) {
-				line.startOfQuarter = d.startOfQuarter;
-				if (line.startOfQuarter && !line.startOfYear) {
-					line.date = d.date;
-					// line.displayDate = d.displayDate;
-				}
-			}
-	
-			if (!line.startOfMonth) {
-				line.startOfMonth = d.startOfMonth;
-				if (line.startOfMonth && !line.startOfQuarter) {
-					line.date = d.date;
-					// line.displayDate = d.displayDate;
-				}
-			}
-			if (!line.startOfWeek) {
-				line.startOfWeek = d.startOfWeek;
-				if (line.startOfWeek && !line.startOfMonth) {
-					line.date = d.date;
-					// line.displayDate = d.displayDate;
-				}
-			}
-			line.volume = (line.volume || 0) + d.volume;
-			line.high = Math.max(line.high, d.high);
-			line.low = Math.min(line.low, d.low);
-			line.to = _dateAccessor(d);
-			//line.toDate = d.displayDate;
-			var priceMovement = (usePrice(d) - line.close);
-	
-			if ((line.close > line.open /* going up */ && priceMovement > 0 /* and moving in same direction */)
-					|| (line.close < line.open /* going down */ && priceMovement < 0 /* and moving in same direction */)) {
-				line.close = usePrice(d);
-				if (prevTrough && line.close < prevTrough) {
-					// going below the prevTrough, so change from yang to yin
-					// A yin line forms when a Kagi line breaks below the prior trough.
-					line.changePoint = prevTrough;
-					if (line.startAs != 'yin') {
-						line.changeTo = 'yin';
-						// line.startAs = 'yang';
-					}
-				}
-				if (prevPeak && line.close > prevPeak) {
-					// going above the prevPeak, so change from yin to yang
-					// A yang line forms when a Kagi line breaks above the prior peak
-					line.changePoint = prevPeak;
-					if (line.startAs != 'yang') {
-						line.changeTo = 'yang';
-						// line.startAs = 'yin';
-					}
-				}
-			} else if ((line.close > line.open /* going up */
-							&& priceMovement < 0 /* and moving in other direction */
-							&& Math.abs(priceMovement) > reversalThreshold(d) /* and the movement is big enough for reversal */) //d.atr
-					|| (line.close < line.open /* going down */
-							&& priceMovement > 0 /* and moving in other direction */
-							&& Math.abs(priceMovement) > reversalThreshold(d) /* and the movement is big enough for reversal */)) {
-				// reverse direction
-				var nextLineOpen = line.close;
-	
-				direction = (line.close - line.open) / Math.abs(line.close - line.open);
-				/*line.prevPeak = prevPeak;
-				line.prevTrough = prevTrough;*/
-				var nextChangePoint, nextChangeTo;
-				if (direction < 0 /* if direction so far has been -ve*/) {
-					// compare with line.close becomes prevTrough
-					if (prevPeak === undefined) prevPeak = line.open;
-					prevTrough = line.close;
-					if (usePrice(d) > prevPeak) {
-						nextChangePoint = prevPeak;
-						nextChangeTo = 'yang';
-					}
-				} else {
-					if (prevTrough === undefined) prevTrough = line.open;
-					prevPeak = line.close;
-					if (usePrice(d) < prevTrough) {
-						nextChangePoint = prevTrough;
-						nextChangeTo = 'yin';
-					}
-				}
-				if (line.startAs === undefined) {
-					line.startAs = direction > 0 ? 'yang' : 'yin';
-				}
-	
-				var startAs = line.changeTo || line.startAs;
-				kagiData.push(line);
-				direction = -1 * direction; //direction is reversed
-	
-				line = {
-					open: nextLineOpen
-					, close: usePrice(d)
-					, startAs: startAs
-					, changePoint: nextChangePoint
-					, changeTo: nextChangeTo
-				};
-			} else {
-	
-			}
-		});
-	
-		return {
-			data: {'D': kagiData},
-			other: other,
-			options: options
-		};
-	}
-	
-	
-	module.exports = KagiTransformer;
-
-
-/***/ },
 /* 111 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var excludeList = ['transformType', 'options', 'children', 'namespace', '_multiInterval'];
-	var pricingMethod = function (d) { return { high: d.high, low: d.low }; };
-	var usePrice = function (d) { return { high: d.high, low: d.low }; };
-	
-	var defaultOptions = {
-		boxSize: 0.5,
-		reversal: 3,
-	}
-	
-	function createBox(d, _dateAccessor, dateMutator) {
-		var box = {
-			open: d.open
-			, fromDate: _dateAccessor(d)
-			, toDate: _dateAccessor(d)
-			//, displayDate: d.displayDate
-			, startOfYear: d.startOfYear
-			, startOfQuarter: d.startOfQuarter
-			, startOfMonth: d.startOfMonth
-			, startOfWeek: d.startOfWeek
+	function sumOf(array, offset, length) {
+		var sum = 0;
+		for (var i = offset; i < offset + length; i++) {
+			sum += array[i].trueRange;
 		};
-		dateMutator(box, _dateAccessor(d));
-		return box;
+		return sum;
 	}
 	
-	function updateColumns(columnData, _dateAccessor, dateMutator) {
-	
-		columnData.forEach(function (d, i) {
-			var lastBox = d.boxes[d.boxes.length - 1];
-	
-			d.startOfYear = false;
-			d.startOfQuarter = false;
-			d.startOfMonth = false;
-			d.startOfWeek = false;
-	
-			d.boxes.forEach(function(eachBox) {
-				if (d.open === undefined) d.open = eachBox.open;
-				d.close = eachBox.close;
-				d.high = Math.max(d.open, d.close);
-				d.low = Math.min(d.open, d.close);
-	
-				if (d.fromDate === undefined) d.fromDate = eachBox.fromDate;
-				if (d.date === undefined) d.date = eachBox.date;
-				// if (d.displayDate === undefined) d.displayDate = eachBox.displayDate;
-				d.toDate = eachBox.toDate;
-	
-				if (eachBox.startOfYear) {
-					d.startOfYear = d.startOfYear || eachBox.startOfYear;
-					d.startOfQuarter = eachBox.startOfQuarter;
-					d.startOfMonth = eachBox.startOfMonth;
-					d.startOfWeek = eachBox.startOfWeek;
-					//d.displayDate = eachBox.displayDate;
-					dateMutator(d, _dateAccessor(eachBox));
-				}
-				if (d.startOfQuarter !== true && eachBox.startOfQuarter) {
-					d.startOfQuarter = eachBox.startOfQuarter;
-					d.startOfMonth = eachBox.startOfMonth;
-					d.startOfWeek = eachBox.startOfWeek;
-					// d.displayDate = eachBox.displayDate;
-					dateMutator(d, _dateAccessor(eachBox));
-				}
-				if (d.startOfMonth !== true && eachBox.startOfMonth) {
-					d.startOfMonth = eachBox.startOfMonth;
-					d.startOfWeek = eachBox.startOfWeek;
-					// d.displayDate = eachBox.displayDate;
-					dateMutator(d, _dateAccessor(eachBox));
-				}
-				if (d.startOfWeek !== true && eachBox.startOfWeek) {
-					d.startOfWeek = eachBox.startOfWeek;
-					// d.displayDate = eachBox.displayDate;
-					dateMutator(d, _dateAccessor(eachBox));
-				}
+	function calculateTR(rawData) {
+		var prev = rawData[0];
+		rawData
+			.filter(function(d, idx)  {return idx > 0;})
+			.forEach(function(d, idx) {
+				d.trueRange = Math.max(d.high - d.low,
+					d.high - prev.close,
+					d.low - prev.close)
+				prev = rawData[idx];
 			});
-	
-		});
-	
-		// console.table(columnData);
-		// console.table(rawData);
-		return columnData;
-	};
-	
-	function PointAndFigureTransformer(rawData, interval, options, other) {
-	
-		var newOptions = {};
-		Object.keys(defaultOptions).forEach(function(key)  {return newOptions[key] = defaultOptions[key];});
-	
-		if (options) Object.keys(options).forEach(function(key)  {return newOptions[key] = options[key];});
-	
-		var $__0=         newOptions,_dateAccessor=$__0._dateAccessor,_dateMutator=$__0._dateMutator,_indexAccessor=$__0._indexAccessor,_indexMutator=$__0._indexMutator,reversal=$__0.reversal,boxSize=$__0.boxSize;
-	
-		var columnData = new Array();
-	
-		var index = 0, direction;
-		var column = {
-			boxes: [],
-			open: rawData.D[0].open
-		}, box = createBox(rawData.D[0], _dateAccessor, _dateMutator);
-	
-		_indexMutator(column, 0);
-		columnData.push(column);
-	
-		rawData.D.forEach( function (d) {
-			column.volume = column.volume || 0;
-			column.volume += d.volume;
-	
-			if (!box.startOfYear) {
-				box.startOfYear = d.startOfYear;
-				if (box.startOfYear) {
-					_dateMutator(box, _dateAccessor(d));
-					// box.displayDate = d.displayDate;
-				}
-			}
-	
-			if (!box.startOfYear && !box.startOfQuarter) {
-				box.startOfQuarter = d.startOfQuarter;
-				if (box.startOfQuarter && !box.startOfYear) {
-					_dateMutator(box, _dateAccessor(d));
-					// box.displayDate = d.displayDate;
-				}
-			}
-	
-			if (!box.startOfQuarter && !box.startOfMonth) {
-				box.startOfMonth = d.startOfMonth;
-				if (box.startOfMonth && !box.startOfQuarter) {
-					_dateMutator(box, _dateAccessor(d));
-					// box.displayDate = d.displayDate;
-				}
-			}
-			if (!box.startOfMonth && !box.startOfWeek) {
-				box.startOfWeek = d.startOfWeek;
-				if (box.startOfWeek && !box.startOfMonth) {
-					_dateMutator(box, _dateAccessor(d));
-					// box.displayDate = d.displayDate;
-				}
-			}
-	
-			if (columnData.length === 1 && column.boxes.length === 0) {
-				var upwardMovement = (Math.max((usePrice(d).high - column.open), 0)) //upward movement
-				var downwardMovement = Math.abs(Math.min((column.open - usePrice(d).low), 0)) // downward movement
-				column.direction = upwardMovement > downwardMovement ? 1 : -1;
-				if (boxSize * reversal < upwardMovement
-					|| boxSize * reversal < downwardMovement) {
-					// enough movement to trigger a reversal
-					box.toDate = _dateAccessor(d);
-					box.open = column.open;
-					var noOfBoxes = column.direction > 0
-										? Math.floor(upwardMovement / boxSize)
-										: Math.floor(downwardMovement / boxSize);
-					for (var i = 0; i < noOfBoxes; i++) {
-						box.close = box.open + column.direction * boxSize;
-						var prevBoxClose = box.close;
-						column.boxes.push(box);
-						box = createBox(box, _dateAccessor, _dateMutator);
-						// box = cloneMe(box);
-						box.open = prevBoxClose;
-					}
-					box.fromDate = _dateAccessor(d);
-					box.date = _dateAccessor(d);
-				}
-			} else {
-				// one or more boxes already formed in the current column
-				var upwardMovement = (Math.max((usePrice(d).high - box.open), 0)) //upward movement
-				var downwardMovement = Math.abs(Math.min((usePrice(d).low - box.open), 0)) // downward movement
-	
-				if ((column.direction > 0 && upwardMovement > boxSize) /* rising column AND box can be formed */
-						|| (column.direction < 0 && downwardMovement > boxSize) /* falling column AND box can be formed */ ) {
-					// form another box
-					box.close = box.open + column.direction * boxSize;
-					box.toDate = _dateAccessor(d);
-					var prevBoxClose = box.close;
-					column.boxes.push(box);
-					box = createBox(d, _dateAccessor, _dateMutator);
-					box.open = prevBoxClose;
-					box.fromDate = _dateAccessor(d);
-					_dateMutator(box, _dateAccessor(d));
-				} else if ((column.direction > 0 && downwardMovement > boxSize * reversal) /* rising column and there is downward movement to trigger a reversal */
-						|| (column.direction < 0 && upwardMovement > boxSize * reversal)/* falling column and there is downward movement to trigger a reversal */) {
-					// reversal
-	
-					box.open = box.open + -1 * column.direction * boxSize;
-					box.toDate = _dateAccessor(d);
-					// box.displayDate = d.displayDate;
-					_dateMutator(box, _dateAccessor(d));
-					// box.startOfYear = d.startOfYear;
-					// box.startOfQuarter = d.startOfQuarter;
-					// box.startOfMonth = d.startOfMonth;
-					// box.startOfWeek = d.startOfWeek;
-					// console.table(column.boxes);
-					var idx = _indexAccessor(column) + 1;
-					column = {
-						boxes: [],
-						//, index: column.index + 1
-						direction: -1 * column.direction
-					};
-					_indexMutator(column, idx);
-					var noOfBoxes = column.direction > 0
-										? Math.floor(upwardMovement / boxSize)
-										: Math.floor(downwardMovement / boxSize);
-					for (var i = 0; i < noOfBoxes; i++) {
-						box.close = box.open + column.direction * boxSize;
-						var prevBoxClose = box.close;
-						column.boxes.push(box);
-						box = createBox(d, _dateAccessor, _dateMutator);
-						box.open = prevBoxClose;
-					}
-	
-					columnData.push(column);
-				}
-			}
-		});
-		updateColumns(columnData, _dateAccessor, _dateMutator);
-	
-		return {
-			data: {'D': columnData},
-			other: other,
-			options: newOptions
-		};
 	}
 	
-	module.exports = PointAndFigureTransformer;
+	function calculateATR(rawData, period) {
+		calculateTR(rawData);
+	
+		rawData.forEach(function(d, index) {
+			if (index > period) { // trueRange starts from index 1 so ATR starts from period (not period -1)
+				var num = (sumOf(rawData, index - period, period) / period)
+				d["atr" + period] = (Math.round(num * 100) / 100);
+			}
+		});
+	}
+	
+	module.exports = calculateATR;
 
 
 /***/ },
 /* 112 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var excludeList = ['transformType', 'options', 'children', 'namespace', '_multiInterval'];
-	var pricingMethod = function (d) { return { high: d.high, low: d.low }; };
-	// var pricingMethod = function (d) { return { high: d.close, low: d.close }; };
-	// var usePrice = function (d) { return d.close; };
-	var calculateATR = __webpack_require__(115);
-	
-	var defaultOptions = {
-		boxSize: 0.5,
-		reversal: 3,
-		period: 14
-	}
-	
-	function RenkoTransformer(rawData, interval, options, other) {
-		var newOptions = {};
-		Object.keys(defaultOptions).forEach(function(key)  {return newOptions[key] = defaultOptions[key];});
-	
-		if (options) Object.keys(options).forEach(function(key)  {return newOptions[key] = options[key];});
-	
-		var $__0=          newOptions,_dateAccessor=$__0._dateAccessor,_dateMutator=$__0._dateMutator,_indexAccessor=$__0._indexAccessor,_indexMutator=$__0._indexMutator,reversal=$__0.reversal,boxSize=$__0.boxSize,period=$__0.period;
-	
-		calculateATR(rawData.D, period);
-		var brickSize = function (d) { return d["atr" + period]}
-	
-		var renkoData = new Array();
-	
-		var index = 0, prevBrickClose = rawData.D[index].open, prevBrickOpen = rawData.D[index].open;
-		var brick = {}, direction = 0;
-	
-	
-		rawData.D.forEach( function (d) {
-			if (brick.from === undefined) {
-				// brick.index = index++;
-				// brick.date = d.date;
-				// brick.displayDate = d.displayDate;
-				// brick.fromDate = d.displayDate;
-				// brick.from = d.index;
-				brick.high = d.high;
-				brick.low = d.low;
-				brick.startOfYear = d.startOfYear;
-				brick.startOfQuarter = d.startOfQuarter;
-				brick.startOfMonth = d.startOfMonth;
-				brick.startOfWeek = d.startOfWeek;
-				//brick.tempClose = d.close;
-				brick.from = _indexAccessor(d);
-				brick.fromDate = _dateAccessor(d);
-				_indexMutator(brick, index++);
-				_dateMutator(brick, _dateAccessor(d));
-			}
-			brick.volume = (brick.volume || 0) + d.volume;
-	
-			var prevCloseToHigh = (prevBrickClose - pricingMethod(d).high),
-				prevCloseToLow = (prevBrickClose - pricingMethod(d).low),
-				prevOpenToHigh = (prevBrickOpen - pricingMethod(d).high),
-				prevOpenToLow = (prevBrickOpen - pricingMethod(d).low),
-				priceMovement = Math.min(
-					Math.abs(prevCloseToHigh),
-					Math.abs(prevCloseToLow),
-					Math.abs(prevOpenToHigh),
-					Math.abs(prevOpenToLow));
-	
-	
-			brick.high = Math.max(brick.high, d.high);
-			brick.low = Math.min(brick.low, d.low);
-	
-			if (!brick.startOfYear) {
-				brick.startOfYear = d.startOfYear;
-				if (brick.startOfYear) {
-					_dateMutator(brick, _dateAccessor(d));
-					// brick.displayDate = d.displayDate;
-				}
-			}
-	
-			if (!brick.startOfQuarter) {
-				brick.startOfQuarter = d.startOfQuarter;
-				if (brick.startOfQuarter && !brick.startOfYear) {
-					_dateMutator(brick, _dateAccessor(d));
-					// brick.displayDate = d.displayDate;
-				}
-			}
-	
-			if (!brick.startOfMonth) {
-				brick.startOfMonth = d.startOfMonth;
-				if (brick.startOfMonth && !brick.startOfQuarter) {
-					_dateMutator(brick, _dateAccessor(d));
-					// brick.displayDate = d.displayDate;
-				}
-			}
-			if (!brick.startOfWeek) {
-				brick.startOfWeek = d.startOfWeek;
-				if (brick.startOfWeek && !brick.startOfMonth) {
-					_dateMutator(brick, _dateAccessor(d));
-					// brick.displayDate = d.displayDate;
-				}
-			}
-	
-			//d.brick = JSON.stringify(brick);
-			if (brickSize(d)) {
-				var noOfBricks = Math.floor(priceMovement / brickSize(d))
-	
-				brick.open = (Math.abs(prevCloseToHigh) < Math.abs(prevOpenToHigh)
-				 || Math.abs(prevCloseToLow) < Math.abs(prevOpenToLow))
-								? prevBrickClose
-								: prevBrickOpen;
-	
-				if (noOfBricks >= 1) {
-					for (var j = 0; j < noOfBricks; j++) {
-						brick.close = (brick.open < pricingMethod(d).high)
-										// if brick open is less than current price it means it is green/hollow brick
-											? brick.open + brickSize(d)
-											: brick.open - brickSize(d);
-						direction = brick.close > brick.open ? 1 : -1;
-						brick.direction = direction;
-						brick.to = _indexAccessor(d);
-						brick.toDate = _dateAccessor(d);
-						// brick.diff = brick.open - brick.close;
-						// brick.atr = d.atr;
-						brick.fullyFormed = true;
-						renkoData.push(brick);
-	
-						prevBrickClose = brick.close;
-						prevBrickOpen = brick.open;
-	
-						var newBrick = {
-							// index : index + j
-							// , date : d.date
-							// , displayDate : d.displayDate
-							//, from : d.index
-							high : brick.high
-							, low : brick.low
-							, open : brick.close
-							// , fromDate : d.displayDate
-							, startOfYear : false
-							, startOfMonth : false
-							, startOfQuarter : false
-							, startOfWeek : false
-						};
-						brick = newBrick;
-						brick.from = _indexAccessor(d);
-						brick.fromDate = _dateAccessor(d);
-						_indexMutator(brick, index + j);
-						_dateMutator(brick, _dateAccessor(d));
-						brick.volume = (brick.volume || 0) + d.volume;
-					}
-					index = index + j - 1;
-					brick = {};
-				} else {
-					if (_indexAccessor(d) === rawData.D.length - 1) {
-						brick.close = direction > 0 ? pricingMethod(d).high : pricingMethod(d).low;
-						brick.to = _indexAccessor(d);
-						brick.toDate = _dateAccessor(d);
-						_dateMutator(brick, _dateAccessor(d));
-	
-						brick.fullyFormed = false;
-						renkoData.push(brick);
-					}
-				}
-			}
-	
-		});
-		return {
-			data: {'D': renkoData},
-			other: other,
-			options: newOptions
-		};
-	}
-	
-	module.exports = RenkoTransformer;
-
-
-/***/ },
-/* 113 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -6948,91 +6963,6 @@ return webpackJsonpReStock([1,2],[
 	}
 	
 	module.exports = shallowEqual;
-
-
-/***/ },
-/* 114 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var Utils = __webpack_require__(100);
-	
-	var pluck = Utils.pluck;
-	var sum = Utils.sum;
-	
-	function MACalculator() {
-	
-	};
-	MACalculator.calculateSMA = function(data, period, key, pluckKey) {
-		// console.log('calculateSMA');
-	
-		var l = data.length - 1;//, key = 'sma' + period;
-		var maKey = pluckKey || 'close';
-	
-		data.map(function(each, i)  {return data.slice(i - period, i);})
-			.filter(function(array)  {return array.length === period && array.length > 0;})
-			.map(function(array)  {return pluck(array, maKey);})
-			.map(function(array)  {return sum(array);})
-			.map(function(sum)  {return sum / period;})
-			.reverse()
-			.forEach(function(avg, i)  {
-				// Object.defineProperty(data[l - i], key, { value: avg });
-				data[l - i][key] = avg;
-				// console.log(data[l - i][key]);
-			})
-		if (key === 'sma53_chart_2') {
-			console.table(data);
-		}
-		return data;
-	}
-	
-	MACalculator.calculateEMA = function (data, period) {
-		console.log('calculating EMA');
-		return false;
-	}
-	
-	module.exports = MACalculator;
-
-
-/***/ },
-/* 115 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	function sumOf(array, offset, length) {
-		var sum = 0;
-		for (var i = offset; i < offset + length; i++) {
-			sum += array[i].trueRange;
-		};
-		return sum;
-	}
-	
-	function calculateTR(rawData) {
-		var prev = rawData[0];
-		rawData
-			.filter(function(d, idx)  {return idx > 0;})
-			.forEach(function(d, idx) {
-				d.trueRange = Math.max(d.high - d.low,
-					d.high - prev.close,
-					d.low - prev.close)
-				prev = rawData[idx];
-			});
-	}
-	
-	function calculateATR(rawData, period) {
-		calculateTR(rawData);
-	
-		rawData.forEach(function(d, index) {
-			if (index > period) { // trueRange starts from index 1 so ATR starts from period (not period -1)
-				var num = (sumOf(rawData, index - period, period) / period)
-				d["atr" + period] = (Math.round(num * 100) / 100);
-			}
-		});
-	}
-	
-	module.exports = calculateATR;
 
 
 /***/ }
