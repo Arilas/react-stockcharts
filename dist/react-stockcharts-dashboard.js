@@ -18,13 +18,13 @@ return webpackJsonpReStock([1,2],[
 	var d3 = __webpack_require__(3);
 	var parseDate = d3.time.format("%Y-%m-%d").parse
 	
-	__webpack_require__(31);
-	__webpack_require__(29);
+	__webpack_require__(32);
+	__webpack_require__(30);
 	
 	var Nav = __webpack_require__(8);
 	var Sidebar = __webpack_require__(9);
-	var MainContainer = __webpack_require__(10);
-	var MenuGroup = __webpack_require__(11);
+	var MainContainer = __webpack_require__(11);
+	var MenuGroup = __webpack_require__(10);
 	var MenuItem = __webpack_require__(12);
 	
 	
@@ -32,18 +32,18 @@ return webpackJsonpReStock([1,2],[
 		__webpack_require__(13),
 		__webpack_require__(14),
 		__webpack_require__(15),
-		__webpack_require__(17),
-		__webpack_require__(18),
 		__webpack_require__(16),
+		__webpack_require__(17),
+		__webpack_require__(7),
+		__webpack_require__(18),
 		__webpack_require__(19),
 		__webpack_require__(20),
 		__webpack_require__(21),
 		__webpack_require__(22),
 		__webpack_require__(23),
 		__webpack_require__(24),
-		__webpack_require__(25),
 		__webpack_require__(26),
-		__webpack_require__(27)
+		__webpack_require__(25)
 	];
 	
 	function renderPage(data, dataFull, compareData) {
@@ -182,9 +182,11 @@ return webpackJsonpReStock([1,2],[
 		// Renko
 		// CandleStickStockScaleChartWithVolumeHistogramV1
 		// CandleStickStockScaleChartWithVolumeHistogramV2
+		// CandleStickStockScaleChartWithVolumeHistogramV3
 		// CandleStickChartWithZoomPan
 		// CandleStickChartWithCompare
-		var Chart = __webpack_require__(28);
+		// CandleStickChartWithMACDIndicator
+		var Chart = __webpack_require__(27);
 	
 		var ____ClassT=React.Component;for(var ____ClassT____Key in ____ClassT){if(____ClassT.hasOwnProperty(____ClassT____Key)){ExamplesPage[____ClassT____Key]=____ClassT[____ClassT____Key];}}var ____SuperProtoOf____ClassT=____ClassT===null?null:____ClassT.prototype;ExamplesPage.prototype=Object.create(____SuperProtoOf____ClassT);ExamplesPage.prototype.constructor=ExamplesPage;ExamplesPage.__superConstructor__=____ClassT;function ExamplesPage(){if(____ClassT!==null){____ClassT.apply(this,arguments);}}
 			Object.defineProperty(ExamplesPage.prototype,"render",{writable:true,configurable:true,value:function() {
@@ -202,7 +204,114 @@ return webpackJsonpReStock([1,2],[
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "<p>Let us turn it up a notch, we all have access to lots of historical data for stocks. As an example, let us work with MSFT from 1986-03-13 till 2015-03-26</p>\n<p>That is 7221 one day periods, lot more if you have access to intra day, how can all that fit into one screen? Although technically it can be done there are a few problems</p>\n<ol>\n<li>Every time you zoom/pan a chart with that many data points it just does not work. Browsers do not have the power to recalculate the scales for the new domain and appear responsive.</li>\n<li>Even with cross hair and tool tip you could see the lag</li>\n</ol>\n<p>Fortunately seeing end of day data over 30 years on a single chart is not really useful. This problem is addressed in React Stockcharts by displaying data consolidated by month or week, this gives a better representation of the overall price movement. This technique is employed by many trading systems to show the larger time range.</p>\n<p>If the number of periods to show &gt; width / 3, then automatically switch to the next higher period. e.g. If width = 1000 and showing more than 333 1 day periods, the program switches to 1 week period automatically so that less than 333 periods are shown on screen.</p>\n<p>* Period can be 1min, 5min, … 1 day, 1 week, 1 month</p>\n<p>Let us see all this in action for MSFT 1986-03-13 till 2015-03-26</p>\n";
+	'use strict';
+	
+	var React = __webpack_require__(2);
+	var d3 = __webpack_require__(3);
+	
+	var ReStock = __webpack_require__(71);
+	
+	var ChartCanvas = ReStock.ChartCanvas
+		, XAxis = ReStock.XAxis
+		, YAxis = ReStock.YAxis
+		, CandlestickSeries = ReStock.CandlestickSeries
+		, DataTransform = ReStock.DataTransform
+		, Chart = ReStock.Chart
+		, DataSeries = ReStock.DataSeries
+		, ChartWidthMixin = ReStock.helper.ChartWidthMixin
+		, HistogramSeries = ReStock.HistogramSeries
+		, EventCapture = ReStock.EventCapture
+		, MouseCoordinates = ReStock.MouseCoordinates
+		, CrossHair = ReStock.CrossHair
+		, TooltipContainer = ReStock.TooltipContainer
+		, OHLCTooltip = ReStock.OHLCTooltip
+		, OverlaySeries = ReStock.OverlaySeries
+		, LineSeries = ReStock.LineSeries
+		, MovingAverageTooltip = ReStock.MovingAverageTooltip
+		, CurrentCoordinate = ReStock.CurrentCoordinate
+		, AreaSeries = ReStock.AreaSeries
+		, EdgeContainer = ReStock.EdgeContainer
+		, EdgeIndicator = ReStock.EdgeIndicator
+	;
+	var HaikinAshi = React.createClass({displayName: "HaikinAshi",
+		mixins: [ChartWidthMixin],
+		render:function() {
+			if (this.state === null || !this.state.width) return React.createElement("div", null);
+	
+			var dateFormat = d3.time.format("%Y-%m-%d");
+	
+			return (
+				React.createElement(ChartCanvas, {width: this.state.width, height: 400, 
+					margin: {left: 90, right: 70, top:10, bottom: 30}, data: this.props.data, interval: "D", initialDisplay: 30}, 
+					React.createElement(DataTransform, {transformType: "stockscale"}, 
+					React.createElement(DataTransform, {transformType: "heikinashi"}, 
+						React.createElement(Chart, {id: 1, yMousePointerDisplayLocation: "right", yMousePointerDisplayFormat: function(y)  {return y.toFixed(2);}}, 
+							React.createElement(XAxis, {axisAt: "bottom", orient: "bottom"}), 
+							React.createElement(YAxis, {axisAt: "right", orient: "right", ticks: 5}), 
+							React.createElement(DataSeries, {yAccessor: CandlestickSeries.yAccessor}, 
+								React.createElement(CandlestickSeries, null), 
+								React.createElement(OverlaySeries, {id: 0, type: "sma", options: { period: 20, pluck: 'close'}}, 
+									React.createElement(LineSeries, null)
+								), 
+								React.createElement(OverlaySeries, {id: 1, type: "sma", options: { period: 30}}, 
+									React.createElement(LineSeries, null)
+								), 
+								React.createElement(OverlaySeries, {id: 2, type: "sma", options: { period: 50}}, 
+									React.createElement(LineSeries, null)
+								)
+							)
+						), 
+						React.createElement(CurrentCoordinate, {forChart: 1, forOverlay: 0}), 
+						React.createElement(CurrentCoordinate, {forChart: 1, forOverlay: 1}), 
+						React.createElement(CurrentCoordinate, {forChart: 1, forOverlay: 2}), 
+						React.createElement(Chart, {id: 2, height: 150, origin: function(w, h)  {return [0, h - 150];}}, 
+							React.createElement(YAxis, {axisAt: "left", orient: "left", ticks: 5, tickFormat: d3.format("s")}), 
+							React.createElement(DataSeries, {yAccessor: function(d)  {return d.volume;}}, 
+								React.createElement(HistogramSeries, {className: function(d)  {return d.close > d.open ? 'up' : 'down';}}), 
+								React.createElement(OverlaySeries, {id: 3, type: "sma", options: { period: 10, pluck:'volume'}}, 
+									React.createElement(AreaSeries, null)
+								)
+							)
+						), 
+						React.createElement(CurrentCoordinate, {forChart: 2, forOverlay: 3}), 
+						React.createElement(CurrentCoordinate, {forChart: 2}), 
+						React.createElement(EdgeContainer, null, 
+							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "last", orient: "right", 
+								edgeAt: "right", forChart: 1, forOverlay: 0}), 
+							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "last", orient: "right", 
+								edgeAt: "right", forChart: 1, forOverlay: 1}), 
+							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "last", orient: "right", 
+								edgeAt: "right", forChart: 1, forOverlay: 2}), 
+							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "first", orient: "left", 
+								edgeAt: "left", forChart: 1, forOverlay: 0}), 
+							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "first", orient: "left", 
+								edgeAt: "left", forChart: 1, forOverlay: 1}), 
+							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "first", orient: "left", 
+								edgeAt: "left", forChart: 1, forOverlay: 2}), 
+							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "first", orient: "left", 
+								edgeAt: "left", forChart: 2, forOverlay: 3, displayFormat: d3.format(".4s")}), 
+							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "last", orient: "right", 
+								edgeAt: "right", forChart: 2, forOverlay: 3, displayFormat: d3.format(".4s")}), 
+							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "first", orient: "left", 
+								edgeAt: "left", forChart: 2, displayFormat: d3.format(".4s")}), 
+							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "last", orient: "right", 
+								edgeAt: "right", forChart: 2, displayFormat: d3.format(".4s")})
+						), 
+						React.createElement(MouseCoordinates, {xDisplayFormat: dateFormat, type: "crosshair"}), 
+						React.createElement(EventCapture, {mouseMove: true, zoom: true, pan: true, mainChart: 1, defaultFocus: false}), 
+						React.createElement(TooltipContainer, null, 
+							React.createElement(OHLCTooltip, {forChart: 1, origin: [-50, 0]}), 
+							React.createElement(MovingAverageTooltip, {forChart: 1, onClick: function(e)  {return console.log(e);}, origin: [-48, 15]})
+						)
+					)
+					)
+				)
+			);
+		}
+	});
+	
+	module.exports = HaikinAshi;
+
 
 /***/ },
 /* 2 */
@@ -225,12 +334,12 @@ return webpackJsonpReStock([1,2],[
 	var React = __webpack_require__(2);
 	var d3 = __webpack_require__(3);
 	
-	var ReStock = __webpack_require__(70);
+	var ReStock = __webpack_require__(71);
 	
 	
 	module.exports = {
 		init:function(data) {
-			var AreaChartWithEdgeCoordinates = __webpack_require__(69).init(data);
+			var AreaChartWithEdgeCoordinates = __webpack_require__(70).init(data);
 	
 			var SyncMouseMove = React.createClass({displayName: "SyncMouseMove",
 				getInitialState:function() {
@@ -313,7 +422,7 @@ return webpackJsonpReStock([1,2],[
 	var React = __webpack_require__(2);
 	var d3 = __webpack_require__(3);
 	
-	var ReStock = __webpack_require__(70);
+	var ReStock = __webpack_require__(71);
 	
 	var ChartCanvas = ReStock.ChartCanvas
 		, XAxis = ReStock.XAxis
@@ -456,7 +565,7 @@ return webpackJsonpReStock([1,2],[
 	var React = __webpack_require__(2);
 	var d3 = __webpack_require__(3);
 	
-	var ReStock = __webpack_require__(70);
+	var ReStock = __webpack_require__(71);
 	
 	var ChartCanvas = ReStock.ChartCanvas
 		, XAxis = ReStock.XAxis
@@ -593,9 +702,790 @@ return webpackJsonpReStock([1,2],[
 	'use strict';
 	
 	var React = __webpack_require__(2);
+	var ContentSection = __webpack_require__(35);
+	var Row = __webpack_require__(50);
+	var Section = __webpack_require__(34);
+	
+	var CandleStickChartWithZoomPan = __webpack_require__(37);
+	
+	var ZoomAndPanPage = React.createClass({displayName: "ZoomAndPanPage",
+		statics: {
+			title: 'Zoom and Pan'
+		},
+		render:function() {
+			return (
+				React.createElement(ContentSection, {title: ZoomAndPanPage.title}, 
+					React.createElement(Row, null, 
+						React.createElement(Section, {colSpan: 2, className: "react-stockchart"}, 
+							React.createElement(CandleStickChartWithZoomPan, {data: this.props.someData})
+						)
+					), 
+					React.createElement(Row, null, 
+						React.createElement(Section, {colSpan: 2}, 
+							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(36)}})
+						)
+					)
+				)
+			);
+		}
+	});
+	
+	module.exports = ZoomAndPanPage;
+
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(2);
+	
+	var Nav = React.createClass({displayName: "Nav",
+		render:function() {
+			return (
+				React.createElement("nav", {className: "navbar navbar-fixed-top"}, 
+					React.createElement("div", {className: "container-fluid"}, 
+						React.createElement("div", {className: "navbar-header"}, 
+							React.createElement("a", {className: "navbar-brand", href: "index.html"}, "React Stockcharts")
+						)
+					)
+				)
+			);
+		}
+	});
+	
+	module.exports = Nav;
+
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(2);
+	
+	var SideBar = React.createClass({displayName: "SideBar",
+		render:function() {
+			return (
+				React.createElement("div", {className: "col-sm-3 col-md-2 sidebar"}, this.props.children)
+			);
+		}
+	});
+	
+	module.exports = SideBar;
+
+/***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(2);
+	
+	var MenuGroup = React.createClass({displayName: "MenuGroup",
+		render:function() {
+			return (
+				React.createElement("ul", {className: "nav nav-sidebar"}, this.props.children)
+			);
+		}
+	});
+	
+	module.exports = MenuGroup;
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(2);
+	var Row = __webpack_require__(50);
+	
+	var MainContainer = React.createClass({displayName: "MainContainer",
+		render:function() {
+			return (
+				React.createElement("div", {className: "container-fluid", id: "MainContainer"}, 
+					React.createElement(Row, null, this.props.children)
+				)
+			);
+		}
+	});
+	
+	module.exports = MainContainer;
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(2);
+	
+	var MenuItem = React.createClass({displayName: "MenuItem",
+		propTypes: {
+			selectedPage: React.PropTypes.any,
+			handleRouteChange: React.PropTypes.func.isRequired,
+			page: React.PropTypes.any.isRequired
+		},
+		getDefaultProps:function() {
+			return {
+				active: false,
+			};
+		},
+		handleClick:function() {
+			this.props.handleRouteChange(this.props.page)
+		},
+		render:function() {
+			var className = (this.props.page === this.props.selectedPage) ? 'active' : '';
+			return (
+				React.createElement("li", {className: className}, 
+					React.createElement("a", {href: '#/' + this.props.page.title, onClick: this.handleClick}, 
+						this.props.page.title
+					)
+				)
+			);
+		}
+	});
+	
+	module.exports = MenuItem;
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(2);
+	var ContentSection = __webpack_require__(35);
+	var Row = __webpack_require__(50);
+	var Section = __webpack_require__(34);
+	
+	var OverviewPage = React.createClass({displayName: "OverviewPage",
+		statics: {
+			title: 'Overview'
+		},
+		render:function() {
+			return (
+				React.createElement(ContentSection, {title: OverviewPage.title}, 
+					React.createElement(Row, null, 
+						React.createElement(Section, {colSpan: 2}, 
+							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(46)}})
+						)
+					)
+				)
+			);
+		}
+	});
+	
+	module.exports = OverviewPage;
+
+
+/***/ },
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(2);
+	var ContentSection = __webpack_require__(35);
+	var Row = __webpack_require__(50);
+	var Section = __webpack_require__(34);
+	
+	var AreaChart = __webpack_require__(38);
+	var AreaChartWithYPercent = __webpack_require__(40);
+	
+	var OverviewPage = React.createClass({displayName: "OverviewPage",
+		statics: {
+			title: 'Area Chart'
+		},
+		render:function() {
+			return (
+				React.createElement(ContentSection, {title: OverviewPage.title}, 
+					React.createElement(Row, null, 
+						React.createElement(Section, {colSpan: 2, className: "react-stockchart"}, 
+							React.createElement(AreaChart, {data: this.props.someData})
+						)
+					), 
+					React.createElement(Row, null, 
+						React.createElement(Section, {colSpan: 2}, 
+							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(39)}})
+						)
+					), 
+					React.createElement(Row, null, 
+						React.createElement(Section, {colSpan: 2, className: "react-stockchart"}, 
+							React.createElement(AreaChartWithYPercent, {data: this.props.someData})
+						)
+					)
+				)
+			);
+		}
+	});
+	
+	module.exports = OverviewPage;
+
+
+/***/ },
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(2);
+	var ContentSection = __webpack_require__(35);
+	var Row = __webpack_require__(50);
+	var Section = __webpack_require__(34);
+	
+	var CandleStickChart = __webpack_require__(41);
+	var CandleStickStockScaleChart = __webpack_require__(43);
+	
+	var CandleStickChartPage = React.createClass({displayName: "CandleStickChartPage",
+		statics: {
+			title: 'Candlestick Chart'
+		},
+		render:function() {
+			return (
+				React.createElement(ContentSection, {title: CandleStickChartPage.title}, 
+					React.createElement(Row, {title: ""}, 
+						React.createElement(Section, {colSpan: 2, className: "react-stockchart"}, 
+							React.createElement(CandleStickChart, {data: this.props.someData})
+						)
+					), 
+					React.createElement(Row, null, 
+						React.createElement(Section, {colSpan: 2}, 
+							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(42)}})
+						)
+					), 
+					React.createElement(Row, null, 
+						React.createElement(Section, {colSpan: 2, className: "react-stockchart"}, 
+							React.createElement(CandleStickStockScaleChart, {data: this.props.someData})
+						)
+					), 
+					React.createElement(Row, null, 
+						React.createElement(Section, {colSpan: 2}, 
+							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(44)}})
+						)
+					), 
+					React.createElement(Row, {title: "stocktime scale"}, 
+						React.createElement(Section, {colSpan: 2}, 
+							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(45)}})
+						)
+					)
+				)
+			);
+		}
+	});
+	
+	module.exports = CandleStickChartPage;
+
+
+/***/ },
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(2);
+	var ContentSection = __webpack_require__(35);
+	var Row = __webpack_require__(50);
+	var Section = __webpack_require__(34);
+	
+	var CandleStickStockScaleChartWithVolumeHistogramV1 = __webpack_require__(49);
+	var CandleStickStockScaleChartWithVolumeHistogramV2 = __webpack_require__(52);
+	
+	var VolumeHistogramPage = React.createClass({displayName: "VolumeHistogramPage",
+		statics: {
+			title: 'Volume histogram'
+		},
+		render:function() {
+			return (
+				React.createElement(ContentSection, {title: VolumeHistogramPage.title}, 
+					React.createElement(Row, null, 
+						React.createElement(Section, {colSpan: 2}, 
+							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(51)}})
+						)
+					), 
+					React.createElement(Row, null, 
+						React.createElement(Section, {colSpan: 2, className: "react-stockchart"}, 
+							React.createElement(CandleStickStockScaleChartWithVolumeHistogramV1, {data: this.props.someData})
+						)
+					), 
+					React.createElement(Row, null, 
+						React.createElement(Section, {colSpan: 2}, 
+							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(53)}})
+						)
+					), 
+					React.createElement(Row, null, 
+						React.createElement(Section, {colSpan: 2, className: "react-stockchart"}, 
+							React.createElement(CandleStickStockScaleChartWithVolumeHistogramV2, {data: this.props.someData})
+						)
+					), 
+					React.createElement(Row, null, 
+						React.createElement(Section, {colSpan: 2}, 
+							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(54)}})
+						)
+					)
+				)
+			);
+		}
+	});
+	
+	module.exports = VolumeHistogramPage;
+
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(2);
+	var ContentSection = __webpack_require__(35);
+	var Row = __webpack_require__(50);
+	var Section = __webpack_require__(34);
+	
+	var CandleStickChartWithCHMousePointer = __webpack_require__(47);
+	
+	var MousePointerPage = React.createClass({displayName: "MousePointerPage",
+		statics: {
+			title: 'Mouse pointer'
+		},
+		render:function() {
+			return (
+				React.createElement(ContentSection, {title: MousePointerPage.title}, 
+					React.createElement(Row, null, 
+						React.createElement(Section, {colSpan: 2, className: "react-stockchart"}, 
+							React.createElement(CandleStickChartWithCHMousePointer, {data: this.props.someData})
+						)
+					), 
+					React.createElement(Row, null, 
+						React.createElement(Section, {colSpan: 2}, 
+							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(48)}})
+						)
+					)
+				)
+			);
+		}
+	});
+	
+	module.exports = MousePointerPage;
+
+
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(2);
+	var ContentSection = __webpack_require__(35);
+	var Row = __webpack_require__(50);
+	var Section = __webpack_require__(34);
+	
+	var CandleStickChartWithMA = __webpack_require__(59);
+	
+	var OverlayPage = React.createClass({displayName: "OverlayPage",
+		statics: {
+			title: 'Overlay'
+		},
+		render:function() {
+			return (
+				React.createElement(ContentSection, {title: OverlayPage.title}, 
+					React.createElement(Row, null, 
+						React.createElement(Section, {colSpan: 2, className: "react-stockchart"}, 
+							React.createElement(CandleStickChartWithMA, {data: this.props.someData})
+						)
+					), 
+					React.createElement(Row, null, 
+						React.createElement(Section, {colSpan: 2}, 
+							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(58)}})
+						)
+					)
+				)
+			);
+		}
+	});
+	
+	module.exports = OverlayPage;
+
+
+/***/ },
+/* 19 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(2);
+	var ContentSection = __webpack_require__(35);
+	var Row = __webpack_require__(50);
+	var Section = __webpack_require__(34);
+	
+	var CandleStickChartWithEdge = __webpack_require__(28);
+	
+	var EdgeCoordinatesPage = React.createClass({displayName: "EdgeCoordinatesPage",
+		statics: {
+			title: 'Edge coordinate'
+		},
+		render:function() {
+			return (
+				React.createElement(ContentSection, {title: EdgeCoordinatesPage.title}, 
+					React.createElement(Row, null, 
+						React.createElement(Section, {colSpan: 2, className: "react-stockchart"}, 
+							React.createElement(CandleStickChartWithEdge, {data: this.props.someData})
+						)
+					), 
+					React.createElement(Row, null, 
+						React.createElement(Section, {colSpan: 2}, 
+							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(55)}})
+						)
+					)
+				)
+			);
+		}
+	});
+	
+	module.exports = EdgeCoordinatesPage;
+
+
+/***/ },
+/* 20 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(2);
+	var ContentSection = __webpack_require__(35);
+	var Row = __webpack_require__(50);
+	var Section = __webpack_require__(34);
+	
+	var CandleStickChartWithCompare = __webpack_require__(56);
+	
+	var CompareWithPage = React.createClass({displayName: "CompareWithPage",
+		statics: {
+			title: 'Compare'
+		},
+		render:function() {
+			return (
+				React.createElement(ContentSection, {title: CompareWithPage.title}, 
+					React.createElement(Row, null, 
+						React.createElement(Section, {colSpan: 2, className: "react-stockchart"}, 
+							React.createElement(CandleStickChartWithCompare, {data: this.props.compareData})
+						)
+					), 
+					React.createElement(Row, null, 
+						React.createElement(Section, {colSpan: 2}, 
+							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(57)}})
+						)
+					)
+				)
+			);
+		}
+	});
+	
+	module.exports = CompareWithPage;
+
+
+/***/ },
+/* 21 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(2);
+	var ContentSection = __webpack_require__(35);
+	var Row = __webpack_require__(50);
+	var Section = __webpack_require__(34);
+	
+	var CandleStickChartWithEdge = __webpack_require__(28);
+	
+	var LotsOfDataPage = React.createClass({displayName: "LotsOfDataPage",
+		statics: {
+			title: 'Lots of data'
+		},
+		render:function() {
+			return (
+				React.createElement(ContentSection, {title: LotsOfDataPage.title}, 
+					React.createElement(Row, null, 
+						React.createElement(Section, {colSpan: 2}, 
+							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(61)}})
+						)
+					), 
+					React.createElement(Row, null, 
+						React.createElement(Section, {colSpan: 2, className: "react-stockchart"}, 
+							React.createElement(CandleStickChartWithEdge, {data: this.props.lotsOfData})
+						)
+					)
+				)
+			);
+		}
+	});
+	
+	module.exports = LotsOfDataPage;
+
+
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(2);
+	var ContentSection = __webpack_require__(35);
+	var Row = __webpack_require__(50);
+	var Section = __webpack_require__(34);
+	
+	var HeikinAshiChart = __webpack_require__(1);
+	
+	var HeikinAshiPage = React.createClass({displayName: "HeikinAshiPage",
+		statics: {
+			title: 'Heikin Ashi'
+		},
+		render:function() {
+			return (
+				React.createElement(ContentSection, {title: HeikinAshiPage.title}, 
+					React.createElement(Row, null, 
+						React.createElement(Section, {colSpan: 2}, 
+							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(60)}})
+						)
+					), 
+					React.createElement(Row, null, 
+						React.createElement(Section, {colSpan: 2, className: "react-stockchart"}, 
+							React.createElement(HeikinAshiChart, {data: this.props.someData})
+						)
+					)
+				)
+			);
+		}
+	});
+	
+	module.exports = HeikinAshiPage;
+
+
+/***/ },
+/* 23 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(2);
+	var ContentSection = __webpack_require__(35);
+	var Row = __webpack_require__(50);
+	var Section = __webpack_require__(34);
+	
+	var Kagi = __webpack_require__(62);
+	
+	var KagiPage = React.createClass({displayName: "KagiPage",
+		statics: {
+			title: 'Kagi'
+		},
+		render:function() {
+			return (
+				React.createElement(ContentSection, {title: KagiPage.title}, 
+					React.createElement(Row, null, 
+						React.createElement(Section, {colSpan: 2}, 
+							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(63)}})
+						)
+					), 
+					React.createElement(Row, null, 
+						React.createElement(Section, {colSpan: 2, className: "react-stockchart"}, 
+							React.createElement(Kagi, {data: this.props.lotsOfData})
+						)
+					)
+				)
+			);
+		}
+	});
+	
+	module.exports = KagiPage;
+
+
+/***/ },
+/* 24 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(2);
+	var ContentSection = __webpack_require__(35);
+	var Row = __webpack_require__(50);
+	var Section = __webpack_require__(34);
+	
+	var PointAndFigure = __webpack_require__(64);
+	
+	var PointAndFigurePage = React.createClass({displayName: "PointAndFigurePage",
+		statics: {
+			title: 'Point & Figure'
+		},
+		render:function() {
+			return (
+				React.createElement(ContentSection, {title: PointAndFigurePage.title}, 
+					React.createElement(Row, null, 
+						React.createElement(Section, {colSpan: 2}, 
+							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(65)}})
+						)
+					), 
+					React.createElement(Row, null, 
+						React.createElement(Section, {colSpan: 2, className: "react-stockchart"}, 
+							React.createElement(PointAndFigure, {data: this.props.someData})
+						)
+					)
+				)
+			);
+		}
+	});
+	
+	module.exports = PointAndFigurePage;
+
+
+/***/ },
+/* 25 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(2);
+	var ContentSection = __webpack_require__(35);
+	var Row = __webpack_require__(50);
+	var Section = __webpack_require__(34);
+	
+	var ComingSoonPage = React.createClass({displayName: "ComingSoonPage",
+		statics: {
+			title: 'Coming soon...'
+		},
+		render:function() {
+			return (
+				React.createElement(ContentSection, {title: ComingSoonPage.title}, 
+					React.createElement(Row, null, 
+						React.createElement(Section, {colSpan: 2}, 
+							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(68)}})
+						)
+					)
+				)
+			);
+		}
+	});
+	
+	module.exports = ComingSoonPage;
+
+
+/***/ },
+/* 26 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(2);
+	var ContentSection = __webpack_require__(35);
+	var Row = __webpack_require__(50);
+	var Section = __webpack_require__(34);
+	
+	var Renko = __webpack_require__(67);
+	
+	var RenkoPage = React.createClass({displayName: "RenkoPage",
+		statics: {
+			title: 'Renko'
+		},
+		render:function() {
+			return (
+				React.createElement(ContentSection, {title: RenkoPage.title}, 
+					React.createElement(Row, null, 
+						React.createElement(Section, {colSpan: 2}, 
+							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(66)}})
+						)
+					), 
+					React.createElement(Row, null, 
+						React.createElement(Section, {colSpan: 2, className: "react-stockchart"}, 
+							React.createElement(Renko, {data: this.props.lotsOfData})
+						)
+					)
+				)
+			);
+		}
+	});
+	
+	module.exports = RenkoPage;
+
+
+/***/ },
+/* 27 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(2);
 	var d3 = __webpack_require__(3);
 	
-	var ReStock = __webpack_require__(70);
+	var ReStock = __webpack_require__(71);
+	
+	var ChartCanvas = ReStock.ChartCanvas
+		, XAxis = ReStock.XAxis
+		, YAxis = ReStock.YAxis
+		, CandlestickSeries = ReStock.CandlestickSeries
+		, DataTransform = ReStock.DataTransform
+		, Chart = ReStock.Chart
+		, DataSeries = ReStock.DataSeries
+		, ChartWidthMixin = ReStock.helper.ChartWidthMixin
+		, HistogramSeries = ReStock.HistogramSeries
+		, EventCapture = ReStock.EventCapture
+		, MouseCoordinates = ReStock.MouseCoordinates
+		, CrossHair = ReStock.CrossHair
+		, TooltipContainer = ReStock.TooltipContainer
+		, OHLCTooltip = ReStock.OHLCTooltip
+		, OverlaySeries = ReStock.OverlaySeries
+		, LineSeries = ReStock.LineSeries
+		, MovingAverageTooltip = ReStock.MovingAverageTooltip
+		, CurrentCoordinate = ReStock.CurrentCoordinate
+		, AreaSeries = ReStock.AreaSeries
+	;
+	
+	
+	var CandleStickStockScaleChartWithVolumeHistogramV3 = React.createClass({displayName: "CandleStickStockScaleChartWithVolumeHistogramV3",
+		mixins: [ChartWidthMixin],
+		render:function() {
+			if (this.state === null || !this.state.width) return React.createElement("div", null);
+	
+			var dateFormat = d3.time.format("%Y-%m-%d");
+	
+			return (
+				React.createElement(ChartCanvas, {width: this.state.width, height: 600, 
+					margin: {left: 70, right: 70, top:20, bottom: 30}, data: this.props.data, interval: "D", initialDisplay: 30}, 
+					React.createElement(DataTransform, {transformType: "stockscale"}, 
+						React.createElement(Chart, {id: 1, yMousePointerDisplayLocation: "right", yMousePointerDisplayFormat: function(y)  {return y.toFixed(2);}, 
+								height: 400}, 
+							React.createElement(YAxis, {axisAt: "right", orient: "right", ticks: 5}), 
+							React.createElement(XAxis, {axisAt: "bottom", orient: "bottom", noTicks: true}), 
+							React.createElement(DataSeries, {yAccessor: CandlestickSeries.yAccessor}, 
+								React.createElement(CandlestickSeries, null)
+							)
+						), 
+						React.createElement(Chart, {id: 2, yMousePointerDisplayLocation: "left", yMousePointerDisplayFormat: d3.format(".4s"), 
+								height: 150, origin: function(w, h)  {return [0, h - 150];}}, 
+							React.createElement(XAxis, {axisAt: "bottom", orient: "bottom"}), 
+							React.createElement(YAxis, {axisAt: "left", orient: "left", ticks: 5, tickFormat: d3.format("s")}), 
+							React.createElement(DataSeries, {yAccessor: function(d)  {return d.volume;}}, 
+								React.createElement(HistogramSeries, {className: function(d)  {return d.close > d.open ? 'up' : 'down';}})
+							)
+						), 
+						React.createElement(MouseCoordinates, {xDisplayFormat: dateFormat, type: "crosshair"}), 
+						React.createElement(EventCapture, {mouseMove: true, zoom: true, pan: true, mainChart: 1, defaultFocus: false}), 
+						React.createElement(TooltipContainer, null, 
+							React.createElement(OHLCTooltip, {forChart: 1, origin: [-40, -10]}), 
+							React.createElement(MovingAverageTooltip, {forChart: 1, onClick: function(e)  {return console.log(e);}, origin: [-38, 5]})
+						)
+					)
+				)
+			);
+		}
+	});
+	
+	module.exports = CandleStickStockScaleChartWithVolumeHistogramV3;
+
+
+/***/ },
+/* 28 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(2);
+	var d3 = __webpack_require__(3);
+	
+	var ReStock = __webpack_require__(71);
 	
 	var ChartCanvas = ReStock.ChartCanvas
 		, XAxis = ReStock.XAxis
@@ -633,7 +1523,7 @@ return webpackJsonpReStock([1,2],[
 				React.createElement(ChartCanvas, {width: this.state.width, height: 400, 
 					margin: {left: 90, right: 70, top:10, bottom: 30}, data: this.props.data, interval: "D", initialDisplay: 30}, 
 					React.createElement(DataTransform, {transformType: "stockscale"}, 
-						React.createElement(Chart, {id: 1}, 
+						React.createElement(Chart, {id: 1, yMousePointerDisplayLocation: "right", yMousePointerDisplayFormat: function(y)  {return y.toFixed(2);}}, 
 							React.createElement(XAxis, {axisAt: "bottom", orient: "bottom"}), 
 							React.createElement(YAxis, {axisAt: "right", orient: "right", ticks: 5}), 
 							React.createElement(DataSeries, {yAccessor: CandlestickSeries.yAccessor}, 
@@ -685,7 +1575,7 @@ return webpackJsonpReStock([1,2],[
 							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "last", orient: "right", 
 								edgeAt: "right", forChart: 2, displayFormat: d3.format(".4s")})
 						), 
-						React.createElement(MouseCoordinates, {forChart: 1, xDisplayFormat: dateFormat, yDisplayFormat: function(y)  {return y.toFixed(2);}, type: "crosshair"}), 
+						React.createElement(MouseCoordinates, {xDisplayFormat: dateFormat, type: "crosshair"}), 
 						React.createElement(EventCapture, {mouseMove: true, zoom: true, pan: true, mainChart: 1, defaultFocus: false}), 
 						React.createElement(TooltipContainer, null, 
 							React.createElement(OHLCTooltip, {forChart: 1, origin: [-50, 0]}), 
@@ -701,811 +1591,17 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 8 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var React = __webpack_require__(2);
-	
-	var Nav = React.createClass({displayName: "Nav",
-		render:function() {
-			return (
-				React.createElement("nav", {className: "navbar navbar-fixed-top"}, 
-					React.createElement("div", {className: "container-fluid"}, 
-						React.createElement("div", {className: "navbar-header"}, 
-							React.createElement("a", {className: "navbar-brand", href: "index.html"}, "React Stockcharts")
-						)
-					)
-				)
-			);
-		}
-	});
-	
-	module.exports = Nav;
-
-/***/ },
-/* 9 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var React = __webpack_require__(2);
-	
-	var SideBar = React.createClass({displayName: "SideBar",
-		render:function() {
-			return (
-				React.createElement("div", {className: "col-sm-3 col-md-2 sidebar"}, this.props.children)
-			);
-		}
-	});
-	
-	module.exports = SideBar;
-
-/***/ },
-/* 10 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var React = __webpack_require__(2);
-	var Row = __webpack_require__(34);
-	
-	var MainContainer = React.createClass({displayName: "MainContainer",
-		render:function() {
-			return (
-				React.createElement("div", {className: "container-fluid", id: "MainContainer"}, 
-					React.createElement(Row, null, this.props.children)
-				)
-			);
-		}
-	});
-	
-	module.exports = MainContainer;
-
-/***/ },
-/* 11 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var React = __webpack_require__(2);
-	
-	var MenuGroup = React.createClass({displayName: "MenuGroup",
-		render:function() {
-			return (
-				React.createElement("ul", {className: "nav nav-sidebar"}, this.props.children)
-			);
-		}
-	});
-	
-	module.exports = MenuGroup;
-
-/***/ },
-/* 12 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var React = __webpack_require__(2);
-	
-	var MenuItem = React.createClass({displayName: "MenuItem",
-		propTypes: {
-			selectedPage: React.PropTypes.any,
-			handleRouteChange: React.PropTypes.func.isRequired,
-			page: React.PropTypes.any.isRequired
-		},
-		getDefaultProps:function() {
-			return {
-				active: false,
-			};
-		},
-		handleClick:function() {
-			this.props.handleRouteChange(this.props.page)
-		},
-		render:function() {
-			var className = (this.props.page === this.props.selectedPage) ? 'active' : '';
-			return (
-				React.createElement("li", {className: className}, 
-					React.createElement("a", {href: '#/' + this.props.page.title, onClick: this.handleClick}, 
-						this.props.page.title
-					)
-				)
-			);
-		}
-	});
-	
-	module.exports = MenuItem;
-
-/***/ },
-/* 13 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(2);
-	var ContentSection = __webpack_require__(35);
-	var Row = __webpack_require__(34);
-	var Section = __webpack_require__(36);
-	
-	var OverviewPage = React.createClass({displayName: "OverviewPage",
-		statics: {
-			title: 'Overview'
-		},
-		render:function() {
-			return (
-				React.createElement(ContentSection, {title: OverviewPage.title}, 
-					React.createElement(Row, null, 
-						React.createElement(Section, {colSpan: 2}, 
-							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(37)}})
-						)
-					)
-				)
-			);
-		}
-	});
-	
-	module.exports = OverviewPage;
-
-
-/***/ },
-/* 14 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(2);
-	var ContentSection = __webpack_require__(35);
-	var Row = __webpack_require__(34);
-	var Section = __webpack_require__(36);
-	
-	var AreaChart = __webpack_require__(38);
-	var AreaChartWithYPercent = __webpack_require__(39);
-	
-	var OverviewPage = React.createClass({displayName: "OverviewPage",
-		statics: {
-			title: 'Area Chart'
-		},
-		render:function() {
-			return (
-				React.createElement(ContentSection, {title: OverviewPage.title}, 
-					React.createElement(Row, null, 
-						React.createElement(Section, {colSpan: 2, className: "react-stockchart"}, 
-							React.createElement(AreaChart, {data: this.props.someData})
-						)
-					), 
-					React.createElement(Row, null, 
-						React.createElement(Section, {colSpan: 2}, 
-							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(40)}})
-						)
-					), 
-					React.createElement(Row, null, 
-						React.createElement(Section, {colSpan: 2, className: "react-stockchart"}, 
-							React.createElement(AreaChartWithYPercent, {data: this.props.someData})
-						)
-					)
-				)
-			);
-		}
-	});
-	
-	module.exports = OverviewPage;
-
-
-/***/ },
-/* 15 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(2);
-	var ContentSection = __webpack_require__(35);
-	var Row = __webpack_require__(34);
-	var Section = __webpack_require__(36);
-	
-	var CandleStickChart = __webpack_require__(41);
-	var CandleStickStockScaleChart = __webpack_require__(42);
-	
-	var CandleStickChartPage = React.createClass({displayName: "CandleStickChartPage",
-		statics: {
-			title: 'Candlestick Chart'
-		},
-		render:function() {
-			return (
-				React.createElement(ContentSection, {title: CandleStickChartPage.title}, 
-					React.createElement(Row, {title: ""}, 
-						React.createElement(Section, {colSpan: 2, className: "react-stockchart"}, 
-							React.createElement(CandleStickChart, {data: this.props.someData})
-						)
-					), 
-					React.createElement(Row, null, 
-						React.createElement(Section, {colSpan: 2}, 
-							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(43)}})
-						)
-					), 
-					React.createElement(Row, null, 
-						React.createElement(Section, {colSpan: 2, className: "react-stockchart"}, 
-							React.createElement(CandleStickStockScaleChart, {data: this.props.someData})
-						)
-					), 
-					React.createElement(Row, null, 
-						React.createElement(Section, {colSpan: 2}, 
-							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(44)}})
-						)
-					), 
-					React.createElement(Row, {title: "stocktime scale"}, 
-						React.createElement(Section, {colSpan: 2}, 
-							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(45)}})
-						)
-					)
-				)
-			);
-		}
-	});
-	
-	module.exports = CandleStickChartPage;
-
-
-/***/ },
-/* 16 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(2);
-	var ContentSection = __webpack_require__(35);
-	var Row = __webpack_require__(34);
-	var Section = __webpack_require__(36);
-	
-	var CandleStickChartWithZoomPan = __webpack_require__(46);
-	
-	var ZoomAndPanPage = React.createClass({displayName: "ZoomAndPanPage",
-		statics: {
-			title: 'Zoom and Pan'
-		},
-		render:function() {
-			return (
-				React.createElement(ContentSection, {title: ZoomAndPanPage.title}, 
-					React.createElement(Row, null, 
-						React.createElement(Section, {colSpan: 2, className: "react-stockchart"}, 
-							React.createElement(CandleStickChartWithZoomPan, {data: this.props.someData})
-						)
-					), 
-					React.createElement(Row, null, 
-						React.createElement(Section, {colSpan: 2}, 
-							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(47)}})
-						)
-					)
-				)
-			);
-		}
-	});
-	
-	module.exports = ZoomAndPanPage;
-
-
-/***/ },
-/* 17 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(2);
-	var ContentSection = __webpack_require__(35);
-	var Row = __webpack_require__(34);
-	var Section = __webpack_require__(36);
-	
-	var CandleStickStockScaleChartWithVolumeHistogramV1 = __webpack_require__(48);
-	var CandleStickStockScaleChartWithVolumeHistogramV2 = __webpack_require__(49);
-	
-	var VolumeHistogramPage = React.createClass({displayName: "VolumeHistogramPage",
-		statics: {
-			title: 'Volume histogram'
-		},
-		render:function() {
-			return (
-				React.createElement(ContentSection, {title: VolumeHistogramPage.title}, 
-					React.createElement(Row, null, 
-						React.createElement(Section, {colSpan: 2}, 
-							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(50)}})
-						)
-					), 
-					React.createElement(Row, null, 
-						React.createElement(Section, {colSpan: 2, className: "react-stockchart"}, 
-							React.createElement(CandleStickStockScaleChartWithVolumeHistogramV1, {data: this.props.someData})
-						)
-					), 
-					React.createElement(Row, null, 
-						React.createElement(Section, {colSpan: 2}, 
-							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(51)}})
-						)
-					), 
-					React.createElement(Row, null, 
-						React.createElement(Section, {colSpan: 2, className: "react-stockchart"}, 
-							React.createElement(CandleStickStockScaleChartWithVolumeHistogramV2, {data: this.props.someData})
-						)
-					), 
-					React.createElement(Row, null, 
-						React.createElement(Section, {colSpan: 2}, 
-							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(52)}})
-						)
-					)
-				)
-			);
-		}
-	});
-	
-	module.exports = VolumeHistogramPage;
-
-
-/***/ },
-/* 18 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(2);
-	var ContentSection = __webpack_require__(35);
-	var Row = __webpack_require__(34);
-	var Section = __webpack_require__(36);
-	
-	var CandleStickChartWithCHMousePointer = __webpack_require__(53);
-	
-	var MousePointerPage = React.createClass({displayName: "MousePointerPage",
-		statics: {
-			title: 'Mouse pointer'
-		},
-		render:function() {
-			return (
-				React.createElement(ContentSection, {title: MousePointerPage.title}, 
-					React.createElement(Row, null, 
-						React.createElement(Section, {colSpan: 2, className: "react-stockchart"}, 
-							React.createElement(CandleStickChartWithCHMousePointer, {data: this.props.someData})
-						)
-					), 
-					React.createElement(Row, null, 
-						React.createElement(Section, {colSpan: 2}, 
-							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(54)}})
-						)
-					)
-				)
-			);
-		}
-	});
-	
-	module.exports = MousePointerPage;
-
-
-/***/ },
-/* 19 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(2);
-	var ContentSection = __webpack_require__(35);
-	var Row = __webpack_require__(34);
-	var Section = __webpack_require__(36);
-	
-	var CandleStickChartWithMA = __webpack_require__(28);
-	
-	var OverlayPage = React.createClass({displayName: "OverlayPage",
-		statics: {
-			title: 'Overlay'
-		},
-		render:function() {
-			return (
-				React.createElement(ContentSection, {title: OverlayPage.title}, 
-					React.createElement(Row, null, 
-						React.createElement(Section, {colSpan: 2, className: "react-stockchart"}, 
-							React.createElement(CandleStickChartWithMA, {data: this.props.someData})
-						)
-					), 
-					React.createElement(Row, null, 
-						React.createElement(Section, {colSpan: 2}, 
-							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(55)}})
-						)
-					)
-				)
-			);
-		}
-	});
-	
-	module.exports = OverlayPage;
-
-
-/***/ },
-/* 20 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(2);
-	var ContentSection = __webpack_require__(35);
-	var Row = __webpack_require__(34);
-	var Section = __webpack_require__(36);
-	
-	var CandleStickChartWithEdge = __webpack_require__(7);
-	
-	var EdgeCoordinatesPage = React.createClass({displayName: "EdgeCoordinatesPage",
-		statics: {
-			title: 'Edge coordinate'
-		},
-		render:function() {
-			return (
-				React.createElement(ContentSection, {title: EdgeCoordinatesPage.title}, 
-					React.createElement(Row, null, 
-						React.createElement(Section, {colSpan: 2, className: "react-stockchart"}, 
-							React.createElement(CandleStickChartWithEdge, {data: this.props.someData})
-						)
-					), 
-					React.createElement(Row, null, 
-						React.createElement(Section, {colSpan: 2}, 
-							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(56)}})
-						)
-					)
-				)
-			);
-		}
-	});
-	
-	module.exports = EdgeCoordinatesPage;
-
-
-/***/ },
-/* 21 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(2);
-	var ContentSection = __webpack_require__(35);
-	var Row = __webpack_require__(34);
-	var Section = __webpack_require__(36);
-	
-	var CandleStickChartWithCompare = __webpack_require__(57);
-	
-	var CompareWithPage = React.createClass({displayName: "CompareWithPage",
-		statics: {
-			title: 'Compare'
-		},
-		render:function() {
-			return (
-				React.createElement(ContentSection, {title: CompareWithPage.title}, 
-					React.createElement(Row, null, 
-						React.createElement(Section, {colSpan: 2, className: "react-stockchart"}, 
-							React.createElement(CandleStickChartWithCompare, {data: this.props.compareData})
-						)
-					), 
-					React.createElement(Row, null, 
-						React.createElement(Section, {colSpan: 2}, 
-							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(58)}})
-						)
-					)
-				)
-			);
-		}
-	});
-	
-	module.exports = CompareWithPage;
-
-
-/***/ },
-/* 22 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(2);
-	var ContentSection = __webpack_require__(35);
-	var Row = __webpack_require__(34);
-	var Section = __webpack_require__(36);
-	
-	var CandleStickChartWithEdge = __webpack_require__(7);
-	
-	var LotsOfDataPage = React.createClass({displayName: "LotsOfDataPage",
-		statics: {
-			title: 'Lots of data'
-		},
-		render:function() {
-			return (
-				React.createElement(ContentSection, {title: LotsOfDataPage.title}, 
-					React.createElement(Row, null, 
-						React.createElement(Section, {colSpan: 2}, 
-							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(1)}})
-						)
-					), 
-					React.createElement(Row, null, 
-						React.createElement(Section, {colSpan: 2, className: "react-stockchart"}, 
-							React.createElement(CandleStickChartWithEdge, {data: this.props.lotsOfData})
-						)
-					)
-				)
-			);
-		}
-	});
-	
-	module.exports = LotsOfDataPage;
-
-
-/***/ },
-/* 23 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(2);
-	var ContentSection = __webpack_require__(35);
-	var Row = __webpack_require__(34);
-	var Section = __webpack_require__(36);
-	
-	var HeikinAshiChart = __webpack_require__(59);
-	
-	var HeikinAshiPage = React.createClass({displayName: "HeikinAshiPage",
-		statics: {
-			title: 'Heikin Ashi'
-		},
-		render:function() {
-			return (
-				React.createElement(ContentSection, {title: HeikinAshiPage.title}, 
-					React.createElement(Row, null, 
-						React.createElement(Section, {colSpan: 2}, 
-							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(60)}})
-						)
-					), 
-					React.createElement(Row, null, 
-						React.createElement(Section, {colSpan: 2, className: "react-stockchart"}, 
-							React.createElement(HeikinAshiChart, {data: this.props.someData})
-						)
-					)
-				)
-			);
-		}
-	});
-	
-	module.exports = HeikinAshiPage;
-
-
-/***/ },
-/* 24 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(2);
-	var ContentSection = __webpack_require__(35);
-	var Row = __webpack_require__(34);
-	var Section = __webpack_require__(36);
-	
-	var Kagi = __webpack_require__(61);
-	
-	var KagiPage = React.createClass({displayName: "KagiPage",
-		statics: {
-			title: 'Kagi'
-		},
-		render:function() {
-			return (
-				React.createElement(ContentSection, {title: KagiPage.title}, 
-					React.createElement(Row, null, 
-						React.createElement(Section, {colSpan: 2}, 
-							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(62)}})
-						)
-					), 
-					React.createElement(Row, null, 
-						React.createElement(Section, {colSpan: 2, className: "react-stockchart"}, 
-							React.createElement(Kagi, {data: this.props.lotsOfData})
-						)
-					)
-				)
-			);
-		}
-	});
-	
-	module.exports = KagiPage;
-
-
-/***/ },
-/* 25 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(2);
-	var ContentSection = __webpack_require__(35);
-	var Row = __webpack_require__(34);
-	var Section = __webpack_require__(36);
-	
-	var PointAndFigure = __webpack_require__(63);
-	
-	var PointAndFigurePage = React.createClass({displayName: "PointAndFigurePage",
-		statics: {
-			title: 'Point & Figure'
-		},
-		render:function() {
-			return (
-				React.createElement(ContentSection, {title: PointAndFigurePage.title}, 
-					React.createElement(Row, null, 
-						React.createElement(Section, {colSpan: 2}, 
-							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(64)}})
-						)
-					), 
-					React.createElement(Row, null, 
-						React.createElement(Section, {colSpan: 2, className: "react-stockchart"}, 
-							React.createElement(PointAndFigure, {data: this.props.someData})
-						)
-					)
-				)
-			);
-		}
-	});
-	
-	module.exports = PointAndFigurePage;
-
-
-/***/ },
-/* 26 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(2);
-	var ContentSection = __webpack_require__(35);
-	var Row = __webpack_require__(34);
-	var Section = __webpack_require__(36);
-	
-	var Renko = __webpack_require__(65);
-	
-	var RenkoPage = React.createClass({displayName: "RenkoPage",
-		statics: {
-			title: 'Renko'
-		},
-		render:function() {
-			return (
-				React.createElement(ContentSection, {title: RenkoPage.title}, 
-					React.createElement(Row, null, 
-						React.createElement(Section, {colSpan: 2}, 
-							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(66)}})
-						)
-					), 
-					React.createElement(Row, null, 
-						React.createElement(Section, {colSpan: 2, className: "react-stockchart"}, 
-							React.createElement(Renko, {data: this.props.lotsOfData})
-						)
-					)
-				)
-			);
-		}
-	});
-	
-	module.exports = RenkoPage;
-
-
-/***/ },
-/* 27 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(2);
-	var ContentSection = __webpack_require__(35);
-	var Row = __webpack_require__(34);
-	var Section = __webpack_require__(36);
-	
-	var ComingSoonPage = React.createClass({displayName: "ComingSoonPage",
-		statics: {
-			title: 'Coming soon...'
-		},
-		render:function() {
-			return (
-				React.createElement(ContentSection, {title: ComingSoonPage.title}, 
-					React.createElement(Row, null, 
-						React.createElement(Section, {colSpan: 2}, 
-							React.createElement("aside", {dangerouslySetInnerHTML: {__html: __webpack_require__(67)}})
-						)
-					)
-				)
-			);
-		}
-	});
-	
-	module.exports = ComingSoonPage;
-
-
-/***/ },
-/* 28 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(2);
-	var d3 = __webpack_require__(3);
-	
-	var ReStock = __webpack_require__(70);
-	
-	var ChartCanvas = ReStock.ChartCanvas
-		, XAxis = ReStock.XAxis
-		, YAxis = ReStock.YAxis
-		, CandlestickSeries = ReStock.CandlestickSeries
-		, DataTransform = ReStock.DataTransform
-		, Chart = ReStock.Chart
-		, DataSeries = ReStock.DataSeries
-		, ChartWidthMixin = ReStock.helper.ChartWidthMixin
-		, HistogramSeries = ReStock.HistogramSeries
-		, EventCapture = ReStock.EventCapture
-		, MouseCoordinates = ReStock.MouseCoordinates
-		, CrossHair = ReStock.CrossHair
-		, TooltipContainer = ReStock.TooltipContainer
-		, OHLCTooltip = ReStock.OHLCTooltip
-		, OverlaySeries = ReStock.OverlaySeries
-		, LineSeries = ReStock.LineSeries
-		, MovingAverageTooltip = ReStock.MovingAverageTooltip
-		, CurrentCoordinate = ReStock.CurrentCoordinate
-		, AreaSeries = ReStock.AreaSeries
-	;
-	
-	
-	var CandleStickChartWithMA = React.createClass({displayName: "CandleStickChartWithMA",
-		mixins: [ChartWidthMixin],
-		render:function() {
-			if (this.state === null || !this.state.width) return React.createElement("div", null);
-	
-			var dateFormat = d3.time.format("%Y-%m-%d");
-	
-			return (
-				React.createElement(ChartCanvas, {width: this.state.width, height: 400, 
-					margin: {left: 40, right: 70, top:10, bottom: 30}, data: this.props.data, interval: "D", initialDisplay: 30}, 
-					React.createElement(DataTransform, {transformType: "stockscale"}, 
-						React.createElement(Chart, {id: 1}, 
-							React.createElement(XAxis, {axisAt: "bottom", orient: "bottom"}), 
-							React.createElement(YAxis, {axisAt: "right", orient: "right", ticks: 5}), 
-							React.createElement(DataSeries, {yAccessor: CandlestickSeries.yAccessor}, 
-								React.createElement(CandlestickSeries, null), 
-								React.createElement(OverlaySeries, {id: 0, type: "sma", options: { period: 20, pluck: 'close'}}, 
-									React.createElement(LineSeries, null)
-								), 
-								React.createElement(OverlaySeries, {id: 1, type: "ema", options: { period: 20}}, 
-									React.createElement(LineSeries, null)
-								), 
-								React.createElement(OverlaySeries, {id: 2, type: "ema", options: { period: 50}}, 
-									React.createElement(LineSeries, null)
-								)
-							)
-						), 
-						React.createElement(CurrentCoordinate, {forChart: 1, forOverlay: 0}), 
-						React.createElement(CurrentCoordinate, {forChart: 1, forOverlay: 1}), 
-						React.createElement(CurrentCoordinate, {forChart: 1, forOverlay: 2}), 
-						React.createElement(Chart, {id: 2, height: 150, origin: function(w, h)  {return [0, h - 150];}}, 
-							React.createElement(YAxis, {axisAt: "left", orient: "left", ticks: 5, tickFormat: d3.format("s")}), 
-							React.createElement(DataSeries, {yAccessor: function(d)  {return d.volume;}}, 
-								React.createElement(HistogramSeries, {className: function(d)  {return d.close > d.open ? 'up' : 'down';}}), 
-								React.createElement(OverlaySeries, {id: 3, type: "sma", options: { period: 10, pluck:'volume'}}, 
-									React.createElement(AreaSeries, null)
-								)
-							)
-						), 
-						React.createElement(CurrentCoordinate, {forChart: 2, forOverlay: 3}), 
-						React.createElement(CurrentCoordinate, {forChart: 2}), 
-						React.createElement(MouseCoordinates, {forChart: 1, xDisplayFormat: dateFormat, yDisplayFormat: function(y)  {return y.toFixed(2);}, type: "crosshair"}), 
-						React.createElement(EventCapture, {mouseMove: true, zoom: true, pan: true, mainChart: 1, defaultFocus: false}), 
-						React.createElement(TooltipContainer, null, 
-							React.createElement(OHLCTooltip, {forChart: 1, origin: [-40, 0]}), 
-							React.createElement(MovingAverageTooltip, {forChart: 1, onClick: function(e)  {return console.log(e);}, origin: [-38, 15]})
-						)
-					)
-				)
-			);
-		}
-	});
-	
-	module.exports = CandleStickChartWithMA;
-
-
-/***/ },
-/* 29 */
+/* 29 */,
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(30);
+	var content = __webpack_require__(31);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(68)(content, {});
+	var update = __webpack_require__(69)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -1522,23 +1618,23 @@ return webpackJsonpReStock([1,2],[
 	}
 
 /***/ },
-/* 30 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(71)();
-	exports.push([module.id, "/* Move down content because we have a fixed navbar that is 50px tall */\n/*! normalize.css v3.0.2 | MIT License | git.io/normalize */\n/* #MainContainer {\n   position: fixed;\n   top: 50px;\n   padding-left: 100px;\n} */\naside table {\n  border: 1;\n  border-spacing: 1px;\n  border-collapse: collapse;\n  max-width: 100%;\n  margin-bottom: 20px;\n}\n\naside table tbody > tr > td,\naside table tbody > tr > th,\naside table tfoot > tr > td,\naside table tfoot > tr > th,\naside table thead > tr > td,\naside table thead > tr > th {\n  padding: 8px;\n  line-height: 1.42857;\n  vertical-align: top;\n  border-top: 1px solid #DDD;\n}\n\na.button {\n  background: transparent url("+__webpack_require__(99)+") 0 0 no-repeat;\n  width: 203px;\n  height: 80px;\n  padding-left: 60px;\n  color: #fff !important;\n}\n\na.button small {\n  display: inline;\n  font-size: 13px;\n  margin-top: 15px;\n}\n\n.jumbotron {\n  background: steelblue;\n  padding: 0px;\n  color: white;\n}\n\n.jumbotron a {\n  color: yellow;\n}\n\n.top-spacing {\n  padding-top: 10px;\n}\n\n.navbar {\n  background-color: steelblue;\n}\n\n.navbar a {\n  color: white;\n}\n\n/*\n * Top navigation\n * Hide default border to remove 1px line.\n */\n.navbar-fixed-top {\n  border: 0;\n}\n\n/*\n * Sidebar\n */\n/* Hide for mobile, show later */\n.sidebar {\n  display: none;\n}\n\n@media (min-width: 768px) {\n  .sidebar {\n    position: fixed;\n    top: 51px;\n    bottom: 0;\n    left: 0;\n    z-index: 1000;\n    display: block;\n    padding: 20px;\n    overflow-x: hidden;\n    overflow-y: auto;\n    /* Scrollable contents if viewport is shorter than content. */\n    background-color: #f5f5f5;\n    border-right: 1px solid #eee;\n  }\n}\n\n/* Sidebar navigation */\n.nav-sidebar {\n  margin-right: -21px;\n  /* 20px padding + 1px border */\n  margin-bottom: 20px;\n  margin-left: -20px;\n}\n\n.nav-sidebar > li > a {\n  padding-right: 20px;\n  padding-left: 20px;\n}\n\n.nav-sidebar > .active a, .nav-sidebar > .active a:hover, .nav-sidebar > .active a:focus {\n  color: #fff;\n  background-color: #428bca;\n}\n\n/*\n * Main content\n */\n.main {\n  padding: 20px;\n}\n\n@media (min-width: 768px) {\n  .main {\n    padding-right: 40px;\n    padding-left: 40px;\n  }\n}\n\n.main .page-header {\n  margin-top: 0;\n}\n", ""]);
+	exports = module.exports = __webpack_require__(72)();
+	exports.push([module.id, "/* Move down content because we have a fixed navbar that is 50px tall */\n/*! normalize.css v3.0.2 | MIT License | git.io/normalize */\n/* #MainContainer {\n   position: fixed;\n   top: 50px;\n   padding-left: 100px;\n} */\naside table {\n  border: 1;\n  border-spacing: 1px;\n  border-collapse: collapse;\n  max-width: 100%;\n  margin-bottom: 20px;\n}\n\naside table tbody > tr > td,\naside table tbody > tr > th,\naside table tfoot > tr > td,\naside table tfoot > tr > th,\naside table thead > tr > td,\naside table thead > tr > th {\n  padding: 8px;\n  line-height: 1.42857;\n  vertical-align: top;\n  border-top: 1px solid #DDD;\n}\n\na.button {\n  background: transparent url("+__webpack_require__(100)+") 0 0 no-repeat;\n  width: 203px;\n  height: 80px;\n  padding-left: 60px;\n  color: #fff !important;\n}\n\na.button small {\n  display: inline;\n  font-size: 13px;\n  margin-top: 15px;\n}\n\n.jumbotron {\n  background: steelblue;\n  padding: 0px;\n  color: white;\n}\n\n.jumbotron a {\n  color: yellow;\n}\n\n.top-spacing {\n  padding-top: 10px;\n}\n\n.navbar {\n  background-color: steelblue;\n}\n\n.navbar a {\n  color: white;\n}\n\n/*\n * Top navigation\n * Hide default border to remove 1px line.\n */\n.navbar-fixed-top {\n  border: 0;\n}\n\n/*\n * Sidebar\n */\n/* Hide for mobile, show later */\n.sidebar {\n  display: none;\n}\n\n@media (min-width: 768px) {\n  .sidebar {\n    position: fixed;\n    top: 51px;\n    bottom: 0;\n    left: 0;\n    z-index: 1000;\n    display: block;\n    padding: 20px;\n    overflow-x: hidden;\n    overflow-y: auto;\n    /* Scrollable contents if viewport is shorter than content. */\n    background-color: #f5f5f5;\n    border-right: 1px solid #eee;\n  }\n}\n\n/* Sidebar navigation */\n.nav-sidebar {\n  margin-right: -21px;\n  /* 20px padding + 1px border */\n  margin-bottom: 20px;\n  margin-left: -20px;\n}\n\n.nav-sidebar > li > a {\n  padding-right: 20px;\n  padding-left: 20px;\n}\n\n.nav-sidebar > .active a, .nav-sidebar > .active a:hover, .nav-sidebar > .active a:focus {\n  color: #fff;\n  background-color: #428bca;\n}\n\n/*\n * Main content\n */\n.main {\n  padding: 20px;\n}\n\n@media (min-width: 768px) {\n  .main {\n    padding-right: 40px;\n    padding-left: 40px;\n  }\n}\n\n.main .page-header {\n  margin-top: 0;\n}\n", ""]);
 
 /***/ },
-/* 31 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(32);
+	var content = __webpack_require__(33);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(68)(content, {});
+	var update = __webpack_require__(69)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -1555,67 +1651,14 @@ return webpackJsonpReStock([1,2],[
 	}
 
 /***/ },
-/* 32 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(71)();
+	exports = module.exports = __webpack_require__(72)();
 	exports.push([module.id, "body {\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  font-size: 13px;\n}\n\n.react-stockchart .axis path, .react-stockchart .axis line {\n  fill: none;\n  stroke: #000000;\n}\n\n.react-stockchart .current-coordinate {\n  fill: none;\n  stroke: steelblue;\n  stroke-width: 3px;\n}\n\n.react-stockchart .grid.axis path, .react-stockchart .grid.axis line {\n  fill: none;\n  stroke: #000000;\n  shape-rendering: crispEdges;\n  opacity: 0.2;\n}\n\n.react-stockchart .y.axis path {\n  display: none;\n}\n\n.react-stockchart .candle .up {\n  fill: #6BA583;\n  stroke: #6BA583;\n  stroke-width: 1px;\n  shape-rendering: crispEdges;\n}\n\n.react-stockchart .candle .down {\n  fill: #ff0000;\n  stroke: #ff0000;\n  stroke-width: 1px;\n  shape-rendering: crispEdges;\n}\n\n.react-stockchart .candle line {\n  stroke: #000000;\n}\n\n.react-stockchart .wick .up, .react-stockchart .wick .down {\n  stroke: #000000;\n  stroke-width: 1px;\n  shape-rendering: crispEdges;\n}\n\n.react-stockchart .line {\n  fill: none;\n  stroke-width: 1px;\n}\n\n.react-stockchart .line-stroke {\n  shape-rendering: crispEdges;\n  stroke: steelblue;\n}\n\n.react-stockchart .overlay-stroke {\n  stroke: steelblue;\n}\n\n.react-stockchart .yin {\n  fill: none;\n  stroke: #ff0000;\n  stroke-width: 2px;\n}\n\n.react-stockchart .yang {\n  fill: none;\n  stroke: #6BA583;\n  stroke-width: 2px;\n}\n\n.react-stockchart .point_figure_up {\n  fill: none;\n  stroke: green;\n  stroke-width: 1px;\n}\n\n.react-stockchart .point_figure_down {\n  fill: none;\n  stroke: #ff0000;\n  stroke-width: 1px;\n}\n\n.react-stockchart .area {\n  fill: lightsteelblue;\n  opacity: 0.5;\n}\n\n.react-stockchart .backgroundText {\n  text-anchor: middle;\n  fill: #8a8a8a;\n  opacity: 0.15;\n}\n\n.react-stockchart .cross-hair {\n  stroke: #000000;\n  stroke-width: 1px;\n  shape-rendering: crispEdges;\n  opacity: 0.2;\n}\n\n.react-stockchart .horizontal2 .textbg {\n  opacity: 0.95;\n  fill: #f0e68c;\n}\n\n.react-stockchart .horizontal2 text {\n  fill: #757575;\n}\n\n.react-stockchart .horizontal3 .textbg {\n  opacity: 0.95;\n  fill: #000000;\n}\n\n.react-stockchart .horizontal3 text {\n  fill: #757575;\n}\n\n.react-stockchart .edge-coordinate .textbg {\n  opacity: 0.95;\n}\n\n.react-stockchart .edge-coordinate text {\n  fill: #ffffff;\n}\n\n.react-stockchart .vertical .textbg, .react-stockchart .horizontal .textbg {\n  opacity: 0.9;\n  fill: #8a8a8a;\n}\n\n.react-stockchart .vertical text, .react-stockchart .horizontal text {\n  fill: #ffffff;\n}\n\n.react-stockchart .grab {\n  cursor: grab;\n  cursor: -webkit-grab;\n}\n\n.react-stockchart .grabbing {\n  cursor: grabbing;\n  cursor: -webkit-grabbing;\n}\n\n.react-stockchart .crosshair {\n  cursor: crosshair;\n}\n\n.react-stockchart .toottip-hover {\n  pointer-events: all;\n  cursor: pointer;\n}\n\n.react-stockchart .histogram .bar {\n  fill: steelblue;\n  opacity: 0.3;\n  stroke: none;\n}\n\n.react-stockchart .histogram .up {\n  fill: #6BA583;\n  opacity: 0.3;\n  stroke: none;\n}\n\n.react-stockchart .histogram .down {\n  fill: #ff0000;\n  opacity: 0.3;\n  stroke: none;\n}\n\n.react-stockchart .histogram line.up {\n  stroke: #6BA583;\n}\n\n.react-stockchart .histogram line.down {\n  stroke: #ff0000;\n}\n\n.react-stockchart .ma-container rect {\n  fill: none;\n  stroke: none;\n}\n\n.react-stockchart .ma-container rect:hover {\n  fill: #8a8a8a;\n  opacity: 0.3;\n}\n\n.react-stockchart .ma-container line {\n  stroke-width: 4px;\n}\n\n.react-stockchart .legend {\n  font-size: 11px;\n}\n\n.react-stockchart .legend .tooltip-label {\n  fill: steelblue;\n  font-weight: bold;\n}\n", ""]);
 
 /***/ },
-/* 33 */,
 /* 34 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var React = __webpack_require__(2);
-	
-	var Row = React.createClass({displayName: "Row",
-		propTypes: {
-			title: React.PropTypes.string,
-			anchor: React.PropTypes.string
-		},
-		render:function() {
-			var anchor = this.props.anchor || this.props.title;
-			var title = this.props.title
-					? React.createElement("h4", null, React.createElement("a", {id: anchor, href: '#' + anchor}, this.props.title))
-					: null;
-	
-			return (
-				React.createElement("div", {className: "row"}, 
-					title, 
-					this.props.children
-				)
-			);
-		}
-	});
-	
-	module.exports = Row;
-
-/***/ },
-/* 35 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var React = __webpack_require__(2);
-	
-	var ContentSection = React.createClass({displayName: "ContentSection",
-		propTypes: {
-			title: React.PropTypes.string.isRequired
-		},
-		render:function() {
-			return (
-				React.createElement("div", {id: "ContentSection", className: "col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"}, 
-					React.createElement("h1", {className: "page-header"}, this.props.title), 
-					this.props.children
-				)
-			);
-		}
-	});
-	
-	module.exports = ContentSection;
-
-/***/ },
-/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1647,10 +1690,100 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
+/* 35 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(2);
+	
+	var ContentSection = React.createClass({displayName: "ContentSection",
+		propTypes: {
+			title: React.PropTypes.string.isRequired
+		},
+		render:function() {
+			return (
+				React.createElement("div", {id: "ContentSection", className: "col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"}, 
+					React.createElement("h1", {className: "page-header"}, this.props.title), 
+					this.props.children
+				)
+			);
+		}
+	});
+	
+	module.exports = ContentSection;
+
+/***/ },
+/* 36 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = "<p>The only change is enabling <code>zoom</code> and <code>pan</code></p>\n<p>checkout the <a href=\"https://gist.github.com/rrag/a8465abe0061df1b7976\">source</a>, <a href=\"http://bl.ocks.org/rrag/a8465abe0061df1b7976\">block</a>, <a href=\"http://plnkr.co/edit/gist:a8465abe0061df1b7976?p=preview\">plunker</a> of this example</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EventCapture</span> <span class=\"hljs-attribute\">mouseMove</span>=<span class=\"hljs-value\">{true}</span> <span class=\"hljs-attribute\">zoom</span>=<span class=\"hljs-value\">{true}</span> <span class=\"hljs-attribute\">pan</span>=<span class=\"hljs-value\">{true}</span> <span class=\"hljs-attribute\">mainChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">defaultFocus</span>=<span class=\"hljs-value\">{false}</span> /&gt;</span>\n</code></pre>\n<p>other than enabling <code>zoom</code> and <code>pan</code>, <code>defaultFocus</code> of <code>true</code> means mouse scroll over the chart, triggers zoom action if zoom is enabled. If <code>defaultFocus</code> is <code>false</code>, you have to click on the chart to get focus and then all scroll events are zoom events if <code>zoom</code> is enabled</p>\n<p>You could set the focus programatically by adding a ref to the <code>EventCapture</code></p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EventCapture</span> <span class=\"hljs-attribute\">ref</span>=<span class=\"hljs-value\">\"eventCapture\"</span> <span class=\"hljs-attribute\">mouseMove</span>=<span class=\"hljs-value\">{true}</span> <span class=\"hljs-attribute\">zoom</span>=<span class=\"hljs-value\">{true}</span> <span class=\"hljs-attribute\">pan</span>=<span class=\"hljs-value\">{true}</span> <span class=\"hljs-attribute\">mainChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">defaultFocus</span>=<span class=\"hljs-value\">{false}</span> /&gt;</span>\n</code></pre>\n<pre><code class=\"language-js\"><span class=\"hljs-keyword\">this</span>.refs.eventCapture.toggleFocus(); <span class=\"hljs-comment\">// to toggle focus so scroll events over the chart will either simulate zoom or perform the default action</span>\n\n<span class=\"hljs-keyword\">this</span>.refs.eventCapture.setFocus(<span class=\"hljs-literal\">false</span>); <span class=\"hljs-comment\">// set the focus </span>\n</code></pre>\n";
+
+/***/ },
 /* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "<h4>React Stockcharts - Built with <a href=\"http://facebook.github.io/react/\">React JS</a> and <a href=\"http://d3js.org/\">d3</a></h4>\n<p>React Stockcharts project provides a flexible library to create charts that represent time series data. It is easy to learn and can be customized by</p>\n<ul>\n<li>adding custom chart components</li>\n<li>access the <code>svg</code> elements</li>\n<li>styling with CSS</li>\n</ul>\n<p>There are many charting libraries available, but I feel there are very few that provide the features and flexibility to create stock charts that compete with the likes of the ones provided by commercial trading systems.</p>\n<h4>SVG vs Canvas</h4>\n<p>When deciding on a web technology for charts - not just charts, but ones which are interactive too -  representing many many data points, the decision of performance is bound to come up, and HTML5 presents options.</p>\n<p>I am not going to debate between the pros and cons between SVG and Canvas. They are discussed at great length <a href=\"http://stackoverflow.com/questions/12310024/fast-and-responsive-interactive-charts-graphs-svg-canvas-other\">here</a> and <a href=\"http://stackoverflow.com/questions/5882716/html5-canvas-vs-svg-vs-div\">here</a>. Needless to say they are both very powerful and for charting, there really is no right answer. I have chosen to use SVG for React Stockcharts because,</p>\n<ul>\n<li>you will see very soon the performance is not an issue really, thanks to React JS and the virtual dom</li>\n<li>the flexibility of development and the convinenience of debuging a DOM is hard to beat</li>\n<li>styling with css is something I cannot give up</li>\n</ul>\n<p>That said, I do wish to some day create a fork of this on Canvas.</p>\n<h4>DOM Manipulation</h4>\n<p>The only place where DOM Manipulation is used is in the <code>XAxis</code> and <code>YAxis</code> components, I will soon migrate to use the native <code>svg</code> axes provided by <a href=\"https://github.com/esbullington/react-d3\">react-d3</a>, at which time the entire project will be built with native svg components making server side rendering possible.</p>\n<p>Now let us get started with a very simple AreaChart</p>\n";
+	'use strict';
+	
+	var React = __webpack_require__(2);
+	var d3 = __webpack_require__(3);
+	
+	var ReStock = __webpack_require__(71);
+	
+	var ChartCanvas = ReStock.ChartCanvas
+		, XAxis = ReStock.XAxis
+		, YAxis = ReStock.YAxis
+		, CandlestickSeries = ReStock.CandlestickSeries
+		, DataTransform = ReStock.DataTransform
+		, Chart = ReStock.Chart
+		, DataSeries = ReStock.DataSeries
+		, ChartWidthMixin = ReStock.helper.ChartWidthMixin
+		, HistogramSeries = ReStock.HistogramSeries
+		, EventCapture = ReStock.EventCapture
+		, MouseCoordinates = ReStock.MouseCoordinates
+		, CrossHair = ReStock.CrossHair
+		, TooltipContainer = ReStock.TooltipContainer
+		, OHLCTooltip = ReStock.OHLCTooltip
+	;
+	
+	var CandleStickChartWithZoomPan = React.createClass({displayName: "CandleStickChartWithZoomPan",
+		mixins: [ChartWidthMixin],
+		render:function() {
+			if (this.state === null || !this.state.width) return React.createElement("div", null);
+	
+			var dateFormat = d3.time.format("%Y-%m-%d");
+	
+			return (
+				React.createElement(ChartCanvas, {width: this.state.width, height: 400, 
+					margin: {left: 70, right: 70, top:10, bottom: 30}, data: this.props.data}, 
+					React.createElement(DataTransform, {transformType: "stockscale"}, 
+						React.createElement(Chart, {id: 1, yMousePointerDisplayLocation: "right", yMousePointerDisplayFormat: function(y)  {return y.toFixed(2);}}, 
+							React.createElement(XAxis, {axisAt: "bottom", orient: "bottom"}), 
+							React.createElement(YAxis, {axisAt: "right", orient: "right", ticks: 5}), 
+							React.createElement(DataSeries, {yAccessor: CandlestickSeries.yAccessor}, 
+								React.createElement(CandlestickSeries, null)
+							)
+						), 
+						React.createElement(Chart, {id: 2, yMousePointerDisplayLocation: "left", yMousePointerDisplayFormat: d3.format(".4s"), 
+								height: 150, origin: function(w, h)  {return [0, h - 150];}}, 
+							React.createElement(YAxis, {axisAt: "left", orient: "left", ticks: 5, tickFormat: d3.format("s")}), 
+							React.createElement(DataSeries, {yAccessor: function(d)  {return d.volume;}}, 
+								React.createElement(HistogramSeries, {className: function(d)  {return d.close > d.open ? 'up' : 'down';}})
+							)
+						), 
+						React.createElement(MouseCoordinates, {xDisplayFormat: dateFormat, type: "crosshair"}), 
+						React.createElement(EventCapture, {mouseMove: true, zoom: true, pan: true, mainChart: 1, defaultFocus: false}), 
+						React.createElement(TooltipContainer, null, 
+							React.createElement(OHLCTooltip, {forChart: 1, origin: [-40, 0]})
+						)
+					)
+				)
+			);
+		}
+	});
+	
+	
+	module.exports = CandleStickChartWithZoomPan;
+
 
 /***/ },
 /* 38 */
@@ -1659,7 +1792,7 @@ return webpackJsonpReStock([1,2],[
 	'use strict';
 	
 	var React = __webpack_require__(2);
-	var ReStock = __webpack_require__(70);
+	var ReStock = __webpack_require__(71);
 	
 	var ChartCanvas = ReStock.ChartCanvas
 		, XAxis = ReStock.XAxis
@@ -1694,11 +1827,17 @@ return webpackJsonpReStock([1,2],[
 /* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
+	module.exports = "<p>checkout the <a href=\"https://gist.github.com/rrag/b9658ffa431f1ffb8d6b\">source</a>, <a href=\"http://bl.ocks.org/rrag/b9658ffa431f1ffb8d6b\">block</a>, <a href=\"http://plnkr.co/edit/gist:b9658ffa431f1ffb8d6b?p=preview\">plunker</a> of this example</p>\n<p><code>data.tsv</code></p>\n<table>\n<thead>\n<tr><th>date</th><th>close</th></tr>\n</thead>\n<tbody>\n<tr><td>2011-01-24</td><td>5743.25</td></tr>\n<tr><td>2011-01-25</td><td>5687.4</td></tr>\n<tr><td>2011-01-27</td><td>5604.3</td></tr>\n<tr><td>2011-01-28</td><td>5512.15</td></tr>\n<tr><td>…</td><td>…</td></tr>\n</tbody>\n</table>\n<pre><code class=\"language-js\"><span class=\"hljs-keyword\">var</span> d3 = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'d3'</span>);\n<span class=\"hljs-keyword\">var</span> parseDate = d3.time.format(<span class=\"hljs-string\">\"%Y-%m-%d\"</span>).parse\n\nd3.tsv(<span class=\"hljs-string\">\"path/to/data.tsv\"</span>, <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span><span class=\"hljs-params\">(err, data)</span> </span>{\n    data.forEach((d, i) =&gt; {\n        d.date = <span class=\"hljs-keyword\">new</span> <span class=\"hljs-built_in\">Date</span>(parseDate(d.date).getTime());\n        d.close = +d.close;\n    });\n...\n</code></pre>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">ChartCanvas</span> <span class=\"hljs-attribute\">width</span>=<span class=\"hljs-value\">{...}</span> <span class=\"hljs-attribute\">height</span>=<span class=\"hljs-value\">{...}</span> <span class=\"hljs-attribute\">margin</span>=<span class=\"hljs-value\">{{left:</span> <span class=\"hljs-attribute\">50</span>, <span class=\"hljs-attribute\">right:</span> <span class=\"hljs-attribute\">50</span>, <span class=\"hljs-attribute\">top:10</span>, <span class=\"hljs-attribute\">bottom:</span> <span class=\"hljs-attribute\">30</span>}} <span class=\"hljs-attribute\">data</span>=<span class=\"hljs-value\">{data}</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">Chart</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{0}</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">XAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"bottom\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"bottom\"</span> <span class=\"hljs-attribute\">ticks</span>=<span class=\"hljs-value\">{6}</span>/&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">YAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"left\"</span> /&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataSeries</span> <span class=\"hljs-attribute\">yAccessor</span>=<span class=\"hljs-value\">{(d)</span> =&gt;</span> d.close} xAccessor={(d) =&gt; d.date}&gt;\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">AreaSeries</span> /&gt;</span>\n        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataSeries</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">Chart</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">ChartCanvas</span>&gt;</span>\n</code></pre>\n<p>Let us review each line</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">ChartCanvas</span> <span class=\"hljs-attribute\">width</span>=<span class=\"hljs-value\">{...}</span> <span class=\"hljs-attribute\">height</span>=<span class=\"hljs-value\">{...}</span> <span class=\"hljs-attribute\">margin</span>=<span class=\"hljs-value\">{{left:</span> <span class=\"hljs-attribute\">50</span>, <span class=\"hljs-attribute\">right:</span> <span class=\"hljs-attribute\">50</span>, <span class=\"hljs-attribute\">top:10</span>, <span class=\"hljs-attribute\">bottom:</span> <span class=\"hljs-attribute\">30</span>}} <span class=\"hljs-attribute\">data</span>=<span class=\"hljs-value\">{data}</span>&gt;</span>\n</code></pre>\n<p>Creates an <code>svg</code> element with the provided <code>height</code> and <code>width</code> and creates a <code>svg:g</code> element with the provided <code>margin</code>. <code>data</code> is well the data used to plot.</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">Chart</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{0}</span>&gt;</span>\n</code></pre>\n<p>There can be one or more <code>Chart</code>s in each <code>ChartCanvas</code> and hence the need for an <code>id</code> attribute.</p>\n<p>If you are not familiar with <a href=\"https://github.com/mbostock/d3/wiki/Scales\">scales</a> in d3 I recommend doing so. Each <code>Chart</code> defines an <code>xScale</code> and <code>yScale</code>. For starters, it is easier to understand scale as a function which converts a <code>domain</code> say 2011-01-01 to 2014-12-31 to a <code>range</code> say 0 to 500 pixels. This scale can now interpolate an input date to a value in pixels which can be drawn.</p>\n<p>With SVG it is important to understand the coordinate system and where the origin <code>(0, 0)</code> is located. for a SVG of size 300x100, the</p>\n<p><img src=\"http://www.w3.org/TR/SVG/images/coords/InitialCoords.png\" alt=\"alt text\" title=\"Logo Title Text 1\"></p>\n<p>For more details about the SVG coordinate system see <a href=\"http://www.w3.org/TR/SVG/coords.html\">here</a></p>\n<p>Back to scales,</p>\n<p>A time scale converts a date/time domain to a range, this is used as the xScale, the xDomain is calculated from the input data, and the range is calculated as <code>height - margin.left - margin.right</code>.</p>\n<p>A Linear scale converts a <code>domain</code> say 4600 - 6200 to a <code>range</code> say 0 to 300 pixels. Like the name represents the data in between is interpolated linear, similarly there is log scale which creates a logrithmic scale, which is not linear.</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">XAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"bottom\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"bottom\"</span> <span class=\"hljs-attribute\">ticks</span>=<span class=\"hljs-value\">{6}</span>/&gt;</span>\n</code></pre>\n<p>The <code>ticks</code> attribute simple passes on the value to the <a href=\"https://github.com/mbostock/d3/wiki/SVG-Axes#ticks\">d3.axis</a>, the <code>XAxis</code> also has the following optional attributes <code>innerTickSize, outerTickSize, tickFormat, tickPadding, tickSize, ticks, tickValues</code> all of which correspond to a function with the same name in d3.axis.</p>\n<p><code>axisAt</code> takes on possible values as <code>top, middle, bottom</code> for advanced cases, you can also pass in a number indicating the pixel position where the axis has to be drawn.</p>\n<p><code>orient</code> takes on possible values as <code>top, bottom</code>, this orients the axis ticks on the top/bottom</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">YAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"left\"</span> /&gt;</span>\n</code></pre>\n<p>Similar to <code>XAxis</code> except left/right instead of top/bottom</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataSeries</span> <span class=\"hljs-attribute\">yAccessor</span>=<span class=\"hljs-value\">{(d)</span> =&gt;</span> d.close} xAccessor={(d) =&gt; d.date}&gt;\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">AreaSeries</span> /&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataSeries</span>&gt;</span>\n</code></pre>\n<p>A <code>DataSeries</code> is a shell component intended to house the x and y Accessor. You will find in other examples below how <code>DataSeries</code> helps create a yAccessor with more than one y  value to plot for a given x, like in candlestick.</p>\n<p>If you are not clear what the arrow functions mean, read more about them <a href=\"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions\">here</a>. In short</p>\n<p><code>(d) =&gt; d.close</code> means <code>function (d) { return d.close; }</code></p>\n<p><code>(d) =&gt; d.date</code> means <code>function (d) { return d.date; }</code></p>\n<h3>Highly customizable you say, how?</h3>\n<p>So you dont want to display the <code>YAxis</code> at all, go ahead and just remove that.</p>\n<p>Want to display <code>YAxis</code> on both left and right? add</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">YAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"right\"</span> /&gt;</span>\n</code></pre>\n<p>next to the existing <code>YAxis</code></p>\n<p>Create custom components and use them, it is explained <a href=\"http://add.link.here\">here</a></p>\n<p>Want to add a <code>YAxis</code> with a percent scale on the right? add</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">YAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">percentScale</span>=<span class=\"hljs-value\">{true}</span> <span class=\"hljs-attribute\">tickFormat</span>=<span class=\"hljs-value\">{d3.format(\".0%\")}</span>/&gt;</span>\n</code></pre>\n<p>and you get.</p>\n";
+
+/***/ },
+/* 40 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 	
 	var React = __webpack_require__(2);
 	
-	var ReStock = __webpack_require__(70);
+	var ReStock = __webpack_require__(71);
 	
 	var ChartCanvas = ReStock.ChartCanvas
 		, XAxis = ReStock.XAxis
@@ -1868,12 +2007,6 @@ return webpackJsonpReStock([1,2],[
 	*/
 
 /***/ },
-/* 40 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = "<p>checkout the <a href=\"https://gist.github.com/rrag/b9658ffa431f1ffb8d6b\">source</a>, <a href=\"http://bl.ocks.org/rrag/b9658ffa431f1ffb8d6b\">block</a>, <a href=\"http://plnkr.co/edit/gist:b9658ffa431f1ffb8d6b?p=preview\">plunker</a> of this example</p>\n<p><code>data.tsv</code></p>\n<table>\n<thead>\n<tr><th>date</th><th>close</th></tr>\n</thead>\n<tbody>\n<tr><td>2011-01-24</td><td>5743.25</td></tr>\n<tr><td>2011-01-25</td><td>5687.4</td></tr>\n<tr><td>2011-01-27</td><td>5604.3</td></tr>\n<tr><td>2011-01-28</td><td>5512.15</td></tr>\n<tr><td>…</td><td>…</td></tr>\n</tbody>\n</table>\n<pre><code class=\"language-js\"><span class=\"hljs-keyword\">var</span> d3 = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'d3'</span>);\n<span class=\"hljs-keyword\">var</span> parseDate = d3.time.format(<span class=\"hljs-string\">\"%Y-%m-%d\"</span>).parse\n\nd3.tsv(<span class=\"hljs-string\">\"path/to/data.tsv\"</span>, <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span><span class=\"hljs-params\">(err, data)</span> </span>{\n    data.forEach((d, i) =&gt; {\n        d.date = <span class=\"hljs-keyword\">new</span> <span class=\"hljs-built_in\">Date</span>(parseDate(d.date).getTime());\n        d.close = +d.close;\n    });\n...\n</code></pre>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">ChartCanvas</span> <span class=\"hljs-attribute\">width</span>=<span class=\"hljs-value\">{...}</span> <span class=\"hljs-attribute\">height</span>=<span class=\"hljs-value\">{...}</span> <span class=\"hljs-attribute\">margin</span>=<span class=\"hljs-value\">{{left:</span> <span class=\"hljs-attribute\">50</span>, <span class=\"hljs-attribute\">right:</span> <span class=\"hljs-attribute\">50</span>, <span class=\"hljs-attribute\">top:10</span>, <span class=\"hljs-attribute\">bottom:</span> <span class=\"hljs-attribute\">30</span>}} <span class=\"hljs-attribute\">data</span>=<span class=\"hljs-value\">{data}</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">Chart</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{0}</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">XAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"bottom\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"bottom\"</span> <span class=\"hljs-attribute\">ticks</span>=<span class=\"hljs-value\">{6}</span>/&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">YAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"left\"</span> /&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataSeries</span> <span class=\"hljs-attribute\">yAccessor</span>=<span class=\"hljs-value\">{(d)</span> =&gt;</span> d.close} xAccessor={(d) =&gt; d.date}&gt;\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">AreaSeries</span> /&gt;</span>\n        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataSeries</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">Chart</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">ChartCanvas</span>&gt;</span>\n</code></pre>\n<p>Let us review each line</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">ChartCanvas</span> <span class=\"hljs-attribute\">width</span>=<span class=\"hljs-value\">{...}</span> <span class=\"hljs-attribute\">height</span>=<span class=\"hljs-value\">{...}</span> <span class=\"hljs-attribute\">margin</span>=<span class=\"hljs-value\">{{left:</span> <span class=\"hljs-attribute\">50</span>, <span class=\"hljs-attribute\">right:</span> <span class=\"hljs-attribute\">50</span>, <span class=\"hljs-attribute\">top:10</span>, <span class=\"hljs-attribute\">bottom:</span> <span class=\"hljs-attribute\">30</span>}} <span class=\"hljs-attribute\">data</span>=<span class=\"hljs-value\">{data}</span>&gt;</span>\n</code></pre>\n<p>Creates an <code>svg</code> element with the provided <code>height</code> and <code>width</code> and creates a <code>svg:g</code> element with the provided <code>margin</code>. <code>data</code> is well the data used to plot.</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">Chart</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{0}</span>&gt;</span>\n</code></pre>\n<p>There can be one or more <code>Chart</code>s in each <code>ChartCanvas</code> and hence the need for an <code>id</code> attribute.</p>\n<p>If you are not familiar with <a href=\"https://github.com/mbostock/d3/wiki/Scales\">scales</a> in d3 I recommend doing so. Each <code>Chart</code> defines an <code>xScale</code> and <code>yScale</code>. For starters, it is easier to understand scale as a function which converts a <code>domain</code> say 2011-01-01 to 2014-12-31 to a <code>range</code> say 0 to 500 pixels. This scale can now interpolate an input date to a value in pixels which can be drawn.</p>\n<p>With SVG it is important to understand the coordinate system and where the origin <code>(0, 0)</code> is located. for a SVG of size 300x100, the</p>\n<p><img src=\"http://www.w3.org/TR/SVG/images/coords/InitialCoords.png\" alt=\"alt text\" title=\"Logo Title Text 1\"></p>\n<p>For more details about the SVG coordinate system see <a href=\"http://www.w3.org/TR/SVG/coords.html\">here</a></p>\n<p>Back to scales,</p>\n<p>A time scale converts a date/time domain to a range, this is used as the xScale, the xDomain is calculated from the input data, and the range is calculated as <code>height - margin.left - margin.right</code>.</p>\n<p>A Linear scale converts a <code>domain</code> say 4600 - 6200 to a <code>range</code> say 0 to 300 pixels. Like the name represents the data in between is interpolated linear, similarly there is log scale which creates a logrithmic scale, which is not linear.</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">XAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"bottom\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"bottom\"</span> <span class=\"hljs-attribute\">ticks</span>=<span class=\"hljs-value\">{6}</span>/&gt;</span>\n</code></pre>\n<p>The <code>ticks</code> attribute simple passes on the value to the <a href=\"https://github.com/mbostock/d3/wiki/SVG-Axes#ticks\">d3.axis</a>, the <code>XAxis</code> also has the following optional attributes <code>innerTickSize, outerTickSize, tickFormat, tickPadding, tickSize, ticks, tickValues</code> all of which correspond to a function with the same name in d3.axis.</p>\n<p><code>axisAt</code> takes on possible values as <code>top, middle, bottom</code> for advanced cases, you can also pass in a number indicating the pixel position where the axis has to be drawn.</p>\n<p><code>orient</code> takes on possible values as <code>top, bottom</code>, this orients the axis ticks on the top/bottom</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">YAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"left\"</span> /&gt;</span>\n</code></pre>\n<p>Similar to <code>XAxis</code> except left/right instead of top/bottom</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataSeries</span> <span class=\"hljs-attribute\">yAccessor</span>=<span class=\"hljs-value\">{(d)</span> =&gt;</span> d.close} xAccessor={(d) =&gt; d.date}&gt;\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">AreaSeries</span> /&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataSeries</span>&gt;</span>\n</code></pre>\n<p>A <code>DataSeries</code> is a shell component intended to house the x and y Accessor. You will find in other examples below how <code>DataSeries</code> helps create a yAccessor with more than one y  value to plot for a given x, like in candlestick.</p>\n<p>If you are not clear what the arrow functions mean, read more about them <a href=\"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions\">here</a>. In short</p>\n<p><code>(d) =&gt; d.close</code> means <code>function (d) { return d.close; }</code></p>\n<p><code>(d) =&gt; d.date</code> means <code>function (d) { return d.date; }</code></p>\n<h3>Highly customizable you say, how?</h3>\n<p>So you dont want to display the <code>YAxis</code> at all, go ahead and just remove that.</p>\n<p>Want to display <code>YAxis</code> on both left and right? add</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">YAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"right\"</span> /&gt;</span>\n</code></pre>\n<p>next to the existing <code>YAxis</code></p>\n<p>Create custom components and use them, it is explained <a href=\"http://add.link.here\">here</a></p>\n<p>Want to add a <code>YAxis</code> with a percent scale on the right? add</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">YAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">percentScale</span>=<span class=\"hljs-value\">{true}</span> <span class=\"hljs-attribute\">tickFormat</span>=<span class=\"hljs-value\">{d3.format(\".0%\")}</span>/&gt;</span>\n</code></pre>\n<p>and you get.</p>\n";
-
-/***/ },
 /* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -1882,7 +2015,7 @@ return webpackJsonpReStock([1,2],[
 	var React = __webpack_require__(2);
 	var d3 = __webpack_require__(3);
 	
-	var ReStock = __webpack_require__(70);
+	var ReStock = __webpack_require__(71);
 	
 	var ChartCanvas = ReStock.ChartCanvas
 		, XAxis = ReStock.XAxis
@@ -1919,12 +2052,18 @@ return webpackJsonpReStock([1,2],[
 /* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
+	module.exports = "<p>checkout the <a href=\"https://gist.github.com/rrag/b13b739458e65ff93f4a\">source</a>, <a href=\"http://bl.ocks.org/rrag/b13b739458e65ff93f4a\">block</a>, <a href=\"http://plnkr.co/edit/gist:b13b739458e65ff93f4a?p=preview\">plunker</a> of this example</p>\n<p>well, that looks ok, but something is not right. Look closer, you will find that the candles are not spread at regular intervals, there is a gap of say 2 candles every so often. That gap is because the data is plot on a continious time scale, and a continious time scale has week ends and national holidays, days when trading does not happen. Now we dont want to show non trading days on the chart. If it is an intra day chart, you want to see only 9:30 AM to 4:00 PM (or 1:00 PM if it is holiday hours)</p>\n<p>What we need here is to show time that is not continious on the x axis. Enter <strong>stocktime scale</strong> (or <strong>financetime scale</strong>).</p>\n";
+
+/***/ },
+/* 43 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 	
 	var React = __webpack_require__(2);
 	var d3 = __webpack_require__(3);
 	
-	var ReStock = __webpack_require__(70);
+	var ReStock = __webpack_require__(71);
 	
 	var ChartCanvas = ReStock.ChartCanvas
 		, XAxis = ReStock.XAxis
@@ -1962,12 +2101,6 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 43 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = "<p>checkout the <a href=\"https://gist.github.com/rrag/b13b739458e65ff93f4a\">source</a>, <a href=\"http://bl.ocks.org/rrag/b13b739458e65ff93f4a\">block</a>, <a href=\"http://plnkr.co/edit/gist:b13b739458e65ff93f4a?p=preview\">plunker</a> of this example</p>\n<p>well, that looks ok, but something is not right. Look closer, you will find that the candles are not spread at regular intervals, there is a gap of say 2 candles every so often. That gap is because the data is plot on a continious time scale, and a continious time scale has week ends and national holidays, days when trading does not happen. Now we dont want to show non trading days on the chart. If it is an intra day chart, you want to see only 9:30 AM to 4:00 PM (or 1:00 PM if it is holiday hours)</p>\n<p>What we need here is to show time that is not continious on the x axis. Enter <strong>stocktime scale</strong> (or <strong>financetime scale</strong>).</p>\n";
-
-/***/ },
 /* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -1983,12 +2116,18 @@ return webpackJsonpReStock([1,2],[
 /* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
+	module.exports = "<h4>React Stockcharts - Built with <a href=\"http://facebook.github.io/react/\">React JS</a> and <a href=\"http://d3js.org/\">d3</a></h4>\n<p>React Stockcharts project provides a flexible library to create charts that represent time series data. It is easy to learn and can be customized by</p>\n<ul>\n<li>adding custom chart components</li>\n<li>access the <code>svg</code> elements</li>\n<li>styling with CSS</li>\n</ul>\n<p>There are many charting libraries available, but I feel there are very few that provide the features and flexibility to create stock charts that compete with the likes of the ones provided by commercial trading systems.</p>\n<h4>SVG vs Canvas</h4>\n<p>When deciding on a web technology for charts - not just charts, but ones which are interactive too -  representing many many data points, the decision of performance is bound to come up, and HTML5 presents options.</p>\n<p>I am not going to debate between the pros and cons between SVG and Canvas. They are discussed at great length <a href=\"http://stackoverflow.com/questions/12310024/fast-and-responsive-interactive-charts-graphs-svg-canvas-other\">here</a> and <a href=\"http://stackoverflow.com/questions/5882716/html5-canvas-vs-svg-vs-div\">here</a>. Needless to say they are both very powerful and for charting, there really is no right answer. I have chosen to use SVG for React Stockcharts because,</p>\n<ul>\n<li>you will see very soon the performance is not an issue really, thanks to React JS and the virtual dom</li>\n<li>the flexibility of development and the convinenience of debuging a DOM is hard to beat</li>\n<li>styling with css is something I cannot give up</li>\n</ul>\n<p>That said, I do wish to some day create a fork of this on Canvas.</p>\n<h4>DOM Manipulation</h4>\n<p>The only place where DOM Manipulation is used is in the <code>XAxis</code> and <code>YAxis</code> components, I will soon migrate to use the native <code>svg</code> axes provided by <a href=\"https://github.com/esbullington/react-d3\">react-d3</a>, at which time the entire project will be built with native svg components making server side rendering possible.</p>\n<p>Now let us get started with a very simple AreaChart</p>\n";
+
+/***/ },
+/* 47 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 	
 	var React = __webpack_require__(2);
 	var d3 = __webpack_require__(3);
 	
-	var ReStock = __webpack_require__(70);
+	var ReStock = __webpack_require__(71);
 	
 	var ChartCanvas = ReStock.ChartCanvas
 		, XAxis = ReStock.XAxis
@@ -2003,10 +2142,9 @@ return webpackJsonpReStock([1,2],[
 		, MouseCoordinates = ReStock.MouseCoordinates
 		, CrossHair = ReStock.CrossHair
 		, TooltipContainer = ReStock.TooltipContainer
-		, OHLCTooltip = ReStock.OHLCTooltip
-	;
+		, OHLCTooltip = ReStock.OHLCTooltip;
 	
-	var CandleStickChartWithZoomPan = React.createClass({displayName: "CandleStickChartWithZoomPan",
+	var CandleStickChartWithCHMousePointer = React.createClass({displayName: "CandleStickChartWithCHMousePointer",
 		mixins: [ChartWidthMixin],
 		render:function() {
 			if (this.state === null || !this.state.width) return React.createElement("div", null);
@@ -2015,23 +2153,24 @@ return webpackJsonpReStock([1,2],[
 	
 			return (
 				React.createElement(ChartCanvas, {width: this.state.width, height: 400, 
-					margin: {left: 40, right: 70, top:10, bottom: 30}, data: this.props.data}, 
+					margin: {left: 70, right: 70, top:10, bottom: 30}, data: this.props.data, interval: "D", initialDisplay: 30}, 
 					React.createElement(DataTransform, {transformType: "stockscale"}, 
-						React.createElement(Chart, {id: 1}, 
+						React.createElement(Chart, {id: 1, yMousePointerDisplayLocation: "right", yMousePointerDisplayFormat: function(y)  {return y.toFixed(2);}}, 
 							React.createElement(XAxis, {axisAt: "bottom", orient: "bottom"}), 
 							React.createElement(YAxis, {axisAt: "right", orient: "right", ticks: 5}), 
 							React.createElement(DataSeries, {yAccessor: CandlestickSeries.yAccessor}, 
 								React.createElement(CandlestickSeries, null)
 							)
 						), 
-						React.createElement(Chart, {id: 2, height: 150, origin: function(w, h)  {return [0, h - 150];}}, 
+						React.createElement(Chart, {id: 2, yMousePointerDisplayLocation: "left", yMousePointerDisplayFormat: d3.format(".4s"), 
+								height: 150, origin: function(w, h)  {return [0, h - 150];}}, 
 							React.createElement(YAxis, {axisAt: "left", orient: "left", ticks: 5, tickFormat: d3.format("s")}), 
 							React.createElement(DataSeries, {yAccessor: function(d)  {return d.volume;}}, 
 								React.createElement(HistogramSeries, {className: function(d)  {return d.close > d.open ? 'up' : 'down';}})
 							)
 						), 
-						React.createElement(MouseCoordinates, {forChart: 1, xDisplayFormat: dateFormat, yDisplayFormat: function(y)  {return y.toFixed(2);}, type: "crosshair"}), 
-						React.createElement(EventCapture, {mouseMove: true, zoom: true, pan: true, mainChart: 1, defaultFocus: false}), 
+						React.createElement(MouseCoordinates, {xDisplayFormat: dateFormat, type: "crosshair"}), 
+						React.createElement(EventCapture, {mouseMove: true, mainChart: 1}), 
 						React.createElement(TooltipContainer, null, 
 							React.createElement(OHLCTooltip, {forChart: 1, origin: [-40, 0]})
 						)
@@ -2041,18 +2180,17 @@ return webpackJsonpReStock([1,2],[
 		}
 	});
 	
-	
-	module.exports = CandleStickChartWithZoomPan;
+	module.exports = CandleStickChartWithCHMousePointer;
 
-
-/***/ },
-/* 47 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = "<p>The only change is enabling <code>zoom</code> and <code>pan</code></p>\n<p>checkout the <a href=\"https://gist.github.com/rrag/a8465abe0061df1b7976\">source</a>, <a href=\"http://bl.ocks.org/rrag/a8465abe0061df1b7976\">block</a>, <a href=\"http://plnkr.co/edit/gist:a8465abe0061df1b7976?p=preview\">plunker</a> of this example</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EventCapture</span> <span class=\"hljs-attribute\">mouseMove</span>=<span class=\"hljs-value\">{true}</span> <span class=\"hljs-attribute\">zoom</span>=<span class=\"hljs-value\">{true}</span> <span class=\"hljs-attribute\">pan</span>=<span class=\"hljs-value\">{true}</span> <span class=\"hljs-attribute\">mainChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">defaultFocus</span>=<span class=\"hljs-value\">{false}</span> /&gt;</span>\n</code></pre>\n<p>other than enabling <code>zoom</code> and <code>pan</code>, <code>defaultFocus</code> of <code>true</code> means mouse scroll over the chart, triggers zoom action if zoom is enabled. If <code>defaultFocus</code> is <code>false</code>, you have to click on the chart to get focus and then all scroll events are zoom events if <code>zoom</code> is enabled</p>\n<p>You could set the focus programatically by adding a ref to the <code>EventCapture</code></p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EventCapture</span> <span class=\"hljs-attribute\">ref</span>=<span class=\"hljs-value\">\"eventCapture\"</span> <span class=\"hljs-attribute\">mouseMove</span>=<span class=\"hljs-value\">{true}</span> <span class=\"hljs-attribute\">zoom</span>=<span class=\"hljs-value\">{true}</span> <span class=\"hljs-attribute\">pan</span>=<span class=\"hljs-value\">{true}</span> <span class=\"hljs-attribute\">mainChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">defaultFocus</span>=<span class=\"hljs-value\">{false}</span> /&gt;</span>\n</code></pre>\n<pre><code class=\"language-js\"><span class=\"hljs-keyword\">this</span>.refs.eventCapture.toggleFocus(); <span class=\"hljs-comment\">// to toggle focus so scroll events over the chart will either simulate zoom or perform the default action</span>\n\n<span class=\"hljs-keyword\">this</span>.refs.eventCapture.setFocus(<span class=\"hljs-literal\">false</span>); <span class=\"hljs-comment\">// set the focus </span>\n</code></pre>\n";
 
 /***/ },
 /* 48 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = "<p>checkout the <a href=\"https://gist.github.com/rrag/261fa4bc7b67536eb789\">source</a>, <a href=\"http://bl.ocks.org/rrag/261fa4bc7b67536eb789\">block</a>, <a href=\"http://plnkr.co/edit/gist:261fa4bc7b67536eb789?p=preview\">plunker</a> of this example</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">ChartCanvas</span> <span class=\"hljs-attribute\">width</span>=<span class=\"hljs-value\">{this.state.width}</span> <span class=\"hljs-attribute\">height</span>=<span class=\"hljs-value\">{400}</span>\n    <span class=\"hljs-attribute\">margin</span>=<span class=\"hljs-value\">{{left:</span> <span class=\"hljs-attribute\">70</span>, <span class=\"hljs-attribute\">right:</span> <span class=\"hljs-attribute\">70</span>, <span class=\"hljs-attribute\">top:10</span>, <span class=\"hljs-attribute\">bottom:</span> <span class=\"hljs-attribute\">30</span>}} <span class=\"hljs-attribute\">data</span>=<span class=\"hljs-value\">{this.props.data}</span> <span class=\"hljs-attribute\">interval</span>=<span class=\"hljs-value\">\"D\"</span> <span class=\"hljs-attribute\">initialDisplay</span>=<span class=\"hljs-value\">{30}</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataTransform</span> <span class=\"hljs-attribute\">transformType</span>=<span class=\"hljs-value\">\"stockscale\"</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">Chart</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">yMousePointerDisplayLocation</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">yMousePointerDisplayFormat</span>=<span class=\"hljs-value\">{(y)</span> =&gt;</span> y.toFixed(2)}&gt;\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">XAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"bottom\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"bottom\"</span>/&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">YAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">ticks</span>=<span class=\"hljs-value\">{5}</span> /&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataSeries</span> <span class=\"hljs-attribute\">yAccessor</span>=<span class=\"hljs-value\">{CandlestickSeries.yAccessor}</span> &gt;</span>\n                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CandlestickSeries</span> /&gt;</span>\n            <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataSeries</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">Chart</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">Chart</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{2}</span> <span class=\"hljs-attribute\">yMousePointerDisplayLocation</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">yMousePointerDisplayFormat</span>=<span class=\"hljs-value\">{d3.format(\".4s\")}</span>\n                <span class=\"hljs-attribute\">height</span>=<span class=\"hljs-value\">{150}</span> <span class=\"hljs-attribute\">origin</span>=<span class=\"hljs-value\">{(w,</span> <span class=\"hljs-attribute\">h</span>) =&gt;</span> [0, h - 150]}&gt;\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">YAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">ticks</span>=<span class=\"hljs-value\">{5}</span> <span class=\"hljs-attribute\">tickFormat</span>=<span class=\"hljs-value\">{d3.format(\"s\")}</span>/&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataSeries</span> <span class=\"hljs-attribute\">yAccessor</span>=<span class=\"hljs-value\">{(d)</span> =&gt;</span> d.volume} &gt;\n                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">HistogramSeries</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">{(d)</span> =&gt;</span> d.close &gt; d.open ? 'up' : 'down'} /&gt;\n            <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataSeries</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">Chart</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">MouseCoordinates</span> <span class=\"hljs-attribute\">xDisplayFormat</span>=<span class=\"hljs-value\">{dateFormat}</span> <span class=\"hljs-attribute\">type</span>=<span class=\"hljs-value\">\"crosshair\"</span> /&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EventCapture</span> <span class=\"hljs-attribute\">mouseMove</span>=<span class=\"hljs-value\">{true}</span> <span class=\"hljs-attribute\">mainChart</span>=<span class=\"hljs-value\">{1}</span>/&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">TooltipContainer</span>&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OHLCTooltip</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">origin</span>=<span class=\"hljs-value\">{[-40,</span> <span class=\"hljs-attribute\">0</span>]}/&gt;</span>\n        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">TooltipContainer</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataTransform</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">ChartCanvas</span>&gt;</span>\n</code></pre>\n<p><code>EventCapture</code> is used to capture mousemove, scroll/zoom and drag events</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EventCapture</span> <span class=\"hljs-attribute\">mouseMove</span>=<span class=\"hljs-value\">{true}</span> <span class=\"hljs-attribute\">mainChart</span>=<span class=\"hljs-value\">{1}</span>/&gt;</span>\n</code></pre>\n<p>By default none of the events are captured, and each has to be enabled individually <code>mouseMove</code> is enabled above. <code>mainChart</code> as the name describes is used to refer to the <code>Chart</code> from which the <code>xScale</code> and <code>yScale</code> are used to determine the nearest value to the mouse position.</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">MouseCoordinates</span> <span class=\"hljs-attribute\">xDisplayFormat</span>=<span class=\"hljs-value\">{dateFormat}</span> <span class=\"hljs-attribute\">type</span>=<span class=\"hljs-value\">\"crosshair\"</span> /&gt;</span>\n</code></pre>\n<p>Displays the crosshair at the mouse position, the attributes of <code>MouseCoordinates</code> are self explanatory.</p>\n<p><code>Chart</code> gets a few new props to indicate the y mouse pointer tooltip location and format</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">Chart</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">yMousePointerDisplayLocation</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">yMousePointerDisplayFormat</span>=<span class=\"hljs-value\">{(y)</span> =&gt;</span> y.toFixed(2)}&gt;\n</code></pre>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">Chart</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{2}</span> <span class=\"hljs-attribute\">yMousePointerDisplayLocation</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">yMousePointerDisplayFormat</span>=<span class=\"hljs-value\">{d3.format(\".4s\")}</span>\n</span></code></pre>\n<p>And for the tooltip on the top left</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">TooltipContainer</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OHLCTooltip</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">origin</span>=<span class=\"hljs-value\">{[-40,</span> <span class=\"hljs-attribute\">0</span>]}/&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">TooltipContainer</span>&gt;</span>\n</code></pre>\n<p>use the <code>origin</code> and <code>margin</code> of <code>ChartCanvas</code> to adjust the position of the tooltip. You can also create your custom tooltip, by swapping out <code>OHLCTooltip</code> with your own</p>\n";
+
+/***/ },
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2060,7 +2198,7 @@ return webpackJsonpReStock([1,2],[
 	var React = __webpack_require__(2);
 	var d3 = __webpack_require__(3);
 	
-	var ReStock = __webpack_require__(70);
+	var ReStock = __webpack_require__(71);
 	
 	var ChartCanvas = ReStock.ChartCanvas
 		, XAxis = ReStock.XAxis
@@ -2115,7 +2253,42 @@ return webpackJsonpReStock([1,2],[
 	*/
 
 /***/ },
-/* 49 */
+/* 50 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(2);
+	
+	var Row = React.createClass({displayName: "Row",
+		propTypes: {
+			title: React.PropTypes.string,
+			anchor: React.PropTypes.string
+		},
+		render:function() {
+			var anchor = this.props.anchor || this.props.title;
+			var title = this.props.title
+					? React.createElement("h4", null, React.createElement("a", {id: anchor, href: '#' + anchor}, this.props.title))
+					: null;
+	
+			return (
+				React.createElement("div", {className: "row"}, 
+					title, 
+					this.props.children
+				)
+			);
+		}
+	});
+	
+	module.exports = Row;
+
+/***/ },
+/* 51 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = "<p>There are a couple of ways Volume histogram is usually displayed. Let us see them.</p>\n";
+
+/***/ },
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2123,7 +2296,7 @@ return webpackJsonpReStock([1,2],[
 	var React = __webpack_require__(2);
 	var d3 = __webpack_require__(3);
 	
-	var ReStock = __webpack_require__(70);
+	var ReStock = __webpack_require__(71);
 	
 	var ChartCanvas = ReStock.ChartCanvas
 		, XAxis = ReStock.XAxis
@@ -2168,107 +2341,25 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 50 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = "<p>There are a couple of ways Volume histogram is usually displayed. Let us see them.</p>\n";
-
-/***/ },
-/* 51 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = "<p>checkout the <a href=\"https://gist.github.com/rrag/88cd65baa331d57caa83\">source</a>, <a href=\"http://bl.ocks.org/rrag/88cd65baa331d57caa83\">block</a>, <a href=\"http://plnkr.co/edit/gist:88cd65baa331d57caa83?p=preview\">plunker</a> of this example</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">ChartCanvas</span> <span class=\"hljs-attribute\">width</span>=<span class=\"hljs-value\">{this.state.width}</span> <span class=\"hljs-attribute\">height</span>=<span class=\"hljs-value\">{400}</span> <span class=\"hljs-attribute\">margin</span>=<span class=\"hljs-value\">{{left:</span> <span class=\"hljs-attribute\">50</span>, <span class=\"hljs-attribute\">right:</span> <span class=\"hljs-attribute\">50</span>, <span class=\"hljs-attribute\">top:10</span>, <span class=\"hljs-attribute\">bottom:</span> <span class=\"hljs-attribute\">30</span>}} <span class=\"hljs-attribute\">data</span>=<span class=\"hljs-value\">{data}</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataTransform</span> <span class=\"hljs-attribute\">transformType</span>=<span class=\"hljs-value\">\"stockscale\"</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">Chart</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{1}</span> &gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">XAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"bottom\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"bottom\"</span>/&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">YAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">ticks</span>=<span class=\"hljs-value\">{5}</span> /&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataSeries</span> <span class=\"hljs-attribute\">yAccessor</span>=<span class=\"hljs-value\">{CandlestickSeries.yAccessor}</span> &gt;</span>\n                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CandlestickSeries</span> /&gt;</span>\n            <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataSeries</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">Chart</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">Chart</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{2}</span>&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">YAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">ticks</span>=<span class=\"hljs-value\">{5}</span> <span class=\"hljs-attribute\">tickFormat</span>=<span class=\"hljs-value\">{d3.format(\"s\")}</span>/&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataSeries</span> <span class=\"hljs-attribute\">yAccessor</span>=<span class=\"hljs-value\">{(d)</span> =&gt;</span> d.volume} &gt;\n                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">HistogramSeries</span> /&gt;</span>\n            <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataSeries</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">Chart</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataTransform</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">ChartCanvas</span>&gt;</span>\n</code></pre>\n<p>Look!!! there is more than one <code>Chart</code> there.</p>\n<p>Each <code>Chart</code> has a pair of <code>xScale</code> and <code>yScale</code> since <code>volume</code> is on a different domain from <code>open</code>/<code>high</code>/<code>low</code>/<code>close</code>, It has to be created as a different <code>Chart</code>.</p>\n<p>To summarize, All <code>Chart</code>s use the same <code>data</code> but each <code>Chart</code> has different <code>xScale</code> and <code>yScale</code>. In this example above the <code>xScale</code> of chart 2 has the same <code>domain</code> and <code>range</code> as the <code>xScale</code> of <code>Chart</code> 1, so we did not draw the <code>XAxis</code> again for the Volume.</p>\n<h5>But… I dont want the Volume chart to span the whole chart height.</h5>\n<p>I got you covered.</p>\n";
 
 /***/ },
-/* 52 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = "<p>checkout the <a href=\"https://gist.github.com/rrag/0a54ca33b05001f17f8f\">source</a>, <a href=\"http://bl.ocks.org/rrag/0a54ca33b05001f17f8f\">block</a>, <a href=\"http://plnkr.co/edit/gist:0a54ca33b05001f17f8f?p=preview\">plunker</a> of this example</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">ChartCanvas</span> <span class=\"hljs-attribute\">width</span>=<span class=\"hljs-value\">{this.state.width}</span> <span class=\"hljs-attribute\">height</span>=<span class=\"hljs-value\">{400}</span> <span class=\"hljs-attribute\">margin</span>=<span class=\"hljs-value\">{{left:</span> <span class=\"hljs-attribute\">50</span>, <span class=\"hljs-attribute\">right:</span> <span class=\"hljs-attribute\">50</span>, <span class=\"hljs-attribute\">top:10</span>, <span class=\"hljs-attribute\">bottom:</span> <span class=\"hljs-attribute\">30</span>}} <span class=\"hljs-attribute\">data</span>=<span class=\"hljs-value\">{data}</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataTransform</span> <span class=\"hljs-attribute\">transformType</span>=<span class=\"hljs-value\">\"stockscale\"</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">Chart</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{1}</span> &gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">XAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"bottom\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"bottom\"</span>/&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">YAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">ticks</span>=<span class=\"hljs-value\">{5}</span> /&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataSeries</span> <span class=\"hljs-attribute\">yAccessor</span>=<span class=\"hljs-value\">{CandlestickSeries.yAccessor}</span> &gt;</span>\n                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CandlestickSeries</span> /&gt;</span>\n            <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataSeries</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">Chart</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">Chart</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{2}</span> <span class=\"hljs-attribute\">height</span>=<span class=\"hljs-value\">{150}</span> <span class=\"hljs-attribute\">origin</span>=<span class=\"hljs-value\">{(w,</span> <span class=\"hljs-attribute\">h</span>) =&gt;</span> [0, h - 150]}&gt;\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">YAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">ticks</span>=<span class=\"hljs-value\">{5}</span> <span class=\"hljs-attribute\">tickFormat</span>=<span class=\"hljs-value\">{d3.format(\"s\")}</span>/&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataSeries</span> <span class=\"hljs-attribute\">yAccessor</span>=<span class=\"hljs-value\">{(d)</span> =&gt;</span> d.volume} &gt;\n                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">HistogramSeries</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">{(d)</span> =&gt;</span> d.close &gt; d.open ? 'up' : 'down'} /&gt;\n            <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataSeries</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">Chart</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataTransform</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">ChartCanvas</span>&gt;</span>\n</code></pre>\n<p>The portion of interest here is</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">Chart</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{2}</span> <span class=\"hljs-attribute\">height</span>=<span class=\"hljs-value\">{150}</span> <span class=\"hljs-attribute\">origin</span>=<span class=\"hljs-value\">{(w,</span> <span class=\"hljs-attribute\">h</span>) =&gt;</span> [0, h - 150]}&gt;\n</code></pre>\n<p>the chart has a defined <code>height</code> of 150, which is good.</p>\n<p><code>origin</code> can be either a function which returns a <code>[x, y]</code> to be used as origin or it can be an array with 2 elements representing <code>[x, y]</code>. The default value for <code>origin</code> is <code>[0, 0]</code></p>\n<p><code>(w, h) =&gt; [0, h - 150]</code> is the same as <code>function (w, h) { return [0, h - 150]; }</code></p>\n<p>given the <code>width</code> and <code>height</code> available inside the <code>ChartCanvas</code> as input, this function returns an origin of <code>[0, height - 150]</code> to draw the volume histogram</p>\n<p>Similarly the <code>className</code> of <code>HistogramSeries</code> accepts either</p>\n<ul>\n<li>a function which returns a string</li>\n<li>or a string</li>\n</ul>\n<p>which is used as the css class</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">HistogramSeries</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">{(d)</span> =&gt;</span> d.close &gt; d.open ? 'up' : 'down'} /&gt;\n</code></pre>\n<p>a class of ‘up’ is applied if <code>close &gt; open</code> for that day and ‘down’ otherwise</p>\n";
 
 /***/ },
-/* 53 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(2);
-	var d3 = __webpack_require__(3);
-	
-	var ReStock = __webpack_require__(70);
-	
-	var ChartCanvas = ReStock.ChartCanvas
-		, XAxis = ReStock.XAxis
-		, YAxis = ReStock.YAxis
-		, CandlestickSeries = ReStock.CandlestickSeries
-		, DataTransform = ReStock.DataTransform
-		, Chart = ReStock.Chart
-		, DataSeries = ReStock.DataSeries
-		, ChartWidthMixin = ReStock.helper.ChartWidthMixin
-		, HistogramSeries = ReStock.HistogramSeries
-		, EventCapture = ReStock.EventCapture
-		, MouseCoordinates = ReStock.MouseCoordinates
-		, CrossHair = ReStock.CrossHair
-		, TooltipContainer = ReStock.TooltipContainer
-		, OHLCTooltip = ReStock.OHLCTooltip;
-	
-	var CandleStickChartWithCHMousePointer = React.createClass({displayName: "CandleStickChartWithCHMousePointer",
-		mixins: [ChartWidthMixin],
-		render:function() {
-			if (this.state === null || !this.state.width) return React.createElement("div", null);
-	
-			var dateFormat = d3.time.format("%Y-%m-%d");
-	
-			return (
-				React.createElement(ChartCanvas, {width: this.state.width, height: 400, 
-					margin: {left: 40, right: 70, top:10, bottom: 30}, data: this.props.data, interval: "D", initialDisplay: 30}, 
-					React.createElement(DataTransform, {transformType: "stockscale"}, 
-						React.createElement(Chart, {id: 1}, 
-							React.createElement(XAxis, {axisAt: "bottom", orient: "bottom"}), 
-							React.createElement(YAxis, {axisAt: "right", orient: "right", ticks: 5}), 
-							React.createElement(DataSeries, {yAccessor: CandlestickSeries.yAccessor}, 
-								React.createElement(CandlestickSeries, null)
-							)
-						), 
-						React.createElement(Chart, {id: 2, height: 150, origin: function(w, h)  {return [0, h - 150];}}, 
-							React.createElement(YAxis, {axisAt: "left", orient: "left", ticks: 5, tickFormat: d3.format("s")}), 
-							React.createElement(DataSeries, {yAccessor: function(d)  {return d.volume;}}, 
-								React.createElement(HistogramSeries, {className: function(d)  {return d.close > d.open ? 'up' : 'down';}})
-							)
-						), 
-						React.createElement(MouseCoordinates, {forChart: 1, xDisplayFormat: dateFormat, yDisplayFormat: function(y)  {return y.toFixed(2);}, type: "crosshair"}), 
-						React.createElement(EventCapture, {mouseMove: true, mainChart: 1}), 
-						React.createElement(TooltipContainer, null, 
-							React.createElement(OHLCTooltip, {forChart: 1, origin: [-40, 0]})
-						)
-					)
-				)
-			);
-		}
-	});
-	
-	module.exports = CandleStickChartWithCHMousePointer;
-
-
-/***/ },
-/* 54 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = "<p>checkout the <a href=\"https://gist.github.com/rrag/261fa4bc7b67536eb789\">source</a>, <a href=\"http://bl.ocks.org/rrag/261fa4bc7b67536eb789\">block</a>, <a href=\"http://plnkr.co/edit/gist:261fa4bc7b67536eb789?p=preview\">plunker</a> of this example</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">ChartCanvas</span> <span class=\"hljs-attribute\">width</span>=<span class=\"hljs-value\">{this.state.width}</span> <span class=\"hljs-attribute\">height</span>=<span class=\"hljs-value\">{400}</span> <span class=\"hljs-attribute\">margin</span>=<span class=\"hljs-value\">{{left:</span> <span class=\"hljs-attribute\">40</span>, <span class=\"hljs-attribute\">right:</span> <span class=\"hljs-attribute\">70</span>, <span class=\"hljs-attribute\">top:10</span>, <span class=\"hljs-attribute\">bottom:</span> <span class=\"hljs-attribute\">30</span>}} <span class=\"hljs-attribute\">data</span>=<span class=\"hljs-value\">{data}</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataTransform</span> <span class=\"hljs-attribute\">transformType</span>=<span class=\"hljs-value\">\"stockscale\"</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">Chart</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{1}</span> &gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">XAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"bottom\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"bottom\"</span>/&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">YAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">ticks</span>=<span class=\"hljs-value\">{5}</span> /&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataSeries</span> <span class=\"hljs-attribute\">yAccessor</span>=<span class=\"hljs-value\">{CandlestickSeries.yAccessor}</span> &gt;</span>\n                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CandlestickSeries</span> /&gt;</span>\n            <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataSeries</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">Chart</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">Chart</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{2}</span> <span class=\"hljs-attribute\">height</span>=<span class=\"hljs-value\">{150}</span> <span class=\"hljs-attribute\">origin</span>=<span class=\"hljs-value\">{(w,</span> <span class=\"hljs-attribute\">h</span>) =&gt;</span> [0, h - 150]}&gt;\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">YAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">ticks</span>=<span class=\"hljs-value\">{5}</span> <span class=\"hljs-attribute\">tickFormat</span>=<span class=\"hljs-value\">{d3.format(\"s\")}</span>/&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataSeries</span> <span class=\"hljs-attribute\">yAccessor</span>=<span class=\"hljs-value\">{(d)</span> =&gt;</span> d.volume} &gt;\n                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">HistogramSeries</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">{(d)</span> =&gt;</span> d.close &gt; d.open ? 'up' : 'down'} /&gt;\n            <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataSeries</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">Chart</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">MouseCoordinates</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">xDisplayFormat</span>=<span class=\"hljs-value\">{dateFormat}</span> <span class=\"hljs-attribute\">yDisplayFormat</span>=<span class=\"hljs-value\">{(y)</span> =&gt;</span> y.toFixed(2)} type=\"crosshair\" /&gt;\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EventCapture</span> <span class=\"hljs-attribute\">mouseMove</span>=<span class=\"hljs-value\">{true}</span> <span class=\"hljs-attribute\">mainChart</span>=<span class=\"hljs-value\">{1}</span>/&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">TooltipContainer</span>&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OHLCTooltip</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">origin</span>=<span class=\"hljs-value\">{[-40,</span> <span class=\"hljs-attribute\">0</span>]}/&gt;</span>\n        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">TooltipContainer</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataTransform</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">ChartCanvas</span>&gt;</span>\n</code></pre>\n<p><code>EventCapture</code> is used to capture mousemove, scroll/zoom and drag events</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EventCapture</span> <span class=\"hljs-attribute\">mouseMove</span>=<span class=\"hljs-value\">{true}</span> <span class=\"hljs-attribute\">mainChart</span>=<span class=\"hljs-value\">{1}</span>/&gt;</span>\n</code></pre>\n<p>By default none of the events are captured, and each has to be enabled individually <code>mouseMove</code> is enabled above. <code>mainChart</code> as the name describes is used to refer to the <code>Chart</code> from which the <code>xScale</code> and <code>yScale</code> are used to determine the nearest value to the mouse position.</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">MouseCoordinates</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">xDisplayFormat</span>=<span class=\"hljs-value\">{dateFormat}</span> <span class=\"hljs-attribute\">yDisplayFormat</span>=<span class=\"hljs-value\">{(y)</span> =&gt;</span> y.toFixed(2)} type=\"crosshair\" /&gt;\n</code></pre>\n<p>Displays the crosshair at the mouse position, the attributes of <code>MouseCoordinates</code> are self explanatory. You can swap out with <code>crosshair</code> with <code>vertical</code> if crosshair is not your thing.</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">TooltipContainer</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OHLCTooltip</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">origin</span>=<span class=\"hljs-value\">{[-40,</span> <span class=\"hljs-attribute\">0</span>]}/&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">TooltipContainer</span>&gt;</span>\n</code></pre>\n<p>Displays the tooltip on the top left, use the <code>origin</code> and <code>margin</code> of <code>ChartCanvas</code> to adjust the position of the tooltip. You can also create your custom tooltip, by swapping out <code>OHLCTooltip</code> with your own</p>\n";
-
-/***/ },
 /* 55 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = "<p>checkout the <a href=\"https://gist.github.com/rrag/a27298bb7ae613d48ba2\">source</a>, <a href=\"http://bl.ocks.org/rrag/a27298bb7ae613d48ba2\">block</a>, <a href=\"http://plnkr.co/edit/gist:a27298bb7ae613d48ba2?p=preview\">plunker</a> of this example</p>\n<p><code>Overlay</code>s share the scales of a <code>Chart</code> and contribute to the <code>domain</code> of the <code>Chart</code> they belong to.</p>\n<p>In this chart we are introducing</p>\n<ul>\n<li>Moving average on daily <code>close</code> as a <code>LineSeries</code></li>\n<li>Moving average on daily <code>volume</code> as an <code>AreaSeries</code></li>\n<li>Current item indicator as a circle over the different moving averages</li>\n<li>Moving average tooltip</li>\n</ul>\n<p>Let us review each of these in a little more detail</p>\n<h4>Moving average on daily <code>close</code> as a <code>LineSeries</code></h4>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataSeries</span> <span class=\"hljs-attribute\">yAccessor</span>=<span class=\"hljs-value\">{CandlestickSeries.yAccessor}</span> &gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CandlestickSeries</span> /&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OverlaySeries</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{0}</span> <span class=\"hljs-attribute\">type</span>=<span class=\"hljs-value\">\"sma\"</span> <span class=\"hljs-attribute\">options</span>=<span class=\"hljs-value\">{{</span> <span class=\"hljs-attribute\">period:</span> <span class=\"hljs-attribute\">20</span>, <span class=\"hljs-attribute\">pluck:</span> '<span class=\"hljs-attribute\">close</span>' }}&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">LineSeries</span>/&gt;</span>\n    <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">OverlaySeries</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OverlaySeries</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">type</span>=<span class=\"hljs-value\">\"sma\"</span> <span class=\"hljs-attribute\">options</span>=<span class=\"hljs-value\">{{</span> <span class=\"hljs-attribute\">period:</span> <span class=\"hljs-attribute\">30</span> }} &gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">LineSeries</span>/&gt;</span>\n    <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">OverlaySeries</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OverlaySeries</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{2}</span> <span class=\"hljs-attribute\">type</span>=<span class=\"hljs-value\">\"sma\"</span> <span class=\"hljs-attribute\">options</span>=<span class=\"hljs-value\">{{</span> <span class=\"hljs-attribute\">period:</span> <span class=\"hljs-attribute\">50</span> }} &gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">LineSeries</span>/&gt;</span>\n    <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">OverlaySeries</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataSeries</span>&gt;</span>\n</code></pre>\n<p><code>type</code> indicates it is a simple moving average, <code>options</code> used to specify the moving average <code>period</code>, and <code>pluck</code> to specify attribute against which moving average is to be calculated. If not specified, <code>pluck</code> defaults to <code>close</code></p>\n<h4>Moving average on daily <code>volume</code> as an <code>AreaSeries</code></h4>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataSeries</span> <span class=\"hljs-attribute\">yAccessor</span>=<span class=\"hljs-value\">{(d)</span> =&gt;</span> d.volume} &gt;\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">HistogramSeries</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">{(d)</span> =&gt;</span> d.close &gt; d.open ? 'up' : 'down'} /&gt;\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OverlaySeries</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{3}</span> <span class=\"hljs-attribute\">type</span>=<span class=\"hljs-value\">\"sma\"</span> <span class=\"hljs-attribute\">options</span>=<span class=\"hljs-value\">{{</span> <span class=\"hljs-attribute\">period:</span> <span class=\"hljs-attribute\">10</span>, <span class=\"hljs-attribute\">pluck:</span>'<span class=\"hljs-attribute\">volume</span>' }} &gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">AreaSeries</span>/&gt;</span>\n    <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">OverlaySeries</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataSeries</span>&gt;</span>\n</code></pre>\n<p>Similar to above</p>\n<h4>Current item indicator as a circle over the different moving averages</h4>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CurrentCoordinate</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{0}</span> /&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CurrentCoordinate</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{1}</span> /&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CurrentCoordinate</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{2}</span> /&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CurrentCoordinate</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{2}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{3}</span> /&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CurrentCoordinate</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{2}</span>/&gt;</span>\n</code></pre>\n<p>That was easy, right?</p>\n<p><code>forOverlay</code> is an optional attribute, and absense of that will default the <code>CurrentCoordinate</code> to display a circle on the main series. This only makes sense if the main series plots a single value on y. For <code>CandlestickSeries</code> as it plots 4 attributes, <code>CurrentCoordinate</code> is not valid for <code>CandlestickSeries</code></p>\n<h4>Moving average tooltip</h4>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">TooltipContainer</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OHLCTooltip</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">origin</span>=<span class=\"hljs-value\">{[-40,</span> <span class=\"hljs-attribute\">0</span>]}/&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">MovingAverageTooltip</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">onClick</span>=<span class=\"hljs-value\">{(e)</span> =&gt;</span> console.log(e)} origin={[-38, 15]}/&gt;\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">TooltipContainer</span>&gt;</span>\n</code></pre>\n<p>Open the dev console and see what is logged on click of the moving average tooltip</p>\n<p>adding it all together</p>\n<pre><code class=\"language-jsx\"><span class=\"xml\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">ChartCanvas</span> <span class=\"hljs-attribute\">width</span>=<span class=\"hljs-value\">{this.state.width}</span> <span class=\"hljs-attribute\">height</span>=<span class=\"hljs-value\">{400}</span> <span class=\"hljs-attribute\">margin</span>=</span></span><span class=\"hljs-expression\">{{<span class=\"hljs-variable\">left</span>: 40, <span class=\"hljs-variable\">right</span>: 70, <span class=\"hljs-variable\">top</span>:10, <span class=\"hljs-variable\">bottom</span>: 30}}</span><span class=\"xml\"><span class=\"hljs-tag\"> <span class=\"hljs-attribute\">data</span>=<span class=\"hljs-value\">{data}</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataTransform</span> <span class=\"hljs-attribute\">transformType</span>=<span class=\"hljs-value\">\"stockscale\"</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">Chart</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{1}</span> &gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">XAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"bottom\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"bottom\"</span>/&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">YAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">ticks</span>=<span class=\"hljs-value\">{5}</span> /&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataSeries</span> <span class=\"hljs-attribute\">yAccessor</span>=<span class=\"hljs-value\">{CandlestickSeries.yAccessor}</span> &gt;</span>\n                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CandlestickSeries</span> /&gt;</span>\n                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OverlaySeries</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{0}</span> <span class=\"hljs-attribute\">type</span>=<span class=\"hljs-value\">\"sma\"</span> <span class=\"hljs-attribute\">options</span>=</span></span><span class=\"hljs-expression\">{{ <span class=\"hljs-variable\">period</span>: 20, <span class=\"hljs-variable\">pluck</span>: '<span class=\"hljs-variable\">close</span>' }}</span><span class=\"xml\"><span class=\"hljs-tag\">&gt;</span>\n                    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">LineSeries</span>/&gt;</span>\n                <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">OverlaySeries</span>&gt;</span>\n                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OverlaySeries</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">type</span>=<span class=\"hljs-value\">\"sma\"</span> <span class=\"hljs-attribute\">options</span>=</span></span><span class=\"hljs-expression\">{{ <span class=\"hljs-variable\">period</span>: 30 }}</span><span class=\"xml\"><span class=\"hljs-tag\"> &gt;</span>\n                    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">LineSeries</span>/&gt;</span>\n                <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">OverlaySeries</span>&gt;</span>\n                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OverlaySeries</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{2}</span> <span class=\"hljs-attribute\">type</span>=<span class=\"hljs-value\">\"sma\"</span> <span class=\"hljs-attribute\">options</span>=</span></span><span class=\"hljs-expression\">{{ <span class=\"hljs-variable\">period</span>: 50 }}</span><span class=\"xml\"><span class=\"hljs-tag\"> &gt;</span>\n                    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">LineSeries</span>/&gt;</span>\n                <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">OverlaySeries</span>&gt;</span>\n            <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataSeries</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">Chart</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CurrentCoordinate</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{0}</span> /&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CurrentCoordinate</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{1}</span> /&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CurrentCoordinate</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{2}</span> /&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">Chart</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{2}</span> <span class=\"hljs-attribute\">height</span>=<span class=\"hljs-value\">{150}</span> <span class=\"hljs-attribute\">origin</span>=<span class=\"hljs-value\">{(w,</span> <span class=\"hljs-attribute\">h</span>) =&gt;</span> [0, h - 150]}&gt;\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">YAxis</span> <span class=\"hljs-attribute\">axisAt</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">ticks</span>=<span class=\"hljs-value\">{5}</span> <span class=\"hljs-attribute\">tickFormat</span>=<span class=\"hljs-value\">{d3.format(\"s\")}</span>/&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataSeries</span> <span class=\"hljs-attribute\">yAccessor</span>=<span class=\"hljs-value\">{(d)</span> =&gt;</span> d.volume} &gt;\n                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">HistogramSeries</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">{(d)</span> =&gt;</span> d.close &gt; d.open ? 'up' : 'down'} /&gt;\n                <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OverlaySeries</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{3}</span> <span class=\"hljs-attribute\">type</span>=<span class=\"hljs-value\">\"sma\"</span> <span class=\"hljs-attribute\">options</span>=</span></span><span class=\"hljs-expression\">{{ <span class=\"hljs-variable\">period</span>: 10, <span class=\"hljs-variable\">pluck</span>:'<span class=\"hljs-variable\">volume</span>' }}</span><span class=\"xml\"><span class=\"hljs-tag\"> &gt;</span>\n                    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">AreaSeries</span>/&gt;</span>\n                <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">OverlaySeries</span>&gt;</span>\n            <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataSeries</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">Chart</span>&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CurrentCoordinate</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{2}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{3}</span> /&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CurrentCoordinate</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{2}</span>/&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">MouseCoordinates</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">xDisplayFormat</span>=<span class=\"hljs-value\">{dateFormat}</span> <span class=\"hljs-attribute\">yDisplayFormat</span>=<span class=\"hljs-value\">{(y)</span> =&gt;</span> y.toFixed(2)} type=\"crosshair\" /&gt;\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EventCapture</span> <span class=\"hljs-attribute\">mouseMove</span>=<span class=\"hljs-value\">{true}</span> <span class=\"hljs-attribute\">zoom</span>=<span class=\"hljs-value\">{true}</span> <span class=\"hljs-attribute\">pan</span>=<span class=\"hljs-value\">{true}</span> <span class=\"hljs-attribute\">mainChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">defaultFocus</span>=<span class=\"hljs-value\">{false}</span> /&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">TooltipContainer</span>&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OHLCTooltip</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">origin</span>=<span class=\"hljs-value\">{[-40,</span> <span class=\"hljs-attribute\">0</span>]}/&gt;</span>\n            <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">MovingAverageTooltip</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">onClick</span>=<span class=\"hljs-value\">{(e)</span> =&gt;</span> console.log(e)} origin={[-38, 15]}/&gt;\n        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">TooltipContainer</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataTransform</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">ChartCanvas</span>&gt;</span>\n</span></code></pre>\n";
-
-/***/ },
-/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = "<p>checkout the <a href=\"https://gist.github.com/rrag/70ea3fe28ad35bf3ed4c\">source</a>, <a href=\"http://bl.ocks.org/rrag/70ea3fe28ad35bf3ed4c\">block</a>, <a href=\"http://plnkr.co/edit/gist:70ea3fe28ad35bf3ed4c?p=preview\">plunker</a> of this example</p>\n<p><code>EdgeIndicator</code>s are inside the <code>EdgeContainer</code> and can be of type <code>first</code> or <code>last</code>, can be located <code>left</code> or <code>right</code> and orient <code>left</code> or <code>right</code>. Below you see edges <code>first</code> and <code>last</code> for all the overlays and also for the <code>volume</code> histogram.</p>\n<p>The edge values are updated on zoom and pan too</p>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EdgeContainer</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EdgeIndicator</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">\"horizontal\"</span> <span class=\"hljs-attribute\">itemType</span>=<span class=\"hljs-value\">\"last\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"right\"</span>\n        <span class=\"hljs-attribute\">edgeAt</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{0}</span> /&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EdgeIndicator</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">\"horizontal\"</span> <span class=\"hljs-attribute\">itemType</span>=<span class=\"hljs-value\">\"last\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"right\"</span>\n        <span class=\"hljs-attribute\">edgeAt</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{1}</span> /&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EdgeIndicator</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">\"horizontal\"</span> <span class=\"hljs-attribute\">itemType</span>=<span class=\"hljs-value\">\"last\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"right\"</span>\n        <span class=\"hljs-attribute\">edgeAt</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{2}</span> /&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EdgeIndicator</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">\"horizontal\"</span> <span class=\"hljs-attribute\">itemType</span>=<span class=\"hljs-value\">\"first\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"left\"</span>\n        <span class=\"hljs-attribute\">edgeAt</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{0}</span> /&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EdgeIndicator</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">\"horizontal\"</span> <span class=\"hljs-attribute\">itemType</span>=<span class=\"hljs-value\">\"first\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"left\"</span>\n        <span class=\"hljs-attribute\">edgeAt</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{1}</span> /&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EdgeIndicator</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">\"horizontal\"</span> <span class=\"hljs-attribute\">itemType</span>=<span class=\"hljs-value\">\"first\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"left\"</span>\n        <span class=\"hljs-attribute\">edgeAt</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{2}</span> /&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EdgeIndicator</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">\"horizontal\"</span> <span class=\"hljs-attribute\">itemType</span>=<span class=\"hljs-value\">\"first\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"left\"</span>\n        <span class=\"hljs-attribute\">edgeAt</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{2}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{3}</span> <span class=\"hljs-attribute\">displayFormat</span>=<span class=\"hljs-value\">{d3.format(\".4s\")}</span> /&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EdgeIndicator</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">\"horizontal\"</span> <span class=\"hljs-attribute\">itemType</span>=<span class=\"hljs-value\">\"last\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"right\"</span>\n        <span class=\"hljs-attribute\">edgeAt</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{2}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{3}</span> <span class=\"hljs-attribute\">displayFormat</span>=<span class=\"hljs-value\">{d3.format(\".4s\")}</span> /&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EdgeIndicator</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">\"horizontal\"</span> <span class=\"hljs-attribute\">itemType</span>=<span class=\"hljs-value\">\"first\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"left\"</span>\n        <span class=\"hljs-attribute\">edgeAt</span>=<span class=\"hljs-value\">\"left\"</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{2}</span> <span class=\"hljs-attribute\">displayFormat</span>=<span class=\"hljs-value\">{d3.format(\".4s\")}</span> /&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">EdgeIndicator</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">\"horizontal\"</span> <span class=\"hljs-attribute\">itemType</span>=<span class=\"hljs-value\">\"last\"</span> <span class=\"hljs-attribute\">orient</span>=<span class=\"hljs-value\">\"right\"</span>\n        <span class=\"hljs-attribute\">edgeAt</span>=<span class=\"hljs-value\">\"right\"</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{2}</span> <span class=\"hljs-attribute\">displayFormat</span>=<span class=\"hljs-value\">{d3.format(\".4s\")}</span> /&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">EdgeContainer</span>&gt;</span>\n</code></pre>\n";
 
 /***/ },
-/* 57 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2276,7 +2367,7 @@ return webpackJsonpReStock([1,2],[
 	var React = __webpack_require__(2);
 	var d3 = __webpack_require__(3);
 	
-	var ReStock = __webpack_require__(70);
+	var ReStock = __webpack_require__(71);
 	
 	var ChartCanvas = ReStock.ChartCanvas
 		, XAxis = ReStock.XAxis
@@ -2316,7 +2407,7 @@ return webpackJsonpReStock([1,2],[
 				React.createElement(ChartCanvas, {width: this.state.width, height: 400, 
 					margin: {left: 90, right: 70, top:10, bottom: 30}, data: this.props.data, interval: "D", initialDisplay: 30}, 
 					React.createElement(DataTransform, {transformType: "stockscale"}, 
-						React.createElement(Chart, {id: 1}, 
+						React.createElement(Chart, {id: 1, yMousePointerDisplayLocation: "right", yMousePointerDisplayFormat: function(y)  {return y.toFixed(2);}}, 
 							React.createElement(XAxis, {axisAt: "bottom", orient: "bottom"}), 
 							React.createElement(YAxis, {axisAt: "right", orient: "right", ticks: 5}), 
 							React.createElement(DataSeries, {yAccessor: CandlestickSeries.yAccessor, compareBase: function(d)  {return d.close;}}, 
@@ -2325,7 +2416,8 @@ return webpackJsonpReStock([1,2],[
 								React.createElement(CompareSeries, {id: 2, yAccessor: function(d)  {return d.SP500Close;}, displayLabel: "S&P 500"})
 							)
 						), 
-						React.createElement(Chart, {id: 2, height: 150, origin: function(w, h)  {return [0, h - 150];}}, 
+						React.createElement(Chart, {id: 2, yMousePointerDisplayLocation: "left", yMousePointerDisplayFormat: d3.format(".4s"), 
+								height: 150, origin: function(w, h)  {return [0, h - 150];}}, 
 							React.createElement(YAxis, {axisAt: "left", orient: "left", ticks: 5, tickFormat: d3.format("s")}), 
 							React.createElement(DataSeries, {yAccessor: function(d)  {return d.volume;}}, 
 								React.createElement(HistogramSeries, {className: function(d)  {return d.close > d.open ? 'up' : 'down';}}), 
@@ -2336,7 +2428,7 @@ return webpackJsonpReStock([1,2],[
 						), 
 						React.createElement(CurrentCoordinate, {forChart: 1, forCompareSeries: 1}), 
 						React.createElement(CurrentCoordinate, {forChart: 1, forCompareSeries: 2}), 
-						React.createElement(MouseCoordinates, {forChart: 1, xDisplayFormat: dateFormat, yDisplayFormat: function(y)  {return y.toFixed(2);}, type: "crosshair"}), 
+						React.createElement(MouseCoordinates, {xDisplayFormat: dateFormat, type: "crosshair"}), 
 						React.createElement(EventCapture, {mouseMove: true, zoom: true, pan: true, mainChart: 1, defaultFocus: false}), 
 						React.createElement(TooltipContainer, null, 
 							React.createElement(OHLCTooltip, {forChart: 1, origin: [-50, 0]}), 
@@ -2353,10 +2445,16 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 58 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = "<p>Compare with another stock, zoom and pan to see how the comparison works</p>\n";
+
+/***/ },
+/* 58 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = "<p>checkout the <a href=\"https://gist.github.com/rrag/a27298bb7ae613d48ba2\">source</a>, <a href=\"http://bl.ocks.org/rrag/a27298bb7ae613d48ba2\">block</a>, <a href=\"http://plnkr.co/edit/gist:a27298bb7ae613d48ba2?p=preview\">plunker</a> of this example</p>\n<p><code>Overlay</code>s share the scales of a <code>Chart</code> and contribute to the <code>domain</code> of the <code>Chart</code> they belong to.</p>\n<p>In this chart we are introducing</p>\n<ul>\n<li>Moving average on daily <code>close</code> as a <code>LineSeries</code></li>\n<li>Moving average on daily <code>volume</code> as an <code>AreaSeries</code></li>\n<li>Current item indicator as a circle over the different moving averages</li>\n<li>Moving average tooltip</li>\n</ul>\n<p>Let us review each of these in a little more detail</p>\n<h4>Moving average on daily <code>close</code> as a <code>LineSeries</code></h4>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataSeries</span> <span class=\"hljs-attribute\">yAccessor</span>=<span class=\"hljs-value\">{CandlestickSeries.yAccessor}</span> &gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CandlestickSeries</span> /&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OverlaySeries</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{0}</span> <span class=\"hljs-attribute\">type</span>=<span class=\"hljs-value\">\"sma\"</span> <span class=\"hljs-attribute\">options</span>=<span class=\"hljs-value\">{{</span> <span class=\"hljs-attribute\">period:</span> <span class=\"hljs-attribute\">20</span>, <span class=\"hljs-attribute\">pluck:</span> '<span class=\"hljs-attribute\">close</span>' }}&gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">LineSeries</span>/&gt;</span>\n    <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">OverlaySeries</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OverlaySeries</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">type</span>=<span class=\"hljs-value\">\"sma\"</span> <span class=\"hljs-attribute\">options</span>=<span class=\"hljs-value\">{{</span> <span class=\"hljs-attribute\">period:</span> <span class=\"hljs-attribute\">30</span> }} &gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">LineSeries</span>/&gt;</span>\n    <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">OverlaySeries</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OverlaySeries</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{2}</span> <span class=\"hljs-attribute\">type</span>=<span class=\"hljs-value\">\"sma\"</span> <span class=\"hljs-attribute\">options</span>=<span class=\"hljs-value\">{{</span> <span class=\"hljs-attribute\">period:</span> <span class=\"hljs-attribute\">50</span> }} &gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">LineSeries</span>/&gt;</span>\n    <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">OverlaySeries</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataSeries</span>&gt;</span>\n</code></pre>\n<p><code>type</code> indicates it is a simple moving average, <code>options</code> used to specify the moving average <code>period</code>, and <code>pluck</code> to specify attribute against which moving average is to be calculated. If not specified, <code>pluck</code> defaults to <code>close</code></p>\n<h4>Moving average on daily <code>volume</code> as an <code>AreaSeries</code></h4>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">DataSeries</span> <span class=\"hljs-attribute\">yAccessor</span>=<span class=\"hljs-value\">{(d)</span> =&gt;</span> d.volume} &gt;\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">HistogramSeries</span> <span class=\"hljs-attribute\">className</span>=<span class=\"hljs-value\">{(d)</span> =&gt;</span> d.close &gt; d.open ? 'up' : 'down'} /&gt;\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OverlaySeries</span> <span class=\"hljs-attribute\">id</span>=<span class=\"hljs-value\">{3}</span> <span class=\"hljs-attribute\">type</span>=<span class=\"hljs-value\">\"sma\"</span> <span class=\"hljs-attribute\">options</span>=<span class=\"hljs-value\">{{</span> <span class=\"hljs-attribute\">period:</span> <span class=\"hljs-attribute\">10</span>, <span class=\"hljs-attribute\">pluck:</span>'<span class=\"hljs-attribute\">volume</span>' }} &gt;</span>\n        <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">AreaSeries</span>/&gt;</span>\n    <span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">OverlaySeries</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">DataSeries</span>&gt;</span>\n</code></pre>\n<p>Similar to above</p>\n<h4>Current item indicator as a circle over the different moving averages</h4>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CurrentCoordinate</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{0}</span> /&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CurrentCoordinate</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{1}</span> /&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CurrentCoordinate</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{2}</span> /&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CurrentCoordinate</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{2}</span> <span class=\"hljs-attribute\">forOverlay</span>=<span class=\"hljs-value\">{3}</span> /&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">CurrentCoordinate</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{2}</span>/&gt;</span>\n</code></pre>\n<p>That was easy, right?</p>\n<p><code>forOverlay</code> is an optional attribute, and absense of that will default the <code>CurrentCoordinate</code> to display a circle on the main series. This only makes sense if the main series plots a single value on y. For <code>CandlestickSeries</code> as it plots 4 attributes, <code>CurrentCoordinate</code> is not valid for <code>CandlestickSeries</code></p>\n<h4>Moving average tooltip</h4>\n<pre><code class=\"language-html\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">TooltipContainer</span>&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">OHLCTooltip</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">origin</span>=<span class=\"hljs-value\">{[-40,</span> <span class=\"hljs-attribute\">0</span>]}/&gt;</span>\n    <span class=\"hljs-tag\">&lt;<span class=\"hljs-title\">MovingAverageTooltip</span> <span class=\"hljs-attribute\">forChart</span>=<span class=\"hljs-value\">{1}</span> <span class=\"hljs-attribute\">onClick</span>=<span class=\"hljs-value\">{(e)</span> =&gt;</span> console.log(e)} origin={[-38, 15]}/&gt;\n<span class=\"hljs-tag\">&lt;/<span class=\"hljs-title\">TooltipContainer</span>&gt;</span>\n</code></pre>\n<p>Open the dev console and see what is logged on click of the moving average tooltip</p>\n";
 
 /***/ },
 /* 59 */
@@ -2367,7 +2465,7 @@ return webpackJsonpReStock([1,2],[
 	var React = __webpack_require__(2);
 	var d3 = __webpack_require__(3);
 	
-	var ReStock = __webpack_require__(70);
+	var ReStock = __webpack_require__(71);
 	
 	var ChartCanvas = ReStock.ChartCanvas
 		, XAxis = ReStock.XAxis
@@ -2388,10 +2486,10 @@ return webpackJsonpReStock([1,2],[
 		, MovingAverageTooltip = ReStock.MovingAverageTooltip
 		, CurrentCoordinate = ReStock.CurrentCoordinate
 		, AreaSeries = ReStock.AreaSeries
-		, EdgeContainer = ReStock.EdgeContainer
-		, EdgeIndicator = ReStock.EdgeIndicator
 	;
-	var HaikinAshi = React.createClass({displayName: "HaikinAshi",
+	
+	
+	var CandleStickChartWithMA = React.createClass({displayName: "CandleStickChartWithMA",
 		mixins: [ChartWidthMixin],
 		render:function() {
 			if (this.state === null || !this.state.width) return React.createElement("div", null);
@@ -2400,10 +2498,9 @@ return webpackJsonpReStock([1,2],[
 	
 			return (
 				React.createElement(ChartCanvas, {width: this.state.width, height: 400, 
-					margin: {left: 90, right: 70, top:10, bottom: 30}, data: this.props.data, interval: "D", initialDisplay: 30}, 
+					margin: {left: 70, right: 70, top:10, bottom: 30}, data: this.props.data, interval: "D", initialDisplay: 30}, 
 					React.createElement(DataTransform, {transformType: "stockscale"}, 
-					React.createElement(DataTransform, {transformType: "heikinashi"}, 
-						React.createElement(Chart, {id: 1}, 
+						React.createElement(Chart, {id: 1, yMousePointerDisplayLocation: "right", yMousePointerDisplayFormat: function(y)  {return y.toFixed(2);}}, 
 							React.createElement(XAxis, {axisAt: "bottom", orient: "bottom"}), 
 							React.createElement(YAxis, {axisAt: "right", orient: "right", ticks: 5}), 
 							React.createElement(DataSeries, {yAccessor: CandlestickSeries.yAccessor}, 
@@ -2411,10 +2508,10 @@ return webpackJsonpReStock([1,2],[
 								React.createElement(OverlaySeries, {id: 0, type: "sma", options: { period: 20, pluck: 'close'}}, 
 									React.createElement(LineSeries, null)
 								), 
-								React.createElement(OverlaySeries, {id: 1, type: "sma", options: { period: 30}}, 
+								React.createElement(OverlaySeries, {id: 1, type: "ema", options: { period: 20}}, 
 									React.createElement(LineSeries, null)
 								), 
-								React.createElement(OverlaySeries, {id: 2, type: "sma", options: { period: 50}}, 
+								React.createElement(OverlaySeries, {id: 2, type: "ema", options: { period: 50}}, 
 									React.createElement(LineSeries, null)
 								)
 							)
@@ -2422,7 +2519,8 @@ return webpackJsonpReStock([1,2],[
 						React.createElement(CurrentCoordinate, {forChart: 1, forOverlay: 0}), 
 						React.createElement(CurrentCoordinate, {forChart: 1, forOverlay: 1}), 
 						React.createElement(CurrentCoordinate, {forChart: 1, forOverlay: 2}), 
-						React.createElement(Chart, {id: 2, height: 150, origin: function(w, h)  {return [0, h - 150];}}, 
+						React.createElement(Chart, {id: 2, yMousePointerDisplayLocation: "left", yMousePointerDisplayFormat: d3.format(".4s"), 
+								height: 150, origin: function(w, h)  {return [0, h - 150];}}, 
 							React.createElement(YAxis, {axisAt: "left", orient: "left", ticks: 5, tickFormat: d3.format("s")}), 
 							React.createElement(DataSeries, {yAccessor: function(d)  {return d.volume;}}, 
 								React.createElement(HistogramSeries, {className: function(d)  {return d.close > d.open ? 'up' : 'down';}}), 
@@ -2433,42 +2531,19 @@ return webpackJsonpReStock([1,2],[
 						), 
 						React.createElement(CurrentCoordinate, {forChart: 2, forOverlay: 3}), 
 						React.createElement(CurrentCoordinate, {forChart: 2}), 
-						React.createElement(EdgeContainer, null, 
-							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "last", orient: "right", 
-								edgeAt: "right", forChart: 1, forOverlay: 0}), 
-							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "last", orient: "right", 
-								edgeAt: "right", forChart: 1, forOverlay: 1}), 
-							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "last", orient: "right", 
-								edgeAt: "right", forChart: 1, forOverlay: 2}), 
-							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "first", orient: "left", 
-								edgeAt: "left", forChart: 1, forOverlay: 0}), 
-							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "first", orient: "left", 
-								edgeAt: "left", forChart: 1, forOverlay: 1}), 
-							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "first", orient: "left", 
-								edgeAt: "left", forChart: 1, forOverlay: 2}), 
-							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "first", orient: "left", 
-								edgeAt: "left", forChart: 2, forOverlay: 3, displayFormat: d3.format(".4s")}), 
-							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "last", orient: "right", 
-								edgeAt: "right", forChart: 2, forOverlay: 3, displayFormat: d3.format(".4s")}), 
-							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "first", orient: "left", 
-								edgeAt: "left", forChart: 2, displayFormat: d3.format(".4s")}), 
-							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "last", orient: "right", 
-								edgeAt: "right", forChart: 2, displayFormat: d3.format(".4s")})
-						), 
-						React.createElement(MouseCoordinates, {forChart: 1, xDisplayFormat: dateFormat, yDisplayFormat: function(y)  {return y.toFixed(2);}, type: "crosshair"}), 
+						React.createElement(MouseCoordinates, {xDisplayFormat: dateFormat, type: "crosshair"}), 
 						React.createElement(EventCapture, {mouseMove: true, zoom: true, pan: true, mainChart: 1, defaultFocus: false}), 
 						React.createElement(TooltipContainer, null, 
-							React.createElement(OHLCTooltip, {forChart: 1, origin: [-50, 0]}), 
-							React.createElement(MovingAverageTooltip, {forChart: 1, onClick: function(e)  {return console.log(e);}, origin: [-48, 15]})
+							React.createElement(OHLCTooltip, {forChart: 1, origin: [-40, 0]}), 
+							React.createElement(MovingAverageTooltip, {forChart: 1, onClick: function(e)  {return console.log(e);}, origin: [-38, 15]})
 						)
-					)
 					)
 				)
 			);
 		}
 	});
 	
-	module.exports = HaikinAshi;
+	module.exports = CandleStickChartWithMA;
 
 
 /***/ },
@@ -2481,12 +2556,18 @@ return webpackJsonpReStock([1,2],[
 /* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
+	module.exports = "<p>Let us turn it up a notch, we all have access to lots of historical data for stocks. As an example, let us work with MSFT from 1986-03-13 till 2015-03-26</p>\n<p>That is 7221 one day periods, lot more if you have access to intra day, how can all that fit into one screen? Although technically it can be done there are a few problems</p>\n<ol>\n<li>Every time you zoom/pan a chart with that many data points it just does not work. Browsers do not have the power to recalculate the scales for the new domain and appear responsive.</li>\n<li>Even with cross hair and tool tip you could see the lag</li>\n</ol>\n<p>Fortunately seeing end of day data over 30 years on a single chart is not really useful. This problem is addressed in React Stockcharts by displaying data consolidated by month or week, this gives a better representation of the overall price movement. This technique is employed by many trading systems to show the larger time range.</p>\n<p>If the number of periods to show &gt; width / 3, then automatically switch to the next higher period. e.g. If width = 1000 and showing more than 333 1 day periods, the program switches to 1 week period automatically so that less than 333 periods are shown on screen.</p>\n<p>* Period can be 1min, 5min, … 1 day, 1 week, 1 month</p>\n<p>Let us see all this in action for MSFT 1986-03-13 till 2015-03-26</p>\n";
+
+/***/ },
+/* 62 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 	
 	var React = __webpack_require__(2);
 	var d3 = __webpack_require__(3);
 	
-	var ReStock = __webpack_require__(70);
+	var ReStock = __webpack_require__(71);
 	
 	var ChartCanvas = ReStock.ChartCanvas
 		, XAxis = ReStock.XAxis
@@ -2523,7 +2604,7 @@ return webpackJsonpReStock([1,2],[
 					margin: {left: 90, right: 70, top:10, bottom: 30}, data: this.props.data, interval: "D", initialDisplay: 30}, 
 					React.createElement(DataTransform, {transformType: "stockscale"}, 
 					React.createElement(DataTransform, {transformType: "kagi"}, 
-						React.createElement(Chart, {id: 1}, 
+						React.createElement(Chart, {id: 1, yMousePointerDisplayLocation: "right", yMousePointerDisplayFormat: function(y)  {return y.toFixed(2);}}, 
 							React.createElement(XAxis, {axisAt: "bottom", orient: "bottom"}), 
 							React.createElement(YAxis, {axisAt: "right", orient: "right", ticks: 5}), 
 							React.createElement(DataSeries, {yAccessor: KagiSeries.yAccessor}, 
@@ -2539,7 +2620,7 @@ return webpackJsonpReStock([1,2],[
 								)
 							)
 						), 
-						React.createElement(MouseCoordinates, {forChart: 1, xDisplayFormat: dateFormat, yDisplayFormat: function(y)  {return y.toFixed(2);}, type: "crosshair"}), 
+						React.createElement(MouseCoordinates, {xDisplayFormat: dateFormat, type: "crosshair"}), 
 						React.createElement(EventCapture, {mouseMove: true, zoom: true, pan: true, mainChart: 1, defaultFocus: false}), 
 						React.createElement(TooltipContainer, null, 
 							React.createElement(OHLCTooltip, {forChart: 1, origin: [-50, 0]})
@@ -2555,13 +2636,13 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 62 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = "<p>Advanced chart type plots price action. Notice that the x axis is not linear.</p>\n<p>Learn more about it <a href=\"http://stockcharts.com/school/doku.php?id=chart_school:chart_analysis:kagi\">here</a></p>\n<p>Kagi consists of <em>Yin</em> and <em>Yang</em>, which is represented as red and green respectively. An overly simple rule is buy on Yang and sell on Yin.</p>\n<p>ATR(14) is used as the default reversal amount.</p>\n<p>checkout the <a href=\"https://gist.github.com/rrag/d1e5b75ac12f754bb21d\">source</a>, <a href=\"http://bl.ocks.org/rrag/d1e5b75ac12f754bb21d\">block</a>, <a href=\"http://plnkr.co/edit/gist:d1e5b75ac12f754bb21d?p=preview\">plunker</a> of this example</p>\n";
 
 /***/ },
-/* 63 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2569,7 +2650,7 @@ return webpackJsonpReStock([1,2],[
 	var React = __webpack_require__(2);
 	var d3 = __webpack_require__(3);
 	
-	var ReStock = __webpack_require__(70);
+	var ReStock = __webpack_require__(71);
 	
 	var ChartCanvas = ReStock.ChartCanvas
 		, XAxis = ReStock.XAxis
@@ -2605,7 +2686,7 @@ return webpackJsonpReStock([1,2],[
 					margin: {left: 90, right: 70, top:10, bottom: 30}, data: this.props.data, interval: "D", initialDisplay: 30}, 
 					React.createElement(DataTransform, {transformType: "stockscale"}, 
 					React.createElement(DataTransform, {transformType: "pointandfigure", options: { boxSize: 0.5}}, 
-						React.createElement(Chart, {id: 1}, 
+						React.createElement(Chart, {id: 1, yMousePointerDisplayLocation: "right", yMousePointerDisplayFormat: function(y)  {return y.toFixed(2);}}, 
 							React.createElement(XAxis, {axisAt: "bottom", orient: "bottom"}), 
 							React.createElement(YAxis, {axisAt: "right", orient: "right", ticks: 5}), 
 							React.createElement(DataSeries, {yAccessor: PointAndFigureSeries.yAccessor}, 
@@ -2621,7 +2702,7 @@ return webpackJsonpReStock([1,2],[
 								)
 							)
 						), 
-						React.createElement(MouseCoordinates, {forChart: 1, xDisplayFormat: dateFormat, yDisplayFormat: function(y)  {return y.toFixed(2);}, type: "crosshair"}), 
+						React.createElement(MouseCoordinates, {xDisplayFormat: dateFormat, type: "crosshair"}), 
 						React.createElement(EventCapture, {mouseMove: true, zoom: true, pan: true, mainChart: 1, defaultFocus: false}), 
 						React.createElement(TooltipContainer, null, 
 							React.createElement(OHLCTooltip, {forChart: 1, origin: [-50, 0]})
@@ -2637,13 +2718,19 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 64 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = "<p>Advanced chart type plots price action. Notice that the x axis is not linear.</p>\n<p>Learn more about it <a href=\"http://stockcharts.com/docs/doku.php?id=other-tools:pnf-charts\">here</a></p>\n<p>default is 3 box reversal.</p>\n<p>checkout the <a href=\"https://gist.github.com/rrag/d43ef867bead0f1de663\">source</a>, <a href=\"http://bl.ocks.org/rrag/d43ef867bead0f1de663\">block</a>, <a href=\"http://plnkr.co/edit/gist:d43ef867bead0f1de663?p=preview\">plunker</a> of this example</p>\n";
 
 /***/ },
-/* 65 */
+/* 66 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = "<p>Similar to Point and Figure charts in that Renko plots the price movement ignoring the time. Each brick is formed on a different column when the price moves beyond a threshold.</p>\n<p>Brick size defaults to ATR (14)</p>\n<p>Learn more about it <a href=\"http://stockcharts.com/school/doku.php?id=chart_school:chart_analysis:renko\">here</a></p>\n<p>checkout the <a href=\"https://gist.github.com/rrag/df51fa445c26e123beb9\">source</a>, <a href=\"http://bl.ocks.org/rrag/df51fa445c26e123beb9\">block</a>, <a href=\"http://plnkr.co/edit/gist:df51fa445c26e123beb9?p=preview\">plunker</a> of this example</p>\n";
+
+/***/ },
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2651,7 +2738,7 @@ return webpackJsonpReStock([1,2],[
 	var React = __webpack_require__(2);
 	var d3 = __webpack_require__(3);
 	
-	var ReStock = __webpack_require__(70);
+	var ReStock = __webpack_require__(71);
 	
 	var ChartCanvas = ReStock.ChartCanvas
 		, XAxis = ReStock.XAxis
@@ -2688,7 +2775,7 @@ return webpackJsonpReStock([1,2],[
 					margin: {left: 90, right: 70, top:10, bottom: 30}, data: this.props.data, interval: "D", initialDisplay: 30}, 
 					React.createElement(DataTransform, {transformType: "stockscale"}, 
 					React.createElement(DataTransform, {transformType: "renko"}, 
-						React.createElement(Chart, {id: 1}, 
+						React.createElement(Chart, {id: 1, yMousePointerDisplayLocation: "right", yMousePointerDisplayFormat: function(y)  {return y.toFixed(2);}}, 
 							React.createElement(XAxis, {axisAt: "bottom", orient: "bottom"}), 
 							React.createElement(YAxis, {axisAt: "right", orient: "right", ticks: 5}), 
 							React.createElement(DataSeries, {yAccessor: RenkoSeries.yAccessor}, 
@@ -2704,7 +2791,7 @@ return webpackJsonpReStock([1,2],[
 								)
 							)
 						), 
-						React.createElement(MouseCoordinates, {forChart: 1, xDisplayFormat: dateFormat, yDisplayFormat: function(y)  {return y.toFixed(2);}, type: "crosshair"}), 
+						React.createElement(MouseCoordinates, {xDisplayFormat: dateFormat, type: "crosshair"}), 
 						React.createElement(EventCapture, {mouseMove: true, zoom: true, pan: true, mainChart: 1, defaultFocus: false}), 
 						React.createElement(TooltipContainer, null, 
 							React.createElement(OHLCTooltip, {forChart: 1, origin: [-50, 0]})
@@ -2720,19 +2807,13 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 66 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = "<p>Similar to Point and Figure charts in that Renko plots the price movement ignoring the time. Each brick is formed on a different column when the price moves beyond a threshold.</p>\n<p>Brick size defaults to ATR (14)</p>\n<p>Learn more about it <a href=\"http://stockcharts.com/school/doku.php?id=chart_school:chart_analysis:renko\">here</a></p>\n<p>checkout the <a href=\"https://gist.github.com/rrag/df51fa445c26e123beb9\">source</a>, <a href=\"http://bl.ocks.org/rrag/df51fa445c26e123beb9\">block</a>, <a href=\"http://plnkr.co/edit/gist:df51fa445c26e123beb9?p=preview\">plunker</a> of this example</p>\n";
-
-/***/ },
-/* 67 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = "<h4>Overlays</h4>\n<ul>\n<li><del>Exponential Moving Average (EMA) - v0.1</del></li>\n<li>Bolinger Bands - v0.2</li>\n<li><del>Compare with another stock - v0.1</del></li>\n</ul>\n<h4>Indicators</h4>\n<ul>\n<li>Moving Average Convergence Divergence (MACD) - v0.1</li>\n<li>Relative Strength Index (RSI) - v0.2</li>\n<li>Stochastics - v0.2</li>\n<li>More indicators - suggestions welcome - v0.2</li>\n</ul>\n<h4>Chart types</h4>\n<ul>\n<li><del>Heikin Ashi - v0.1</del></li>\n<li><del>Kagi - v0.1</del></li>\n<li><del>Point and Figure - v0.1</del></li>\n<li><del>Renko - v0.1</del></li>\n<li>Better Renko/Mean Renko - v0.2</li>\n<li>Line break - v0.2</li>\n<li>Volume Profile - v0.3</li>\n</ul>\n<h4>Chart features</h4>\n<ul>\n<li><del>Change interval on zoom out/zoom in - v0.1</del></li>\n<li>Add custom data transforms - v0.3</li>\n<li>Provide option to use canvas instead of svg - v0.3</li>\n</ul>\n<h4>More examples</h4>\n<ul>\n<li><del>gists, fiddle and <a href=\"http://bl.ocks.org/\">blocks</a> for each chart type - v0.1</del></li>\n</ul>\n<h4>Open issues</h4>\n<ul>\n<li><del>Window Resize after zoom/pan messes up the chart</del></li>\n<li><del>zoom out changes the interval, but zoom in does not change</del></li>\n<li><del>Refactor pan and zoom</del></li>\n</ul>\n<h4>Tasks</h4>\n<ul>\n<li>Use ES6 Classes\n<ul>\n<li><del>Do not use EventCaptureMixin, ChartContainerMixin</del></li>\n<li>Update examples to not use ChartWidthMixin</li>\n</ul></li>\n<li>Add tests and coverage - v0.2</li>\n<li>Publish to npm - v0.1-alpha</li>\n<li>configure options for advanced chart types - v0.2</li>\n</ul>\n<h4>Dependencies</h4>\n<ul>\n<li><del>Experiment with React 0.13 instead of React 0.14 - v0.1</del></li>\n<li><del>Remove Freezer-js dependency - v0.1</del></li>\n</ul>\n";
 
 /***/ },
-/* 68 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -2957,7 +3038,7 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 69 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2965,7 +3046,7 @@ return webpackJsonpReStock([1,2],[
 	var React = __webpack_require__(2);
 	var d3 = __webpack_require__(3);
 	
-	var ReStock = __webpack_require__(70);
+	var ReStock = __webpack_require__(71);
 	
 	var ChartCanvas = ReStock.ChartCanvas
 		, XAxis = ReStock.XAxis
@@ -3106,54 +3187,54 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 70 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	// common components
-	exports.ChartCanvas = __webpack_require__(84);
-	exports.DataTransform = __webpack_require__(72);
+	exports.ChartCanvas = __webpack_require__(73);
+	exports.DataTransform = __webpack_require__(75);
 	
-	exports.XAxis = __webpack_require__(73);
-	exports.YAxis = __webpack_require__(74);
-	exports.Chart = __webpack_require__(75);
-	exports.DataSeries = __webpack_require__(76);
+	exports.XAxis = __webpack_require__(74);
+	exports.YAxis = __webpack_require__(76);
+	exports.Chart = __webpack_require__(77);
+	exports.DataSeries = __webpack_require__(78);
 	
 	// chart types & Series
-	exports.AreaSeries = __webpack_require__(77);
-	exports.LineSeries = __webpack_require__(78);
-	exports.CompareSeries = __webpack_require__(79);
-	exports.CandlestickSeries = __webpack_require__(87);
-	exports.OverlaySeries = __webpack_require__(80);
-	exports.HistogramSeries = __webpack_require__(81);
-	exports.KagiSeries = __webpack_require__(82);
-	exports.PointAndFigureSeries = __webpack_require__(83);
-	exports.RenkoSeries = __webpack_require__(85);
+	exports.AreaSeries = __webpack_require__(79);
+	exports.LineSeries = __webpack_require__(80);
+	exports.CompareSeries = __webpack_require__(81);
+	exports.CandlestickSeries = __webpack_require__(82);
+	exports.OverlaySeries = __webpack_require__(83);
+	exports.HistogramSeries = __webpack_require__(84);
+	exports.KagiSeries = __webpack_require__(85);
+	exports.PointAndFigureSeries = __webpack_require__(86);
+	exports.RenkoSeries = __webpack_require__(87);
 	
 	// interaction components
-	exports.EventCapture = __webpack_require__(86);
-	exports.MouseCoordinates = __webpack_require__(88);
-	exports.CrossHair = __webpack_require__(89);
-	exports.VerticalMousePointer = __webpack_require__(90);
-	exports.CurrentCoordinate = __webpack_require__(91);
+	exports.EventCapture = __webpack_require__(88);
+	exports.MouseCoordinates = __webpack_require__(89);
+	exports.CrossHair = __webpack_require__(90);
+	exports.VerticalMousePointer = __webpack_require__(91);
+	exports.CurrentCoordinate = __webpack_require__(92);
 	
 	// Tooltips
-	exports.TooltipContainer = __webpack_require__(92);
-	exports.OHLCTooltip = __webpack_require__(93);
+	exports.TooltipContainer = __webpack_require__(93);
+	exports.OHLCTooltip = __webpack_require__(94);
 	exports.CompareTooltip = __webpack_require__(95);
-	exports.MovingAverageTooltip = __webpack_require__(94);
+	exports.MovingAverageTooltip = __webpack_require__(96);
 	
 	// misc
-	exports.EdgeContainer = __webpack_require__(96);
-	exports.EdgeIndicator = __webpack_require__(97);
+	exports.EdgeContainer = __webpack_require__(97);
+	exports.EdgeIndicator = __webpack_require__(98);
 	
 	exports.helper = {};
-	exports.helper.ChartWidthMixin = __webpack_require__(98);
+	exports.helper.ChartWidthMixin = __webpack_require__(99);
 
 
 /***/ },
-/* 71 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -3209,836 +3290,17 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 72 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var React = __webpack_require__(2);
-	var ChartDataUtil = __webpack_require__(102);
-	var ChartTransformer = __webpack_require__(103);
-	var EventHandler = __webpack_require__(104);
-	var Utils = __webpack_require__(101);
-	
-	var ____ClassW=React.Component;for(var ____ClassW____Key in ____ClassW){if(____ClassW.hasOwnProperty(____ClassW____Key)){DataTransform[____ClassW____Key]=____ClassW[____ClassW____Key];}}var ____SuperProtoOf____ClassW=____ClassW===null?null:____ClassW.prototype;DataTransform.prototype=Object.create(____SuperProtoOf____ClassW);DataTransform.prototype.constructor=DataTransform;DataTransform.__superConstructor__=____ClassW;function DataTransform(){if(____ClassW!==null){____ClassW.apply(this,arguments);}}
-		Object.defineProperty(DataTransform.prototype,"transformData",{writable:true,configurable:true,value:function(props, context) {
-			var transformer = ChartTransformer.getTransformerFor(props.transformType);
-	
-			if (context.dataTransformOptions || props.options) {
-				var options = {};
-				if (context.dataTransformOptions)
-					Object.keys(context.dataTransformOptions).forEach(function(key)  {return options[key] = context.dataTransformOptions[key];});
-				if (props.options)
-					Object.keys(props.options).forEach(function(key)  {return options[key] = props.options[key];});
-			}
-	
-			var passThroughProps = transformer(context.data, context.interval, options, context.dataTransformProps)
-			return passThroughProps;
-		}});
-		Object.defineProperty(DataTransform.prototype,"componentWillMount",{writable:true,configurable:true,value:function() {
-			var $__0=     this,props=$__0.props,context=$__0.context;
-			var passThroughProps = this.transformData(props, context);
-			this.setState({
-				data: passThroughProps.data,
-				dataTransformOptions: passThroughProps.options,
-				dataTransformProps: passThroughProps.other,
-				interval: context.interval
-			});
-		}});
-		Object.defineProperty(DataTransform.prototype,"componentWillReceiveProps",{writable:true,configurable:true,value:function(props, context) {
-			var passThroughProps = this.transformData(props, context);
-			this.setState({
-				data: passThroughProps.data,
-				dataTransformOptions: passThroughProps.options,
-				dataTransformProps: passThroughProps.other,
-				interval: context.interval
-			});
-		}});
-		Object.defineProperty(DataTransform.prototype,"getChildContext",{writable:true,configurable:true,value:function() {
-			return {
-				data: this.state.data,
-				dataTransformOptions: this.state.dataTransformOptions,
-				dataTransformProps: this.state.dataTransformProps,
-				interval: this.state.interval,
-			}
-		}});
-		Object.defineProperty(DataTransform.prototype,"render",{writable:true,configurable:true,value:function() {
-			var children = React.Children.map(this.props.children, function(child)  {
-				var newChild = Utils.isReactVersion13()
-					? React.withContext(this.getChildContext(), function()  {
-						return React.createElement(child.type, Utils.mergeObject({ key: child.key, ref: child.ref}, child.props));
-					})
-					: React.cloneElement(child);
-				return newChild;
-			}.bind(this));
-			return (ChartDataUtil.containsChart(this.props))
-				? React.createElement(EventHandler, null, children)
-				: React.createElement("g", null, children);
-		}});
-	;
-	
-	DataTransform.propTypes = {
-		transformType: React.PropTypes.string.isRequired, // stockscale, none
-		options: React.PropTypes.object
-	}
-	DataTransform.contextTypes = {
-		width: React.PropTypes.number.isRequired,
-		height: React.PropTypes.number.isRequired,
-		data: React.PropTypes.object.isRequired,
-		dataTransformOptions: React.PropTypes.object,
-		dataTransformProps: React.PropTypes.object,
-		interval: React.PropTypes.string.isRequired,
-		initialDisplay: React.PropTypes.number.isRequired,
-	}
-	DataTransform.childContextTypes = {
-		data: React.PropTypes.object,
-		dataTransformOptions: React.PropTypes.object,
-		dataTransformProps: React.PropTypes.object,
-		interval: React.PropTypes.string,
-	}
-	DataTransform.defaultProps = {
-		namespace: "ReStock.DataTransform",
-		transformType: "none"
-	}
-	
-	module.exports = DataTransform;
-
-
-/***/ },
 /* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var React = __webpack_require__(2),
-		d3 = __webpack_require__(3);
-	
-	var ____ClassU=React.Component;for(var ____ClassU____Key in ____ClassU){if(____ClassU.hasOwnProperty(____ClassU____Key)){XAxis[____ClassU____Key]=____ClassU[____ClassU____Key];}}var ____SuperProtoOf____ClassU=____ClassU===null?null:____ClassU.prototype;XAxis.prototype=Object.create(____SuperProtoOf____ClassU);XAxis.prototype.constructor=XAxis;XAxis.__superConstructor__=____ClassU;
-		function XAxis(props) {
-			____ClassU.call(this,props);
-			this.updateAxis = this.updateAxis.bind(this);
-		}
-		Object.defineProperty(XAxis.prototype,"componentDidMount",{writable:true,configurable:true,value:function() {
-			this.updateAxis();
-		}});
-		Object.defineProperty(XAxis.prototype,"componentDidUpdate",{writable:true,configurable:true,value:function() {
-			this.updateAxis();
-		}});
-		Object.defineProperty(XAxis.prototype,"updateAxis",{writable:true,configurable:true,value:function() {
-			var axis = d3.svg.axis()
-				.scale(this.context.xScale)
-				.orient(this.props.orient);
-	
-			if (this.props.orient) axis.orient(this.props.orient);
-			if (this.props.innerTickSize) axis.innerTickSize(this.props.innerTickSize);
-			if (this.props.outerTickSize) axis.outerTickSize(this.props.outerTickSize);
-			if (this.props.tickFormat) {
-				if (this.context.xScale.isPolyLinear && this.context.xScale.isPolyLinear())
-					console.warn('Cannot set tickFormat on a poly linear scale, ignoring tickFormat on XAxis');
-				else
-					axis.tickFormat(this.props.tickFormat)
-			};
-			if (this.props.tickPadding) axis.tickPadding(this.props.tickPadding);
-			if (this.props.tickSize) axis.tickSize(this.props.tickSize);
-			if (this.props.ticks) axis.ticks(this.props.ticks);
-			if (this.props.tickValues) axis.tickValues(this.props.tickValues);
-			d3.select(React.findDOMNode(this)).call(axis);
-		}});
-		Object.defineProperty(XAxis.prototype,"render",{writable:true,configurable:true,value:function() {
-			var axisAt = this.props.axisAt
-				, range = this.context.yScale.range();
-			if (this.props.axisAt === 'top') axisAt = Math.min(range[0], range[1]);
-			if (this.props.axisAt === 'bottom') axisAt = Math.max(range[0], range[1]);
-			if (this.props.axisAt === 'middle') axisAt = (range[0] + range[1]) / 2;
-	
-			return (
-				React.createElement("g", {className: "x axis", transform: 'translate(0, ' + axisAt + ')'})
-			);
-		}});
-	;
-	
-	XAxis.propTypes = {
-		axisAt: React.PropTypes.oneOfType([
-					React.PropTypes.oneOf(['top', 'bottom', 'middle'])
-					, React.PropTypes.number
-				]).isRequired,
-		orient: React.PropTypes.oneOf(['top', 'bottom']).isRequired,
-		innerTickSize: React.PropTypes.number,
-		outerTickSize: React.PropTypes.number,
-		tickFormat: React.PropTypes.func,
-		tickPadding: React.PropTypes.number,
-		tickSize: React.PropTypes.number,
-		ticks: React.PropTypes.number,
-		tickValues: React.PropTypes.array
-	};
-	XAxis.defaultProps = {
-		namespace: "ReStock.XAxis",
-		showGrid: false
-	};
-	XAxis.contextTypes = {
-		xScale: React.PropTypes.func.isRequired,
-		yScale: React.PropTypes.func.isRequired
-	};
-	
-	
-	module.exports = XAxis;
-
-
-/***/ },
-/* 74 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var React = __webpack_require__(2)
-		, d3 = __webpack_require__(3);
-	
-	var ____ClassV=React.Component;for(var ____ClassV____Key in ____ClassV){if(____ClassV.hasOwnProperty(____ClassV____Key)){YAxis[____ClassV____Key]=____ClassV[____ClassV____Key];}}var ____SuperProtoOf____ClassV=____ClassV===null?null:____ClassV.prototype;YAxis.prototype=Object.create(____SuperProtoOf____ClassV);YAxis.prototype.constructor=YAxis;YAxis.__superConstructor__=____ClassV;
-		function YAxis(props) {
-			____ClassV.call(this,props);
-			this.updateAxis = this.updateAxis.bind(this);
-		}
-		Object.defineProperty(YAxis.prototype,"componentDidMount",{writable:true,configurable:true,value:function() {
-			this.updateAxis();
-		}});
-		Object.defineProperty(YAxis.prototype,"componentDidUpdate",{writable:true,configurable:true,value:function() {
-			this.updateAxis();
-		}});
-		Object.defineProperty(YAxis.prototype,"updateAxis",{writable:true,configurable:true,value:function() {
-			var scale = this.context.yScale;
-			if (this.props.percentScale) scale = scale.copy().domain([0, 1]);
-	
-			var axis = d3.svg.axis()
-				.scale(scale)
-				.orient(this.props.orient);
-	
-			if (this.props.orient) axis.orient(this.props.orient);
-			if (this.props.innerTickSize) axis.innerTickSize(this.props.innerTickSize);
-			if (this.props.outerTickSize) axis.outerTickSize(this.props.outerTickSize);
-	
-			if (this.context.isCompareSeries) axis.tickFormat(d3.format(".0%"));
-			else if (this.props.tickFormat) axis.tickFormat(this.props.tickFormat);
-	
-			if (this.props.tickPadding) axis.tickPadding(this.props.tickPadding);
-			if (this.props.tickSize) axis.tickSize(this.props.tickSize);
-			if (this.props.ticks) axis.ticks(this.props.ticks);
-			if (this.props.tickValues) axis.tickValues(this.props.tickValues);
-			
-			d3.select(React.findDOMNode(this)).call(axis);
-		}});
-		Object.defineProperty(YAxis.prototype,"render",{writable:true,configurable:true,value:function() {
-			var axisAt = this.props.axisAt
-				, range = this.context.xScale.range();
-			if (this.props.axisAt === 'left') axisAt = Math.min(range[0], range[1]) + this.props.axisPadding;
-			if (this.props.axisAt === 'right') axisAt = Math.max(range[0], range[1]) + this.props.axisPadding;
-			if (this.props.axisAt === 'middle') axisAt = (range[0] + range[1]) / 2 + this.props.axisPadding;
-	
-			return (
-				React.createElement("g", {className: "y axis", transform: 'translate(' + axisAt + ', 0)'})
-			);
-		}});
-	;
-	
-	YAxis.propTypes = {
-		axisAt: React.PropTypes.oneOfType([
-					React.PropTypes.oneOf(['left', 'right', 'middle'])
-					, React.PropTypes.number
-				]).isRequired,
-		orient: React.PropTypes.oneOf(['left', 'right']).isRequired,
-		innerTickSize: React.PropTypes.number,
-		outerTickSize: React.PropTypes.number,
-		tickFormat: React.PropTypes.func,
-		tickPadding: React.PropTypes.number,
-		tickSize: React.PropTypes.number,
-		ticks: React.PropTypes.number,
-		tickValues: React.PropTypes.array,
-		percentScale: React.PropTypes.bool,
-		axisPadding: React.PropTypes.number
-	};
-	YAxis.defaultProps = {
-		namespace: "ReStock.YAxis",
-		showGrid: false,
-		axisPadding: 0
-	};
-	YAxis.contextTypes = {
-		xScale: React.PropTypes.func.isRequired,
-		yScale: React.PropTypes.func.isRequired,
-		isCompareSeries: React.PropTypes.bool.isRequired,
-	};
-	
-	module.exports = YAxis;
-
-
-/***/ },
-/* 75 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(2),
-		PureComponent = __webpack_require__(100);
-	
-	var Utils = __webpack_require__(101);
-	
-	for(var PureComponent____Key in PureComponent){if(PureComponent.hasOwnProperty(PureComponent____Key)){Chart[PureComponent____Key]=PureComponent[PureComponent____Key];}}var ____SuperProtoOfPureComponent=PureComponent===null?null:PureComponent.prototype;Chart.prototype=Object.create(____SuperProtoOfPureComponent);Chart.prototype.constructor=Chart;Chart.__superConstructor__=PureComponent;function Chart(){if(PureComponent!==null){PureComponent.apply(this,arguments);}}
-		Object.defineProperty(Chart.prototype,"getChildContext",{writable:true,configurable:true,value:function() {
-			var chartData = this.context.chartData.filter(function(each)  {return each.id === this.props.id;}.bind(this))[0];
-			return {
-				xScale: chartData.plot.scales.xScale,
-				yScale: chartData.plot.scales.yScale,
-				xAccessor: chartData.config.accessors.xAccessor,
-				yAccessor: chartData.config.accessors.yAccessor,
-				overlays: chartData.config.overlays,
-				compareSeries: chartData.config.compareSeries,
-				isCompareSeries: chartData.config.compareSeries.length > 0
-			}
-		}});
-		Object.defineProperty(Chart.prototype,"render",{writable:true,configurable:true,value:function() {
-			var origin = typeof this.props.origin === 'function'
-				? this.props.origin(this.context.width, this.context.height)
-				: this.props.origin;
-			var children = React.Children.map(this.props.children, function(child)  {
-				var newChild = Utils.isReactVersion13()
-					? React.withContext(this.getChildContext(), function()  {
-						return React.createElement(child.type, Utils.mergeObject({ key: child.key, ref: child.ref}, child.props));
-					})
-					: React.cloneElement(child);
-				return newChild;
-			}.bind(this));
-			return React.createElement("g", {transform: ("translate(" + origin[0] + ", " + origin[1] + ")")}, children);
-		}});
-	;
-	
-	Chart.propTypes = {
-		height: React.PropTypes.number,
-		width: React.PropTypes.number,
-		origin: React.PropTypes.oneOfType([
-					React.PropTypes.array
-					, React.PropTypes.func
-				]).isRequired,
-		id: React.PropTypes.number.isRequired,
-		xScale: React.PropTypes.func,
-		yScale: React.PropTypes.func,
-		xDomainUpdate: React.PropTypes.bool,
-		yDomainUpdate: React.PropTypes.bool,
-	};
-	Chart.defaultProps = {
-		namespace: "ReStock.Chart",
-		transformDataAs: "none",
-		yDomainUpdate: true,
-		origin: [0, 0]
-	};
-	Chart.contextTypes = {
-		width: React.PropTypes.number.isRequired,
-		height: React.PropTypes.number.isRequired,
-		chartData: React.PropTypes.array,
-	};
-	Chart.childContextTypes = {
-		xScale: React.PropTypes.func.isRequired,
-		yScale: React.PropTypes.func.isRequired,
-		xAccessor: React.PropTypes.func.isRequired,
-		yAccessor: React.PropTypes.func.isRequired,
-		overlays: React.PropTypes.array.isRequired,
-		isCompareSeries: React.PropTypes.bool.isRequired,
-		compareSeries: React.PropTypes.array.isRequired,
-	};
-	module.exports = Chart;
-
-
-/***/ },
-/* 76 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
 	var React = __webpack_require__(2);
-	var Utils = __webpack_require__(101);
+	var ChartDataUtil = __webpack_require__(101);
 	
-	var ____Class1g=React.Component;for(var ____Class1g____Key in ____Class1g){if(____Class1g.hasOwnProperty(____Class1g____Key)){DataSeries[____Class1g____Key]=____Class1g[____Class1g____Key];}}var ____SuperProtoOf____Class1g=____Class1g===null?null:____Class1g.prototype;DataSeries.prototype=Object.create(____SuperProtoOf____Class1g);DataSeries.prototype.constructor=DataSeries;DataSeries.__superConstructor__=____Class1g;function DataSeries(){if(____Class1g!==null){____Class1g.apply(this,arguments);}}
-		Object.defineProperty(DataSeries.prototype,"render",{writable:true,configurable:true,value:function() {
-			var children = React.Children.map(this.props.children, function(child)  {
-				var newChild = Utils.isReactVersion13()
-					? React.withContext(this.context, function()  {
-						return React.createElement(child.type, Utils.mergeObject({ key: child.key, ref: child.ref}, child.props));
-					})
-					: React.cloneElement(child);
-				return newChild;
-			}.bind(this));
-			return (
-				React.createElement("g", {style: { "clipPath": "url(#chart-area-clip)"}}, children)
-			);
-		}});
-	;
+	var Canvas = __webpack_require__(102);
+	var Utils = __webpack_require__(103);
 	
-	DataSeries.propTypes = {
-		xAccessor: React.PropTypes.func,
-		yAccessor: React.PropTypes.func.isRequired,
-	}
-	
-	DataSeries.defaultProps = {
-		namespace: "ReStock.DataSeries",
-		compareBase: function(d)  {return d.close;},
-	};
-	
-	module.exports = DataSeries;
-
-
-/***/ },
-/* 77 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var React = __webpack_require__(2),
-		d3 = __webpack_require__(3);
-	
-	var ____ClassX=React.Component;for(var ____ClassX____Key in ____ClassX){if(____ClassX.hasOwnProperty(____ClassX____Key)){AreaSeries[____ClassX____Key]=____ClassX[____ClassX____Key];}}var ____SuperProtoOf____ClassX=____ClassX===null?null:____ClassX.prototype;AreaSeries.prototype=Object.create(____SuperProtoOf____ClassX);AreaSeries.prototype.constructor=AreaSeries;AreaSeries.__superConstructor__=____ClassX;
-		function AreaSeries(props) {
-			____ClassX.call(this,props);
-			this.getPath = this.getPath.bind(this);
-			this.getArea = this.getArea.bind(this);
-		}
-		Object.defineProperty(AreaSeries.prototype,"getPath",{writable:true,configurable:true,value:function() {
-			var dataSeries = d3.svg.line()
-				.defined(function(d, i)  {return this.context.yAccessor(d) !== undefined;}.bind(this))
-				.x(function(d)  {return this.context.xScale(this.context.xAccessor(d));}.bind(this))
-				.y(function(d)  {return this.context.yScale(this.context.yAccessor(d));}.bind(this));
-	
-			return dataSeries(this.context.plotData);
-		}});
-		Object.defineProperty(AreaSeries.prototype,"getArea",{writable:true,configurable:true,value:function() {
-			var height = this.context.yScale.range()[0];
-			var areaSeries = d3.svg.area()
-				.defined(function(d, i)  {return this.context.yAccessor(d) !== undefined;}.bind(this))
-				.x(function(d)  {return this.context.xScale(this.context.xAccessor(d));}.bind(this))
-				.y0(height - 1)
-				.y1(function(d)  {return this.context.yScale(this.context.yAccessor(d));}.bind(this));
-	
-			return areaSeries(this.context.plotData);
-		}});
-		Object.defineProperty(AreaSeries.prototype,"render",{writable:true,configurable:true,value:function() {
-			return (
-				React.createElement("g", null, 
-					React.createElement("path", {d: this.getPath(), className: "line line-stroke"}), 
-					React.createElement("path", {d: this.getArea(), className: "area"})
-				)
-			);
-		}});
-	;
-	
-	AreaSeries.contextTypes = {
-			xScale: React.PropTypes.func.isRequired,
-			yScale: React.PropTypes.func.isRequired,
-			xAccessor: React.PropTypes.func.isRequired,
-			yAccessor: React.PropTypes.func.isRequired,
-			plotData: React.PropTypes.array.isRequired,
-		};
-	AreaSeries.defaultProps = { namespace: "ReStock.AreaSeries" };
-	
-	module.exports = AreaSeries;
-
-
-/***/ },
-/* 78 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var React = __webpack_require__(2),
-		d3 = __webpack_require__(3);
-	
-	var ____ClassY=React.Component;for(var ____ClassY____Key in ____ClassY){if(____ClassY.hasOwnProperty(____ClassY____Key)){LineSeries[____ClassY____Key]=____ClassY[____ClassY____Key];}}var ____SuperProtoOf____ClassY=____ClassY===null?null:____ClassY.prototype;LineSeries.prototype=Object.create(____SuperProtoOf____ClassY);LineSeries.prototype.constructor=LineSeries;LineSeries.__superConstructor__=____ClassY;
-		function LineSeries(props) {
-			____ClassY.call(this,props);
-			this.getPath = this.getPath.bind(this);
-		}
-		Object.defineProperty(LineSeries.prototype,"getPath",{writable:true,configurable:true,value:function() {
-			var dataSeries = d3.svg.line()
-				.defined(function(d, i) {return this.context.yAccessor(d) !== undefined;}.bind(this))
-				.x(function(d)  {return this.context.xScale(this.context.xAccessor(d));}.bind(this))
-				.y(function(d)  {return this.context.yScale(this.context.yAccessor(d));}.bind(this));
-			return dataSeries(this.context.plotData);
-		}});
-		Object.defineProperty(LineSeries.prototype,"render",{writable:true,configurable:true,value:function() {
-			var className = this.props.className.concat((this.context.stroke !== undefined) ? '' : ' line-stroke');
-			// console.log('%s, %s, %s', className, this.props.className, this.props.stroke);
-			return (
-				React.createElement("path", {d: this.getPath(), stroke: this.context.stroke, fill: "none", className: className})
-			);
-		}});
-	;
-	
-	LineSeries.propTypes = {
-		className: React.PropTypes.string,
-	};
-	LineSeries.defaultProps = {
-		namespace: "ReStock.LineSeries",
-		className: "line "
-	};
-	LineSeries.contextTypes = {
-		xScale: React.PropTypes.func.isRequired,
-		yScale: React.PropTypes.func.isRequired,
-		xAccessor: React.PropTypes.func.isRequired,
-		yAccessor: React.PropTypes.func.isRequired,
-		plotData: React.PropTypes.array.isRequired,
-		stroke: React.PropTypes.string
-	};
-	
-	module.exports = LineSeries;
-
-
-/***/ },
-/* 79 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var React = __webpack_require__(2),
-		d3 = __webpack_require__(3);
-	
-	var ____ClassZ=React.Component;for(var ____ClassZ____Key in ____ClassZ){if(____ClassZ.hasOwnProperty(____ClassZ____Key)){CompareSeries[____ClassZ____Key]=____ClassZ[____ClassZ____Key];}}var ____SuperProtoOf____ClassZ=____ClassZ===null?null:____ClassZ.prototype;CompareSeries.prototype=Object.create(____SuperProtoOf____ClassZ);CompareSeries.prototype.constructor=CompareSeries;CompareSeries.__superConstructor__=____ClassZ;
-		function CompareSeries(props) {
-			____ClassZ.call(this,props);
-			this.getPath = this.getPath.bind(this);
-		}
-		Object.defineProperty(CompareSeries.prototype,"getPath",{writable:true,configurable:true,value:function() {
-			var dataSeries = d3.svg.line()
-				.defined(function(d, i) {return d.compare['compare_' + this.props.id] !== undefined;}.bind(this))
-				.x(function(d)  {return this.context.xScale(this.context.xAccessor(d));}.bind(this))
-				.y(function(d)  {return this.context.yScale(d.compare['compare_' + this.props.id]);}.bind(this));
-			return dataSeries(this.context.plotData);
-		}});
-		Object.defineProperty(CompareSeries.prototype,"render",{writable:true,configurable:true,value:function() {
-			var thisSeries = this.context.compareSeries.filter(function(each)  {return each.id === this.props.id;}.bind(this))[0];
-			var className = this.props.className.concat(' line-stroke');
-			// console.log('%s, %s, %s', className, this.props.className, this.props.stroke);
-			return (
-				React.createElement("path", {d: this.getPath(), stroke: thisSeries.stroke, fill: "none", className: this.props.className})
-			);
-		}});
-	;
-	
-	CompareSeries.propTypes = {
-		className: React.PropTypes.string,
-		stroke: React.PropTypes.string,
-		displayLabel: React.PropTypes.string.isRequired,
-		id: React.PropTypes.number.isRequired,
-	};
-	CompareSeries.defaultProps = {
-		namespace: "ReStock.CompareSeries",
-		className: "line "
-	};
-	CompareSeries.contextTypes = {
-		xScale: React.PropTypes.func.isRequired,
-		yScale: React.PropTypes.func.isRequired,
-		xAccessor: React.PropTypes.func.isRequired,
-		plotData: React.PropTypes.array.isRequired,
-		compareSeries: React.PropTypes.array.isRequired,
-	};
-	
-	module.exports = CompareSeries;
-
-
-/***/ },
-/* 80 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(2);
-	var Utils = __webpack_require__(101);
-	
-	var ____Class10=React.Component;for(var ____Class10____Key in ____Class10){if(____Class10.hasOwnProperty(____Class10____Key)){OverlaySeries[____Class10____Key]=____Class10[____Class10____Key];}}var ____SuperProtoOf____Class10=____Class10===null?null:____Class10.prototype;OverlaySeries.prototype=Object.create(____SuperProtoOf____Class10);OverlaySeries.prototype.constructor=OverlaySeries;OverlaySeries.__superConstructor__=____Class10;function OverlaySeries(){if(____Class10!==null){____Class10.apply(this,arguments);}}
-	
-		Object.defineProperty(OverlaySeries.prototype,"getChildContext",{writable:true,configurable:true,value:function() {
-			var overlay = this.context.overlays.filter(function(each)  {return each.id === this.props.id;}.bind(this))[0];
-			return {
-				yAccessor: overlay.yAccessor,
-				stroke: overlay.stroke
-			};
-		}});
-		Object.defineProperty(OverlaySeries.prototype,"render",{writable:true,configurable:true,value:function() {
-			var children = React.Children.map(this.props.children, function(child)  {
-				var newChild = Utils.isReactVersion13()
-					? React.withContext(this.getChildContext(), function()  {
-						return React.createElement(child.type, Utils.mergeObject({ key: child.key, ref: child.ref}, child.props));
-					})
-					: React.cloneElement(child);
-				return newChild;
-			}.bind(this));
-			return (
-				React.createElement("g", null, children)
-			);
-		}});
-	;
-	
-	OverlaySeries.propTypes = {
-		type: React.PropTypes.oneOf(['sma', 'ema']),
-		options: React.PropTypes.object.isRequired,
-		id: React.PropTypes.number.isRequired,
-		stroke: React.PropTypes.string
-	};
-	OverlaySeries.defaultProps = {
-		namespace: "ReStock.OverlaySeries"
-	};
-	OverlaySeries.contextTypes = {
-		overlays: React.PropTypes.array.isRequired,
-	};
-	OverlaySeries.childContextTypes = {
-		yAccessor: React.PropTypes.func.isRequired,
-		stroke: React.PropTypes.string.isRequired,
-	};
-	module.exports = OverlaySeries;
-
-
-/***/ },
-/* 81 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var React = __webpack_require__(2),
-		d3 = __webpack_require__(3);
-	
-	var ____Class11=React.Component;for(var ____Class11____Key in ____Class11){if(____Class11.hasOwnProperty(____Class11____Key)){HistogramSeries[____Class11____Key]=____Class11[____Class11____Key];}}var ____SuperProtoOf____Class11=____Class11===null?null:____Class11.prototype;HistogramSeries.prototype=Object.create(____SuperProtoOf____Class11);HistogramSeries.prototype.constructor=HistogramSeries;HistogramSeries.__superConstructor__=____Class11;
-		function HistogramSeries(props) {
-			____Class11.call(this,props);
-			this.getBars = this.getBars.bind(this);
-		}
-		Object.defineProperty(HistogramSeries.prototype,"getBars",{writable:true,configurable:true,value:function() {
-			var base = this.props.baseAt === 'top'
-						? 0
-						: this.props.baseAt === 'bottom'
-							? this.context.yScale.range()[0]
-							: this.props.baseAt === 'middle'
-								? (this.context.yScale.range()[0] + this.context.yScale.range()[1]) / 2
-								: this.props.baseAt;
-	
-			var dir = this.props.direction === 'up' ? -1 : 1;
-	
-			var getClassName = function()  {return this.props.className;}.bind(this);
-			if (typeof this.props.className === 'function') {
-				getClassName = this.props.className;
-			}
-			var width = Math.abs(this.context.xScale.range()[0] - this.context.xScale.range()[1]);
-			var barWidth = width / (this.context.plotData.length) * 0.5;
-			var bars = this.context.plotData
-					.filter(function(d)  {return this.context.yAccessor(d) !== undefined;}.bind(this) )
-					.map(function(d, idx)  {
-						var yValue = this.context.yAccessor(d);
-						var x = Math.round(this.context.xScale(this.context.xAccessor(d))) - 0.5 * barWidth,
-							className = getClassName(d) ,
-							y, height;
-						if (dir > 0) {
-							y = base;
-							height = this.context.yScale.range()[0] - this.context.yScale(yValue);
-						} else {
-							y = this.context.yScale(yValue);
-							height = base - y;
-						}
-	
-						if (Math.round(barWidth) <= 1) {
-							return React.createElement("line", {key: idx, className: className, 
-										x1: Math.round(x), y1: Math.round(y), 
-										x2: Math.round(x), y2: Math.round(y + height)})
-						}
-						return React.createElement("rect", {key: idx, className: className, 
-									x: Math.round(x), 
-									y: Math.round(y), 
-									width: Math.round(barWidth), 
-									height: Math.round(height)})
-					}.bind(this), this);
-			return bars;
-		}});
-		Object.defineProperty(HistogramSeries.prototype,"render",{writable:true,configurable:true,value:function() {
-			return (
-				React.createElement("g", {className: "histogram"}, 
-					this.getBars()
-				)
-			);
-		}});
-	;
-	
-	HistogramSeries.propTypes = {
-		baseAt: React.PropTypes.oneOfType([
-					React.PropTypes.oneOf(['top', 'bottom', 'middle'])
-					, React.PropTypes.number
-				]).isRequired,
-		direction: React.PropTypes.oneOf(['up', 'down']).isRequired,
-		className: React.PropTypes.oneOfType([
-					React.PropTypes.func, React.PropTypes.string
-				]).isRequired,
-	};
-	HistogramSeries.defaultProps = {
-		namespace: "ReStock.HistogramSeries",
-		baseAt: 'bottom',
-		direction: 'up',
-		className: 'bar'
-	};
-	HistogramSeries.contextTypes = {
-		xScale: React.PropTypes.func.isRequired,
-		yScale: React.PropTypes.func.isRequired,
-		xAccessor: React.PropTypes.func.isRequired,
-		yAccessor: React.PropTypes.func.isRequired,
-		plotData: React.PropTypes.array.isRequired,
-	};
-	
-	module.exports = HistogramSeries;
-
-
-/***/ },
-/* 82 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var React = __webpack_require__(2),
-		d3 = __webpack_require__(3);
-	
-	var ____Class12=React.Component;for(var ____Class12____Key in ____Class12){if(____Class12.hasOwnProperty(____Class12____Key)){KagiSeries[____Class12____Key]=____Class12[____Class12____Key];}}var ____SuperProtoOf____Class12=____Class12===null?null:____Class12.prototype;KagiSeries.prototype=Object.create(____SuperProtoOf____Class12);KagiSeries.prototype.constructor=KagiSeries;KagiSeries.__superConstructor__=____Class12;function KagiSeries(){if(____Class12!==null){____Class12.apply(this,arguments);}}
-		Object.defineProperty(KagiSeries.prototype,"render",{writable:true,configurable:true,value:function() {
-			var kagiLine = new Array();
-			var kagi = {};
-			for (var i = 0; i < this.context.plotData.length; i++) {
-				var d = this.context.plotData[i];
-				if (d.close === undefined) continue;
-				if (kagi.type === undefined) kagi.type = d.startAs;
-				if (kagi.plot === undefined) kagi.plot = new Array();
-				var idx = this.context.xAccessor(d);
-				kagi.plot.push([idx, d.open]);
-	
-				if (d.changePoint != undefined) {
-					kagi.plot.push([idx, d.changePoint]);
-					kagiLine.push(kagi);
-					kagi = {
-						type: d.changeTo
-						, plot: []
-					};
-					kagi.plot.push([idx, d.changePoint]);
-				}
-			};
-	
-			var props = this.props;
-	
-			var paths = kagiLine.map(function(each, i)  {
-	
-				var dataSeries = d3.svg.line()
-					.x(function(d)  {return this.context.xScale(d[0]);}.bind(this))
-					.y(function(d)  {return this.context.yScale(d[1]);}.bind(this))
-					.interpolate("step-before");
-				return (React.createElement("path", {key: i, d: dataSeries(each.plot), className: each.type}))
-			}.bind(this));
-			return (
-				React.createElement("g", null, 
-					paths
-				)
-			);
-		}});
-	;
-	
-	KagiSeries.defaultProps = {
-		namespace: "ReStock.KagiSeries",
-	};
-	KagiSeries.contextTypes = {
-		xScale: React.PropTypes.func.isRequired,
-		yScale: React.PropTypes.func.isRequired,
-		xAccessor: React.PropTypes.func.isRequired,
-		yAccessor: React.PropTypes.func.isRequired,
-		plotData: React.PropTypes.array.isRequired,
-	};
-	KagiSeries.yAccessor = function(d)  {return {open: d.open, high: d.high, low: d.low, close: d.close};};
-	
-	module.exports = KagiSeries;
-
-
-/***/ },
-/* 83 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var React = __webpack_require__(2),
-		d3 = __webpack_require__(3);
-	
-	var ____Class13=React.Component;for(var ____Class13____Key in ____Class13){if(____Class13.hasOwnProperty(____Class13____Key)){PointAndFigureSeries[____Class13____Key]=____Class13[____Class13____Key];}}var ____SuperProtoOf____Class13=____Class13===null?null:____Class13.prototype;PointAndFigureSeries.prototype=Object.create(____SuperProtoOf____Class13);PointAndFigureSeries.prototype.constructor=PointAndFigureSeries;PointAndFigureSeries.__superConstructor__=____Class13;function PointAndFigureSeries(){if(____Class13!==null){____Class13.apply(this,arguments);}}
-		Object.defineProperty(PointAndFigureSeries.prototype,"handleClick",{writable:true,configurable:true,value:function(idx) {
-			console.log(this.context.plotData[idx]);
-		}});
-		Object.defineProperty(PointAndFigureSeries.prototype,"render",{writable:true,configurable:true,value:function() {
-			var width = this.context.xScale(this.context.xAccessor(this.context.plotData[this.context.plotData.length - 1]))
-				- this.context.xScale(this.context.xAccessor(this.context.plotData[0]));
-	
-			var columnWidth = (width / (this.context.plotData.length - 1));
-	
-			var anyBox, j = 0;
-			while (anyBox === undefined) {
-				if (this.context.plotData[j].close !== undefined) {
-					anyBox= this.context.plotData[j].boxes[0];
-				}
-				j++;
-			}
-	
-			var props = this.props;
-			var boxHeight = Math.abs(this.context.yScale(anyBox.open) - this.context.yScale(anyBox.close));
-	
-			var columns = this.context.plotData
-					.filter(function(d)  {return d.close !== undefined;})
-					.map(function(d, idx)  {
-						var ohlc = d;
-						var boxes = d.boxes.map(function(box, i)  {
-							var boxshape;
-							if (d.direction > 0) {
-								boxshape = (
-									React.createElement("g", {key: idx + "-" + i}, 
-										React.createElement("line", {className: "point_figure_up", x1: 0, y1: this.context.yScale(box.open), x2: columnWidth, y2: this.context.yScale(box.close)}), 
-										React.createElement("line", {className: "point_figure_up", x1: 0, y1: this.context.yScale(box.close), x2: columnWidth, y2: this.context.yScale(box.open)})
-									)
-									);
-							} else {
-								boxshape = (
-									React.createElement("ellipse", {key: idx + "-" + i, className: "point_figure_down", cx: columnWidth/2, cy: this.context.yScale((box.open + box.close) / 2), 
-										rx: columnWidth/2, ry: boxHeight / 2})
-									);
-							}
-							return boxshape;
-						}.bind(this));
-						var debug = false
-							? React.createElement("rect", {x: 0, y: 0, height: 980, width: columnWidth, style: { opacity: 0.1}, onClick: this.handleClick.bind(this, idx)})
-							: null;
-						var col = (React.createElement("g", {key: idx, 
-										transform: "translate(" + (this.context.xScale(this.context.xAccessor(d)) - (columnWidth / 2)) + ", 0)"}, 
-										boxes, 
-										debug
-									));
-						return col;
-					}.bind(this));
-	
-			return (
-				React.createElement("g", null, 
-					columns
-				)
-			);
-		}});
-	;
-	
-	PointAndFigureSeries.contextTypes = {
-		xScale: React.PropTypes.func.isRequired,
-		yScale: React.PropTypes.func.isRequired,
-		xAccessor: React.PropTypes.func.isRequired,
-		yAccessor: React.PropTypes.func.isRequired,
-		plotData: React.PropTypes.array.isRequired,
-	}
-	
-	PointAndFigureSeries.defaultProps = { namespace: "ReStock.PointAndFigureSeries" };
-	
-	PointAndFigureSeries.yAccessor = function(d)  {return {open: d.open, high: d.high, low: d.low, close: d.close};};
-	
-	module.exports = PointAndFigureSeries;
-
-
-/***/ },
-/* 84 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var React = __webpack_require__(2);
-	var ChartDataUtil = __webpack_require__(102);
-	
-	var Canvas = __webpack_require__(106);
-	var Utils = __webpack_require__(101);
-	
-	var ____Class19=React.Component;for(var ____Class19____Key in ____Class19){if(____Class19.hasOwnProperty(____Class19____Key)){ChartCanvas[____Class19____Key]=____Class19[____Class19____Key];}}var ____SuperProtoOf____Class19=____Class19===null?null:____Class19.prototype;ChartCanvas.prototype=Object.create(____SuperProtoOf____Class19);ChartCanvas.prototype.constructor=ChartCanvas;ChartCanvas.__superConstructor__=____Class19;function ChartCanvas(){if(____Class19!==null){____Class19.apply(this,arguments);}}
+	var ____ClassU=React.Component;for(var ____ClassU____Key in ____ClassU){if(____ClassU.hasOwnProperty(____ClassU____Key)){ChartCanvas[____ClassU____Key]=____ClassU[____ClassU____Key];}}var ____SuperProtoOf____ClassU=____ClassU===null?null:____ClassU.prototype;ChartCanvas.prototype=Object.create(____SuperProtoOf____ClassU);ChartCanvas.prototype.constructor=ChartCanvas;ChartCanvas.__superConstructor__=____ClassU;function ChartCanvas(){if(____ClassU!==null){____ClassU.apply(this,arguments);}}
 		Object.defineProperty(ChartCanvas.prototype,"getAvailableHeight",{writable:true,configurable:true,value:function(props) {
 			return props.height - props.margin.top - props.margin.bottom;
 		}});
@@ -4144,6 +3406,778 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
+/* 74 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(2),
+		d3 = __webpack_require__(3);
+	
+	var ____ClassV=React.Component;for(var ____ClassV____Key in ____ClassV){if(____ClassV.hasOwnProperty(____ClassV____Key)){XAxis[____ClassV____Key]=____ClassV[____ClassV____Key];}}var ____SuperProtoOf____ClassV=____ClassV===null?null:____ClassV.prototype;XAxis.prototype=Object.create(____SuperProtoOf____ClassV);XAxis.prototype.constructor=XAxis;XAxis.__superConstructor__=____ClassV;
+		function XAxis(props) {
+			____ClassV.call(this,props);
+			this.updateAxis = this.updateAxis.bind(this);
+		}
+		Object.defineProperty(XAxis.prototype,"componentDidMount",{writable:true,configurable:true,value:function() {
+			this.updateAxis();
+		}});
+		Object.defineProperty(XAxis.prototype,"componentDidUpdate",{writable:true,configurable:true,value:function() {
+			this.updateAxis();
+		}});
+		Object.defineProperty(XAxis.prototype,"updateAxis",{writable:true,configurable:true,value:function() {
+			var axis = d3.svg.axis()
+				.scale(this.context.xScale)
+				.orient(this.props.orient);
+	
+			if (this.props.orient) axis.orient(this.props.orient);
+			if (this.props.innerTickSize) axis.innerTickSize(this.props.innerTickSize);
+			if (this.props.outerTickSize) axis.outerTickSize(this.props.outerTickSize);
+			if (this.props.tickFormat) {
+				if (this.context.xScale.isPolyLinear && this.context.xScale.isPolyLinear())
+					console.warn('Cannot set tickFormat on a poly linear scale, ignoring tickFormat on XAxis');
+				else
+					axis.tickFormat(this.props.tickFormat)
+			};
+			if (this.props.tickPadding) axis.tickPadding(this.props.tickPadding);
+			if (this.props.tickSize) axis.tickSize(this.props.tickSize);
+			if (this.props.ticks) axis.ticks(this.props.ticks);
+			if (this.props.tickValues) axis.tickValues(this.props.tickValues);
+			if (this.props.noTicks) {
+				axis.tickSize(0);
+				axis.tickValues([]);
+			}
+			d3.select(React.findDOMNode(this)).call(axis);
+		}});
+		Object.defineProperty(XAxis.prototype,"render",{writable:true,configurable:true,value:function() {
+			var axisAt = this.props.axisAt
+				, range = this.context.yScale.range();
+			if (this.props.axisAt === 'top') axisAt = Math.min(range[0], range[1]);
+			if (this.props.axisAt === 'bottom') axisAt = Math.max(range[0], range[1]);
+			if (this.props.axisAt === 'middle') axisAt = (range[0] + range[1]) / 2;
+	
+			return (
+				React.createElement("g", {className: "x axis", transform: 'translate(0, ' + axisAt + ')'})
+			);
+		}});
+	;
+	
+	XAxis.propTypes = {
+		axisAt: React.PropTypes.oneOfType([
+					React.PropTypes.oneOf(['top', 'bottom', 'middle'])
+					, React.PropTypes.number
+				]).isRequired,
+		orient: React.PropTypes.oneOf(['top', 'bottom']).isRequired,
+		innerTickSize: React.PropTypes.number,
+		outerTickSize: React.PropTypes.number,
+		tickFormat: React.PropTypes.func,
+		tickPadding: React.PropTypes.number,
+		tickSize: React.PropTypes.number,
+		ticks: React.PropTypes.number,
+		tickValues: React.PropTypes.array
+	};
+	XAxis.defaultProps = {
+		namespace: "ReStock.XAxis",
+		showGrid: false
+	};
+	XAxis.contextTypes = {
+		xScale: React.PropTypes.func.isRequired,
+		yScale: React.PropTypes.func.isRequired
+	};
+	
+	
+	module.exports = XAxis;
+
+
+/***/ },
+/* 75 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(2);
+	var ChartDataUtil = __webpack_require__(101);
+	var ChartTransformer = __webpack_require__(104);
+	var EventHandler = __webpack_require__(105);
+	var Utils = __webpack_require__(103);
+	
+	var ____ClassW=React.Component;for(var ____ClassW____Key in ____ClassW){if(____ClassW.hasOwnProperty(____ClassW____Key)){DataTransform[____ClassW____Key]=____ClassW[____ClassW____Key];}}var ____SuperProtoOf____ClassW=____ClassW===null?null:____ClassW.prototype;DataTransform.prototype=Object.create(____SuperProtoOf____ClassW);DataTransform.prototype.constructor=DataTransform;DataTransform.__superConstructor__=____ClassW;function DataTransform(){if(____ClassW!==null){____ClassW.apply(this,arguments);}}
+		Object.defineProperty(DataTransform.prototype,"transformData",{writable:true,configurable:true,value:function(props, context) {
+			var transformer = ChartTransformer.getTransformerFor(props.transformType);
+	
+			if (context.dataTransformOptions || props.options) {
+				var options = {};
+				if (context.dataTransformOptions)
+					Object.keys(context.dataTransformOptions).forEach(function(key)  {return options[key] = context.dataTransformOptions[key];});
+				if (props.options)
+					Object.keys(props.options).forEach(function(key)  {return options[key] = props.options[key];});
+			}
+	
+			var passThroughProps = transformer(context.data, context.interval, options, context.dataTransformProps)
+			return passThroughProps;
+		}});
+		Object.defineProperty(DataTransform.prototype,"componentWillMount",{writable:true,configurable:true,value:function() {
+			var $__0=     this,props=$__0.props,context=$__0.context;
+			var passThroughProps = this.transformData(props, context);
+			this.setState({
+				data: passThroughProps.data,
+				dataTransformOptions: passThroughProps.options,
+				dataTransformProps: passThroughProps.other,
+				interval: context.interval
+			});
+		}});
+		Object.defineProperty(DataTransform.prototype,"componentWillReceiveProps",{writable:true,configurable:true,value:function(props, context) {
+			var passThroughProps = this.transformData(props, context);
+			this.setState({
+				data: passThroughProps.data,
+				dataTransformOptions: passThroughProps.options,
+				dataTransformProps: passThroughProps.other,
+				interval: context.interval
+			});
+		}});
+		Object.defineProperty(DataTransform.prototype,"getChildContext",{writable:true,configurable:true,value:function() {
+			return {
+				data: this.state.data,
+				dataTransformOptions: this.state.dataTransformOptions,
+				dataTransformProps: this.state.dataTransformProps,
+				interval: this.state.interval,
+			}
+		}});
+		Object.defineProperty(DataTransform.prototype,"render",{writable:true,configurable:true,value:function() {
+			var children = React.Children.map(this.props.children, function(child)  {
+				var newChild = Utils.isReactVersion13()
+					? React.withContext(this.getChildContext(), function()  {
+						return React.createElement(child.type, Utils.mergeObject({ key: child.key, ref: child.ref}, child.props));
+					})
+					: React.cloneElement(child);
+				return newChild;
+			}.bind(this));
+			return (ChartDataUtil.containsChart(this.props))
+				? React.createElement(EventHandler, null, children)
+				: React.createElement("g", null, children);
+		}});
+	;
+	
+	DataTransform.propTypes = {
+		transformType: React.PropTypes.string.isRequired, // stockscale, none
+		options: React.PropTypes.object
+	}
+	DataTransform.contextTypes = {
+		width: React.PropTypes.number.isRequired,
+		height: React.PropTypes.number.isRequired,
+		data: React.PropTypes.object.isRequired,
+		dataTransformOptions: React.PropTypes.object,
+		dataTransformProps: React.PropTypes.object,
+		interval: React.PropTypes.string.isRequired,
+		initialDisplay: React.PropTypes.number.isRequired,
+	}
+	DataTransform.childContextTypes = {
+		data: React.PropTypes.object,
+		dataTransformOptions: React.PropTypes.object,
+		dataTransformProps: React.PropTypes.object,
+		interval: React.PropTypes.string,
+	}
+	DataTransform.defaultProps = {
+		namespace: "ReStock.DataTransform",
+		transformType: "none"
+	}
+	
+	module.exports = DataTransform;
+
+
+/***/ },
+/* 76 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(2)
+		, d3 = __webpack_require__(3);
+	
+	var ____ClassX=React.Component;for(var ____ClassX____Key in ____ClassX){if(____ClassX.hasOwnProperty(____ClassX____Key)){YAxis[____ClassX____Key]=____ClassX[____ClassX____Key];}}var ____SuperProtoOf____ClassX=____ClassX===null?null:____ClassX.prototype;YAxis.prototype=Object.create(____SuperProtoOf____ClassX);YAxis.prototype.constructor=YAxis;YAxis.__superConstructor__=____ClassX;
+		function YAxis(props) {
+			____ClassX.call(this,props);
+			this.updateAxis = this.updateAxis.bind(this);
+		}
+		Object.defineProperty(YAxis.prototype,"componentDidMount",{writable:true,configurable:true,value:function() {
+			this.updateAxis();
+		}});
+		Object.defineProperty(YAxis.prototype,"componentDidUpdate",{writable:true,configurable:true,value:function() {
+			this.updateAxis();
+		}});
+		Object.defineProperty(YAxis.prototype,"updateAxis",{writable:true,configurable:true,value:function() {
+			var scale = this.context.yScale;
+			if (this.props.percentScale) scale = scale.copy().domain([0, 1]);
+	
+			var axis = d3.svg.axis()
+				.scale(scale)
+				.orient(this.props.orient);
+	
+			if (this.props.orient) axis.orient(this.props.orient);
+			if (this.props.innerTickSize) axis.innerTickSize(this.props.innerTickSize);
+			if (this.props.outerTickSize) axis.outerTickSize(this.props.outerTickSize);
+	
+			if (this.context.isCompareSeries) axis.tickFormat(d3.format(".0%"));
+			else if (this.props.tickFormat) axis.tickFormat(this.props.tickFormat);
+	
+			if (this.props.tickPadding) axis.tickPadding(this.props.tickPadding);
+			if (this.props.tickSize) axis.tickSize(this.props.tickSize);
+			if (this.props.ticks) axis.ticks(this.props.ticks);
+			if (this.props.tickValues) axis.tickValues(this.props.tickValues);
+			
+			d3.select(React.findDOMNode(this)).call(axis);
+		}});
+		Object.defineProperty(YAxis.prototype,"render",{writable:true,configurable:true,value:function() {
+			var axisAt = this.props.axisAt
+				, range = this.context.xScale.range();
+			if (this.props.axisAt === 'left') axisAt = Math.min(range[0], range[1]) + this.props.axisPadding;
+			if (this.props.axisAt === 'right') axisAt = Math.max(range[0], range[1]) + this.props.axisPadding;
+			if (this.props.axisAt === 'middle') axisAt = (range[0] + range[1]) / 2 + this.props.axisPadding;
+	
+			return (
+				React.createElement("g", {className: "y axis", transform: 'translate(' + axisAt + ', 0)'})
+			);
+		}});
+	;
+	
+	YAxis.propTypes = {
+		axisAt: React.PropTypes.oneOfType([
+					React.PropTypes.oneOf(['left', 'right', 'middle'])
+					, React.PropTypes.number
+				]).isRequired,
+		orient: React.PropTypes.oneOf(['left', 'right']).isRequired,
+		innerTickSize: React.PropTypes.number,
+		outerTickSize: React.PropTypes.number,
+		tickFormat: React.PropTypes.func,
+		tickPadding: React.PropTypes.number,
+		tickSize: React.PropTypes.number,
+		ticks: React.PropTypes.number,
+		tickValues: React.PropTypes.array,
+		percentScale: React.PropTypes.bool,
+		axisPadding: React.PropTypes.number
+	};
+	YAxis.defaultProps = {
+		namespace: "ReStock.YAxis",
+		showGrid: false,
+		axisPadding: 0
+	};
+	YAxis.contextTypes = {
+		xScale: React.PropTypes.func.isRequired,
+		yScale: React.PropTypes.func.isRequired,
+		isCompareSeries: React.PropTypes.bool.isRequired,
+	};
+	
+	module.exports = YAxis;
+
+
+/***/ },
+/* 77 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(2),
+		PureComponent = __webpack_require__(106);
+	
+	var Utils = __webpack_require__(103);
+	
+	for(var PureComponent____Key in PureComponent){if(PureComponent.hasOwnProperty(PureComponent____Key)){Chart[PureComponent____Key]=PureComponent[PureComponent____Key];}}var ____SuperProtoOfPureComponent=PureComponent===null?null:PureComponent.prototype;Chart.prototype=Object.create(____SuperProtoOfPureComponent);Chart.prototype.constructor=Chart;Chart.__superConstructor__=PureComponent;function Chart(){if(PureComponent!==null){PureComponent.apply(this,arguments);}}
+		Object.defineProperty(Chart.prototype,"getChildContext",{writable:true,configurable:true,value:function() {
+			var chartData = this.context.chartData.filter(function(each)  {return each.id === this.props.id;}.bind(this))[0];
+			return {
+				xScale: chartData.plot.scales.xScale,
+				yScale: chartData.plot.scales.yScale,
+				xAccessor: chartData.config.accessors.xAccessor,
+				yAccessor: chartData.config.accessors.yAccessor,
+				overlays: chartData.config.overlays,
+				compareSeries: chartData.config.compareSeries,
+				isCompareSeries: chartData.config.compareSeries.length > 0
+			}
+		}});
+		Object.defineProperty(Chart.prototype,"render",{writable:true,configurable:true,value:function() {
+			var origin = typeof this.props.origin === 'function'
+				? this.props.origin(this.context.width, this.context.height)
+				: this.props.origin;
+			var children = React.Children.map(this.props.children, function(child)  {
+				var newChild = Utils.isReactVersion13()
+					? React.withContext(this.getChildContext(), function()  {
+						return React.createElement(child.type, Utils.mergeObject({ key: child.key, ref: child.ref}, child.props));
+					})
+					: React.cloneElement(child);
+				return newChild;
+			}.bind(this));
+			return React.createElement("g", {transform: ("translate(" + origin[0] + ", " + origin[1] + ")")}, children);
+		}});
+	;
+	
+	Chart.propTypes = {
+		height: React.PropTypes.number,
+		width: React.PropTypes.number,
+		origin: React.PropTypes.oneOfType([
+					React.PropTypes.array
+					, React.PropTypes.func
+				]).isRequired,
+		id: React.PropTypes.number.isRequired,
+		xScale: React.PropTypes.func,
+		yScale: React.PropTypes.func,
+		xDomainUpdate: React.PropTypes.bool,
+		yDomainUpdate: React.PropTypes.bool,
+		yMousePointerDisplayLocation: React.PropTypes.oneOf(['left', 'right']),
+		yMousePointerDisplayFormat: React.PropTypes.func,
+	};
+	Chart.defaultProps = {
+		namespace: "ReStock.Chart",
+		transformDataAs: "none",
+		yDomainUpdate: true,
+		origin: [0, 0]
+	};
+	Chart.contextTypes = {
+		width: React.PropTypes.number.isRequired,
+		height: React.PropTypes.number.isRequired,
+		chartData: React.PropTypes.array,
+	};
+	Chart.childContextTypes = {
+		xScale: React.PropTypes.func.isRequired,
+		yScale: React.PropTypes.func.isRequired,
+		xAccessor: React.PropTypes.func.isRequired,
+		yAccessor: React.PropTypes.func.isRequired,
+		overlays: React.PropTypes.array.isRequired,
+		isCompareSeries: React.PropTypes.bool.isRequired,
+		compareSeries: React.PropTypes.array.isRequired,
+	};
+	module.exports = Chart;
+
+
+/***/ },
+/* 78 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(2);
+	var Utils = __webpack_require__(103);
+	
+	var ____ClassY=React.Component;for(var ____ClassY____Key in ____ClassY){if(____ClassY.hasOwnProperty(____ClassY____Key)){DataSeries[____ClassY____Key]=____ClassY[____ClassY____Key];}}var ____SuperProtoOf____ClassY=____ClassY===null?null:____ClassY.prototype;DataSeries.prototype=Object.create(____SuperProtoOf____ClassY);DataSeries.prototype.constructor=DataSeries;DataSeries.__superConstructor__=____ClassY;function DataSeries(){if(____ClassY!==null){____ClassY.apply(this,arguments);}}
+		Object.defineProperty(DataSeries.prototype,"render",{writable:true,configurable:true,value:function() {
+			var children = React.Children.map(this.props.children, function(child)  {
+				var newChild = Utils.isReactVersion13()
+					? React.withContext(this.context, function()  {
+						return React.createElement(child.type, Utils.mergeObject({ key: child.key, ref: child.ref}, child.props));
+					})
+					: React.cloneElement(child);
+				return newChild;
+			}.bind(this));
+			return (
+				React.createElement("g", {style: { "clipPath": "url(#chart-area-clip)"}}, children)
+			);
+		}});
+	;
+	
+	DataSeries.propTypes = {
+		xAccessor: React.PropTypes.func,
+		yAccessor: React.PropTypes.func.isRequired,
+	}
+	
+	DataSeries.defaultProps = {
+		namespace: "ReStock.DataSeries",
+		compareBase: function(d)  {return d.close;},
+	};
+	
+	module.exports = DataSeries;
+
+
+/***/ },
+/* 79 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(2),
+		d3 = __webpack_require__(3);
+	
+	var ____ClassZ=React.Component;for(var ____ClassZ____Key in ____ClassZ){if(____ClassZ.hasOwnProperty(____ClassZ____Key)){AreaSeries[____ClassZ____Key]=____ClassZ[____ClassZ____Key];}}var ____SuperProtoOf____ClassZ=____ClassZ===null?null:____ClassZ.prototype;AreaSeries.prototype=Object.create(____SuperProtoOf____ClassZ);AreaSeries.prototype.constructor=AreaSeries;AreaSeries.__superConstructor__=____ClassZ;
+		function AreaSeries(props) {
+			____ClassZ.call(this,props);
+			this.getPath = this.getPath.bind(this);
+			this.getArea = this.getArea.bind(this);
+		}
+		Object.defineProperty(AreaSeries.prototype,"getPath",{writable:true,configurable:true,value:function() {
+			var dataSeries = d3.svg.line()
+				.defined(function(d, i)  {return this.context.yAccessor(d) !== undefined;}.bind(this))
+				.x(function(d)  {return this.context.xScale(this.context.xAccessor(d));}.bind(this))
+				.y(function(d)  {return this.context.yScale(this.context.yAccessor(d));}.bind(this));
+	
+			return dataSeries(this.context.plotData);
+		}});
+		Object.defineProperty(AreaSeries.prototype,"getArea",{writable:true,configurable:true,value:function() {
+			var height = this.context.yScale.range()[0];
+			var areaSeries = d3.svg.area()
+				.defined(function(d, i)  {return this.context.yAccessor(d) !== undefined;}.bind(this))
+				.x(function(d)  {return this.context.xScale(this.context.xAccessor(d));}.bind(this))
+				.y0(height - 1)
+				.y1(function(d)  {return this.context.yScale(this.context.yAccessor(d));}.bind(this));
+	
+			return areaSeries(this.context.plotData);
+		}});
+		Object.defineProperty(AreaSeries.prototype,"render",{writable:true,configurable:true,value:function() {
+			return (
+				React.createElement("g", null, 
+					React.createElement("path", {d: this.getPath(), className: "line line-stroke"}), 
+					React.createElement("path", {d: this.getArea(), className: "area"})
+				)
+			);
+		}});
+	;
+	
+	AreaSeries.contextTypes = {
+			xScale: React.PropTypes.func.isRequired,
+			yScale: React.PropTypes.func.isRequired,
+			xAccessor: React.PropTypes.func.isRequired,
+			yAccessor: React.PropTypes.func.isRequired,
+			plotData: React.PropTypes.array.isRequired,
+		};
+	AreaSeries.defaultProps = { namespace: "ReStock.AreaSeries" };
+	
+	module.exports = AreaSeries;
+
+
+/***/ },
+/* 80 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(2),
+		d3 = __webpack_require__(3);
+	
+	var ____Class10=React.Component;for(var ____Class10____Key in ____Class10){if(____Class10.hasOwnProperty(____Class10____Key)){LineSeries[____Class10____Key]=____Class10[____Class10____Key];}}var ____SuperProtoOf____Class10=____Class10===null?null:____Class10.prototype;LineSeries.prototype=Object.create(____SuperProtoOf____Class10);LineSeries.prototype.constructor=LineSeries;LineSeries.__superConstructor__=____Class10;
+		function LineSeries(props) {
+			____Class10.call(this,props);
+			this.getPath = this.getPath.bind(this);
+		}
+		Object.defineProperty(LineSeries.prototype,"getPath",{writable:true,configurable:true,value:function() {
+			var dataSeries = d3.svg.line()
+				.defined(function(d, i) {return this.context.yAccessor(d) !== undefined;}.bind(this))
+				.x(function(d)  {return this.context.xScale(this.context.xAccessor(d));}.bind(this))
+				.y(function(d)  {return this.context.yScale(this.context.yAccessor(d));}.bind(this));
+			return dataSeries(this.context.plotData);
+		}});
+		Object.defineProperty(LineSeries.prototype,"render",{writable:true,configurable:true,value:function() {
+			var className = this.props.className.concat((this.context.stroke !== undefined) ? '' : ' line-stroke');
+			// console.log('%s, %s, %s', className, this.props.className, this.props.stroke);
+			return (
+				React.createElement("path", {d: this.getPath(), stroke: this.context.stroke, fill: "none", className: className})
+			);
+		}});
+	;
+	
+	LineSeries.propTypes = {
+		className: React.PropTypes.string,
+	};
+	LineSeries.defaultProps = {
+		namespace: "ReStock.LineSeries",
+		className: "line "
+	};
+	LineSeries.contextTypes = {
+		xScale: React.PropTypes.func.isRequired,
+		yScale: React.PropTypes.func.isRequired,
+		xAccessor: React.PropTypes.func.isRequired,
+		yAccessor: React.PropTypes.func.isRequired,
+		plotData: React.PropTypes.array.isRequired,
+		stroke: React.PropTypes.string
+	};
+	
+	module.exports = LineSeries;
+
+
+/***/ },
+/* 81 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(2),
+		d3 = __webpack_require__(3);
+	
+	var ____Class11=React.Component;for(var ____Class11____Key in ____Class11){if(____Class11.hasOwnProperty(____Class11____Key)){CompareSeries[____Class11____Key]=____Class11[____Class11____Key];}}var ____SuperProtoOf____Class11=____Class11===null?null:____Class11.prototype;CompareSeries.prototype=Object.create(____SuperProtoOf____Class11);CompareSeries.prototype.constructor=CompareSeries;CompareSeries.__superConstructor__=____Class11;
+		function CompareSeries(props) {
+			____Class11.call(this,props);
+			this.getPath = this.getPath.bind(this);
+		}
+		Object.defineProperty(CompareSeries.prototype,"getPath",{writable:true,configurable:true,value:function() {
+			var dataSeries = d3.svg.line()
+				.defined(function(d, i) {return d.compare['compare_' + this.props.id] !== undefined;}.bind(this))
+				.x(function(d)  {return this.context.xScale(this.context.xAccessor(d));}.bind(this))
+				.y(function(d)  {return this.context.yScale(d.compare['compare_' + this.props.id]);}.bind(this));
+			return dataSeries(this.context.plotData);
+		}});
+		Object.defineProperty(CompareSeries.prototype,"render",{writable:true,configurable:true,value:function() {
+			var thisSeries = this.context.compareSeries.filter(function(each)  {return each.id === this.props.id;}.bind(this))[0];
+			var className = this.props.className.concat(' line-stroke');
+			// console.log('%s, %s, %s', className, this.props.className, this.props.stroke);
+			return (
+				React.createElement("path", {d: this.getPath(), stroke: thisSeries.stroke, fill: "none", className: this.props.className})
+			);
+		}});
+	;
+	
+	CompareSeries.propTypes = {
+		className: React.PropTypes.string,
+		stroke: React.PropTypes.string,
+		displayLabel: React.PropTypes.string.isRequired,
+		id: React.PropTypes.number.isRequired,
+	};
+	CompareSeries.defaultProps = {
+		namespace: "ReStock.CompareSeries",
+		className: "line "
+	};
+	CompareSeries.contextTypes = {
+		xScale: React.PropTypes.func.isRequired,
+		yScale: React.PropTypes.func.isRequired,
+		xAccessor: React.PropTypes.func.isRequired,
+		plotData: React.PropTypes.array.isRequired,
+		compareSeries: React.PropTypes.array.isRequired,
+	};
+	
+	module.exports = CompareSeries;
+
+
+/***/ },
+/* 82 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(2),
+		d3 = __webpack_require__(3);
+	
+	var ____Class12=React.Component;for(var ____Class12____Key in ____Class12){if(____Class12.hasOwnProperty(____Class12____Key)){CandlestickSeries[____Class12____Key]=____Class12[____Class12____Key];}}var ____SuperProtoOf____Class12=____Class12===null?null:____Class12.prototype;CandlestickSeries.prototype=Object.create(____SuperProtoOf____Class12);CandlestickSeries.prototype.constructor=CandlestickSeries;CandlestickSeries.__superConstructor__=____Class12;
+		function CandlestickSeries(props) {
+			____Class12.call(this,props);
+			this.getWicks = this.getWicks.bind(this);
+			this.getCandles = this.getCandles.bind(this);
+		}
+		Object.defineProperty(CandlestickSeries.prototype,"getWicks",{writable:true,configurable:true,value:function() {
+			var wicks = this.context.plotData
+					.filter(function(d)  {return d.close !== undefined;})
+					.map(function(d, idx)  {
+						var ohlc = this.context.isCompareSeries ? this.context.yAccessor(d.compare) : this.context.yAccessor(d);
+	
+						var x1 = Math.round(this.context.xScale(this.context.xAccessor(d))),
+							y1 = this.context.yScale(ohlc.high),
+							x2 = x1,
+							y2 = this.context.yScale(ohlc.low),
+							className = (ohlc.open >= ohlc.close) ? 'up' : 'down';
+						var path = 'M' + x1 + ' ' + y1 + 'L' + x2 + ' ' + y2;
+						//return <path key={idx} d={path} className={className} />
+						/* */
+						return React.createElement("line", {key: idx, 
+										className: className, 
+										x1: x1, 
+										y1: y1, 
+										x2: x2, 
+										y2: y2})
+					}.bind(this), this);
+			return wicks;
+		}});
+		Object.defineProperty(CandlestickSeries.prototype,"getCandles",{writable:true,configurable:true,value:function() {
+			var width = this.context.xScale(this.context.xAccessor(this.context.plotData[this.context.plotData.length - 1]))
+				- this.context.xScale(this.context.xAccessor(this.context.plotData[0]));
+			var cw = (width / (this.context.plotData.length)) * 0.5;
+			var candleWidth = Math.floor(cw) % 2 === 0 ? Math.floor(cw) : Math.round(cw); // 
+			var candles = this.context.plotData
+					.filter(function(d)  {return d.close !== undefined;})
+					.map(function(d, idx)  {
+						var ohlc = this.context.isCompareSeries ? this.context.yAccessor(d.compare) : this.context.yAccessor(d);
+						var x = Math.round(this.context.xScale(this.context.xAccessor(d)))
+								- (candleWidth === 1 ? 0 : 0.5 * candleWidth),
+							y = this.context.yScale(Math.max(ohlc.open, ohlc.close)),
+							height = Math.abs(this.context.yScale(ohlc.open) - this.context.yScale(ohlc.close)),
+							className = (ohlc.open <= ohlc.close) ? 'up' : 'down';
+						if (ohlc.open === ohlc.close) {
+							return React.createElement("line", {key: idx, x1: x, y1: y, x2: x + candleWidth, y2: y})
+						}
+						if (candleWidth <= 1) {
+							return React.createElement("line", {className: className, key: idx, x1: x, y1: y, x2: x, y2: y + height})
+						}
+						return React.createElement("rect", {key: idx, className: className, 
+									x: x, 
+									y: y, 
+									width: candleWidth, 
+									height: height})
+					}.bind(this));
+			return candles;
+		}});
+		Object.defineProperty(CandlestickSeries.prototype,"render",{writable:true,configurable:true,value:function() {
+			return (
+				React.createElement("g", null, 
+					React.createElement("g", {className: "wick", key: "wicks"}, 
+						this.getWicks()
+					), 
+					React.createElement("g", {className: "candle", key: "candles"}, 
+						this.getCandles()
+					)
+				)
+			);
+		}});
+	;
+	
+	CandlestickSeries.contextTypes = {
+		xScale: React.PropTypes.func.isRequired,
+		yScale: React.PropTypes.func.isRequired,
+		xAccessor: React.PropTypes.func.isRequired,
+		yAccessor: React.PropTypes.func.isRequired,
+		plotData: React.PropTypes.array.isRequired,
+		isCompareSeries: React.PropTypes.bool.isRequired,
+	}
+	
+	CandlestickSeries.defaultProps = { namespace: "ReStock.CandlestickSeries" };
+	
+	CandlestickSeries.yAccessor = function(d)  {return {open: d.open, high: d.high, low: d.low, close: d.close};};
+	
+	module.exports = CandlestickSeries;
+
+
+/***/ },
+/* 83 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(2);
+	var Utils = __webpack_require__(103);
+	
+	var ____Class13=React.Component;for(var ____Class13____Key in ____Class13){if(____Class13.hasOwnProperty(____Class13____Key)){OverlaySeries[____Class13____Key]=____Class13[____Class13____Key];}}var ____SuperProtoOf____Class13=____Class13===null?null:____Class13.prototype;OverlaySeries.prototype=Object.create(____SuperProtoOf____Class13);OverlaySeries.prototype.constructor=OverlaySeries;OverlaySeries.__superConstructor__=____Class13;function OverlaySeries(){if(____Class13!==null){____Class13.apply(this,arguments);}}
+	
+		Object.defineProperty(OverlaySeries.prototype,"getChildContext",{writable:true,configurable:true,value:function() {
+			var overlay = this.context.overlays.filter(function(each)  {return each.id === this.props.id;}.bind(this))[0];
+			return {
+				yAccessor: overlay.yAccessor,
+				stroke: overlay.stroke
+			};
+		}});
+		Object.defineProperty(OverlaySeries.prototype,"render",{writable:true,configurable:true,value:function() {
+			var children = React.Children.map(this.props.children, function(child)  {
+				var newChild = Utils.isReactVersion13()
+					? React.withContext(this.getChildContext(), function()  {
+						return React.createElement(child.type, Utils.mergeObject({ key: child.key, ref: child.ref}, child.props));
+					})
+					: React.cloneElement(child);
+				return newChild;
+			}.bind(this));
+			return (
+				React.createElement("g", null, children)
+			);
+		}});
+	;
+	
+	OverlaySeries.propTypes = {
+		type: React.PropTypes.oneOf(['sma', 'ema']),
+		options: React.PropTypes.object.isRequired,
+		id: React.PropTypes.number.isRequired,
+		stroke: React.PropTypes.string
+	};
+	OverlaySeries.defaultProps = {
+		namespace: "ReStock.OverlaySeries"
+	};
+	OverlaySeries.contextTypes = {
+		overlays: React.PropTypes.array.isRequired,
+	};
+	OverlaySeries.childContextTypes = {
+		yAccessor: React.PropTypes.func.isRequired,
+		stroke: React.PropTypes.string.isRequired,
+	};
+	module.exports = OverlaySeries;
+
+
+/***/ },
+/* 84 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(2),
+		d3 = __webpack_require__(3);
+	
+	var ____Class14=React.Component;for(var ____Class14____Key in ____Class14){if(____Class14.hasOwnProperty(____Class14____Key)){HistogramSeries[____Class14____Key]=____Class14[____Class14____Key];}}var ____SuperProtoOf____Class14=____Class14===null?null:____Class14.prototype;HistogramSeries.prototype=Object.create(____SuperProtoOf____Class14);HistogramSeries.prototype.constructor=HistogramSeries;HistogramSeries.__superConstructor__=____Class14;
+		function HistogramSeries(props) {
+			____Class14.call(this,props);
+			this.getBars = this.getBars.bind(this);
+		}
+		Object.defineProperty(HistogramSeries.prototype,"getBars",{writable:true,configurable:true,value:function() {
+			var base = this.props.baseAt === 'top'
+						? 0
+						: this.props.baseAt === 'bottom'
+							? this.context.yScale.range()[0]
+							: this.props.baseAt === 'middle'
+								? (this.context.yScale.range()[0] + this.context.yScale.range()[1]) / 2
+								: this.props.baseAt;
+	
+			var dir = this.props.direction === 'up' ? -1 : 1;
+	
+			var getClassName = function()  {return this.props.className;}.bind(this);
+			if (typeof this.props.className === 'function') {
+				getClassName = this.props.className;
+			}
+			var width = Math.abs(this.context.xScale.range()[0] - this.context.xScale.range()[1]);
+			var barWidth = width / (this.context.plotData.length) * 0.5;
+			var bars = this.context.plotData
+					.filter(function(d)  {return this.context.yAccessor(d) !== undefined;}.bind(this) )
+					.map(function(d, idx)  {
+						var yValue = this.context.yAccessor(d);
+						var x = Math.round(this.context.xScale(this.context.xAccessor(d))) - 0.5 * barWidth,
+							className = getClassName(d) ,
+							y, height;
+						if (dir > 0) {
+							y = base;
+							height = this.context.yScale.range()[0] - this.context.yScale(yValue);
+						} else {
+							y = this.context.yScale(yValue);
+							height = base - y;
+						}
+	
+						if (Math.round(barWidth) <= 1) {
+							return React.createElement("line", {key: idx, className: className, 
+										x1: Math.round(x), y1: Math.round(y), 
+										x2: Math.round(x), y2: Math.round(y + height)})
+						}
+						return React.createElement("rect", {key: idx, className: className, 
+									x: Math.round(x), 
+									y: Math.round(y), 
+									width: Math.round(barWidth), 
+									height: Math.round(height)})
+					}.bind(this), this);
+			return bars;
+		}});
+		Object.defineProperty(HistogramSeries.prototype,"render",{writable:true,configurable:true,value:function() {
+			return (
+				React.createElement("g", {className: "histogram"}, 
+					this.getBars()
+				)
+			);
+		}});
+	;
+	
+	HistogramSeries.propTypes = {
+		baseAt: React.PropTypes.oneOfType([
+					React.PropTypes.oneOf(['top', 'bottom', 'middle'])
+					, React.PropTypes.number
+				]).isRequired,
+		direction: React.PropTypes.oneOf(['up', 'down']).isRequired,
+		className: React.PropTypes.oneOfType([
+					React.PropTypes.func, React.PropTypes.string
+				]).isRequired,
+	};
+	HistogramSeries.defaultProps = {
+		namespace: "ReStock.HistogramSeries",
+		baseAt: 'bottom',
+		direction: 'up',
+		className: 'bar'
+	};
+	HistogramSeries.contextTypes = {
+		xScale: React.PropTypes.func.isRequired,
+		yScale: React.PropTypes.func.isRequired,
+		xAccessor: React.PropTypes.func.isRequired,
+		yAccessor: React.PropTypes.func.isRequired,
+		plotData: React.PropTypes.array.isRequired,
+	};
+	
+	module.exports = HistogramSeries;
+
+
+/***/ },
 /* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -4151,7 +4185,155 @@ return webpackJsonpReStock([1,2],[
 	var React = __webpack_require__(2),
 		d3 = __webpack_require__(3);
 	
-	var ____Class14=React.Component;for(var ____Class14____Key in ____Class14){if(____Class14.hasOwnProperty(____Class14____Key)){RenkoSeries[____Class14____Key]=____Class14[____Class14____Key];}}var ____SuperProtoOf____Class14=____Class14===null?null:____Class14.prototype;RenkoSeries.prototype=Object.create(____SuperProtoOf____Class14);RenkoSeries.prototype.constructor=RenkoSeries;RenkoSeries.__superConstructor__=____Class14;function RenkoSeries(){if(____Class14!==null){____Class14.apply(this,arguments);}}
+	var ____Class15=React.Component;for(var ____Class15____Key in ____Class15){if(____Class15.hasOwnProperty(____Class15____Key)){KagiSeries[____Class15____Key]=____Class15[____Class15____Key];}}var ____SuperProtoOf____Class15=____Class15===null?null:____Class15.prototype;KagiSeries.prototype=Object.create(____SuperProtoOf____Class15);KagiSeries.prototype.constructor=KagiSeries;KagiSeries.__superConstructor__=____Class15;function KagiSeries(){if(____Class15!==null){____Class15.apply(this,arguments);}}
+		Object.defineProperty(KagiSeries.prototype,"render",{writable:true,configurable:true,value:function() {
+			var kagiLine = new Array();
+			var kagi = {};
+			for (var i = 0; i < this.context.plotData.length; i++) {
+				var d = this.context.plotData[i];
+				if (d.close === undefined) continue;
+				if (kagi.type === undefined) kagi.type = d.startAs;
+				if (kagi.plot === undefined) kagi.plot = new Array();
+				var idx = this.context.xAccessor(d);
+				kagi.plot.push([idx, d.open]);
+	
+				if (d.changePoint != undefined) {
+					kagi.plot.push([idx, d.changePoint]);
+					kagiLine.push(kagi);
+					kagi = {
+						type: d.changeTo
+						, plot: []
+					};
+					kagi.plot.push([idx, d.changePoint]);
+				}
+			};
+	
+			var props = this.props;
+	
+			var paths = kagiLine.map(function(each, i)  {
+	
+				var dataSeries = d3.svg.line()
+					.x(function(d)  {return this.context.xScale(d[0]);}.bind(this))
+					.y(function(d)  {return this.context.yScale(d[1]);}.bind(this))
+					.interpolate("step-before");
+				return (React.createElement("path", {key: i, d: dataSeries(each.plot), className: each.type}))
+			}.bind(this));
+			return (
+				React.createElement("g", null, 
+					paths
+				)
+			);
+		}});
+	;
+	
+	KagiSeries.defaultProps = {
+		namespace: "ReStock.KagiSeries",
+	};
+	KagiSeries.contextTypes = {
+		xScale: React.PropTypes.func.isRequired,
+		yScale: React.PropTypes.func.isRequired,
+		xAccessor: React.PropTypes.func.isRequired,
+		yAccessor: React.PropTypes.func.isRequired,
+		plotData: React.PropTypes.array.isRequired,
+	};
+	KagiSeries.yAccessor = function(d)  {return {open: d.open, high: d.high, low: d.low, close: d.close};};
+	
+	module.exports = KagiSeries;
+
+
+/***/ },
+/* 86 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(2),
+		d3 = __webpack_require__(3);
+	
+	var ____Class16=React.Component;for(var ____Class16____Key in ____Class16){if(____Class16.hasOwnProperty(____Class16____Key)){PointAndFigureSeries[____Class16____Key]=____Class16[____Class16____Key];}}var ____SuperProtoOf____Class16=____Class16===null?null:____Class16.prototype;PointAndFigureSeries.prototype=Object.create(____SuperProtoOf____Class16);PointAndFigureSeries.prototype.constructor=PointAndFigureSeries;PointAndFigureSeries.__superConstructor__=____Class16;function PointAndFigureSeries(){if(____Class16!==null){____Class16.apply(this,arguments);}}
+		Object.defineProperty(PointAndFigureSeries.prototype,"handleClick",{writable:true,configurable:true,value:function(idx) {
+			console.log(this.context.plotData[idx]);
+		}});
+		Object.defineProperty(PointAndFigureSeries.prototype,"render",{writable:true,configurable:true,value:function() {
+			var width = this.context.xScale(this.context.xAccessor(this.context.plotData[this.context.plotData.length - 1]))
+				- this.context.xScale(this.context.xAccessor(this.context.plotData[0]));
+	
+			var columnWidth = (width / (this.context.plotData.length - 1));
+	
+			var anyBox, j = 0;
+			while (anyBox === undefined) {
+				if (this.context.plotData[j].close !== undefined) {
+					anyBox= this.context.plotData[j].boxes[0];
+				}
+				j++;
+			}
+	
+			var props = this.props;
+			var boxHeight = Math.abs(this.context.yScale(anyBox.open) - this.context.yScale(anyBox.close));
+	
+			var columns = this.context.plotData
+					.filter(function(d)  {return d.close !== undefined;})
+					.map(function(d, idx)  {
+						var ohlc = d;
+						var boxes = d.boxes.map(function(box, i)  {
+							var boxshape;
+							if (d.direction > 0) {
+								boxshape = (
+									React.createElement("g", {key: idx + "-" + i}, 
+										React.createElement("line", {className: "point_figure_up", x1: 0, y1: this.context.yScale(box.open), x2: columnWidth, y2: this.context.yScale(box.close)}), 
+										React.createElement("line", {className: "point_figure_up", x1: 0, y1: this.context.yScale(box.close), x2: columnWidth, y2: this.context.yScale(box.open)})
+									)
+									);
+							} else {
+								boxshape = (
+									React.createElement("ellipse", {key: idx + "-" + i, className: "point_figure_down", cx: columnWidth/2, cy: this.context.yScale((box.open + box.close) / 2), 
+										rx: columnWidth/2, ry: boxHeight / 2})
+									);
+							}
+							return boxshape;
+						}.bind(this));
+						var debug = false
+							? React.createElement("rect", {x: 0, y: 0, height: 980, width: columnWidth, style: { opacity: 0.1}, onClick: this.handleClick.bind(this, idx)})
+							: null;
+						var col = (React.createElement("g", {key: idx, 
+										transform: "translate(" + (this.context.xScale(this.context.xAccessor(d)) - (columnWidth / 2)) + ", 0)"}, 
+										boxes, 
+										debug
+									));
+						return col;
+					}.bind(this));
+	
+			return (
+				React.createElement("g", null, 
+					columns
+				)
+			);
+		}});
+	;
+	
+	PointAndFigureSeries.contextTypes = {
+		xScale: React.PropTypes.func.isRequired,
+		yScale: React.PropTypes.func.isRequired,
+		xAccessor: React.PropTypes.func.isRequired,
+		yAccessor: React.PropTypes.func.isRequired,
+		plotData: React.PropTypes.array.isRequired,
+	}
+	
+	PointAndFigureSeries.defaultProps = { namespace: "ReStock.PointAndFigureSeries" };
+	
+	PointAndFigureSeries.yAccessor = function(d)  {return {open: d.open, high: d.high, low: d.low, close: d.close};};
+	
+	module.exports = PointAndFigureSeries;
+
+
+/***/ },
+/* 87 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(2),
+		d3 = __webpack_require__(3);
+	
+	var ____Class17=React.Component;for(var ____Class17____Key in ____Class17){if(____Class17.hasOwnProperty(____Class17____Key)){RenkoSeries[____Class17____Key]=____Class17[____Class17____Key];}}var ____SuperProtoOf____Class17=____Class17===null?null:____Class17.prototype;RenkoSeries.prototype=Object.create(____SuperProtoOf____Class17);RenkoSeries.prototype.constructor=RenkoSeries;RenkoSeries.__superConstructor__=____Class17;function RenkoSeries(){if(____Class17!==null){____Class17.apply(this,arguments);}}
 		Object.defineProperty(RenkoSeries.prototype,"render",{writable:true,configurable:true,value:function() {
 			var width = this.context.xScale(this.context.xAccessor(this.context.plotData[this.context.plotData.length - 1]))
 				- this.context.xScale(this.context.xAccessor(this.context.plotData[0]));
@@ -4218,16 +4400,16 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 86 */
+/* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(2);
-	var Utils = __webpack_require__(101)
+	var Utils = __webpack_require__(103)
 	
-	var ____Class15=React.Component;for(var ____Class15____Key in ____Class15){if(____Class15.hasOwnProperty(____Class15____Key)){EventCapture[____Class15____Key]=____Class15[____Class15____Key];}}var ____SuperProtoOf____Class15=____Class15===null?null:____Class15.prototype;EventCapture.prototype=Object.create(____SuperProtoOf____Class15);EventCapture.prototype.constructor=EventCapture;EventCapture.__superConstructor__=____Class15;
+	var ____Class18=React.Component;for(var ____Class18____Key in ____Class18){if(____Class18.hasOwnProperty(____Class18____Key)){EventCapture[____Class18____Key]=____Class18[____Class18____Key];}}var ____SuperProtoOf____Class18=____Class18===null?null:____Class18.prototype;EventCapture.prototype=Object.create(____SuperProtoOf____Class18);EventCapture.prototype.constructor=EventCapture;EventCapture.__superConstructor__=____Class18;
 		function EventCapture(props) {
-			____Class15.call(this,props);
+			____Class18.call(this,props);
 			this.toggleFocus = this.toggleFocus.bind(this);
 			this.setFocus = this.setFocus.bind(this);
 			this.handleEnter = this.handleEnter.bind(this);
@@ -4355,144 +4537,77 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 87 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var React = __webpack_require__(2),
-		d3 = __webpack_require__(3);
-	
-	var ____Class16=React.Component;for(var ____Class16____Key in ____Class16){if(____Class16.hasOwnProperty(____Class16____Key)){CandlestickSeries[____Class16____Key]=____Class16[____Class16____Key];}}var ____SuperProtoOf____Class16=____Class16===null?null:____Class16.prototype;CandlestickSeries.prototype=Object.create(____SuperProtoOf____Class16);CandlestickSeries.prototype.constructor=CandlestickSeries;CandlestickSeries.__superConstructor__=____Class16;
-		function CandlestickSeries(props) {
-			____Class16.call(this,props);
-			this.getWicks = this.getWicks.bind(this);
-			this.getCandles = this.getCandles.bind(this);
-		}
-		Object.defineProperty(CandlestickSeries.prototype,"getWicks",{writable:true,configurable:true,value:function() {
-			var wicks = this.context.plotData
-					.filter(function(d)  {return d.close !== undefined;})
-					.map(function(d, idx)  {
-						var ohlc = this.context.isCompareSeries ? this.context.yAccessor(d.compare) : this.context.yAccessor(d);
-	
-						var x1 = Math.round(this.context.xScale(this.context.xAccessor(d))),
-							y1 = this.context.yScale(ohlc.high),
-							x2 = x1,
-							y2 = this.context.yScale(ohlc.low),
-							className = (ohlc.open >= ohlc.close) ? 'up' : 'down';
-						var path = 'M' + x1 + ' ' + y1 + 'L' + x2 + ' ' + y2;
-						//return <path key={idx} d={path} className={className} />
-						/* */
-						return React.createElement("line", {key: idx, 
-										className: className, 
-										x1: x1, 
-										y1: y1, 
-										x2: x2, 
-										y2: y2})
-					}.bind(this), this);
-			return wicks;
-		}});
-		Object.defineProperty(CandlestickSeries.prototype,"getCandles",{writable:true,configurable:true,value:function() {
-			var width = this.context.xScale(this.context.xAccessor(this.context.plotData[this.context.plotData.length - 1]))
-				- this.context.xScale(this.context.xAccessor(this.context.plotData[0]));
-			var cw = (width / (this.context.plotData.length)) * 0.5;
-			var candleWidth = Math.floor(cw) % 2 === 0 ? Math.floor(cw) : Math.round(cw); // 
-			var candles = this.context.plotData
-					.filter(function(d)  {return d.close !== undefined;})
-					.map(function(d, idx)  {
-						var ohlc = this.context.isCompareSeries ? this.context.yAccessor(d.compare) : this.context.yAccessor(d);
-						var x = Math.round(this.context.xScale(this.context.xAccessor(d)))
-								- (candleWidth === 1 ? 0 : 0.5 * candleWidth),
-							y = this.context.yScale(Math.max(ohlc.open, ohlc.close)),
-							height = Math.abs(this.context.yScale(ohlc.open) - this.context.yScale(ohlc.close)),
-							className = (ohlc.open <= ohlc.close) ? 'up' : 'down';
-						if (ohlc.open === ohlc.close) {
-							return React.createElement("line", {key: idx, x1: x, y1: y, x2: x + candleWidth, y2: y})
-						}
-						if (candleWidth <= 1) {
-							return React.createElement("line", {className: className, key: idx, x1: x, y1: y, x2: x, y2: y + height})
-						}
-						return React.createElement("rect", {key: idx, className: className, 
-									x: x, 
-									y: y, 
-									width: candleWidth, 
-									height: height})
-					}.bind(this));
-			return candles;
-		}});
-		Object.defineProperty(CandlestickSeries.prototype,"render",{writable:true,configurable:true,value:function() {
-			return (
-				React.createElement("g", null, 
-					React.createElement("g", {className: "wick", key: "wicks"}, 
-						this.getWicks()
-					), 
-					React.createElement("g", {className: "candle", key: "candles"}, 
-						this.getCandles()
-					)
-				)
-			);
-		}});
-	;
-	
-	CandlestickSeries.contextTypes = {
-		xScale: React.PropTypes.func.isRequired,
-		yScale: React.PropTypes.func.isRequired,
-		xAccessor: React.PropTypes.func.isRequired,
-		yAccessor: React.PropTypes.func.isRequired,
-		plotData: React.PropTypes.array.isRequired,
-		isCompareSeries: React.PropTypes.bool.isRequired,
-	}
-	
-	CandlestickSeries.defaultProps = { namespace: "ReStock.CandlestickSeries" };
-	
-	CandlestickSeries.yAccessor = function(d)  {return {open: d.open, high: d.high, low: d.low, close: d.close};};
-	
-	module.exports = CandlestickSeries;
-
-
-/***/ },
-/* 88 */
+/* 89 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(2);
-	var CrossHair = __webpack_require__(89)
-	var VerticalMousePointer = __webpack_require__(90)
-	var Utils = __webpack_require__(101)
-	var ChartDataUtil = __webpack_require__(102);
-	var PureComponent = __webpack_require__(100);
+	var CrossHair = __webpack_require__(90)
+	var VerticalMousePointer = __webpack_require__(91)
+	var Utils = __webpack_require__(103)
+	var ChartDataUtil = __webpack_require__(101);
+	var PureComponent = __webpack_require__(106);
 	
 	for(var PureComponent____Key in PureComponent){if(PureComponent.hasOwnProperty(PureComponent____Key)){MouseCoordinates[PureComponent____Key]=PureComponent[PureComponent____Key];}}var ____SuperProtoOfPureComponent=PureComponent===null?null:PureComponent.prototype;MouseCoordinates.prototype=Object.create(____SuperProtoOfPureComponent);MouseCoordinates.prototype.constructor=MouseCoordinates;MouseCoordinates.__superConstructor__=PureComponent;
 		function MouseCoordinates(props, context) {
 			PureComponent.call(this,props, context);
 			this.getPointer = this.getPointer.bind(this);
 		}
-		Object.defineProperty(MouseCoordinates.prototype,"getPointer",{writable:true,configurable:true,value:function(context) {
-			var chartData = ChartDataUtil.getChartDataForChart(this.props, this.context);
-			var yDisplayFormat = chartData.config.compareSeries.length > 0 ? function(d)  {return (Math.round(d * 10000) / 100).toFixed(2) + '%';} : this.props.yDisplayFormat;
+		Object.defineProperty(MouseCoordinates.prototype,"getPointer",{writable:true,configurable:true,value:function() {
+			var $__0=    this.context,currentCharts=$__0.currentCharts,chartData=$__0.chartData,currentItems=$__0.currentItems;
 	
-			var item = ChartDataUtil.getCurrentItemForChart(this.props, this.context);
+			var edges = chartData
+				.filter(function(eachChartData)  {return currentCharts.indexOf(eachChartData.id) > -1;})
+				.map(function(each)  {
+					var yDisplayFormat = each.config.compareSeries.length > 0
+						? function(d)  {return (Math.round(d * 10000) / 100).toFixed(2) + '%';}
+						: each.config.mouseCoordinates.format;
+					var mouseY = this.context.mouseXY[1] - each.config.origin[1];
+					var yValue = each.plot.scales.yScale.invert(mouseY);
+					return {
+						id: each.id,
+						at: each.config.mouseCoordinates.at,
+						yValue: yValue,
+						yDisplayFormat: yDisplayFormat
+					};
+				}.bind(this))
+				.filter(function(each)  {return each.at !== undefined;})
+				.filter(function(each)  {return each.yDisplayFormat !== undefined;})
+				.map(function(each)  {
+					each.yDisplayValue = each.yDisplayFormat(each.yValue);
+					return each;
+				})
 	
-			var xValue = chartData.config.accessors.xAccessor(item);
+			// console.log(edges);
+			var singleChartData = chartData.filter(function(eachChartData)  {return eachChartData.id === this.context.mainChart;}.bind(this))[0];
 	
-			var xDisplayValue = context.dataTransformOptions === undefined
+			// var yDisplayFormat = singleChartData.config.compareSeries.length > 0 ? (d) => (Math.round(d * 10000) / 100).toFixed(2) + '%' : this.props.yDisplayFormat;
+	
+			var item = currentItems.filter(function(eachItem)  {return eachItem.id === this.context.mainChart;}.bind(this))[0];// ChartDataUtil.getCurrentItemForChart(this.props, this.context);
+			if (item === undefined) return null;
+			item = item.data;
+			// console.log(singleChartData, item);
+			var xValue = singleChartData.config.accessors.xAccessor(item);
+	
+			var xDisplayValue = this.context.dataTransformOptions === undefined
 				? xValue
-				: context.dataTransformOptions.dateAccessor(item);
+				: this.context.dataTransformOptions.dateAccessor(item);
 	
-			var yValue = chartData.plot.scales.yScale.invert(context.mouseXY[1]);
+			// var yValue = singleChartData.plot.scales.yScale.invert(this.context.mouseXY[1]);
 	
-			if (xValue === undefined || yValue === undefined) return null;
-			var x = this.props.snapX ? Math.round(chartData.plot.scales.xScale(xValue)) : context.mouseXY[0];
-			var y = context.mouseXY[1];
+			if (xValue === undefined) return null;
+			var x = this.props.snapX ? Math.round(singleChartData.plot.scales.xScale(xValue)) : this.context.mouseXY[0];
+			var y = this.context.mouseXY[1];
 			switch (this.props.type) {
 				case 'crosshair':
-					return React.createElement(CrossHair, {height: context.height, width: context.width, mouseXY: [x, y], 
-						xDisplayValue: this.props.xDisplayFormat(xDisplayValue), yDisplayValue: yDisplayFormat(yValue)})
+					return React.createElement(CrossHair, {height: this.context.height, width: this.context.width, mouseXY: [x, y], 
+						xDisplayValue: this.props.xDisplayFormat(xDisplayValue), edges: edges})
 				case 'vertical':
 					return React.createElement(VerticalMousePointer, null)
 			}
 		}});
 		Object.defineProperty(MouseCoordinates.prototype,"render",{writable:true,configurable:true,value:function() {
-			var pointer = this.getPointer(this.context)
+			var pointer = this.getPointer()
 	
 			return (
 				React.createElement("g", {className: this.context.show ? 'show' : 'hide'}, 
@@ -4505,18 +4620,18 @@ return webpackJsonpReStock([1,2],[
 	MouseCoordinates.contextTypes = {
 		width: React.PropTypes.number.isRequired,
 		height: React.PropTypes.number.isRequired,
+		mainChart: React.PropTypes.number.isRequired,
 		show: React.PropTypes.bool,
 		mouseXY: React.PropTypes.array,
 		dataTransformOptions: React.PropTypes.object,
 		chartData: React.PropTypes.array.isRequired,
 		currentItems: React.PropTypes.array.isRequired,
+		currentCharts: React.PropTypes.array.isRequired,
 	}
 	MouseCoordinates.propTypes = {
-		forChart: React.PropTypes.number.isRequired, 
 		xDisplayFormat: React.PropTypes.func.isRequired,
 		yDisplayFormat: React.PropTypes.func.isRequired,
 		type: React.PropTypes.oneOf(['crosshair', 'vertical']).isRequired
-	
 	}
 	
 	MouseCoordinates.defaultProps = { 
@@ -4531,34 +4646,53 @@ return webpackJsonpReStock([1,2],[
 	module.exports = MouseCoordinates;
 
 /***/ },
-/* 89 */
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(2);
-	var EdgeCoordinate = __webpack_require__(105)
-	var Utils = __webpack_require__(101)
+	var EdgeCoordinate = __webpack_require__(107)
+	var Utils = __webpack_require__(103)
 	
-	var ____Class17=React.Component;for(var ____Class17____Key in ____Class17){if(____Class17.hasOwnProperty(____Class17____Key)){CrossHair[____Class17____Key]=____Class17[____Class17____Key];}}var ____SuperProtoOf____Class17=____Class17===null?null:____Class17.prototype;CrossHair.prototype=Object.create(____SuperProtoOf____Class17);CrossHair.prototype.constructor=CrossHair;CrossHair.__superConstructor__=____Class17;
+	var ____Class19=React.Component;for(var ____Class19____Key in ____Class19){if(____Class19.hasOwnProperty(____Class19____Key)){CrossHair[____Class19____Key]=____Class19[____Class19____Key];}}var ____SuperProtoOf____Class19=____Class19===null?null:____Class19.prototype;CrossHair.prototype=Object.create(____SuperProtoOf____Class19);CrossHair.prototype.constructor=CrossHair;CrossHair.__superConstructor__=____Class19;
 		function CrossHair(props) {
-			____Class17.call(this,props);
+			____Class19.call(this,props);
 		}
 		Object.defineProperty(CrossHair.prototype,"shouldComponentUpdate",{writable:true,configurable:true,value:function(nextProps, nextState, nextContext) {
 			return nextProps.mouseXY !== this.props.mouseXY
 		}});
 		Object.defineProperty(CrossHair.prototype,"render",{writable:true,configurable:true,value:function() {
+			var x1 = 0, x2 = this.props.width;
+			var edges = this.props.edges.map(function(edge, idx)  {
+				if (edge.at === 'left') {
+					x1 = -this.props.yAxisPad;
+				}
+				if (edge.at === 'right') {
+					x2 = this.props.width + this.props.yAxisPad;
+				}
+				return React.createElement(EdgeCoordinate, {
+					key: idx, 
+					type: "horizontal", 
+					className: "horizontal", 
+					show: true, 
+					x1: 0, y1: this.props.mouseXY[1], 
+					x2: 0, y2: this.props.mouseXY[1], 
+					coordinate: edge.yDisplayValue, 
+					edgeAt: edge.at === 'left' ? x1 : x2, 
+					orient: edge.at, 
+					hideLine: true}
+					);
+			}.bind(this))
+			var line = null;
+			if (this.props.edges.length > 0) {
+				line = React.createElement("line", {className: "cross-hair", 
+						x1: x1, y1: this.props.mouseXY[1], 
+						x2: x2, y2: this.props.mouseXY[1]})
+			}
 			return (
 				React.createElement("g", {className: 'crosshair '}, 
-					React.createElement(EdgeCoordinate, {
-						type: "horizontal", 
-						className: "horizontal", 
-						show: true, 
-						x1: 0, y1: this.props.mouseXY[1], 
-						x2: this.props.width + this.props.yAxisPad, y2: this.props.mouseXY[1], 
-						coordinate: this.props.yDisplayValue, 
-						edgeAt: this.props.width + this.props.yAxisPad, 
-						orient: "right"}
-						), 
+					line, 
+					edges, 
 					React.createElement(EdgeCoordinate, {
 						type: "vertical", 
 						className: "horizontal", 
@@ -4580,7 +4714,7 @@ return webpackJsonpReStock([1,2],[
 		width: React.PropTypes.number.isRequired,
 		mouseXY: React.PropTypes.array.isRequired,
 		xDisplayValue: React.PropTypes.string.isRequired,
-		yDisplayValue: React.PropTypes.string.isRequired
+		edges: React.PropTypes.array.isRequired
 	};
 	CrossHair.defaultProps = {
 		namespace: "ReStock.CrossHair",
@@ -4591,16 +4725,16 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 90 */
+/* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(2);
-	var EdgeCoordinate = __webpack_require__(105)
-	var Utils = __webpack_require__(101)
+	var EdgeCoordinate = __webpack_require__(107)
+	var Utils = __webpack_require__(103)
 	
 	
-	var ____Class18=React.Component;for(var ____Class18____Key in ____Class18){if(____Class18.hasOwnProperty(____Class18____Key)){VerticalMousePointer[____Class18____Key]=____Class18[____Class18____Key];}}var ____SuperProtoOf____Class18=____Class18===null?null:____Class18.prototype;VerticalMousePointer.prototype=Object.create(____SuperProtoOf____Class18);VerticalMousePointer.prototype.constructor=VerticalMousePointer;VerticalMousePointer.__superConstructor__=____Class18;function VerticalMousePointer(){if(____Class18!==null){____Class18.apply(this,arguments);}}
+	var ____Class1a=React.Component;for(var ____Class1a____Key in ____Class1a){if(____Class1a.hasOwnProperty(____Class1a____Key)){VerticalMousePointer[____Class1a____Key]=____Class1a[____Class1a____Key];}}var ____SuperProtoOf____Class1a=____Class1a===null?null:____Class1a.prototype;VerticalMousePointer.prototype=Object.create(____SuperProtoOf____Class1a);VerticalMousePointer.prototype.constructor=VerticalMousePointer;VerticalMousePointer.__superConstructor__=____Class1a;function VerticalMousePointer(){if(____Class1a!==null){____Class1a.apply(this,arguments);}}
 		Object.defineProperty(VerticalMousePointer.prototype,"shouldComponentUpdate",{writable:true,configurable:true,value:function(nextProps, nextState, nextContext) {
 			return nextProps.mouseXY !== this.props.mouseXY
 		}});
@@ -4637,16 +4771,16 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 91 */
+/* 92 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(2),
-		Utils = __webpack_require__(101);
+		Utils = __webpack_require__(103);
 	
-	var ____Class1a=React.Component;for(var ____Class1a____Key in ____Class1a){if(____Class1a.hasOwnProperty(____Class1a____Key)){CurrentCoordinate[____Class1a____Key]=____Class1a[____Class1a____Key];}}var ____SuperProtoOf____Class1a=____Class1a===null?null:____Class1a.prototype;CurrentCoordinate.prototype=Object.create(____SuperProtoOf____Class1a);CurrentCoordinate.prototype.constructor=CurrentCoordinate;CurrentCoordinate.__superConstructor__=____Class1a;
+	var ____Class1b=React.Component;for(var ____Class1b____Key in ____Class1b){if(____Class1b.hasOwnProperty(____Class1b____Key)){CurrentCoordinate[____Class1b____Key]=____Class1b[____Class1b____Key];}}var ____SuperProtoOf____Class1b=____Class1b===null?null:____Class1b.prototype;CurrentCoordinate.prototype=Object.create(____SuperProtoOf____Class1b);CurrentCoordinate.prototype.constructor=CurrentCoordinate;CurrentCoordinate.__superConstructor__=____Class1b;
 		function CurrentCoordinate(props) {
-			____Class1a.call(this,props);
+			____Class1b.call(this,props);
 		}
 		Object.defineProperty(CurrentCoordinate.prototype,"render",{writable:true,configurable:true,value:function() {
 			var chartData = this.context.chartData.filter(function(each)  {return each.id === this.props.forChart;}.bind(this))[0];
@@ -4714,13 +4848,13 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 92 */
+/* 93 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(2);
-	var Utils = __webpack_require__(101);
-	var PureComponent = __webpack_require__(100);
+	var Utils = __webpack_require__(103);
+	var PureComponent = __webpack_require__(106);
 	
 	for(var PureComponent____Key in PureComponent){if(PureComponent.hasOwnProperty(PureComponent____Key)){TooltipContainer[PureComponent____Key]=PureComponent[PureComponent____Key];}}var ____SuperProtoOfPureComponent=PureComponent===null?null:PureComponent.prototype;TooltipContainer.prototype=Object.create(____SuperProtoOfPureComponent);TooltipContainer.prototype.constructor=TooltipContainer;TooltipContainer.__superConstructor__=PureComponent;function TooltipContainer(){if(PureComponent!==null){PureComponent.apply(this,arguments);}}
 		Object.defineProperty(TooltipContainer.prototype,"render",{writable:true,configurable:true,value:function() {
@@ -4751,20 +4885,20 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 93 */
+/* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(2);
-	var Utils = __webpack_require__(101)
-	var ChartDataUtil = __webpack_require__(102);
+	var Utils = __webpack_require__(103)
+	var ChartDataUtil = __webpack_require__(101);
 	
 	var billion = 1 * 1000 * 1000 * 1000;
 	var million = 1 * 1000 * 1000;
 	var thousand = 1 * 1000;
 	
-	var ____Class1f=React.Component;for(var ____Class1f____Key in ____Class1f){if(____Class1f.hasOwnProperty(____Class1f____Key)){OHLCTooltip[____Class1f____Key]=____Class1f[____Class1f____Key];}}var ____SuperProtoOf____Class1f=____Class1f===null?null:____Class1f.prototype;OHLCTooltip.prototype=Object.create(____SuperProtoOf____Class1f);OHLCTooltip.prototype.constructor=OHLCTooltip;OHLCTooltip.__superConstructor__=____Class1f;function OHLCTooltip(){if(____Class1f!==null){____Class1f.apply(this,arguments);}}
+	var ____Class1c=React.Component;for(var ____Class1c____Key in ____Class1c){if(____Class1c.hasOwnProperty(____Class1c____Key)){OHLCTooltip[____Class1c____Key]=____Class1c[____Class1c____Key];}}var ____SuperProtoOf____Class1c=____Class1c===null?null:____Class1c.prototype;OHLCTooltip.prototype=Object.create(____SuperProtoOf____Class1c);OHLCTooltip.prototype.constructor=OHLCTooltip;OHLCTooltip.__superConstructor__=____Class1c;function OHLCTooltip(){if(____Class1c!==null){____Class1c.apply(this,arguments);}}
 		Object.defineProperty(OHLCTooltip.prototype,"render",{writable:true,configurable:true,value:function() {
 			var displayDate, fromDate, toDate, open, high, low, close, volume;
 	
@@ -4825,99 +4959,14 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 94 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(2);
-	var Utils = __webpack_require__(101)
-	var ChartDataUtil = __webpack_require__(102);
-	
-	var ____Class1b=React.Component;for(var ____Class1b____Key in ____Class1b){if(____Class1b.hasOwnProperty(____Class1b____Key)){SingleMAToolTip[____Class1b____Key]=____Class1b[____Class1b____Key];}}var ____SuperProtoOf____Class1b=____Class1b===null?null:____Class1b.prototype;SingleMAToolTip.prototype=Object.create(____SuperProtoOf____Class1b);SingleMAToolTip.prototype.constructor=SingleMAToolTip;SingleMAToolTip.__superConstructor__=____Class1b;function SingleMAToolTip(){if(____Class1b!==null){____Class1b.apply(this,arguments);}}
-		Object.defineProperty(SingleMAToolTip.prototype,"handleClick",{writable:true,configurable:true,value:function(overlay) {
-			if (this.props.onClick) {
-				this.props.onClick(overlay);
-			}
-		}});
-		Object.defineProperty(SingleMAToolTip.prototype,"render",{writable:true,configurable:true,value:function() {
-			var translate = "translate(" + this.props.origin[0] + ", " + this.props.origin[1] + ")";
-			return (
-				React.createElement("g", {transform: translate}, 
-					React.createElement("line", {x1: 0, y1: 2, x2: 0, y2: 28, stroke: this.props.color}), 
-					React.createElement("text", {x: 5, y: 11, className: "legend"}, 
-						React.createElement("tspan", {className: "tooltip-label"}, this.props.displayName), 
-						React.createElement("tspan", {x: "5", dy: "15"}, this.props.value)
-					), 
-					React.createElement("rect", {x: 0, y: 0, width: 55, height: 30, onClick: this.handleClick.bind(this, this.props.overlay)})
-				)
-			);
-		}});
-	;
-	
-	SingleMAToolTip.propTypes = {
-		origin: React.PropTypes.array.isRequired,
-		color: React.PropTypes.string.isRequired,
-		displayName: React.PropTypes.string.isRequired,
-		value: React.PropTypes.string.isRequired,
-		onClick: React.PropTypes.func
-	};
-	
-	var ____Class1c=React.Component;for(var ____Class1c____Key in ____Class1c){if(____Class1c.hasOwnProperty(____Class1c____Key)){MovingAverageTooltip[____Class1c____Key]=____Class1c[____Class1c____Key];}}var ____SuperProtoOf____Class1c=____Class1c===null?null:____Class1c.prototype;MovingAverageTooltip.prototype=Object.create(____SuperProtoOf____Class1c);MovingAverageTooltip.prototype.constructor=MovingAverageTooltip;MovingAverageTooltip.__superConstructor__=____Class1c;function MovingAverageTooltip(){if(____Class1c!==null){____Class1c.apply(this,arguments);}}
-		Object.defineProperty(MovingAverageTooltip.prototype,"render",{writable:true,configurable:true,value:function() {
-			var chartData = ChartDataUtil.getChartDataForChart(this.props, this.context);
-			var item = ChartDataUtil.getCurrentItemForChart(this.props, this.context);
-	
-			return (
-				React.createElement("g", {transform: "translate(" + this.props.origin[0] + ", " + this.props.origin[1] + ")", className: "ma-container"}, 
-					chartData.config.overlays.map(function(eachOverlay, idx)  {
-						var yValue = eachOverlay.yAccessor(item);
-						// console.log(yValue);
-						var yDisplayValue = yValue ? this.props.displayFormat(yValue) : "n/a";
-						return React.createElement(SingleMAToolTip, {
-							key: idx, 
-							origin: [this.props.width * idx, 0], 
-							color: eachOverlay.stroke, 
-							displayName: eachOverlay.tooltipLabel, 
-							value: yDisplayValue, 
-							overlay: eachOverlay, 
-							onClick: this.props.onClick})
-					}.bind(this))
-				)
-			);
-		}});
-	;
-	
-	MovingAverageTooltip.contextTypes = {
-		chartData: React.PropTypes.array.isRequired,
-		currentItems: React.PropTypes.array.isRequired,
-	};
-	MovingAverageTooltip.propTypes = {
-		forChart: React.PropTypes.number.isRequired,
-		displayFormat: React.PropTypes.func.isRequired,
-		origin: React.PropTypes.array.isRequired,
-		onClick: React.PropTypes.func
-	};
-	MovingAverageTooltip.defaultProps = { 
-		namespace: "ReStock.MovingAverageTooltip",
-		displayFormat: Utils.displayNumberFormat,
-		origin: [0, 10],
-		width: 65
-	};
-	
-	
-	module.exports = MovingAverageTooltip;
-
-
-/***/ },
 /* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var React = __webpack_require__(2);
-	var Utils = __webpack_require__(101)
-	var ChartDataUtil = __webpack_require__(102);
+	var Utils = __webpack_require__(103)
+	var ChartDataUtil = __webpack_require__(101);
 	
 	var ____Class1d=React.Component;for(var ____Class1d____Key in ____Class1d){if(____Class1d.hasOwnProperty(____Class1d____Key)){CompareTooltip[____Class1d____Key]=____Class1d[____Class1d____Key];}}var ____SuperProtoOf____Class1d=____Class1d===null?null:____Class1d.prototype;CompareTooltip.prototype=Object.create(____SuperProtoOf____Class1d);CompareTooltip.prototype.constructor=CompareTooltip;CompareTooltip.__superConstructor__=____Class1d;function CompareTooltip(){if(____Class1d!==null){____Class1d.apply(this,arguments);}}
 		Object.defineProperty(CompareTooltip.prototype,"render",{writable:true,configurable:true,value:function() {
@@ -4967,9 +5016,94 @@ return webpackJsonpReStock([1,2],[
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	
 	var React = __webpack_require__(2);
-	var Utils = __webpack_require__(101);
-	var PureComponent = __webpack_require__(100);
+	var Utils = __webpack_require__(103)
+	var ChartDataUtil = __webpack_require__(101);
+	
+	var ____Class1e=React.Component;for(var ____Class1e____Key in ____Class1e){if(____Class1e.hasOwnProperty(____Class1e____Key)){SingleMAToolTip[____Class1e____Key]=____Class1e[____Class1e____Key];}}var ____SuperProtoOf____Class1e=____Class1e===null?null:____Class1e.prototype;SingleMAToolTip.prototype=Object.create(____SuperProtoOf____Class1e);SingleMAToolTip.prototype.constructor=SingleMAToolTip;SingleMAToolTip.__superConstructor__=____Class1e;function SingleMAToolTip(){if(____Class1e!==null){____Class1e.apply(this,arguments);}}
+		Object.defineProperty(SingleMAToolTip.prototype,"handleClick",{writable:true,configurable:true,value:function(overlay) {
+			if (this.props.onClick) {
+				this.props.onClick(overlay);
+			}
+		}});
+		Object.defineProperty(SingleMAToolTip.prototype,"render",{writable:true,configurable:true,value:function() {
+			var translate = "translate(" + this.props.origin[0] + ", " + this.props.origin[1] + ")";
+			return (
+				React.createElement("g", {transform: translate}, 
+					React.createElement("line", {x1: 0, y1: 2, x2: 0, y2: 28, stroke: this.props.color}), 
+					React.createElement("text", {x: 5, y: 11, className: "legend"}, 
+						React.createElement("tspan", {className: "tooltip-label"}, this.props.displayName), 
+						React.createElement("tspan", {x: "5", dy: "15"}, this.props.value)
+					), 
+					React.createElement("rect", {x: 0, y: 0, width: 55, height: 30, onClick: this.handleClick.bind(this, this.props.overlay)})
+				)
+			);
+		}});
+	;
+	
+	SingleMAToolTip.propTypes = {
+		origin: React.PropTypes.array.isRequired,
+		color: React.PropTypes.string.isRequired,
+		displayName: React.PropTypes.string.isRequired,
+		value: React.PropTypes.string.isRequired,
+		onClick: React.PropTypes.func
+	};
+	
+	var ____Class1f=React.Component;for(var ____Class1f____Key in ____Class1f){if(____Class1f.hasOwnProperty(____Class1f____Key)){MovingAverageTooltip[____Class1f____Key]=____Class1f[____Class1f____Key];}}var ____SuperProtoOf____Class1f=____Class1f===null?null:____Class1f.prototype;MovingAverageTooltip.prototype=Object.create(____SuperProtoOf____Class1f);MovingAverageTooltip.prototype.constructor=MovingAverageTooltip;MovingAverageTooltip.__superConstructor__=____Class1f;function MovingAverageTooltip(){if(____Class1f!==null){____Class1f.apply(this,arguments);}}
+		Object.defineProperty(MovingAverageTooltip.prototype,"render",{writable:true,configurable:true,value:function() {
+			var chartData = ChartDataUtil.getChartDataForChart(this.props, this.context);
+			var item = ChartDataUtil.getCurrentItemForChart(this.props, this.context);
+	
+			return (
+				React.createElement("g", {transform: "translate(" + this.props.origin[0] + ", " + this.props.origin[1] + ")", className: "ma-container"}, 
+					chartData.config.overlays.map(function(eachOverlay, idx)  {
+						var yValue = eachOverlay.yAccessor(item);
+						// console.log(yValue);
+						var yDisplayValue = yValue ? this.props.displayFormat(yValue) : "n/a";
+						return React.createElement(SingleMAToolTip, {
+							key: idx, 
+							origin: [this.props.width * idx, 0], 
+							color: eachOverlay.stroke, 
+							displayName: eachOverlay.tooltipLabel, 
+							value: yDisplayValue, 
+							overlay: eachOverlay, 
+							onClick: this.props.onClick})
+					}.bind(this))
+				)
+			);
+		}});
+	;
+	
+	MovingAverageTooltip.contextTypes = {
+		chartData: React.PropTypes.array.isRequired,
+		currentItems: React.PropTypes.array.isRequired,
+	};
+	MovingAverageTooltip.propTypes = {
+		forChart: React.PropTypes.number.isRequired,
+		displayFormat: React.PropTypes.func.isRequired,
+		origin: React.PropTypes.array.isRequired,
+		onClick: React.PropTypes.func
+	};
+	MovingAverageTooltip.defaultProps = { 
+		namespace: "ReStock.MovingAverageTooltip",
+		displayFormat: Utils.displayNumberFormat,
+		origin: [0, 10],
+		width: 65
+	};
+	
+	
+	module.exports = MovingAverageTooltip;
+
+
+/***/ },
+/* 97 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(2);
+	var Utils = __webpack_require__(103);
+	var PureComponent = __webpack_require__(106);
 	
 	for(var PureComponent____Key in PureComponent){if(PureComponent.hasOwnProperty(PureComponent____Key)){EdgeContainer[PureComponent____Key]=PureComponent[PureComponent____Key];}}var ____SuperProtoOfPureComponent=PureComponent===null?null:PureComponent.prototype;EdgeContainer.prototype=Object.create(____SuperProtoOfPureComponent);EdgeContainer.prototype.constructor=EdgeContainer;EdgeContainer.__superConstructor__=PureComponent;function EdgeContainer(){if(PureComponent!==null){PureComponent.apply(this,arguments);}}
 		Object.defineProperty(EdgeContainer.prototype,"render",{writable:true,configurable:true,value:function() {
@@ -4995,21 +5129,21 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 97 */
+/* 98 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(2);
-	var Utils = __webpack_require__(101)
-	var EdgeCoordinate = __webpack_require__(105)
-	var ChartDataUtil = __webpack_require__(102);
+	var Utils = __webpack_require__(103)
+	var EdgeCoordinate = __webpack_require__(107)
+	var ChartDataUtil = __webpack_require__(101);
 	
-	var ____Class1e=React.Component;for(var ____Class1e____Key in ____Class1e){if(____Class1e.hasOwnProperty(____Class1e____Key)){EdgeIndicator[____Class1e____Key]=____Class1e[____Class1e____Key];}}var ____SuperProtoOf____Class1e=____Class1e===null?null:____Class1e.prototype;EdgeIndicator.prototype=Object.create(____SuperProtoOf____Class1e);EdgeIndicator.prototype.constructor=EdgeIndicator;EdgeIndicator.__superConstructor__=____Class1e;function EdgeIndicator(){if(____Class1e!==null){____Class1e.apply(this,arguments);}}
+	var ____Class1g=React.Component;for(var ____Class1g____Key in ____Class1g){if(____Class1g.hasOwnProperty(____Class1g____Key)){EdgeIndicator[____Class1g____Key]=____Class1g[____Class1g____Key];}}var ____SuperProtoOf____Class1g=____Class1g===null?null:____Class1g.prototype;EdgeIndicator.prototype=Object.create(____SuperProtoOf____Class1g);EdgeIndicator.prototype.constructor=EdgeIndicator;EdgeIndicator.__superConstructor__=____Class1g;function EdgeIndicator(){if(____Class1g!==null){____Class1g.apply(this,arguments);}}
 		Object.defineProperty(EdgeIndicator.prototype,"render",{writable:true,configurable:true,value:function() {
 			var chartData = ChartDataUtil.getChartDataForChart(this.props, this.context);
 			var currentItem = ChartDataUtil.getCurrentItemForChart(this.props, this.context);
 			var edge = null, item, yAccessor;
-			console.log(chartData.config.compareSeries.length);
+			// console.log(chartData.config.compareSeries.length);
 			var displayFormat = chartData.config.compareSeries.length > 0 ? d3.format(".0%") : this.props.displayFormat;
 	
 			if (this.props.forOverlay !== undefined
@@ -5120,7 +5254,7 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 98 */
+/* 99 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5154,178 +5288,21 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 99 */
+/* 100 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMoAAABQCAQAAADykSIGAAAF1UlEQVR4Ae3df4zXdR3A8cfnvnccd7i7gwMiCCE6BzlwImVFpqgnykANZ66RawHTQJrnVizJymwENKUcJSBjsEqyJrIEQiHQSoutWBA4BYwLGCi/Tu7O7pDv/fj0R2vfHdx9J3ef7925vR9/v/577j6/vrfXO9IjgrhYkb4K0OR9jc4BEMUATHe7z/mEAkF3anLI3/3e85rbRvm4VSr1pOAV9zmUiXK17cq96+de8IbzChQrkdLihLQgSfmGSmlwRiug0Bh3qjJAjZvsJYoZ5W/KbfZVZ2XkGaifFm9rFiTnI4o1OOVCJdaZ5owJjkYx291sszvELjRYP41OCpJSZIgWx7S6WMomU2x1WxTfbqMaFWpdLM/HpJzUKEhGuRJn1WrfcLuVmxrFq822yCPaV6a/ejWCZAzTx3Fp7etjoflWRPEbPunTdnU4NkzacUEyRoocFmtf5FYv2hfFaQWKvN/h2Eixw4LuiJKnwgFNURwjL8vYCK2OCLrn8jVMNf+LUijdCy5f4UZfpn8mSn+14Ubfk4/EmWfdTJQRmbHwSNwjL4+Zt8IT/48yKuvYSUEuP7O0/X7SlPlLyTbWLElBH0OktKjXqIkLvjTGmRt9trGkBfkGKtLWOWc0k4kSZR0LcqFYscJ2fuTKRMk6FnSnTBQfWiHKEP9W7y+e95y0D6LUvab5jGbDnZcDIcr9nga8bYkVmmVzmW97UAngVtvkQIiy2mwZ/1Sl3kRjXWGoQVJa1Kl1yn67xX5sqIzvWSgHQpQtpuisp82RAyHKq67TWevcKwdClM2m6qxlquRAiLLIAp31davkQIgy0xqd9QdTNUlYiDLCHmU67wnzBQlHedFtuqLFp+wRJBjls3bqqvW+JEgwymqzdVXaEGcFiUU5ariuu9NGQUJRStVKwncsFiQUpcJbkrDUtwQJRRltvyQsN0+QUJThjkrCEgsECUXp65wkPOqHgoSi8I4huu4BKwSJRdlqsq4Lvz8mGuVhi3XdYKcFlxylwGilWuRpViCtSKMydQbbKE/XHDRDpEytYucUapKvRUqdg9KCDqOMV60OQLFhykGeRW7QNcs9q1mk1buOawRQapTdgg6jEBmjVEqMBu84BRjpdf103ikV3gMMMlQpYk1qHRDLKvylcFCD9txlvUjnxKZ7QXv6GS22W9DJ/5D8srX6unSt5lkpyEkUxllpoktz2GwvCxKNUmCsY04DmOwbJiv0Qeyy0q+kBQlHqfQSfukh9QBK3WCiq1UYKaWtFsdUe9NOrzksyEkUbvQbg+11vTptPWSpPG21+qYnBTmOwpV2Krno/xwne0nkYrEptgpyHIW5lqPKMhk73KR9fzJJkPMo+Q65HL/wU3vFRrvHo1IAjuJyAK1KNAhyHIUqTwLS6ANIe8YsrJYyE8+6RwpjHBDkPEqBLSpd6BXbLMYKzMUCU12Hq+wT5DwKhR43RwEyfm3fBVHGmdF9UUIU+KhbXKHASc2W9Y4oIUrGOHtDlA9/lCBECVGe0uLBEKWno3zBn7HO6xZjCR7GAmN9Bdd7VdCx9o8gyETJMpTNGjMxX6nvYoG0pVio1hNYa5b2BfnKFWurUY1mmShZhjpymcfNwT9MskElrhLbhx2m+6NrsNJ8/3Epwsav813Z9zXej5ywzQaft12e5ebhKQ9odYvXzHCjQR6x26UIu/GOJLMZ73cq/MwqMSL3qfKWL+qcsEWyuvftkAz7Vo/0vm2rYTPx2d63lzjs8D7f+zZ4hyMIWgkHEPSuKCXqNETxm8YYb084gKBXXL4m2GV/FK/1NY/5Qa+4fIUb/WO+b00U3+05p1Wo7/EbfXgkLvMv5e6K4iJbTLLB3eIefSQOL4+RjabZoTKKucY25dab5b0ee3kMn1lKPWOaGteqjmLyTfJbA5zxE5sc0BQOIOjWD5L9XOkOcw1Qo9Ieohj6mGCRSYKe9LL7M8fUQr6BprjZtUZJCbrTOdX+apNNkIkiHEDQm/wXb4bZSIeJkMcAAAAASUVORK5CYII="
 
 /***/ },
-/* 100 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(2);
-	var shallowEqual = __webpack_require__(114);
-	
-	var ____Class1h=React.Component;for(var ____Class1h____Key in ____Class1h){if(____Class1h.hasOwnProperty(____Class1h____Key)){PureComponent[____Class1h____Key]=____Class1h[____Class1h____Key];}}var ____SuperProtoOf____Class1h=____Class1h===null?null:____Class1h.prototype;PureComponent.prototype=Object.create(____SuperProtoOf____Class1h);PureComponent.prototype.constructor=PureComponent;PureComponent.__superConstructor__=____Class1h;function PureComponent(){if(____Class1h!==null){____Class1h.apply(this,arguments);}}
-		Object.defineProperty(PureComponent.prototype,"shouldComponentUpdate",{writable:true,configurable:true,value:function(nextProps, nextState, nextContext) {
-			return !shallowEqual(this.props, nextProps)
-				|| !shallowEqual(this.state, nextState)
-				|| !shallowEqual(this.context, nextContext);
-		}});
-	
-	
-	module.exports = PureComponent;
-
-/***/ },
 /* 101 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var d3 = __webpack_require__(3);
-	var React = __webpack_require__(2);
-	
-	var overlayColors = d3.scale.category10();
-	
-	function Utils() {
-	}
-	
-	Utils.overlayColors = overlayColors;
-	
-	Utils.isReactVersion13 = function() {
-		var version = React.version.split('.')[1];
-		return version === '13';
-	}
-	Utils.isReactVersion14 = function() {
-		return React.version.split('.')[1] === '14';
-	}
-	Utils.cloneMe = function(obj) {
-		if(obj == null || typeof(obj) !== 'object')
-			return obj;
-		if (obj instanceof Date) {
-			return new Date(obj.getTime());
-		}
-		var temp = {};//obj.constructor(); // changed
-	
-		for(var key in obj) {
-			if(obj.hasOwnProperty(key)) {
-				temp[key] = Utils.cloneMe(obj[key]);
-			}
-		}
-		return temp;
-	}
-	
-	Utils.displayDateFormat = d3.time.format("%Y-%m-%d");
-	Utils.displayNumberFormat = function(x) {
-		return Utils.numberWithCommas(x.toFixed(2));
-	};
-	Utils.numberWithCommas = function(x) {
-		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-	};
-	Utils.isNumeric = function(n) {
-		return !isNaN(parseFloat(n)) && isFinite(n);
-	};
-	Utils.mergeObject = function(a, b) {
-		var newObject = {};
-		Object.keys(a).forEach(function(key)  {
-			if (a[key] != null)
-				newObject[key] = a[key];
-		});
-		Object.keys(b).forEach(function(key)  {
-			if (b[key] != null)
-				newObject[key] = b[key];
-		});
-		return newObject;
-	}
-	Utils.mousePosition = function(e) {
-		var container = e.currentTarget,
-			rect = container.getBoundingClientRect(),
-			x = e.clientX - rect.left - container.clientLeft,
-			y = e.clientY - rect.top - container.clientTop,
-			xy = [ Math.round(x), Math.round(y) ];
-		return xy;
-	}
-	Utils.getValue = function(d) {
-		if (d instanceof Date) {
-			return d.getTime();
-		}
-		return d;
-	}
-	Utils.getClosestItem = function(array, value, accessor) {
-		var lo = 0, hi = array.length - 1;
-		while (hi - lo > 1) {
-			var mid = Math.round((lo + hi)/2);
-			if (accessor(array[mid]) <= value) {
-				lo = mid;
-			} else {
-				hi = mid;
-			}
-		}
-		if (accessor(array[lo]) === value) hi = lo;
-		var closest = (Math.abs(accessor(array[lo]) - value) < Math.abs(accessor(array[hi]) - value))
-							? array[lo]
-							: array[hi]
-		//console.log(array[lo], array[hi], closest, lo, hi);
-		return Utils.cloneMe(closest);
-	}
-	Utils.getClosestItemIndex = function(array, value, accessor) {
-		var lo = 0, hi = array.length - 1;
-		while (hi - lo > 1) {
-			var mid = Math.round((lo + hi)/2);
-			if (accessor(array[mid]) <= value) {
-				lo = mid;
-			} else {
-				hi = mid;
-			}
-		}
-		if (accessor(array[lo]) === value) hi = lo;
-		var closestIndex = (Math.abs(accessor(array[lo]) - value) < Math.abs(accessor(array[hi]) - value))
-							? lo
-							: hi
-		//console.log(array[lo], array[hi], closestIndex, lo, hi);
-		return closestIndex;
-	}
-	Utils.getClosestItemIndexes = function(array, value, accessor) {
-		var lo = 0, hi = array.length - 1;
-		while (hi - lo > 1) {
-			var mid = Math.round((lo + hi)/2);
-			if (accessor(array[mid]) <= value) {
-				lo = mid;
-			} else {
-				hi = mid;
-			}
-		}
-		if (accessor(array[lo]) === value) hi = lo;
-		//console.log(array[lo], array[hi], closestIndex, lo, hi);
-		return { left: lo, right: hi };
-	}
-	Utils.pluck = function(array, key) {
-		return array.map(function(each)  {return each[key];})
-	}
-	Utils.keysAsArray = function(obj) {
-		return Object.keys(obj)
-			.filter(function(key)  {return obj[key] !== null;})
-			.map(function(key)  {return obj[key];});
-	}
-	Utils.sum = function(array) {
-		return array.reduce(function(d1, d2)  {return d1 + d2;});
-	}
-	
-	module.exports = Utils;
-
-
-/***/ },
-/* 102 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var React = __webpack_require__(2),
 		d3 = __webpack_require__(3),
-		ScaleUtils = __webpack_require__(107),
-		OverlayUtils = __webpack_require__(108),
-		Utils = __webpack_require__(101),
+		ScaleUtils = __webpack_require__(108),
+		OverlayUtils = __webpack_require__(109),
+		Utils = __webpack_require__(103),
 		overlayColors = Utils.overlayColors;
 	var pluck = Utils.pluck;
 	var keysAsArray = Utils.keysAsArray;
@@ -5426,6 +5403,10 @@ return webpackJsonpReStock([1,2],[
 			var config = {
 				width: dimensions.width,
 				height: dimensions.height,
+				mouseCoordinates: {
+					at: chartProps.yMousePointerDisplayLocation,
+					format: chartProps.yMousePointerDisplayFormat
+				},
 				origin: origin,
 				accessors: accessors,
 				overlays: overlaysToAdd,
@@ -5727,16 +5708,191 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
+/* 102 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var React = __webpack_require__(2);
+	
+	var ____Class1h=React.Component;for(var ____Class1h____Key in ____Class1h){if(____Class1h.hasOwnProperty(____Class1h____Key)){Canvas[____Class1h____Key]=____Class1h[____Class1h____Key];}}var ____SuperProtoOf____Class1h=____Class1h===null?null:____Class1h.prototype;Canvas.prototype=Object.create(____SuperProtoOf____Class1h);Canvas.prototype.constructor=Canvas;Canvas.__superConstructor__=____Class1h;
+		function Canvas(props) {
+			____Class1h.call(this,props);
+		}/*,
+		componentDidMount() {
+			console.log(this.getCanvas());
+		},
+		getCanvas() {
+			return React.findDOMNode(this.refs.canvas);
+		},*/
+		Object.defineProperty(Canvas.prototype,"render",{writable:true,configurable:true,value:function() {
+			return (
+				React.createElement("canvas", {ref: "canvas", 
+					width: this.props.width, 
+					height: this.props.height, 
+					style: { position: 'absolute', left: this.props.left, top: this.props.top}})
+			);
+		}});
+	;
+	
+	Canvas.contextTypes = {
+		width: React.PropTypes.number.isRequired,
+		height: React.PropTypes.number.isRequired,
+		left: React.PropTypes.number.isRequired,
+		top: React.PropTypes.number.isRequired
+	}
+	
+	module.exports = Canvas;
+
+
+/***/ },
 /* 103 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var StockScaleTransformer = __webpack_require__(109);
-	var HeikinAshiTransformer = __webpack_require__(110);
-	var KagiTransformer = __webpack_require__(111);
-	var PointAndFigureTransformer = __webpack_require__(112);
-	var RenkoTransformer = __webpack_require__(113);
+	var d3 = __webpack_require__(3);
+	var React = __webpack_require__(2);
+	
+	var overlayColors = d3.scale.category10();
+	
+	function Utils() {
+	}
+	
+	Utils.overlayColors = overlayColors;
+	
+	Utils.isReactVersion13 = function() {
+		var version = React.version.split('.')[1];
+		return version === '13';
+	}
+	Utils.isReactVersion14 = function() {
+		return React.version.split('.')[1] === '14';
+	}
+	Utils.cloneMe = function(obj) {
+		if(obj == null || typeof(obj) !== 'object')
+			return obj;
+		if (obj instanceof Date) {
+			return new Date(obj.getTime());
+		}
+		var temp = {};//obj.constructor(); // changed
+	
+		for(var key in obj) {
+			if(obj.hasOwnProperty(key)) {
+				temp[key] = Utils.cloneMe(obj[key]);
+			}
+		}
+		return temp;
+	}
+	
+	Utils.displayDateFormat = d3.time.format("%Y-%m-%d");
+	Utils.displayNumberFormat = function(x) {
+		return Utils.numberWithCommas(x.toFixed(2));
+	};
+	Utils.numberWithCommas = function(x) {
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	};
+	Utils.isNumeric = function(n) {
+		return !isNaN(parseFloat(n)) && isFinite(n);
+	};
+	Utils.mergeObject = function(a, b) {
+		var newObject = {};
+		Object.keys(a).forEach(function(key)  {
+			if (a[key] != null)
+				newObject[key] = a[key];
+		});
+		Object.keys(b).forEach(function(key)  {
+			if (b[key] != null)
+				newObject[key] = b[key];
+		});
+		return newObject;
+	}
+	Utils.mousePosition = function(e) {
+		var container = e.currentTarget,
+			rect = container.getBoundingClientRect(),
+			x = e.clientX - rect.left - container.clientLeft,
+			y = e.clientY - rect.top - container.clientTop,
+			xy = [ Math.round(x), Math.round(y) ];
+		return xy;
+	}
+	Utils.getValue = function(d) {
+		if (d instanceof Date) {
+			return d.getTime();
+		}
+		return d;
+	}
+	Utils.getClosestItem = function(array, value, accessor) {
+		var lo = 0, hi = array.length - 1;
+		while (hi - lo > 1) {
+			var mid = Math.round((lo + hi)/2);
+			if (accessor(array[mid]) <= value) {
+				lo = mid;
+			} else {
+				hi = mid;
+			}
+		}
+		if (accessor(array[lo]) === value) hi = lo;
+		var closest = (Math.abs(accessor(array[lo]) - value) < Math.abs(accessor(array[hi]) - value))
+							? array[lo]
+							: array[hi]
+		//console.log(array[lo], array[hi], closest, lo, hi);
+		return Utils.cloneMe(closest);
+	}
+	Utils.getClosestItemIndex = function(array, value, accessor) {
+		var lo = 0, hi = array.length - 1;
+		while (hi - lo > 1) {
+			var mid = Math.round((lo + hi)/2);
+			if (accessor(array[mid]) <= value) {
+				lo = mid;
+			} else {
+				hi = mid;
+			}
+		}
+		if (accessor(array[lo]) === value) hi = lo;
+		var closestIndex = (Math.abs(accessor(array[lo]) - value) < Math.abs(accessor(array[hi]) - value))
+							? lo
+							: hi
+		//console.log(array[lo], array[hi], closestIndex, lo, hi);
+		return closestIndex;
+	}
+	Utils.getClosestItemIndexes = function(array, value, accessor) {
+		var lo = 0, hi = array.length - 1;
+		while (hi - lo > 1) {
+			var mid = Math.round((lo + hi)/2);
+			if (accessor(array[mid]) <= value) {
+				lo = mid;
+			} else {
+				hi = mid;
+			}
+		}
+		if (accessor(array[lo]) === value) hi = lo;
+		//console.log(array[lo], array[hi], closestIndex, lo, hi);
+		return { left: lo, right: hi };
+	}
+	Utils.pluck = function(array, key) {
+		return array.map(function(each)  {return each[key];})
+	}
+	Utils.keysAsArray = function(obj) {
+		return Object.keys(obj)
+			.filter(function(key)  {return obj[key] !== null;})
+			.map(function(key)  {return obj[key];});
+	}
+	Utils.sum = function(array) {
+		return array.reduce(function(d1, d2)  {return d1 + d2;});
+	}
+	
+	module.exports = Utils;
+
+
+/***/ },
+/* 104 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var StockScaleTransformer = __webpack_require__(110);
+	var HeikinAshiTransformer = __webpack_require__(111);
+	var KagiTransformer = __webpack_require__(112);
+	var PointAndFigureTransformer = __webpack_require__(113);
+	var RenkoTransformer = __webpack_require__(114);
 	
 	var ChartTransformer = {
 		getTransformerFor:function(type) {
@@ -5767,13 +5923,13 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 104 */
+/* 105 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var React = __webpack_require__(2);
-	var Utils = __webpack_require__(101);
-	var ChartDataUtil = __webpack_require__(102);
+	var Utils = __webpack_require__(103);
+	var ChartDataUtil = __webpack_require__(101);
 	
 	function getLongValue(value) {
 		if (value instanceof Date) {
@@ -5799,7 +5955,7 @@ return webpackJsonpReStock([1,2],[
 				currentItems: [],
 				show: false,
 				mouseXY: [0, 0],
-				panInProgress: false
+				panInProgress: false,
 			};
 		}
 		Object.defineProperty(EventHandler.prototype,"componentWillMount",{writable:true,configurable:true,value:function() {
@@ -5816,7 +5972,8 @@ return webpackJsonpReStock([1,2],[
 				plotData: plotData,
 				chartData: chartData,
 				interval: this.context.interval,
-				mainChart: mainChart
+				mainChart: mainChart,
+				currentCharts: [mainChart]
 			});
 		}});
 		Object.defineProperty(EventHandler.prototype,"componentWillReceiveProps",{writable:true,configurable:true,value:function(props, context) {
@@ -5846,9 +6003,11 @@ return webpackJsonpReStock([1,2],[
 				plotData: this.state.plotData,
 				chartData: this.state.chartData,
 				currentItems: this.state.currentItems,
+				mainChart: this.state.mainChart,
 				show: this.state.show,
 				mouseXY: this.state.mouseXY,
 				interval: this.state.interval,
+				currentCharts: this.state.currentCharts,
 	
 				onMouseMove: this.handleMouseMove,
 				onMouseEnter: this.handleMouseEnter,
@@ -5866,11 +6025,19 @@ return webpackJsonpReStock([1,2],[
 			// console.log('mouse move - ', mouseXY);
 			var currentItems = ChartDataUtil.getCurrentItems(this.state.chartData, mouseXY, this.state.plotData)
 				// .filter((eachChartData) => eachChartData.id === this.state.mainChart)
+			var currentCharts = this.state.chartData.filter(function(chartData)  {
+				var top = chartData.config.origin[1];
+				var bottom = top + chartData.config.height;
+				return (mouseXY[1] > top && mouseXY[1] < bottom)
+			}).map(function(chartData)  {return chartData.id;});
+	
+			// console.log(currentCharts);
 	
 			this.setState({
 				mouseXY: mouseXY,
 				currentItems: currentItems,
-				show: true
+				show: true,
+				currentCharts: currentCharts
 			});
 		}});
 		Object.defineProperty(EventHandler.prototype,"handleMouseEnter",{writable:true,configurable:true,value:function() {
@@ -5980,12 +6147,19 @@ return webpackJsonpReStock([1,2],[
 					});
 					var currentItems = ChartDataUtil.getCurrentItems(newChartData, mousePosition, filteredData);
 	
+					var currentCharts = newChartData.filter(function(chartData)  {
+						var top = chartData.config.origin[1];
+						var bottom = top + chartData.config.height;
+						return (mousePosition[1] > top && mousePosition[1] < bottom)
+					}).map(function(chartData)  {return chartData.id;});
+	
 					this.setState({
 						chartData: newChartData,
 						plotData: filteredData,
 						currentItems: currentItems,
 						// show: true,
-						mouseXY: mousePosition
+						mouseXY: mousePosition,
+						currentCharts: currentCharts,
 					});
 				}.bind(this));
 			}
@@ -6035,6 +6209,8 @@ return webpackJsonpReStock([1,2],[
 		show: React.PropTypes.bool,
 		mouseXY: React.PropTypes.array,
 		interval: React.PropTypes.string,
+		currentCharts: React.PropTypes.array,
+		mainChart: React.PropTypes.number,
 	
 	
 		onMouseMove: React.PropTypes.func,
@@ -6053,13 +6229,32 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 105 */
+/* 106 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(2);
+	var shallowEqual = __webpack_require__(115);
+	
+	var ____Class1j=React.Component;for(var ____Class1j____Key in ____Class1j){if(____Class1j.hasOwnProperty(____Class1j____Key)){PureComponent[____Class1j____Key]=____Class1j[____Class1j____Key];}}var ____SuperProtoOf____Class1j=____Class1j===null?null:____Class1j.prototype;PureComponent.prototype=Object.create(____SuperProtoOf____Class1j);PureComponent.prototype.constructor=PureComponent;PureComponent.__superConstructor__=____Class1j;function PureComponent(){if(____Class1j!==null){____Class1j.apply(this,arguments);}}
+		Object.defineProperty(PureComponent.prototype,"shouldComponentUpdate",{writable:true,configurable:true,value:function(nextProps, nextState, nextContext) {
+			return !shallowEqual(this.props, nextProps)
+				|| !shallowEqual(this.state, nextState)
+				|| !shallowEqual(this.context, nextContext);
+		}});
+	
+	
+	module.exports = PureComponent;
+
+/***/ },
+/* 107 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	var React = __webpack_require__(2);
 	
-	var ____Class1j=React.Component;for(var ____Class1j____Key in ____Class1j){if(____Class1j.hasOwnProperty(____Class1j____Key)){EdgeCoordinate[____Class1j____Key]=____Class1j[____Class1j____Key];}}var ____SuperProtoOf____Class1j=____Class1j===null?null:____Class1j.prototype;EdgeCoordinate.prototype=Object.create(____SuperProtoOf____Class1j);EdgeCoordinate.prototype.constructor=EdgeCoordinate;EdgeCoordinate.__superConstructor__=____Class1j;function EdgeCoordinate(){if(____Class1j!==null){____Class1j.apply(this,arguments);}}
+	var ____Class1k=React.Component;for(var ____Class1k____Key in ____Class1k){if(____Class1k.hasOwnProperty(____Class1k____Key)){EdgeCoordinate[____Class1k____Key]=____Class1k[____Class1k____Key];}}var ____SuperProtoOf____Class1k=____Class1k===null?null:____Class1k.prototype;EdgeCoordinate.prototype=Object.create(____SuperProtoOf____Class1k);EdgeCoordinate.prototype.constructor=EdgeCoordinate;EdgeCoordinate.__superConstructor__=____Class1k;function EdgeCoordinate(){if(____Class1k!==null){____Class1k.apply(this,arguments);}}
 		Object.defineProperty(EdgeCoordinate.prototype,"render",{writable:true,configurable:true,value:function() {
 			if (!this.props.show) return null;
 	
@@ -6096,13 +6291,14 @@ return webpackJsonpReStock([1,2],[
 										style: {"textAnchor": "middle"}, 
 										dy: ".32em"}, displayCoordinate));
 			}
+			var line = this.props.hideLine ? null : React.createElement("line", {className: "cross-hair", 
+						x1: this.props.x1, y1: this.props.y1, 
+						x2: this.props.x2, y2: this.props.y2})
 			return (
 				React.createElement("g", {className: (this.props.show ? 'show ' : 'hide ') + this.props.className}, 
-						React.createElement("line", {className: "cross-hair", 
-							x1: this.props.x1, y1: this.props.y1, 
-							x2: this.props.x2, y2: this.props.y2}), 
-						coordinateBase, 
-						coordinate
+					line, 
+					coordinateBase, 
+					coordinate
 				)
 			);
 		}});
@@ -6116,54 +6312,19 @@ return webpackJsonpReStock([1,2],[
 		x2: React.PropTypes.number.isRequired,
 		y2: React.PropTypes.number.isRequired,
 		orient: React.PropTypes.oneOf(['bottom', 'top', 'left', 'right']),
-		rectWidth: React.PropTypes.number
+		rectWidth: React.PropTypes.number,
+		hideLine: React.PropTypes.bool,
 	};
 	EdgeCoordinate.defaultProps = {
 		namespace: "ReStock.EdgeCoordinate",
-		orient: 'left'
+		orient: 'left',
+		hideLine: false,
 	};
 	module.exports = EdgeCoordinate;
 
 
 /***/ },
-/* 106 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	var React = __webpack_require__(2);
-	
-	var ____Class1k=React.Component;for(var ____Class1k____Key in ____Class1k){if(____Class1k.hasOwnProperty(____Class1k____Key)){Canvas[____Class1k____Key]=____Class1k[____Class1k____Key];}}var ____SuperProtoOf____Class1k=____Class1k===null?null:____Class1k.prototype;Canvas.prototype=Object.create(____SuperProtoOf____Class1k);Canvas.prototype.constructor=Canvas;Canvas.__superConstructor__=____Class1k;
-		function Canvas(props) {
-			____Class1k.call(this,props);
-		}/*,
-		componentDidMount() {
-			console.log(this.getCanvas());
-		},
-		getCanvas() {
-			return React.findDOMNode(this.refs.canvas);
-		},*/
-		Object.defineProperty(Canvas.prototype,"render",{writable:true,configurable:true,value:function() {
-			return (
-				React.createElement("canvas", {ref: "canvas", 
-					width: this.props.width, 
-					height: this.props.height, 
-					style: { position: 'absolute', left: this.props.left, top: this.props.top}})
-			);
-		}});
-	;
-	
-	Canvas.contextTypes = {
-		width: React.PropTypes.number.isRequired,
-		height: React.PropTypes.number.isRequired,
-		left: React.PropTypes.number.isRequired,
-		top: React.PropTypes.number.isRequired
-	}
-	
-	module.exports = Canvas;
-
-
-/***/ },
-/* 107 */
+/* 108 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6211,13 +6372,13 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 108 */
+/* 109 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Utils = __webpack_require__(101);
-	var MACalculator = __webpack_require__(115);
+	var Utils = __webpack_require__(103);
+	var MACalculator = __webpack_require__(116);
 	
 	var OverlayUtils = {
 		getToolTipLabel:function(props) {
@@ -6276,7 +6437,7 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 109 */
+/* 110 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6450,7 +6611,7 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 110 */
+/* 111 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6514,7 +6675,7 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 111 */
+/* 112 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6522,7 +6683,7 @@ return webpackJsonpReStock([1,2],[
 	var pricingMethod = function (d) { return { high: d.high, low: d.low }; };
 	var usePrice = function (d) { return d.close; };
 	
-	var calculateATR = __webpack_require__(116);
+	var calculateATR = __webpack_require__(118);
 	
 	function KagiTransformer(data, interval, options, other) {
 		if (options === undefined) options = {};
@@ -6678,7 +6839,7 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 112 */
+/* 113 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6904,7 +7065,7 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 113 */
+/* 114 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6912,7 +7073,7 @@ return webpackJsonpReStock([1,2],[
 	var pricingMethod = function (d) { return { high: d.high, low: d.low }; };
 	// var pricingMethod = function (d) { return { high: d.close, low: d.close }; };
 	// var usePrice = function (d) { return d.close; };
-	var calculateATR = __webpack_require__(116);
+	var calculateATR = __webpack_require__(118);
 	
 	var defaultOptions = {
 		boxSize: 0.5,
@@ -7078,7 +7239,7 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 114 */
+/* 115 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -7126,12 +7287,12 @@ return webpackJsonpReStock([1,2],[
 
 
 /***/ },
-/* 115 */
+/* 116 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Utils = __webpack_require__(101);
+	var Utils = __webpack_require__(103);
 	
 	var pluck = Utils.pluck;
 	var sum = Utils.sum;
@@ -7186,46 +7347,6 @@ return webpackJsonpReStock([1,2],[
 	}
 	
 	module.exports = MACalculator;
-
-
-/***/ },
-/* 116 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	function sumOf(array, offset, length) {
-		var sum = 0;
-		for (var i = offset; i < offset + length; i++) {
-			sum += array[i].trueRange;
-		};
-		return sum;
-	}
-	
-	function calculateTR(rawData) {
-		var prev = rawData[0];
-		rawData
-			.filter(function(d, idx)  {return idx > 0;})
-			.forEach(function(d, idx) {
-				d.trueRange = Math.max(d.high - d.low,
-					d.high - prev.close,
-					d.low - prev.close)
-				prev = rawData[idx];
-			});
-	}
-	
-	function calculateATR(rawData, period) {
-		calculateTR(rawData);
-	
-		rawData.forEach(function(d, index) {
-			if (index > period) { // trueRange starts from index 1 so ATR starts from period (not period -1)
-				var num = (sumOf(rawData, index - period, period) / period)
-				d["atr" + period] = (Math.round(num * 100) / 100);
-			}
-		});
-	}
-	
-	module.exports = calculateATR;
 
 
 /***/ },
@@ -7383,6 +7504,46 @@ return webpackJsonpReStock([1,2],[
 	
 	
 	module.exports = polylineartimescale
+
+/***/ },
+/* 118 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	function sumOf(array, offset, length) {
+		var sum = 0;
+		for (var i = offset; i < offset + length; i++) {
+			sum += array[i].trueRange;
+		};
+		return sum;
+	}
+	
+	function calculateTR(rawData) {
+		var prev = rawData[0];
+		rawData
+			.filter(function(d, idx)  {return idx > 0;})
+			.forEach(function(d, idx) {
+				d.trueRange = Math.max(d.high - d.low,
+					d.high - prev.close,
+					d.low - prev.close)
+				prev = rawData[idx];
+			});
+	}
+	
+	function calculateATR(rawData, period) {
+		calculateTR(rawData);
+	
+		rawData.forEach(function(d, index) {
+			if (index > period) { // trueRange starts from index 1 so ATR starts from period (not period -1)
+				var num = (sumOf(rawData, index - period, period) / period)
+				d["atr" + period] = (Math.round(num * 100) / 100);
+			}
+		});
+	}
+	
+	module.exports = calculateATR;
+
 
 /***/ }
 ])
