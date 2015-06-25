@@ -164,10 +164,15 @@ body {
   cursor: pointer;
 }
 
-.react-stockchart .histogram .bar {
+.react-stockchart .histogram rect.bar {
   fill: steelblue;
-  opacity: 0.3;
+  opacity: 0.5;
   stroke: none;
+}
+
+.react-stockchart .histogram line.bar {
+  opacity: 0.5;
+  stroke: steelblue;
 }
 
 .react-stockchart .histogram .up {
@@ -188,6 +193,22 @@ body {
 
 .react-stockchart .histogram line.down {
   stroke: #ff0000;
+}
+
+.react-stockchart .macd-series .macdline {
+  stroke: red;
+  fill: none;
+}
+
+.react-stockchart .macd-series .signalline {
+  stroke: green;
+  fill: none;
+}
+
+.react-stockchart .macd-series .horizontal {
+  stroke: black;
+  opacity: 0.2;
+  fill: none;
 }
 
 .react-stockchart .ma-container rect {
