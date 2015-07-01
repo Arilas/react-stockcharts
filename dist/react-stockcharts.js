@@ -66,16 +66,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.DataSeries = __webpack_require__(7);
 	
 	// chart types & Series
-	exports.AreaSeries = __webpack_require__(9);
-	exports.LineSeries = __webpack_require__(8);
+	exports.AreaSeries = __webpack_require__(8);
+	exports.LineSeries = __webpack_require__(9);
 	exports.CompareSeries = __webpack_require__(10);
 	exports.CandlestickSeries = __webpack_require__(11);
 	exports.OverlaySeries = __webpack_require__(12);
 	exports.HistogramSeries = __webpack_require__(13);
-	exports.KagiSeries = __webpack_require__(14);
-	exports.PointAndFigureSeries = __webpack_require__(15);
-	exports.RenkoSeries = __webpack_require__(16);
-	exports.MACDSeries = __webpack_require__(17);
+	exports.KagiSeries = __webpack_require__(17);
+	exports.PointAndFigureSeries = __webpack_require__(14);
+	exports.RenkoSeries = __webpack_require__(15);
+	exports.MACDSeries = __webpack_require__(16);
 	
 	// interaction components
 	exports.EventCapture = __webpack_require__(18);
@@ -215,7 +215,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _utilsChartDataUtil2 = _interopRequireDefault(_utilsChartDataUtil);
 	
-	var _Canvas = __webpack_require__(35);
+	var _Canvas = __webpack_require__(37);
 	
 	var _Canvas2 = _interopRequireDefault(_Canvas);
 	
@@ -381,11 +381,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _utilsChartDataUtil2 = _interopRequireDefault(_utilsChartDataUtil);
 	
-	var _utilsChartTransformer = __webpack_require__(36);
+	var _utilsChartTransformer = __webpack_require__(35);
 	
 	var _utilsChartTransformer2 = _interopRequireDefault(_utilsChartTransformer);
 	
-	var _EventHandler = __webpack_require__(37);
+	var _EventHandler = __webpack_require__(36);
 	
 	var _EventHandler2 = _interopRequireDefault(_EventHandler);
 	
@@ -948,83 +948,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _d32 = _interopRequireDefault(_d3);
 	
-	var LineSeries = (function (_React$Component) {
-		function LineSeries(props) {
-			_classCallCheck(this, LineSeries);
-	
-			_get(Object.getPrototypeOf(LineSeries.prototype), "constructor", this).call(this, props);
-			this.getPath = this.getPath.bind(this);
-		}
-	
-		_inherits(LineSeries, _React$Component);
-	
-		_createClass(LineSeries, [{
-			key: "getPath",
-			value: function getPath() {
-				var _this = this;
-	
-				var dataSeries = _d32["default"].svg.line().defined(function (d) {
-					return _this.context.yAccessor(d) !== undefined;
-				}).x(function (d) {
-					return _this.context.xScale(_this.context.xAccessor(d));
-				}).y(function (d) {
-					return _this.context.yScale(_this.context.yAccessor(d));
-				});
-				return dataSeries(this.context.plotData);
-			}
-		}, {
-			key: "render",
-			value: function render() {
-				var className = this.props.className.concat(this.context.stroke !== undefined ? "" : " line-stroke");
-				return _react2["default"].createElement("path", { d: this.getPath(), stroke: this.context.stroke, fill: "none", className: className });
-			}
-		}]);
-	
-		return LineSeries;
-	})(_react2["default"].Component);
-	
-	LineSeries.propTypes = {
-		className: _react2["default"].PropTypes.string
-	};
-	LineSeries.defaultProps = {
-		namespace: "ReStock.LineSeries",
-		className: "line "
-	};
-	LineSeries.contextTypes = {
-		xScale: _react2["default"].PropTypes.func.isRequired,
-		yScale: _react2["default"].PropTypes.func.isRequired,
-		xAccessor: _react2["default"].PropTypes.func.isRequired,
-		yAccessor: _react2["default"].PropTypes.func.isRequired,
-		plotData: _react2["default"].PropTypes.array.isRequired,
-		stroke: _react2["default"].PropTypes.string
-	};
-	
-	module.exports = LineSeries;
-
-/***/ },
-/* 9 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-	
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-	
-	var _react = __webpack_require__(31);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _d3 = __webpack_require__(32);
-	
-	var _d32 = _interopRequireDefault(_d3);
-	
 	var AreaSeries = (function (_React$Component) {
 		function AreaSeries(props) {
 			_classCallCheck(this, AreaSeries);
@@ -1093,6 +1016,83 @@ return /******/ (function(modules) { // webpackBootstrap
 	AreaSeries.defaultProps = { namespace: "ReStock.AreaSeries" };
 	
 	module.exports = AreaSeries;
+
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(31);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _d3 = __webpack_require__(32);
+	
+	var _d32 = _interopRequireDefault(_d3);
+	
+	var LineSeries = (function (_React$Component) {
+		function LineSeries(props) {
+			_classCallCheck(this, LineSeries);
+	
+			_get(Object.getPrototypeOf(LineSeries.prototype), "constructor", this).call(this, props);
+			this.getPath = this.getPath.bind(this);
+		}
+	
+		_inherits(LineSeries, _React$Component);
+	
+		_createClass(LineSeries, [{
+			key: "getPath",
+			value: function getPath() {
+				var _this = this;
+	
+				var dataSeries = _d32["default"].svg.line().defined(function (d) {
+					return _this.context.yAccessor(d) !== undefined;
+				}).x(function (d) {
+					return _this.context.xScale(_this.context.xAccessor(d));
+				}).y(function (d) {
+					return _this.context.yScale(_this.context.yAccessor(d));
+				});
+				return dataSeries(this.context.plotData);
+			}
+		}, {
+			key: "render",
+			value: function render() {
+				var className = this.props.className.concat(this.context.stroke !== undefined ? "" : " line-stroke");
+				return _react2["default"].createElement("path", { d: this.getPath(), stroke: this.context.stroke, fill: "none", className: className });
+			}
+		}]);
+	
+		return LineSeries;
+	})(_react2["default"].Component);
+	
+	LineSeries.propTypes = {
+		className: _react2["default"].PropTypes.string
+	};
+	LineSeries.defaultProps = {
+		namespace: "ReStock.LineSeries",
+		className: "line "
+	};
+	LineSeries.contextTypes = {
+		xScale: _react2["default"].PropTypes.func.isRequired,
+		yScale: _react2["default"].PropTypes.func.isRequired,
+		xAccessor: _react2["default"].PropTypes.func.isRequired,
+		yAccessor: _react2["default"].PropTypes.func.isRequired,
+		plotData: _react2["default"].PropTypes.array.isRequired,
+		stroke: _react2["default"].PropTypes.string
+	};
+	
+	module.exports = LineSeries;
 
 /***/ },
 /* 10 */
@@ -1539,102 +1539,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _d3 = __webpack_require__(32);
-	
-	var _d32 = _interopRequireDefault(_d3);
-	
-	var KagiSeries = (function (_React$Component) {
-		function KagiSeries() {
-			_classCallCheck(this, KagiSeries);
-	
-			_get(Object.getPrototypeOf(KagiSeries.prototype), "constructor", this).apply(this, arguments);
-		}
-	
-		_inherits(KagiSeries, _React$Component);
-	
-		_createClass(KagiSeries, [{
-			key: "render",
-			value: function render() {
-				var _this = this;
-	
-				var kagiLine = [];
-				var kagi = {};
-				for (var i = 0; i < this.context.plotData.length; i++) {
-					var d = this.context.plotData[i];
-					if (d.close === undefined) continue;
-					if (kagi.type === undefined) kagi.type = d.startAs;
-					if (kagi.plot === undefined) kagi.plot = [];
-					var idx = this.context.xAccessor(d);
-					kagi.plot.push([idx, d.open]);
-	
-					if (d.changePoint !== undefined) {
-						kagi.plot.push([idx, d.changePoint]);
-						kagiLine.push(kagi);
-						kagi = {
-							type: d.changeTo,
-							plot: []
-						};
-						kagi.plot.push([idx, d.changePoint]);
-					}
-				}
-	
-				var paths = kagiLine.map(function (each, i) {
-					var dataSeries = _d32["default"].svg.line().x(function (item) {
-						return _this.context.xScale(item[0]);
-					}).y(function (item) {
-						return _this.context.yScale(item[1]);
-					}).interpolate("step-before");
-					return _react2["default"].createElement("path", { key: i, d: dataSeries(each.plot), className: each.type });
-				});
-				return _react2["default"].createElement(
-					"g",
-					null,
-					paths
-				);
-			}
-		}]);
-	
-		return KagiSeries;
-	})(_react2["default"].Component);
-	
-	KagiSeries.defaultProps = {
-		namespace: "ReStock.KagiSeries"
-	};
-	
-	KagiSeries.contextTypes = {
-		xScale: _react2["default"].PropTypes.func.isRequired,
-		yScale: _react2["default"].PropTypes.func.isRequired,
-		xAccessor: _react2["default"].PropTypes.func.isRequired,
-		yAccessor: _react2["default"].PropTypes.func.isRequired,
-		plotData: _react2["default"].PropTypes.array.isRequired
-	};
-	
-	KagiSeries.yAccessor = function (d) {
-		return { open: d.open, high: d.high, low: d.low, close: d.close };
-	};
-	
-	module.exports = KagiSeries;
-
-/***/ },
-/* 15 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-	
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-	
-	var _react = __webpack_require__(31);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
 	var debugFlag = false;
 	
 	var PointAndFigureSeries = (function (_React$Component) {
@@ -1728,7 +1632,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = PointAndFigureSeries;
 
 /***/ },
-/* 16 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1813,7 +1717,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = RenkoSeries;
 
 /***/ },
-/* 17 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1941,6 +1845,102 @@ return /******/ (function(modules) { // webpackBootstrap
 	MACDSeries.defaultProps = { namespace: "ReStock.MACDSeries" };
 	
 	module.exports = MACDSeries;
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(31);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _d3 = __webpack_require__(32);
+	
+	var _d32 = _interopRequireDefault(_d3);
+	
+	var KagiSeries = (function (_React$Component) {
+		function KagiSeries() {
+			_classCallCheck(this, KagiSeries);
+	
+			_get(Object.getPrototypeOf(KagiSeries.prototype), "constructor", this).apply(this, arguments);
+		}
+	
+		_inherits(KagiSeries, _React$Component);
+	
+		_createClass(KagiSeries, [{
+			key: "render",
+			value: function render() {
+				var _this = this;
+	
+				var kagiLine = [];
+				var kagi = {};
+				for (var i = 0; i < this.context.plotData.length; i++) {
+					var d = this.context.plotData[i];
+					if (d.close === undefined) continue;
+					if (kagi.type === undefined) kagi.type = d.startAs;
+					if (kagi.plot === undefined) kagi.plot = [];
+					var idx = this.context.xAccessor(d);
+					kagi.plot.push([idx, d.open]);
+	
+					if (d.changePoint !== undefined) {
+						kagi.plot.push([idx, d.changePoint]);
+						kagiLine.push(kagi);
+						kagi = {
+							type: d.changeTo,
+							plot: []
+						};
+						kagi.plot.push([idx, d.changePoint]);
+					}
+				}
+	
+				var paths = kagiLine.map(function (each, i) {
+					var dataSeries = _d32["default"].svg.line().x(function (item) {
+						return _this.context.xScale(item[0]);
+					}).y(function (item) {
+						return _this.context.yScale(item[1]);
+					}).interpolate("step-before");
+					return _react2["default"].createElement("path", { key: i, d: dataSeries(each.plot), className: each.type });
+				});
+				return _react2["default"].createElement(
+					"g",
+					null,
+					paths
+				);
+			}
+		}]);
+	
+		return KagiSeries;
+	})(_react2["default"].Component);
+	
+	KagiSeries.defaultProps = {
+		namespace: "ReStock.KagiSeries"
+	};
+	
+	KagiSeries.contextTypes = {
+		xScale: _react2["default"].PropTypes.func.isRequired,
+		yScale: _react2["default"].PropTypes.func.isRequired,
+		xAccessor: _react2["default"].PropTypes.func.isRequired,
+		yAccessor: _react2["default"].PropTypes.func.isRequired,
+		plotData: _react2["default"].PropTypes.array.isRequired
+	};
+	
+	KagiSeries.yAccessor = function (d) {
+		return { open: d.open, high: d.high, low: d.low, close: d.close };
+	};
+	
+	module.exports = KagiSeries;
 
 /***/ },
 /* 18 */
@@ -4130,57 +4130,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 	
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-	
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-	
-	var _react = __webpack_require__(31);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var Canvas = (function (_React$Component) {
-		function Canvas(props) {
-			_classCallCheck(this, Canvas);
-	
-			_get(Object.getPrototypeOf(Canvas.prototype), "constructor", this).call(this, props);
-		}
-	
-		_inherits(Canvas, _React$Component);
-	
-		_createClass(Canvas, [{
-			key: "render",
-			value: function render() {
-				return _react2["default"].createElement("canvas", { ref: "canvas",
-					width: this.props.width,
-					height: this.props.height,
-					style: { position: "absolute", left: this.props.left, top: this.props.top } });
-			}
-		}]);
-	
-		return Canvas;
-	})(_react2["default"].Component);
-	
-	Canvas.contextTypes = {
-		width: _react2["default"].PropTypes.number.isRequired,
-		height: _react2["default"].PropTypes.number.isRequired,
-		left: _react2["default"].PropTypes.number.isRequired,
-		top: _react2["default"].PropTypes.number.isRequired
-	};
-	
-	module.exports = Canvas;
-
-/***/ },
-/* 36 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 	
 	var _StockscaleTransformer = __webpack_require__(43);
@@ -4227,7 +4176,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ChartTransformer;
 
 /***/ },
-/* 37 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4613,6 +4562,57 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	
 	module.exports = EventHandler;
+
+/***/ },
+/* 37 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(31);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var Canvas = (function (_React$Component) {
+		function Canvas(props) {
+			_classCallCheck(this, Canvas);
+	
+			_get(Object.getPrototypeOf(Canvas.prototype), "constructor", this).call(this, props);
+		}
+	
+		_inherits(Canvas, _React$Component);
+	
+		_createClass(Canvas, [{
+			key: "render",
+			value: function render() {
+				return _react2["default"].createElement("canvas", { ref: "canvas",
+					width: this.props.width,
+					height: this.props.height,
+					style: { position: "absolute", left: this.props.left, top: this.props.top } });
+			}
+		}]);
+	
+		return Canvas;
+	})(_react2["default"].Component);
+	
+	Canvas.contextTypes = {
+		width: _react2["default"].PropTypes.number.isRequired,
+		height: _react2["default"].PropTypes.number.isRequired,
+		left: _react2["default"].PropTypes.number.isRequired,
+		top: _react2["default"].PropTypes.number.isRequired
+	};
+	
+	module.exports = Canvas;
 
 /***/ },
 /* 38 */
