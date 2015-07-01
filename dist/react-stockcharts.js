@@ -72,10 +72,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.CandlestickSeries = __webpack_require__(11);
 	exports.OverlaySeries = __webpack_require__(12);
 	exports.HistogramSeries = __webpack_require__(13);
-	exports.KagiSeries = __webpack_require__(17);
-	exports.PointAndFigureSeries = __webpack_require__(14);
-	exports.RenkoSeries = __webpack_require__(15);
-	exports.MACDSeries = __webpack_require__(16);
+	exports.KagiSeries = __webpack_require__(14);
+	exports.PointAndFigureSeries = __webpack_require__(15);
+	exports.RenkoSeries = __webpack_require__(16);
+	exports.MACDSeries = __webpack_require__(17);
 	
 	// interaction components
 	exports.EventCapture = __webpack_require__(18);
@@ -121,7 +121,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _utilsMovingAverageCalculator2 = _interopRequireDefault(_utilsMovingAverageCalculator);
 	
-	var _utilsUtilsJs = __webpack_require__(33);
+	var _utilsUtilsJs = __webpack_require__(36);
 	
 	var _utilsUtilsJs2 = _interopRequireDefault(_utilsUtilsJs);
 	
@@ -211,7 +211,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _utilsChartDataUtil = __webpack_require__(34);
+	var _utilsChartDataUtil = __webpack_require__(33);
 	
 	var _utilsChartDataUtil2 = _interopRequireDefault(_utilsChartDataUtil);
 	
@@ -219,7 +219,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _Canvas2 = _interopRequireDefault(_Canvas);
 	
-	var _utilsUtils = __webpack_require__(33);
+	var _utilsUtils = __webpack_require__(36);
 	
 	var _utilsUtils2 = _interopRequireDefault(_utilsUtils);
 	
@@ -377,19 +377,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _utilsChartDataUtil = __webpack_require__(34);
+	var _utilsChartDataUtil = __webpack_require__(33);
 	
 	var _utilsChartDataUtil2 = _interopRequireDefault(_utilsChartDataUtil);
 	
-	var _utilsChartTransformer = __webpack_require__(35);
+	var _utilsChartTransformer = __webpack_require__(34);
 	
 	var _utilsChartTransformer2 = _interopRequireDefault(_utilsChartTransformer);
 	
-	var _EventHandler = __webpack_require__(36);
+	var _EventHandler = __webpack_require__(35);
 	
 	var _EventHandler2 = _interopRequireDefault(_EventHandler);
 	
-	var _utilsUtils = __webpack_require__(33);
+	var _utilsUtils = __webpack_require__(36);
 	
 	var _utilsUtils2 = _interopRequireDefault(_utilsUtils);
 	
@@ -747,7 +747,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _libUtilsPureComponent2 = _interopRequireDefault(_libUtilsPureComponent);
 	
-	var _utilsUtils = __webpack_require__(33);
+	var _utilsUtils = __webpack_require__(36);
 	
 	var _utilsUtils2 = _interopRequireDefault(_utilsUtils);
 	
@@ -875,7 +875,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _utilsUtils = __webpack_require__(33);
+	var _utilsUtils = __webpack_require__(36);
 	
 	var _utilsUtils2 = _interopRequireDefault(_utilsUtils);
 	
@@ -1326,7 +1326,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _utilsUtils = __webpack_require__(33);
+	var _utilsUtils = __webpack_require__(36);
 	
 	var _utilsUtils2 = _interopRequireDefault(_utilsUtils);
 	
@@ -1539,6 +1539,102 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _d3 = __webpack_require__(32);
+	
+	var _d32 = _interopRequireDefault(_d3);
+	
+	var KagiSeries = (function (_React$Component) {
+		function KagiSeries() {
+			_classCallCheck(this, KagiSeries);
+	
+			_get(Object.getPrototypeOf(KagiSeries.prototype), "constructor", this).apply(this, arguments);
+		}
+	
+		_inherits(KagiSeries, _React$Component);
+	
+		_createClass(KagiSeries, [{
+			key: "render",
+			value: function render() {
+				var _this = this;
+	
+				var kagiLine = [];
+				var kagi = {};
+				for (var i = 0; i < this.context.plotData.length; i++) {
+					var d = this.context.plotData[i];
+					if (d.close === undefined) continue;
+					if (kagi.type === undefined) kagi.type = d.startAs;
+					if (kagi.plot === undefined) kagi.plot = [];
+					var idx = this.context.xAccessor(d);
+					kagi.plot.push([idx, d.open]);
+	
+					if (d.changePoint !== undefined) {
+						kagi.plot.push([idx, d.changePoint]);
+						kagiLine.push(kagi);
+						kagi = {
+							type: d.changeTo,
+							plot: []
+						};
+						kagi.plot.push([idx, d.changePoint]);
+					}
+				}
+	
+				var paths = kagiLine.map(function (each, i) {
+					var dataSeries = _d32["default"].svg.line().x(function (item) {
+						return _this.context.xScale(item[0]);
+					}).y(function (item) {
+						return _this.context.yScale(item[1]);
+					}).interpolate("step-before");
+					return _react2["default"].createElement("path", { key: i, d: dataSeries(each.plot), className: each.type });
+				});
+				return _react2["default"].createElement(
+					"g",
+					null,
+					paths
+				);
+			}
+		}]);
+	
+		return KagiSeries;
+	})(_react2["default"].Component);
+	
+	KagiSeries.defaultProps = {
+		namespace: "ReStock.KagiSeries"
+	};
+	
+	KagiSeries.contextTypes = {
+		xScale: _react2["default"].PropTypes.func.isRequired,
+		yScale: _react2["default"].PropTypes.func.isRequired,
+		xAccessor: _react2["default"].PropTypes.func.isRequired,
+		yAccessor: _react2["default"].PropTypes.func.isRequired,
+		plotData: _react2["default"].PropTypes.array.isRequired
+	};
+	
+	KagiSeries.yAccessor = function (d) {
+		return { open: d.open, high: d.high, low: d.low, close: d.close };
+	};
+	
+	module.exports = KagiSeries;
+
+/***/ },
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(31);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
 	var debugFlag = false;
 	
 	var PointAndFigureSeries = (function (_React$Component) {
@@ -1632,7 +1728,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = PointAndFigureSeries;
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1717,7 +1813,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = RenkoSeries;
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1847,102 +1943,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = MACDSeries;
 
 /***/ },
-/* 17 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-	
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-	
-	var _react = __webpack_require__(31);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _d3 = __webpack_require__(32);
-	
-	var _d32 = _interopRequireDefault(_d3);
-	
-	var KagiSeries = (function (_React$Component) {
-		function KagiSeries() {
-			_classCallCheck(this, KagiSeries);
-	
-			_get(Object.getPrototypeOf(KagiSeries.prototype), "constructor", this).apply(this, arguments);
-		}
-	
-		_inherits(KagiSeries, _React$Component);
-	
-		_createClass(KagiSeries, [{
-			key: "render",
-			value: function render() {
-				var _this = this;
-	
-				var kagiLine = [];
-				var kagi = {};
-				for (var i = 0; i < this.context.plotData.length; i++) {
-					var d = this.context.plotData[i];
-					if (d.close === undefined) continue;
-					if (kagi.type === undefined) kagi.type = d.startAs;
-					if (kagi.plot === undefined) kagi.plot = [];
-					var idx = this.context.xAccessor(d);
-					kagi.plot.push([idx, d.open]);
-	
-					if (d.changePoint !== undefined) {
-						kagi.plot.push([idx, d.changePoint]);
-						kagiLine.push(kagi);
-						kagi = {
-							type: d.changeTo,
-							plot: []
-						};
-						kagi.plot.push([idx, d.changePoint]);
-					}
-				}
-	
-				var paths = kagiLine.map(function (each, i) {
-					var dataSeries = _d32["default"].svg.line().x(function (item) {
-						return _this.context.xScale(item[0]);
-					}).y(function (item) {
-						return _this.context.yScale(item[1]);
-					}).interpolate("step-before");
-					return _react2["default"].createElement("path", { key: i, d: dataSeries(each.plot), className: each.type });
-				});
-				return _react2["default"].createElement(
-					"g",
-					null,
-					paths
-				);
-			}
-		}]);
-	
-		return KagiSeries;
-	})(_react2["default"].Component);
-	
-	KagiSeries.defaultProps = {
-		namespace: "ReStock.KagiSeries"
-	};
-	
-	KagiSeries.contextTypes = {
-		xScale: _react2["default"].PropTypes.func.isRequired,
-		yScale: _react2["default"].PropTypes.func.isRequired,
-		xAccessor: _react2["default"].PropTypes.func.isRequired,
-		yAccessor: _react2["default"].PropTypes.func.isRequired,
-		plotData: _react2["default"].PropTypes.array.isRequired
-	};
-	
-	KagiSeries.yAccessor = function (d) {
-		return { open: d.open, high: d.high, low: d.low, close: d.close };
-	};
-	
-	module.exports = KagiSeries;
-
-/***/ },
 /* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -1966,7 +1966,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _d32 = _interopRequireDefault(_d3);
 	
-	var _utilsUtils = __webpack_require__(33);
+	var _utilsUtils = __webpack_require__(36);
 	
 	var _utilsUtils2 = _interopRequireDefault(_utilsUtils);
 	
@@ -2462,7 +2462,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _utilsUtils = __webpack_require__(33);
+	var _utilsUtils = __webpack_require__(36);
 	
 	var _utilsUtils2 = _interopRequireDefault(_utilsUtils);
 	
@@ -2532,7 +2532,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _d32 = _interopRequireDefault(_d3);
 	
-	var _utilsUtils = __webpack_require__(33);
+	var _utilsUtils = __webpack_require__(36);
 	
 	var _utilsUtils2 = _interopRequireDefault(_utilsUtils);
 	
@@ -2540,7 +2540,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _EdgeCoordinate2 = _interopRequireDefault(_EdgeCoordinate);
 	
-	var _utilsChartDataUtil = __webpack_require__(34);
+	var _utilsChartDataUtil = __webpack_require__(33);
 	
 	var _utilsChartDataUtil2 = _interopRequireDefault(_utilsChartDataUtil);
 	
@@ -2715,7 +2715,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _utilsUtils = __webpack_require__(33);
+	var _utilsUtils = __webpack_require__(36);
 	
 	var _utilsUtils2 = _interopRequireDefault(_utilsUtils);
 	
@@ -2864,11 +2864,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _utilsUtils = __webpack_require__(33);
+	var _utilsUtils = __webpack_require__(36);
 	
 	var _utilsUtils2 = _interopRequireDefault(_utilsUtils);
 	
-	var _utilsChartDataUtil = __webpack_require__(34);
+	var _utilsChartDataUtil = __webpack_require__(33);
 	
 	var _utilsChartDataUtil2 = _interopRequireDefault(_utilsChartDataUtil);
 	
@@ -3015,7 +3015,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _utilsUtils = __webpack_require__(33);
+	var _utilsUtils = __webpack_require__(36);
 	
 	var _utilsUtils2 = _interopRequireDefault(_utilsUtils);
 	
@@ -3083,11 +3083,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _utilsUtils = __webpack_require__(33);
+	var _utilsUtils = __webpack_require__(36);
 	
 	var _utilsUtils2 = _interopRequireDefault(_utilsUtils);
 	
-	var _utilsChartDataUtil = __webpack_require__(34);
+	var _utilsChartDataUtil = __webpack_require__(33);
 	
 	var _utilsChartDataUtil2 = _interopRequireDefault(_utilsChartDataUtil);
 	
@@ -3242,11 +3242,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _utilsUtils = __webpack_require__(33);
+	var _utilsUtils = __webpack_require__(36);
 	
 	var _utilsUtils2 = _interopRequireDefault(_utilsUtils);
 	
-	var _utilsChartDataUtil = __webpack_require__(34);
+	var _utilsChartDataUtil = __webpack_require__(33);
 	
 	var _utilsChartDataUtil2 = _interopRequireDefault(_utilsChartDataUtil);
 	
@@ -3340,11 +3340,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _utilsUtils = __webpack_require__(33);
+	var _utilsUtils = __webpack_require__(36);
 	
 	var _utilsUtils2 = _interopRequireDefault(_utilsUtils);
 	
-	var _utilsChartDataUtil = __webpack_require__(34);
+	var _utilsChartDataUtil = __webpack_require__(33);
 	
 	var _utilsChartDataUtil2 = _interopRequireDefault(_utilsChartDataUtil);
 	
@@ -3492,209 +3492,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _d32 = _interopRequireDefault(_d3);
 	
-	var overlayColors = _d32["default"].scale.category10();
-	
-	var Utils = {
-		overlayColors: overlayColors,
-		isReactVersion13: function isReactVersion13() {
-			var version = _react2["default"].version.split(".")[1];
-			return version === "13";
-		},
-		isReactVersion14: function isReactVersion14() {
-			return _react2["default"].version.split(".")[1] === "14";
-		},
-		cloneMe: function cloneMe(obj) {
-			if (obj == null || typeof obj !== "object") {
-				return obj;
-			}
-			if (obj instanceof Date) {
-				return new Date(obj.getTime());
-			}
-			var temp = {}; // obj.constructor(); // changed
-	
-			for (var key in obj) {
-				if (obj.hasOwnProperty(key)) {
-					temp[key] = this.cloneMe(obj[key]);
-				}
-			}
-			return temp;
-		},
-		displayDateFormat: _d32["default"].time.format("%Y-%m-%d"),
-		displayNumberFormat: function displayNumberFormat(x) {
-			return Utils.numberWithCommas(x.toFixed(2));
-		},
-		numberWithCommas: function numberWithCommas(x) {
-			return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-		},
-		isNumeric: function isNumeric(n) {
-			return !isNaN(parseFloat(n)) && isFinite(n);
-		},
-		mergeObject: function mergeObject(a, b) {
-			var newObject = {};
-			Object.keys(a).forEach(function (key) {
-				if (a[key] != null) {
-					newObject[key] = a[key];
-				}
-			});
-			Object.keys(b).forEach(function (key) {
-				if (b[key] != null) {
-					newObject[key] = b[key];
-				}
-			});
-			return newObject;
-		},
-		mergeRecursive: (function (_mergeRecursive) {
-			function mergeRecursive(_x, _x2) {
-				return _mergeRecursive.apply(this, arguments);
-			}
-	
-			mergeRecursive.toString = function () {
-				return _mergeRecursive.toString();
-			};
-	
-			return mergeRecursive;
-		})(function (obj1, obj2) {
-	
-			for (var p in obj2) {
-				try {
-					// Property in destination object set; update its value.
-					if (obj2[p].constructor == Object) {
-						obj1[p] = mergeRecursive(obj1[p], obj2[p]);
-					} else {
-						obj1[p] = obj2[p];
-					}
-				} catch (e) {
-					// Property in destination object not set; create it and set its value.
-					obj1[p] = obj2[p];
-				}
-			}
-	
-			return obj1;
-		}),
-		mousePosition: function mousePosition(e) {
-			var container = e.currentTarget,
-			    rect = container.getBoundingClientRect(),
-			    x = e.clientX - rect.left - container.clientLeft,
-			    y = e.clientY - rect.top - container.clientTop,
-			    xy = [Math.round(x), Math.round(y)];
-			return xy;
-		},
-		getValue: function getValue(d) {
-			if (d instanceof Date) {
-				return d.getTime();
-			}
-			return d;
-		},
-		getClosestItem: function getClosestItem(array, value, accessor) {
-			var lo = 0,
-			    hi = array.length - 1;
-			while (hi - lo > 1) {
-				var mid = Math.round((lo + hi) / 2);
-				if (accessor(array[mid]) <= value) {
-					lo = mid;
-				} else {
-					hi = mid;
-				}
-			}
-			if (accessor(array[lo]) === value) hi = lo;
-			var closest = Math.abs(accessor(array[lo]) - value) < Math.abs(accessor(array[hi]) - value) ? array[lo] : array[hi];
-			// console.log(array[lo], array[hi], closest, lo, hi);
-			return Utils.cloneMe(closest);
-		},
-		getClosestItemIndex: function getClosestItemIndex(array, value, accessor) {
-			var lo = 0,
-			    hi = array.length - 1;
-			while (hi - lo > 1) {
-				var mid = Math.round((lo + hi) / 2);
-				if (accessor(array[mid]) <= value) {
-					lo = mid;
-				} else {
-					hi = mid;
-				}
-			}
-			if (accessor(array[lo]) === value) hi = lo;
-			var closestIndex = Math.abs(accessor(array[lo]) - value) < Math.abs(accessor(array[hi]) - value) ? lo : hi;
-	
-			return closestIndex;
-		},
-		getClosestItemIndexes: function getClosestItemIndexes(array, value, accessor) {
-			var lo = 0,
-			    hi = array.length - 1;
-			while (hi - lo > 1) {
-				var mid = Math.round((lo + hi) / 2);
-				if (accessor(array[mid]) <= value) {
-					lo = mid;
-				} else {
-					hi = mid;
-				}
-			}
-			if (accessor(array[lo]) === value) hi = lo;
-			// console.log(array[lo], array[hi], closestIndex, lo, hi);
-			return { left: lo, right: hi };
-		},
-	
-		pluck: function pluck(array, key) {
-			return array.map(function (each) {
-				return Utils.getter(each, key);
-			});
-		},
-		keysAsArray: function keysAsArray(obj) {
-			return Object.keys(obj).filter(function (key) {
-				return obj[key] !== null;
-			}).map(function (key) {
-				return obj[key];
-			});
-		},
-		sum: function sum(array) {
-			return array.reduce(function (d1, d2) {
-				return d1 + d2;
-			});
-		},
-		setter: function setter(obj, subObjectKey, key, value) {
-			if (subObjectKey) {
-				if (obj[subObjectKey] === undefined) obj[subObjectKey] = {};
-				obj[subObjectKey][key] = value;
-			} else {
-				obj[key] = value;
-			}
-		},
-		getter: function getter(obj, pluckKey) {
-			var keys = pluckKey.split(".");
-			var value;
-			keys.forEach(function (key) {
-				if (!value) value = obj[key];else value = value[key];
-			});
-			return value;
-		}
-	};
-	
-	module.exports = Utils;
-
-/***/ },
-/* 34 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-	
-	var _react = __webpack_require__(31);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _d3 = __webpack_require__(32);
-	
-	var _d32 = _interopRequireDefault(_d3);
-	
-	var _utilsScaleUtils = __webpack_require__(41);
+	var _utilsScaleUtils = __webpack_require__(42);
 	
 	var _utilsScaleUtils2 = _interopRequireDefault(_utilsScaleUtils);
 	
-	var _utilsOverlayUtils = __webpack_require__(42);
+	var _utilsOverlayUtils = __webpack_require__(41);
 	
 	var _utilsOverlayUtils2 = _interopRequireDefault(_utilsOverlayUtils);
 	
-	var _utilsUtils = __webpack_require__(33);
+	var _utilsUtils = __webpack_require__(36);
 	
 	var _utilsUtils2 = _interopRequireDefault(_utilsUtils);
 	
@@ -4125,7 +3931,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ChartDataUtil;
 
 /***/ },
-/* 35 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4176,7 +3982,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ChartTransformer;
 
 /***/ },
-/* 36 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4195,11 +4001,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _utilsUtils = __webpack_require__(33);
+	var _utilsUtils = __webpack_require__(36);
 	
 	var _utilsUtils2 = _interopRequireDefault(_utilsUtils);
 	
-	var _utilsChartDataUtil = __webpack_require__(34);
+	var _utilsChartDataUtil = __webpack_require__(33);
 	
 	var _utilsChartDataUtil2 = _interopRequireDefault(_utilsChartDataUtil);
 	
@@ -4564,6 +4370,200 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = EventHandler;
 
 /***/ },
+/* 36 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	var _react = __webpack_require__(31);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _d3 = __webpack_require__(32);
+	
+	var _d32 = _interopRequireDefault(_d3);
+	
+	var overlayColors = _d32["default"].scale.category10();
+	
+	var Utils = {
+		overlayColors: overlayColors,
+		isReactVersion13: function isReactVersion13() {
+			var version = _react2["default"].version.split(".")[1];
+			return version === "13";
+		},
+		isReactVersion14: function isReactVersion14() {
+			return _react2["default"].version.split(".")[1] === "14";
+		},
+		cloneMe: function cloneMe(obj) {
+			if (obj == null || typeof obj !== "object") {
+				return obj;
+			}
+			if (obj instanceof Date) {
+				return new Date(obj.getTime());
+			}
+			var temp = {}; // obj.constructor(); // changed
+	
+			for (var key in obj) {
+				if (obj.hasOwnProperty(key)) {
+					temp[key] = this.cloneMe(obj[key]);
+				}
+			}
+			return temp;
+		},
+		displayDateFormat: _d32["default"].time.format("%Y-%m-%d"),
+		displayNumberFormat: function displayNumberFormat(x) {
+			return Utils.numberWithCommas(x.toFixed(2));
+		},
+		numberWithCommas: function numberWithCommas(x) {
+			return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		},
+		isNumeric: function isNumeric(n) {
+			return !isNaN(parseFloat(n)) && isFinite(n);
+		},
+		mergeObject: function mergeObject(a, b) {
+			var newObject = {};
+			Object.keys(a).forEach(function (key) {
+				if (a[key] != null) {
+					newObject[key] = a[key];
+				}
+			});
+			Object.keys(b).forEach(function (key) {
+				if (b[key] != null) {
+					newObject[key] = b[key];
+				}
+			});
+			return newObject;
+		},
+		mergeRecursive: (function (_mergeRecursive) {
+			function mergeRecursive(_x, _x2) {
+				return _mergeRecursive.apply(this, arguments);
+			}
+	
+			mergeRecursive.toString = function () {
+				return _mergeRecursive.toString();
+			};
+	
+			return mergeRecursive;
+		})(function (obj1, obj2) {
+	
+			for (var p in obj2) {
+				try {
+					// Property in destination object set; update its value.
+					if (obj2[p].constructor == Object) {
+						obj1[p] = mergeRecursive(obj1[p], obj2[p]);
+					} else {
+						obj1[p] = obj2[p];
+					}
+				} catch (e) {
+					// Property in destination object not set; create it and set its value.
+					obj1[p] = obj2[p];
+				}
+			}
+	
+			return obj1;
+		}),
+		mousePosition: function mousePosition(e) {
+			var container = e.currentTarget,
+			    rect = container.getBoundingClientRect(),
+			    x = e.clientX - rect.left - container.clientLeft,
+			    y = e.clientY - rect.top - container.clientTop,
+			    xy = [Math.round(x), Math.round(y)];
+			return xy;
+		},
+		getValue: function getValue(d) {
+			if (d instanceof Date) {
+				return d.getTime();
+			}
+			return d;
+		},
+		getClosestItem: function getClosestItem(array, value, accessor) {
+			var lo = 0,
+			    hi = array.length - 1;
+			while (hi - lo > 1) {
+				var mid = Math.round((lo + hi) / 2);
+				if (accessor(array[mid]) <= value) {
+					lo = mid;
+				} else {
+					hi = mid;
+				}
+			}
+			if (accessor(array[lo]) === value) hi = lo;
+			var closest = Math.abs(accessor(array[lo]) - value) < Math.abs(accessor(array[hi]) - value) ? array[lo] : array[hi];
+			// console.log(array[lo], array[hi], closest, lo, hi);
+			return Utils.cloneMe(closest);
+		},
+		getClosestItemIndex: function getClosestItemIndex(array, value, accessor) {
+			var lo = 0,
+			    hi = array.length - 1;
+			while (hi - lo > 1) {
+				var mid = Math.round((lo + hi) / 2);
+				if (accessor(array[mid]) <= value) {
+					lo = mid;
+				} else {
+					hi = mid;
+				}
+			}
+			if (accessor(array[lo]) === value) hi = lo;
+			var closestIndex = Math.abs(accessor(array[lo]) - value) < Math.abs(accessor(array[hi]) - value) ? lo : hi;
+	
+			return closestIndex;
+		},
+		getClosestItemIndexes: function getClosestItemIndexes(array, value, accessor) {
+			var lo = 0,
+			    hi = array.length - 1;
+			while (hi - lo > 1) {
+				var mid = Math.round((lo + hi) / 2);
+				if (accessor(array[mid]) <= value) {
+					lo = mid;
+				} else {
+					hi = mid;
+				}
+			}
+			if (accessor(array[lo]) === value) hi = lo;
+			// console.log(array[lo], array[hi], closestIndex, lo, hi);
+			return { left: lo, right: hi };
+		},
+	
+		pluck: function pluck(array, key) {
+			return array.map(function (each) {
+				return Utils.getter(each, key);
+			});
+		},
+		keysAsArray: function keysAsArray(obj) {
+			return Object.keys(obj).filter(function (key) {
+				return obj[key] !== null;
+			}).map(function (key) {
+				return obj[key];
+			});
+		},
+		sum: function sum(array) {
+			return array.reduce(function (d1, d2) {
+				return d1 + d2;
+			});
+		},
+		setter: function setter(obj, subObjectKey, key, value) {
+			if (subObjectKey) {
+				if (obj[subObjectKey] === undefined) obj[subObjectKey] = {};
+				obj[subObjectKey][key] = value;
+			} else {
+				obj[key] = value;
+			}
+		},
+		getter: function getter(obj, pluckKey) {
+			var keys = pluckKey.split(".");
+			var value;
+			keys.forEach(function (key) {
+				if (!value) value = obj[key];else value = value[key];
+			});
+			return value;
+		}
+	};
+	
+	module.exports = Utils;
+
+/***/ },
 /* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -4724,7 +4724,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 	
-	var _utils = __webpack_require__(33);
+	var _utils = __webpack_require__(36);
 	
 	var _utils2 = _interopRequireDefault(_utils);
 	
@@ -4826,7 +4826,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactLibShallowEqual = __webpack_require__(48);
+	var _reactLibShallowEqual = __webpack_require__(50);
 	
 	var _reactLibShallowEqual2 = _interopRequireDefault(_reactLibShallowEqual);
 	
@@ -4857,57 +4857,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 	
-	function pushToValues(values, eachValue) {
-		if (typeof eachValue === "object" && Object.keys(eachValue).length > 0) {
-			Object.keys(eachValue).forEach(function (key) {
-				if (!isNaN(eachValue[key])) {
-					values.push(eachValue[key]);
-				}
-			});
-		} else {
-			if (!isNaN(eachValue)) {
-				values.push(eachValue);
-			}
-		}
-	}
-	
-	var ScaleUtils = {
-		flattenData: function flattenData(data, xAccessors, yAccessors) {
-			// console.log(xAccessors, yAccessors);
-			var xValues = [];
-			var yValues = [];
-			data.forEach(function (row) {
-				xAccessors.forEach(function (xAccessor) {
-					var x = xAccessor(row);
-					if (x !== undefined) {
-						pushToValues(xValues, x);
-					}
-				});
-				yAccessors.forEach(function (yAccessor) {
-					var y = yAccessor(row);
-					if (y !== undefined) {
-						pushToValues(yValues, y);
-					}
-				});
-			});
-			return {
-				xValues: xValues,
-				yValues: yValues
-			};
-		}
-	};
-	
-	module.exports = ScaleUtils;
-
-/***/ },
-/* 42 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 	
-	var _utils = __webpack_require__(33);
+	var _utils = __webpack_require__(36);
 	
 	var _utils2 = _interopRequireDefault(_utils);
 	
@@ -4971,6 +4923,54 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = OverlayUtils;
 
 /***/ },
+/* 42 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	function pushToValues(values, eachValue) {
+		if (typeof eachValue === "object" && Object.keys(eachValue).length > 0) {
+			Object.keys(eachValue).forEach(function (key) {
+				if (!isNaN(eachValue[key])) {
+					values.push(eachValue[key]);
+				}
+			});
+		} else {
+			if (!isNaN(eachValue)) {
+				values.push(eachValue);
+			}
+		}
+	}
+	
+	var ScaleUtils = {
+		flattenData: function flattenData(data, xAccessors, yAccessors) {
+			// console.log(xAccessors, yAccessors);
+			var xValues = [];
+			var yValues = [];
+			data.forEach(function (row) {
+				xAccessors.forEach(function (xAccessor) {
+					var x = xAccessor(row);
+					if (x !== undefined) {
+						pushToValues(xValues, x);
+					}
+				});
+				yAccessors.forEach(function (yAccessor) {
+					var y = yAccessor(row);
+					if (y !== undefined) {
+						pushToValues(yValues, y);
+					}
+				});
+			});
+			return {
+				xValues: xValues,
+				yValues: yValues
+			};
+		}
+	};
+	
+	module.exports = ScaleUtils;
+
+/***/ },
 /* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -4978,7 +4978,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 	
-	var _scalePolylineartimescale = __webpack_require__(49);
+	var _scalePolylineartimescale = __webpack_require__(48);
 	
 	var _scalePolylineartimescale2 = _interopRequireDefault(_scalePolylineartimescale);
 	
@@ -5225,7 +5225,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 	
-	var _ATRCalculator = __webpack_require__(50);
+	var _ATRCalculator = __webpack_require__(49);
 	
 	var _ATRCalculator2 = _interopRequireDefault(_ATRCalculator);
 	
@@ -5627,7 +5627,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	// var pricingMethod = function (d) { return { high: d.close, low: d.close }; };
 	// var usePrice = function (d) { return d.close; };
 	
-	var _ATRCalculator = __webpack_require__(50);
+	var _ATRCalculator = __webpack_require__(49);
 	
 	var _ATRCalculator2 = _interopRequireDefault(_ATRCalculator);
 	
@@ -5796,54 +5796,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 48 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule shallowEqual
-	 */
-	
-	'use strict';
-	
-	/**
-	 * Performs equality by iterating through keys on an object and returning
-	 * false when any key has values which are not strictly equal between
-	 * objA and objB. Returns true when the values of all keys are strictly equal.
-	 *
-	 * @return {boolean}
-	 */
-	function shallowEqual(objA, objB) {
-	  if (objA === objB) {
-	    return true;
-	  }
-	  var key;
-	  // Test for A's keys different from B.
-	  for (key in objA) {
-	    if (objA.hasOwnProperty(key) &&
-	        (!objB.hasOwnProperty(key) || objA[key] !== objB[key])) {
-	      return false;
-	    }
-	  }
-	  // Test for B's keys missing from A.
-	  for (key in objB) {
-	    if (objB.hasOwnProperty(key) && !objA.hasOwnProperty(key)) {
-	      return false;
-	    }
-	  }
-	  return true;
-	}
-	
-	module.exports = shallowEqual;
-
-
-/***/ },
-/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6016,7 +5968,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = defaultFinanceDateTimeScale;
 
 /***/ },
-/* 50 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6052,6 +6004,54 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	
 	module.exports = calculateATR;
+
+/***/ },
+/* 50 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule shallowEqual
+	 */
+	
+	'use strict';
+	
+	/**
+	 * Performs equality by iterating through keys on an object and returning
+	 * false when any key has values which are not strictly equal between
+	 * objA and objB. Returns true when the values of all keys are strictly equal.
+	 *
+	 * @return {boolean}
+	 */
+	function shallowEqual(objA, objB) {
+	  if (objA === objB) {
+	    return true;
+	  }
+	  var key;
+	  // Test for A's keys different from B.
+	  for (key in objA) {
+	    if (objA.hasOwnProperty(key) &&
+	        (!objB.hasOwnProperty(key) || objA[key] !== objB[key])) {
+	      return false;
+	    }
+	  }
+	  // Test for B's keys missing from A.
+	  for (key in objB) {
+	    if (objB.hasOwnProperty(key) && !objA.hasOwnProperty(key)) {
+	      return false;
+	    }
+	  }
+	  return true;
+	}
+	
+	module.exports = shallowEqual;
+
 
 /***/ }
 /******/ ])

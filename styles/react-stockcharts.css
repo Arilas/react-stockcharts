@@ -241,3 +241,11 @@ body {
 .react-stockchart .legend tspan {
   font-weight: normal;
 }
+
+.react-stockchart .hide {
+  display: none !important;
+}
+
+.react-stockchart .show {
+  display: block !important;
+}
