@@ -211,6 +211,10 @@ body {
   fill: none;
 }
 
+.react-stockchart .macd-series .macd-histogram {
+  opacity: 0.5;
+}
+
 .react-stockchart .ma-container rect {
   fill: none;
   stroke: none;
@@ -232,4 +236,8 @@ body {
 .react-stockchart .legend .tooltip-label {
   fill: steelblue;
   font-weight: bold;
+}
+
+.react-stockchart .legend tspan {
+  font-weight: normal;
 }

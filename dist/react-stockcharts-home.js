@@ -22,11 +22,11 @@ return webpackJsonpReStock([0,2],[
 	
 	var ReadME = __webpack_require__(34);
 	
-	document.getElementById("content").innerHTML = ReadME;
+	document.getElementById('content').innerHTML = ReadME;
 	
-	var parseDate = d3.time.format("%Y-%m-%d").parse
-	d3.tsv("data/MSFT.tsv", function(err, data) {
-		data.forEach(function(d, i)  {
+	var parseDate = d3.time.format('%Y-%m-%d').parse;
+	d3.tsv('data/MSFT.tsv', function (err, data) {
+		data.forEach(function (d, i) {
 			d.date = new Date(parseDate(d.date).getTime());
 			d.open = +d.open;
 			d.high = +d.high;
@@ -36,13 +36,12 @@ return webpackJsonpReStock([0,2],[
 			// console.log(d);
 		});
 	
-		var CandleStickChartWithEdge = __webpack_require__(8);
+		var CandleStickChartWithEdge = __webpack_require__(29);
 	
-		React.render(React.createElement(CandleStickChartWithEdge, {data: data}), document.getElementById("chart"));
+		React.render(React.createElement(CandleStickChartWithEdge, { data: data }), document.getElementById('chart'));
 	});
 	
 	//require('./examples/freezer-example');
-
 
 /***/ },
 /* 1 */,
@@ -62,120 +61,7 @@ return webpackJsonpReStock([0,2],[
 /* 5 */,
 /* 6 */,
 /* 7 */,
-/* 8 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(2);
-	var d3 = __webpack_require__(3);
-	
-	var ReStock = __webpack_require__(75);
-	
-	var ChartCanvas = ReStock.ChartCanvas
-		, XAxis = ReStock.XAxis
-		, YAxis = ReStock.YAxis
-		, CandlestickSeries = ReStock.CandlestickSeries
-		, DataTransform = ReStock.DataTransform
-		, Chart = ReStock.Chart
-		, DataSeries = ReStock.DataSeries
-		, ChartWidthMixin = ReStock.helper.ChartWidthMixin
-		, HistogramSeries = ReStock.HistogramSeries
-		, EventCapture = ReStock.EventCapture
-		, MouseCoordinates = ReStock.MouseCoordinates
-		, CrossHair = ReStock.CrossHair
-		, TooltipContainer = ReStock.TooltipContainer
-		, OHLCTooltip = ReStock.OHLCTooltip
-		, OverlaySeries = ReStock.OverlaySeries
-		, LineSeries = ReStock.LineSeries
-		, MovingAverageTooltip = ReStock.MovingAverageTooltip
-		, CurrentCoordinate = ReStock.CurrentCoordinate
-		, AreaSeries = ReStock.AreaSeries
-		, EdgeContainer = ReStock.EdgeContainer
-		, EdgeIndicator = ReStock.EdgeIndicator
-	;
-	
-	var CandleStickChartWithEdge = React.createClass({displayName: "CandleStickChartWithEdge",
-		mixins: [ChartWidthMixin],
-		render:function() {
-			if (this.state === null || !this.state.width) return React.createElement("div", null);
-	
-			var parseDate = d3.time.format("%Y-%m-%d").parse
-			var dateRange = { from: parseDate("2012-12-01"), to: parseDate("2012-12-31")}
-			var dateFormat = d3.time.format("%Y-%m-%d");
-	
-			return (
-				React.createElement(ChartCanvas, {width: this.state.width, height: 400, 
-					margin: {left: 90, right: 70, top:10, bottom: 30}, data: this.props.data, interval: "D", initialDisplay: 30}, 
-					React.createElement(DataTransform, {transformType: "stockscale"}, 
-						React.createElement(Chart, {id: 1, yMousePointerDisplayLocation: "right", yMousePointerDisplayFormat: function(y)  {return y.toFixed(2);}}, 
-							React.createElement(XAxis, {axisAt: "bottom", orient: "bottom"}), 
-							React.createElement(YAxis, {axisAt: "right", orient: "right", ticks: 5}), 
-							React.createElement(DataSeries, {yAccessor: CandlestickSeries.yAccessor}, 
-								React.createElement(CandlestickSeries, null), 
-								React.createElement(OverlaySeries, {id: 0, type: "sma", options: { period: 20, pluck: 'close'}}, 
-									React.createElement(LineSeries, null)
-								), 
-								React.createElement(OverlaySeries, {id: 1, type: "sma", options: { period: 30}}, 
-									React.createElement(LineSeries, null)
-								), 
-								React.createElement(OverlaySeries, {id: 2, type: "sma", options: { period: 50}}, 
-									React.createElement(LineSeries, null)
-								)
-							)
-						), 
-						React.createElement(CurrentCoordinate, {forChart: 1, forOverlay: 0}), 
-						React.createElement(CurrentCoordinate, {forChart: 1, forOverlay: 1}), 
-						React.createElement(CurrentCoordinate, {forChart: 1, forOverlay: 2}), 
-						React.createElement(Chart, {id: 2, height: 150, origin: function(w, h)  {return [0, h - 150];}}, 
-							React.createElement(YAxis, {axisAt: "left", orient: "left", ticks: 5, tickFormat: d3.format("s")}), 
-							React.createElement(DataSeries, {yAccessor: function(d)  {return d.volume;}}, 
-								React.createElement(HistogramSeries, {className: function(d)  {return d.close > d.open ? 'up' : 'down';}}), 
-								React.createElement(OverlaySeries, {id: 3, type: "sma", options: { period: 10, pluck:'volume'}}, 
-									React.createElement(AreaSeries, null)
-								)
-							)
-						), 
-						React.createElement(CurrentCoordinate, {forChart: 2, forOverlay: 3}), 
-						React.createElement(CurrentCoordinate, {forChart: 2}), 
-						React.createElement(EdgeContainer, null, 
-							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "last", orient: "right", 
-								edgeAt: "right", forChart: 1, forOverlay: 0}), 
-							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "last", orient: "right", 
-								edgeAt: "right", forChart: 1, forOverlay: 1}), 
-							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "last", orient: "right", 
-								edgeAt: "right", forChart: 1, forOverlay: 2}), 
-							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "first", orient: "left", 
-								edgeAt: "left", forChart: 1, forOverlay: 0}), 
-							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "first", orient: "left", 
-								edgeAt: "left", forChart: 1, forOverlay: 1}), 
-							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "first", orient: "left", 
-								edgeAt: "left", forChart: 1, forOverlay: 2}), 
-							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "first", orient: "left", 
-								edgeAt: "left", forChart: 2, forOverlay: 3, displayFormat: d3.format(".4s")}), 
-							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "last", orient: "right", 
-								edgeAt: "right", forChart: 2, forOverlay: 3, displayFormat: d3.format(".4s")}), 
-							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "first", orient: "left", 
-								edgeAt: "left", forChart: 2, displayFormat: d3.format(".4s")}), 
-							React.createElement(EdgeIndicator, {className: "horizontal", itemType: "last", orient: "right", 
-								edgeAt: "right", forChart: 2, displayFormat: d3.format(".4s")})
-						), 
-						React.createElement(MouseCoordinates, {xDisplayFormat: dateFormat, type: "crosshair"}), 
-						React.createElement(EventCapture, {mouseMove: true, zoom: true, pan: true, mainChart: 1, defaultFocus: false}), 
-						React.createElement(TooltipContainer, null, 
-							React.createElement(OHLCTooltip, {forChart: 1, origin: [-50, 0]}), 
-							React.createElement(MovingAverageTooltip, {forChart: 1, onClick: function(e)  {return console.log(e);}, origin: [-48, 15]})
-						)
-					)
-				)
-			);
-		}
-	});
-	
-	module.exports = CandleStickChartWithEdge;
-
-
-/***/ },
+/* 8 */,
 /* 9 */,
 /* 10 */,
 /* 11 */,
@@ -196,7 +82,152 @@ return webpackJsonpReStock([0,2],[
 /* 26 */,
 /* 27 */,
 /* 28 */,
-/* 29 */,
+/* 29 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(2);
+	var d3 = __webpack_require__(3);
+	
+	var ReStock = __webpack_require__(75);
+	
+	var ChartCanvas = ReStock.ChartCanvas,
+	    XAxis = ReStock.XAxis,
+	    YAxis = ReStock.YAxis,
+	    CandlestickSeries = ReStock.CandlestickSeries,
+	    DataTransform = ReStock.DataTransform,
+	    Chart = ReStock.Chart,
+	    DataSeries = ReStock.DataSeries,
+	    ChartWidthMixin = ReStock.helper.ChartWidthMixin,
+	    HistogramSeries = ReStock.HistogramSeries,
+	    EventCapture = ReStock.EventCapture,
+	    MouseCoordinates = ReStock.MouseCoordinates,
+	    CrossHair = ReStock.CrossHair,
+	    TooltipContainer = ReStock.TooltipContainer,
+	    OHLCTooltip = ReStock.OHLCTooltip,
+	    OverlaySeries = ReStock.OverlaySeries,
+	    LineSeries = ReStock.LineSeries,
+	    MovingAverageTooltip = ReStock.MovingAverageTooltip,
+	    CurrentCoordinate = ReStock.CurrentCoordinate,
+	    AreaSeries = ReStock.AreaSeries,
+	    EdgeContainer = ReStock.EdgeContainer,
+	    EdgeIndicator = ReStock.EdgeIndicator;
+	
+	var CandleStickChartWithEdge = React.createClass({
+		displayName: 'CandleStickChartWithEdge',
+	
+		mixins: [ChartWidthMixin],
+		render: function render() {
+			if (this.state === null || !this.state.width) return React.createElement('div', null);
+	
+			var parseDate = d3.time.format('%Y-%m-%d').parse;
+			var dateRange = { from: parseDate('2012-12-01'), to: parseDate('2012-12-31') };
+			var dateFormat = d3.time.format('%Y-%m-%d');
+	
+			return React.createElement(
+				ChartCanvas,
+				{ width: this.state.width, height: 400,
+					margin: { left: 90, right: 70, top: 10, bottom: 30 }, data: this.props.data, interval: 'D', initialDisplay: 30 },
+				React.createElement(
+					DataTransform,
+					{ transformType: 'stockscale' },
+					React.createElement(
+						Chart,
+						{ id: 1, yMousePointerDisplayLocation: 'right', yMousePointerDisplayFormat: function (y) {
+								return y.toFixed(2);
+							} },
+						React.createElement(XAxis, { axisAt: 'bottom', orient: 'bottom' }),
+						React.createElement(YAxis, { axisAt: 'right', orient: 'right', ticks: 5 }),
+						React.createElement(
+							DataSeries,
+							{ yAccessor: CandlestickSeries.yAccessor },
+							React.createElement(CandlestickSeries, null),
+							React.createElement(
+								OverlaySeries,
+								{ id: 0, type: 'sma', options: { period: 20, pluck: 'close' } },
+								React.createElement(LineSeries, null)
+							),
+							React.createElement(
+								OverlaySeries,
+								{ id: 1, type: 'sma', options: { period: 30 } },
+								React.createElement(LineSeries, null)
+							),
+							React.createElement(
+								OverlaySeries,
+								{ id: 2, type: 'sma', options: { period: 50 } },
+								React.createElement(LineSeries, null)
+							)
+						)
+					),
+					React.createElement(CurrentCoordinate, { forChart: 1, forOverlay: 0 }),
+					React.createElement(CurrentCoordinate, { forChart: 1, forOverlay: 1 }),
+					React.createElement(CurrentCoordinate, { forChart: 1, forOverlay: 2 }),
+					React.createElement(
+						Chart,
+						{ id: 2, height: 150, origin: function (w, h) {
+								return [0, h - 150];
+							} },
+						React.createElement(YAxis, { axisAt: 'left', orient: 'left', ticks: 5, tickFormat: d3.format('s') }),
+						React.createElement(
+							DataSeries,
+							{ yAccessor: function (d) {
+									return d.volume;
+								} },
+							React.createElement(HistogramSeries, { className: function (d) {
+									return d.close > d.open ? 'up' : 'down';
+								} }),
+							React.createElement(
+								OverlaySeries,
+								{ id: 3, type: 'sma', options: { period: 10, pluck: 'volume' } },
+								React.createElement(AreaSeries, null)
+							)
+						)
+					),
+					React.createElement(CurrentCoordinate, { forChart: 2, forOverlay: 3 }),
+					React.createElement(CurrentCoordinate, { forChart: 2 }),
+					React.createElement(
+						EdgeContainer,
+						null,
+						React.createElement(EdgeIndicator, { className: 'horizontal', itemType: 'last', orient: 'right',
+							edgeAt: 'right', forChart: 1, forOverlay: 0 }),
+						React.createElement(EdgeIndicator, { className: 'horizontal', itemType: 'last', orient: 'right',
+							edgeAt: 'right', forChart: 1, forOverlay: 1 }),
+						React.createElement(EdgeIndicator, { className: 'horizontal', itemType: 'last', orient: 'right',
+							edgeAt: 'right', forChart: 1, forOverlay: 2 }),
+						React.createElement(EdgeIndicator, { className: 'horizontal', itemType: 'first', orient: 'left',
+							edgeAt: 'left', forChart: 1, forOverlay: 0 }),
+						React.createElement(EdgeIndicator, { className: 'horizontal', itemType: 'first', orient: 'left',
+							edgeAt: 'left', forChart: 1, forOverlay: 1 }),
+						React.createElement(EdgeIndicator, { className: 'horizontal', itemType: 'first', orient: 'left',
+							edgeAt: 'left', forChart: 1, forOverlay: 2 }),
+						React.createElement(EdgeIndicator, { className: 'horizontal', itemType: 'first', orient: 'left',
+							edgeAt: 'left', forChart: 2, forOverlay: 3, displayFormat: d3.format('.4s') }),
+						React.createElement(EdgeIndicator, { className: 'horizontal', itemType: 'last', orient: 'right',
+							edgeAt: 'right', forChart: 2, forOverlay: 3, displayFormat: d3.format('.4s') }),
+						React.createElement(EdgeIndicator, { className: 'horizontal', itemType: 'first', orient: 'left',
+							edgeAt: 'left', forChart: 2, displayFormat: d3.format('.4s') }),
+						React.createElement(EdgeIndicator, { className: 'horizontal', itemType: 'last', orient: 'right',
+							edgeAt: 'right', forChart: 2, displayFormat: d3.format('.4s') })
+					),
+					React.createElement(MouseCoordinates, { xDisplayFormat: dateFormat, type: 'crosshair' }),
+					React.createElement(EventCapture, { mouseMove: true, zoom: true, pan: true, mainChart: 1, defaultFocus: false }),
+					React.createElement(
+						TooltipContainer,
+						null,
+						React.createElement(OHLCTooltip, { forChart: 1, origin: [-50, 0] }),
+						React.createElement(MovingAverageTooltip, { forChart: 1, onClick: function (e) {
+								return console.log(e);
+							}, origin: [-48, 15] })
+					)
+				)
+			);
+		}
+	});
+	
+	module.exports = CandleStickChartWithEdge;
+
+/***/ },
 /* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -260,7 +291,7 @@ return webpackJsonpReStock([0,2],[
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(76)();
-	exports.push([module.id, "body {\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  font-size: 13px;\n}\n\n.react-stockchart .axis path, .react-stockchart .axis line {\n  fill: none;\n  stroke: #000000;\n}\n\n.react-stockchart .current-coordinate {\n  fill: none;\n  stroke: steelblue;\n  stroke-width: 3px;\n}\n\n.react-stockchart .grid.axis path, .react-stockchart .grid.axis line {\n  fill: none;\n  stroke: #000000;\n  shape-rendering: crispEdges;\n  opacity: 0.2;\n}\n\n.react-stockchart .y.axis path {\n  display: none;\n}\n\n.react-stockchart .candle .up {\n  fill: #6BA583;\n  stroke: #6BA583;\n  stroke-width: 1px;\n  shape-rendering: crispEdges;\n}\n\n.react-stockchart .candle .down {\n  fill: #ff0000;\n  stroke: #ff0000;\n  stroke-width: 1px;\n  shape-rendering: crispEdges;\n}\n\n.react-stockchart .candle line {\n  stroke: #000000;\n}\n\n.react-stockchart .wick .up, .react-stockchart .wick .down {\n  stroke: #000000;\n  stroke-width: 1px;\n  shape-rendering: crispEdges;\n}\n\n.react-stockchart .line {\n  fill: none;\n  stroke-width: 1px;\n}\n\n.react-stockchart .line-stroke {\n  shape-rendering: crispEdges;\n  stroke: steelblue;\n}\n\n.react-stockchart .overlay-stroke {\n  stroke: steelblue;\n}\n\n.react-stockchart .yin {\n  fill: none;\n  stroke: #ff0000;\n  stroke-width: 2px;\n}\n\n.react-stockchart .yang {\n  fill: none;\n  stroke: #6BA583;\n  stroke-width: 2px;\n}\n\n.react-stockchart .point_figure_up {\n  fill: none;\n  stroke: green;\n  stroke-width: 1px;\n}\n\n.react-stockchart .point_figure_down {\n  fill: none;\n  stroke: #ff0000;\n  stroke-width: 1px;\n}\n\n.react-stockchart .area {\n  fill: lightsteelblue;\n  opacity: 0.5;\n}\n\n.react-stockchart .backgroundText {\n  text-anchor: middle;\n  fill: #8a8a8a;\n  opacity: 0.15;\n}\n\n.react-stockchart .cross-hair {\n  stroke: #000000;\n  stroke-width: 1px;\n  shape-rendering: crispEdges;\n  opacity: 0.2;\n}\n\n.react-stockchart .horizontal2 .textbg {\n  opacity: 0.95;\n  fill: #f0e68c;\n}\n\n.react-stockchart .horizontal2 text {\n  fill: #757575;\n}\n\n.react-stockchart .horizontal3 .textbg {\n  opacity: 0.95;\n  fill: #000000;\n}\n\n.react-stockchart .horizontal3 text {\n  fill: #757575;\n}\n\n.react-stockchart .edge-coordinate .textbg {\n  opacity: 0.95;\n}\n\n.react-stockchart .edge-coordinate text {\n  fill: #ffffff;\n}\n\n.react-stockchart .vertical .textbg, .react-stockchart .horizontal .textbg {\n  opacity: 0.9;\n  fill: #8a8a8a;\n}\n\n.react-stockchart .vertical text, .react-stockchart .horizontal text {\n  fill: #ffffff;\n}\n\n.react-stockchart .grab {\n  cursor: grab;\n  cursor: -webkit-grab;\n}\n\n.react-stockchart .grabbing {\n  cursor: grabbing;\n  cursor: -webkit-grabbing;\n}\n\n.react-stockchart .crosshair {\n  cursor: crosshair;\n}\n\n.react-stockchart .toottip-hover {\n  pointer-events: all;\n  cursor: pointer;\n}\n\n.react-stockchart .histogram rect.bar {\n  fill: steelblue;\n  opacity: 0.5;\n  stroke: none;\n}\n\n.react-stockchart .histogram line.bar {\n  opacity: 0.5;\n  stroke: steelblue;\n}\n\n.react-stockchart .histogram .up {\n  fill: #6BA583;\n  opacity: 0.3;\n  stroke: none;\n}\n\n.react-stockchart .histogram .down {\n  fill: #ff0000;\n  opacity: 0.3;\n  stroke: none;\n}\n\n.react-stockchart .histogram line.up {\n  stroke: #6BA583;\n}\n\n.react-stockchart .histogram line.down {\n  stroke: #ff0000;\n}\n\n.react-stockchart .macd-series .macdline {\n  stroke: red;\n  fill: none;\n}\n\n.react-stockchart .macd-series .signalline {\n  stroke: green;\n  fill: none;\n}\n\n.react-stockchart .macd-series .horizontal {\n  stroke: black;\n  opacity: 0.2;\n  fill: none;\n}\n\n.react-stockchart .ma-container rect {\n  fill: none;\n  stroke: none;\n}\n\n.react-stockchart .ma-container rect:hover {\n  fill: #8a8a8a;\n  opacity: 0.3;\n}\n\n.react-stockchart .ma-container line {\n  stroke-width: 4px;\n}\n\n.react-stockchart .legend {\n  font-size: 11px;\n}\n\n.react-stockchart .legend .tooltip-label {\n  fill: steelblue;\n  font-weight: bold;\n}\n", ""]);
+	exports.push([module.id, "body {\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  font-size: 13px;\n}\n\n.react-stockchart .axis path, .react-stockchart .axis line {\n  fill: none;\n  stroke: #000000;\n}\n\n.react-stockchart .current-coordinate {\n  fill: none;\n  stroke: steelblue;\n  stroke-width: 3px;\n}\n\n.react-stockchart .grid.axis path, .react-stockchart .grid.axis line {\n  fill: none;\n  stroke: #000000;\n  shape-rendering: crispEdges;\n  opacity: 0.2;\n}\n\n.react-stockchart .y.axis path {\n  display: none;\n}\n\n.react-stockchart .candle .up {\n  fill: #6BA583;\n  stroke: #6BA583;\n  stroke-width: 1px;\n  shape-rendering: crispEdges;\n}\n\n.react-stockchart .candle .down {\n  fill: #ff0000;\n  stroke: #ff0000;\n  stroke-width: 1px;\n  shape-rendering: crispEdges;\n}\n\n.react-stockchart .candle line {\n  stroke: #000000;\n}\n\n.react-stockchart .wick .up, .react-stockchart .wick .down {\n  stroke: #000000;\n  stroke-width: 1px;\n  shape-rendering: crispEdges;\n}\n\n.react-stockchart .line {\n  fill: none;\n  stroke-width: 1px;\n}\n\n.react-stockchart .line-stroke {\n  shape-rendering: crispEdges;\n  stroke: steelblue;\n}\n\n.react-stockchart .overlay-stroke {\n  stroke: steelblue;\n}\n\n.react-stockchart .yin {\n  fill: none;\n  stroke: #ff0000;\n  stroke-width: 2px;\n}\n\n.react-stockchart .yang {\n  fill: none;\n  stroke: #6BA583;\n  stroke-width: 2px;\n}\n\n.react-stockchart .point_figure_up {\n  fill: none;\n  stroke: green;\n  stroke-width: 1px;\n}\n\n.react-stockchart .point_figure_down {\n  fill: none;\n  stroke: #ff0000;\n  stroke-width: 1px;\n}\n\n.react-stockchart .area {\n  fill: lightsteelblue;\n  opacity: 0.5;\n}\n\n.react-stockchart .backgroundText {\n  text-anchor: middle;\n  fill: #8a8a8a;\n  opacity: 0.15;\n}\n\n.react-stockchart .cross-hair {\n  stroke: #000000;\n  stroke-width: 1px;\n  shape-rendering: crispEdges;\n  opacity: 0.2;\n}\n\n.react-stockchart .horizontal2 .textbg {\n  opacity: 0.95;\n  fill: #f0e68c;\n}\n\n.react-stockchart .horizontal2 text {\n  fill: #757575;\n}\n\n.react-stockchart .horizontal3 .textbg {\n  opacity: 0.95;\n  fill: #000000;\n}\n\n.react-stockchart .horizontal3 text {\n  fill: #757575;\n}\n\n.react-stockchart .edge-coordinate .textbg {\n  opacity: 0.95;\n}\n\n.react-stockchart .edge-coordinate text {\n  fill: #ffffff;\n}\n\n.react-stockchart .vertical .textbg, .react-stockchart .horizontal .textbg {\n  opacity: 0.9;\n  fill: #8a8a8a;\n}\n\n.react-stockchart .vertical text, .react-stockchart .horizontal text {\n  fill: #ffffff;\n}\n\n.react-stockchart .grab {\n  cursor: grab;\n  cursor: -webkit-grab;\n}\n\n.react-stockchart .grabbing {\n  cursor: grabbing;\n  cursor: -webkit-grabbing;\n}\n\n.react-stockchart .crosshair {\n  cursor: crosshair;\n}\n\n.react-stockchart .toottip-hover {\n  pointer-events: all;\n  cursor: pointer;\n}\n\n.react-stockchart .histogram rect.bar {\n  fill: steelblue;\n  opacity: 0.5;\n  stroke: none;\n}\n\n.react-stockchart .histogram line.bar {\n  opacity: 0.5;\n  stroke: steelblue;\n}\n\n.react-stockchart .histogram .up {\n  fill: #6BA583;\n  opacity: 0.3;\n  stroke: none;\n}\n\n.react-stockchart .histogram .down {\n  fill: #ff0000;\n  opacity: 0.3;\n  stroke: none;\n}\n\n.react-stockchart .histogram line.up {\n  stroke: #6BA583;\n}\n\n.react-stockchart .histogram line.down {\n  stroke: #ff0000;\n}\n\n.react-stockchart .macd-series .macdline {\n  stroke: red;\n  fill: none;\n}\n\n.react-stockchart .macd-series .signalline {\n  stroke: green;\n  fill: none;\n}\n\n.react-stockchart .macd-series .horizontal {\n  stroke: black;\n  opacity: 0.2;\n  fill: none;\n}\n\n.react-stockchart .macd-series .macd-histogram {\n  opacity: 0.5;\n}\n\n.react-stockchart .ma-container rect {\n  fill: none;\n  stroke: none;\n}\n\n.react-stockchart .ma-container rect:hover {\n  fill: #8a8a8a;\n  opacity: 0.3;\n}\n\n.react-stockchart .ma-container line {\n  stroke-width: 4px;\n}\n\n.react-stockchart .legend {\n  font-size: 11px;\n}\n\n.react-stockchart .legend .tooltip-label {\n  fill: steelblue;\n  font-weight: bold;\n}\n\n.react-stockchart .legend tspan {\n  font-weight: normal;\n}\n", ""]);
 
 /***/ },
 /* 34 */
@@ -536,7 +567,7 @@ return webpackJsonpReStock([0,2],[
 /* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	// common components
 	exports.ChartCanvas = __webpack_require__(78);
@@ -552,9 +583,9 @@ return webpackJsonpReStock([0,2],[
 	exports.LineSeries = __webpack_require__(85);
 	exports.CompareSeries = __webpack_require__(86);
 	exports.CandlestickSeries = __webpack_require__(87);
-	exports.OverlaySeries = __webpack_require__(88);
-	exports.HistogramSeries = __webpack_require__(89);
-	exports.KagiSeries = __webpack_require__(90);
+	exports.OverlaySeries = __webpack_require__(90);
+	exports.HistogramSeries = __webpack_require__(88);
+	exports.KagiSeries = __webpack_require__(89);
 	exports.PointAndFigureSeries = __webpack_require__(91);
 	exports.RenkoSeries = __webpack_require__(92);
 	exports.MACDSeries = __webpack_require__(93);
@@ -571,26 +602,25 @@ return webpackJsonpReStock([0,2],[
 	exports.EdgeIndicator = __webpack_require__(99);
 	
 	exports.helper = {};
-	exports.helper.ChartWidthMixin = __webpack_require__(102);
+	exports.helper.ChartWidthMixin = __webpack_require__(100);
 	
 	exports.indicator = {
-		MACD: __webpack_require__(100),
+		MACD: __webpack_require__(101)
 	};
 	
 	// Tooltips
 	exports.tooltip = {
-		MACDTooltip: __webpack_require__(101),
+		MACDTooltip: __webpack_require__(102),
 		TooltipContainer: __webpack_require__(103),
 		OHLCTooltip: __webpack_require__(104),
 		CompareTooltip: __webpack_require__(105),
-		MovingAverageTooltip: __webpack_require__(106),
-	}
+		MovingAverageTooltip: __webpack_require__(106)
+	};
 	
 	exports.TooltipContainer = __webpack_require__(103);
 	exports.OHLCTooltip = __webpack_require__(104);
 	exports.CompareTooltip = __webpack_require__(105);
 	exports.MovingAverageTooltip = __webpack_require__(106);
-
 
 /***/ },
 /* 76 */
@@ -652,29 +682,61 @@ return webpackJsonpReStock([0,2],[
 /* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	var React = __webpack_require__(2);
-	var CrossHair = __webpack_require__(95)
-	var VerticalMousePointer = __webpack_require__(96)
-	var Utils = __webpack_require__(108)
-	var ChartDataUtil = __webpack_require__(109);
-	var PureComponent = __webpack_require__(110);
+	"use strict";
 	
-	for(var PureComponent____Key in PureComponent){if(PureComponent.hasOwnProperty(PureComponent____Key)){MouseCoordinates[PureComponent____Key]=PureComponent[PureComponent____Key];}}var ____SuperProtoOfPureComponent=PureComponent===null?null:PureComponent.prototype;MouseCoordinates.prototype=Object.create(____SuperProtoOfPureComponent);MouseCoordinates.prototype.constructor=MouseCoordinates;MouseCoordinates.__superConstructor__=PureComponent;
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _utilsUtils = __webpack_require__(108);
+	
+	var _utilsUtils2 = _interopRequireDefault(_utilsUtils);
+	
+	var _libUtilsPureComponent = __webpack_require__(109);
+	
+	var _libUtilsPureComponent2 = _interopRequireDefault(_libUtilsPureComponent);
+	
+	var _CrossHair = __webpack_require__(95);
+	
+	var _CrossHair2 = _interopRequireDefault(_CrossHair);
+	
+	var MouseCoordinates = (function (_PureComponent) {
 		function MouseCoordinates(props, context) {
-			PureComponent.call(this,props, context);
+			_classCallCheck(this, MouseCoordinates);
+	
+			_get(Object.getPrototypeOf(MouseCoordinates.prototype), "constructor", this).call(this, props, context);
 			this.getPointer = this.getPointer.bind(this);
 		}
-		Object.defineProperty(MouseCoordinates.prototype,"getPointer",{writable:true,configurable:true,value:function() {
-			var $__0=    this.context,currentCharts=$__0.currentCharts,chartData=$__0.chartData,currentItems=$__0.currentItems;
 	
-			var edges = chartData
-				.filter(function(eachChartData)  {return currentCharts.indexOf(eachChartData.id) > -1;})
-				.map(function(each)  {
-					var yDisplayFormat = each.config.compareSeries.length > 0
-						? function(d)  {return (Math.round(d * 10000) / 100).toFixed(2) + '%';}
-						: each.config.mouseCoordinates.format;
-					var mouseY = this.context.mouseXY[1] - each.config.origin[1];
+		_inherits(MouseCoordinates, _PureComponent);
+	
+		_createClass(MouseCoordinates, [{
+			key: "getPointer",
+			value: function getPointer() {
+				var _this = this;
+	
+				var _context = this.context;
+				var currentCharts = _context.currentCharts;
+				var chartData = _context.chartData;
+				var currentItems = _context.currentItems;
+	
+				var edges = chartData.filter(function (eachChartData) {
+					return currentCharts.indexOf(eachChartData.id) > -1;
+				}).map(function (each) {
+					var yDisplayFormat = each.config.compareSeries.length > 0 ? function (d) {
+						return (Math.round(d * 10000) / 100).toFixed(2) + "%";
+					} : each.config.mouseCoordinates.format;
+					var mouseY = _this.context.mouseXY[1] - each.config.origin[1];
 					var yValue = each.plot.scales.yScale.invert(mouseY);
 					return {
 						id: each.id,
@@ -682,78 +744,86 @@ return webpackJsonpReStock([0,2],[
 						yValue: yValue,
 						yDisplayFormat: yDisplayFormat
 					};
-				}.bind(this))
-				.filter(function(each)  {return each.at !== undefined;})
-				.filter(function(each)  {return each.yDisplayFormat !== undefined;})
-				.map(function(each)  {
+				}).filter(function (each) {
+					return each.at !== undefined;
+				}).filter(function (each) {
+					return each.yDisplayFormat !== undefined;
+				}).map(function (each) {
 					each.yDisplayValue = each.yDisplayFormat(each.yValue);
 					return each;
-				})
+				});
 	
-			// console.log(edges);
-			var singleChartData = chartData.filter(function(eachChartData)  {return eachChartData.id === this.context.mainChart;}.bind(this))[0];
+				// console.log(edges);
+				var singleChartData = chartData.filter(function (eachChartData) {
+					return eachChartData.id === _this.context.mainChart;
+				})[0];
 	
-			// var yDisplayFormat = singleChartData.config.compareSeries.length > 0 ? (d) => (Math.round(d * 10000) / 100).toFixed(2) + '%' : this.props.yDisplayFormat;
+				// var yDisplayFormat = singleChartData.config.compareSeries.length > 0 ? (d) => (Math.round(d * 10000) / 100).toFixed(2) + "%" : this.props.yDisplayFormat;
 	
-			var item = currentItems.filter(function(eachItem)  {return eachItem.id === this.context.mainChart;}.bind(this))[0];// ChartDataUtil.getCurrentItemForChart(this.props, this.context);
-			if (item === undefined) return null;
-			item = item.data;
-			// console.log(singleChartData, item);
-			var xValue = singleChartData.config.accessors.xAccessor(item);
+				var item = currentItems.filter(function (eachItem) {
+					return eachItem.id === _this.context.mainChart;
+				})[0]; // ChartDataUtil.getCurrentItemForChart(this.props, this.context);
+				if (item === undefined) return null;
+				item = item.data;
+				// console.log(singleChartData, item);
+				var xValue = singleChartData.config.accessors.xAccessor(item);
 	
-			var xDisplayValue = this.context.dataTransformOptions === undefined
-				? xValue
-				: this.context.dataTransformOptions.dateAccessor(item);
+				var xDisplayValue = this.context.dataTransformOptions === undefined ? xValue : this.context.dataTransformOptions.dateAccessor(item);
 	
-			// var yValue = singleChartData.plot.scales.yScale.invert(this.context.mouseXY[1]);
+				// var yValue = singleChartData.plot.scales.yScale.invert(this.context.mouseXY[1]);
 	
-			if (xValue === undefined) return null;
-			var x = this.props.snapX ? Math.round(singleChartData.plot.scales.xScale(xValue)) : this.context.mouseXY[0];
-			var y = this.context.mouseXY[1];
-			switch (this.props.type) {
-				case 'crosshair':
-					return React.createElement(CrossHair, {height: this.context.height, width: this.context.width, mouseXY: [x, y], 
-						xDisplayValue: this.props.xDisplayFormat(xDisplayValue), edges: edges})
-				case 'vertical':
-					return React.createElement(VerticalMousePointer, null)
+				if (xValue === undefined) return null;
+				var x = this.props.snapX ? Math.round(singleChartData.plot.scales.xScale(xValue)) : this.context.mouseXY[0];
+				var y = this.context.mouseXY[1];
+				switch (this.props.type) {
+					case "crosshair":
+						return _react2["default"].createElement(_CrossHair2["default"], { height: this.context.height, width: this.context.width, mouseXY: [x, y],
+							xDisplayValue: this.props.xDisplayFormat(xDisplayValue), edges: edges });
+					case "vertical":
+						return _react2["default"].createElement(VerticalMousePointer, null);
+				}
 			}
-		}});
-		Object.defineProperty(MouseCoordinates.prototype,"render",{writable:true,configurable:true,value:function() {
-			var pointer = this.getPointer()
+		}, {
+			key: "render",
+			value: function render() {
+				var pointer = this.getPointer();
 	
-			return (
-				React.createElement("g", {className: this.context.show ? 'show' : 'hide'}, 
+				return _react2["default"].createElement(
+					"g",
+					{ className: this.context.show ? "show" : "hide" },
 					pointer
-				)
-			);
-		}});
-	;
+				);
+			}
+		}]);
+	
+		return MouseCoordinates;
+	})(_libUtilsPureComponent2["default"]);
 	
 	MouseCoordinates.contextTypes = {
-		width: React.PropTypes.number.isRequired,
-		height: React.PropTypes.number.isRequired,
-		mainChart: React.PropTypes.number.isRequired,
-		show: React.PropTypes.bool,
-		mouseXY: React.PropTypes.array,
-		dataTransformOptions: React.PropTypes.object,
-		chartData: React.PropTypes.array.isRequired,
-		currentItems: React.PropTypes.array.isRequired,
-		currentCharts: React.PropTypes.array.isRequired,
-	}
-	MouseCoordinates.propTypes = {
-		xDisplayFormat: React.PropTypes.func.isRequired,
-		yDisplayFormat: React.PropTypes.func.isRequired,
-		type: React.PropTypes.oneOf(['crosshair', 'vertical']).isRequired
-	}
+		width: _react2["default"].PropTypes.number.isRequired,
+		height: _react2["default"].PropTypes.number.isRequired,
+		mainChart: _react2["default"].PropTypes.number.isRequired,
+		show: _react2["default"].PropTypes.bool,
+		mouseXY: _react2["default"].PropTypes.array,
+		dataTransformOptions: _react2["default"].PropTypes.object,
+		chartData: _react2["default"].PropTypes.array.isRequired,
+		currentItems: _react2["default"].PropTypes.array.isRequired,
+		currentCharts: _react2["default"].PropTypes.array.isRequired
+	};
 	
-	MouseCoordinates.defaultProps = { 
+	MouseCoordinates.propTypes = {
+		xDisplayFormat: _react2["default"].PropTypes.func.isRequired,
+		yDisplayFormat: _react2["default"].PropTypes.func.isRequired,
+		type: _react2["default"].PropTypes.oneOf(["crosshair", "vertical"]).isRequired
+	};
+	
+	MouseCoordinates.defaultProps = {
 		namespace: "ReStock.MouseCoordinates",
 		show: false,
 		snapX: true,
-		xDisplayFormat: Utils.displayDateFormat,
-		yDisplayFormat: Utils.displayNumberFormat,
+		xDisplayFormat: _utilsUtils2["default"].displayDateFormat,
+		yDisplayFormat: _utilsUtils2["default"].displayNumberFormat
 	};
-	
 	
 	module.exports = MouseCoordinates;
 
@@ -761,356 +831,511 @@ return webpackJsonpReStock([0,2],[
 /* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	var React = __webpack_require__(2);
-	var ChartDataUtil = __webpack_require__(109);
+	"use strict";
 	
-	var Canvas = __webpack_require__(111);
-	var Utils = __webpack_require__(108);
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 	
-	var ____ClassY=React.Component;for(var ____ClassY____Key in ____ClassY){if(____ClassY.hasOwnProperty(____ClassY____Key)){ChartCanvas[____ClassY____Key]=____ClassY[____ClassY____Key];}}var ____SuperProtoOf____ClassY=____ClassY===null?null:____ClassY.prototype;ChartCanvas.prototype=Object.create(____SuperProtoOf____ClassY);ChartCanvas.prototype.constructor=ChartCanvas;ChartCanvas.__superConstructor__=____ClassY;function ChartCanvas(){if(____ClassY!==null){____ClassY.apply(this,arguments);}}
-		Object.defineProperty(ChartCanvas.prototype,"getAvailableHeight",{writable:true,configurable:true,value:function(props) {
-			return props.height - props.margin.top - props.margin.bottom;
-		}});
-		Object.defineProperty(ChartCanvas.prototype,"getAvailableWidth",{writable:true,configurable:true,value:function(props) {
-			return props.width - props.margin.left - props.margin.right;
-		}});
-		Object.defineProperty(ChartCanvas.prototype,"getChildContext",{writable:true,configurable:true,value:function() {
-			return {
-				width: this.getAvailableWidth(this.props),
-				height: this.getAvailableHeight(this.props),
-				data: this.state.data,
-				interval: this.props.interval,
-				initialDisplay: this.props.initialDisplay || this.state.plotData.length,
-				plotData: this.state.plotData,
-				chartData: this.state.chartData,
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _utilsChartDataUtil = __webpack_require__(110);
+	
+	var _utilsChartDataUtil2 = _interopRequireDefault(_utilsChartDataUtil);
+	
+	var _Canvas = __webpack_require__(111);
+	
+	var _Canvas2 = _interopRequireDefault(_Canvas);
+	
+	var _utilsUtils = __webpack_require__(108);
+	
+	var _utilsUtils2 = _interopRequireDefault(_utilsUtils);
+	
+	var ChartCanvas = (function (_React$Component) {
+		function ChartCanvas() {
+			_classCallCheck(this, ChartCanvas);
+	
+			_get(Object.getPrototypeOf(ChartCanvas.prototype), "constructor", this).apply(this, arguments);
+		}
+	
+		_inherits(ChartCanvas, _React$Component);
+	
+		_createClass(ChartCanvas, [{
+			key: "getAvailableHeight",
+			value: function getAvailableHeight(props) {
+				return props.height - props.margin.top - props.margin.bottom;
 			}
-		}});
-		Object.defineProperty(ChartCanvas.prototype,"componentWillMount",{writable:true,configurable:true,value:function() {
-			var $__0=     this,props=$__0.props,context=$__0.context;
-	
-			var data = {};
-			data[this.props.interval] = this.props.data;
-	
-			var state = {
-				data: data,
-				plotData: this.props.data
+		}, {
+			key: "getAvailableWidth",
+			value: function getAvailableWidth(props) {
+				return props.width - props.margin.left - props.margin.right;
 			}
-			if (ChartDataUtil.containsChart(props)) {
-				var defaultOptions = {
-					width: this.getAvailableWidth(props),
-					height: this.getAvailableHeight(props),
+		}, {
+			key: "getChildContext",
+			value: function getChildContext() {
+				return {
+					width: this.getAvailableWidth(this.props),
+					height: this.getAvailableHeight(this.props),
+					data: this.state.data,
+					interval: this.props.interval,
+					initialDisplay: this.props.initialDisplay || this.state.plotData.length,
+					plotData: this.state.plotData,
+					chartData: this.state.chartData
+				};
+			}
+		}, {
+			key: "componentWillMount",
+			value: function componentWillMount() {
+				var props = this.props;
+				var context = this.context;
+	
+				var data = {};
+				data[this.props.interval] = this.props.data;
+	
+				var state = {
+					data: data,
+					plotData: this.props.data
+				};
+				if (_utilsChartDataUtil2["default"].containsChart(props)) {
+					var defaultOptions = {
+						width: this.getAvailableWidth(props),
+						height: this.getAvailableHeight(props)
+					};
+					var plotData = props.data;
+					var chartData = _utilsChartDataUtil2["default"].getChartData(props, context, plotData, data, defaultOptions);
+					// console.log(chartData);
+					// var mainChart = ChartDataUtil.getMainChart(props.children);
+	
+					state.chartData = chartData;
+					state.plotData = plotData;
 				}
-				var plotData = props.data;
-				var chartData = ChartDataUtil.getChartData(props, context, plotData, data, defaultOptions);
-				// console.log(chartData);
-				var mainChart = ChartDataUtil.getMainChart(props.children);
-	
-				state.chartData = chartData;
-				state.plotData = plotData;
+				this.setState(state);
 			}
-			this.setState(state);
-		}});
-		Object.defineProperty(ChartCanvas.prototype,"getCanvas",{writable:true,configurable:true,value:function() {
-			return this.refs.canvas.getCanvas();
-		}});
-		Object.defineProperty(ChartCanvas.prototype,"render",{writable:true,configurable:true,value:function() {
-			var w = this.getAvailableWidth(this.props), h = this.getAvailableHeight(this.props);
-			var children = React.Children.map(this.props.children, function(child)  {
-				var newChild = Utils.isReactVersion13()
-					? React.withContext(this.getChildContext(), function()  {
-						return React.createElement(child.type, Utils.mergeObject({ key: child.key, ref: child.ref}, child.props));
-					})
-					: React.cloneElement(child);
-				return newChild;
-			}.bind(this));
-			return (
-				React.createElement("div", {style: {position: 'relative'}}, 
-					React.createElement("svg", {width: this.props.width, height: this.props.height}, 
-						React.createElement("defs", null, 
-							React.createElement("clipPath", {id: "chart-area-clip"}, 
-								React.createElement("rect", {x: "0", y: "0", width: w, height: h})
+		}, {
+			key: "getCanvas",
+			value: function getCanvas() {
+				return this.refs.canvas.getCanvas();
+			}
+		}, {
+			key: "render",
+			value: function render() {
+				var _this = this;
+	
+				var w = this.getAvailableWidth(this.props),
+				    h = this.getAvailableHeight(this.props);
+				var children = _react2["default"].Children.map(this.props.children, function (child) {
+					var newChild = _utilsUtils2["default"].isReactVersion13() ? _react2["default"].withContext(_this.getChildContext(), function () {
+						return _react2["default"].createElement(child.type, _utilsUtils2["default"].mergeObject({ key: child.key, ref: child.ref }, child.props));
+					}) : _react2["default"].cloneElement(child);
+					return newChild;
+				});
+				return _react2["default"].createElement(
+					"div",
+					{ style: { position: "relative" } },
+					_react2["default"].createElement(
+						"svg",
+						{ width: this.props.width, height: this.props.height },
+						_react2["default"].createElement(
+							"defs",
+							null,
+							_react2["default"].createElement(
+								"clipPath",
+								{ id: "chart-area-clip" },
+								_react2["default"].createElement("rect", { x: "0", y: "0", width: w, height: h })
 							)
-						), 
-						React.createElement("g", {transform: ("translate(" + this.props.margin.left + ", " + this.props.margin.top + ")")}, 
+						),
+						_react2["default"].createElement(
+							"g",
+							{ transform: "translate(" + this.props.margin.left + ", " + this.props.margin.top + ")" },
 							children
 						)
 					)
-				)
-			);
-		}});
-	;
+				);
+			}
+		}]);
+	
+		return ChartCanvas;
+	})(_react2["default"].Component);
 	
 	ChartCanvas.propTypes = {
-		width: React.PropTypes.number.isRequired,
-		height: React.PropTypes.number.isRequired,
-		margin: React.PropTypes.object,
-		interval: React.PropTypes.oneOf(['D']).isRequired, //,'m1', 'm5', 'm15', 'W', 'M'
-		data: React.PropTypes.array.isRequired,
-		initialDisplay: React.PropTypes.number,
-	}
+		width: _react2["default"].PropTypes.number.isRequired,
+		height: _react2["default"].PropTypes.number.isRequired,
+		margin: _react2["default"].PropTypes.object,
+		interval: _react2["default"].PropTypes.oneOf(["D"]).isRequired, // ,"m1", "m5", "m15", "W", "M"
+		data: _react2["default"].PropTypes.array.isRequired,
+		initialDisplay: _react2["default"].PropTypes.number
+	};
+	
 	ChartCanvas.childContextTypes = {
-		width: React.PropTypes.number.isRequired,
-		height: React.PropTypes.number.isRequired,
-		data: React.PropTypes.object.isRequired,
-		interval: React.PropTypes.string.isRequired,
-		initialDisplay: React.PropTypes.number.isRequired,
-		plotData: React.PropTypes.array,
+		width: _react2["default"].PropTypes.number.isRequired,
+		height: _react2["default"].PropTypes.number.isRequired,
+		data: _react2["default"].PropTypes.object.isRequired,
+		interval: _react2["default"].PropTypes.string.isRequired,
+		initialDisplay: _react2["default"].PropTypes.number.isRequired,
+		plotData: _react2["default"].PropTypes.array,
 		// canvas: React.PropTypes.any,
 	
-		chartData: React.PropTypes.array,
-	}
-	ChartCanvas.defaultProps = {
-		margin: {top: 20, right: 30, bottom: 30, left: 80},
-		interval: "D",
-	}
+		chartData: _react2["default"].PropTypes.array
+	};
 	
+	ChartCanvas.defaultProps = {
+		margin: { top: 20, right: 30, bottom: 30, left: 80 },
+		interval: "D"
+	};
 	
 	module.exports = ChartCanvas;
-	
-	/*
-					<Canvas ref="canvas" width={w} height={h} left={this.props.margin.left} top={this.props.margin.top} />
-	*/
-
 
 /***/ },
 /* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	var React = __webpack_require__(2);
-	var ChartDataUtil = __webpack_require__(109);
-	var ChartTransformer = __webpack_require__(112);
-	var EventHandler = __webpack_require__(113);
-	var Utils = __webpack_require__(108);
+	"use strict";
 	
-	var ____ClassZ=React.Component;for(var ____ClassZ____Key in ____ClassZ){if(____ClassZ.hasOwnProperty(____ClassZ____Key)){DataTransform[____ClassZ____Key]=____ClassZ[____ClassZ____Key];}}var ____SuperProtoOf____ClassZ=____ClassZ===null?null:____ClassZ.prototype;DataTransform.prototype=Object.create(____SuperProtoOf____ClassZ);DataTransform.prototype.constructor=DataTransform;DataTransform.__superConstructor__=____ClassZ;function DataTransform(){if(____ClassZ!==null){____ClassZ.apply(this,arguments);}}
-		Object.defineProperty(DataTransform.prototype,"transformData",{writable:true,configurable:true,value:function(props, context) {
-			var transformer = ChartTransformer.getTransformerFor(props.transformType);
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 	
-			if (context.dataTransformOptions || props.options) {
-				var options = {};
-				if (context.dataTransformOptions)
-					Object.keys(context.dataTransformOptions).forEach(function(key)  {return options[key] = context.dataTransformOptions[key];});
-				if (props.options)
-					Object.keys(props.options).forEach(function(key)  {return options[key] = props.options[key];});
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _utilsChartDataUtil = __webpack_require__(110);
+	
+	var _utilsChartDataUtil2 = _interopRequireDefault(_utilsChartDataUtil);
+	
+	var _utilsChartTransformer = __webpack_require__(112);
+	
+	var _utilsChartTransformer2 = _interopRequireDefault(_utilsChartTransformer);
+	
+	var _EventHandler = __webpack_require__(113);
+	
+	var _EventHandler2 = _interopRequireDefault(_EventHandler);
+	
+	var _utilsUtils = __webpack_require__(108);
+	
+	var _utilsUtils2 = _interopRequireDefault(_utilsUtils);
+	
+	var DataTransform = (function (_React$Component) {
+		function DataTransform() {
+			_classCallCheck(this, DataTransform);
+	
+			_get(Object.getPrototypeOf(DataTransform.prototype), "constructor", this).apply(this, arguments);
+		}
+	
+		_inherits(DataTransform, _React$Component);
+	
+		_createClass(DataTransform, [{
+			key: "transformData",
+			value: function transformData(props, context) {
+				var transformer = _utilsChartTransformer2["default"].getTransformerFor(props.transformType);
+	
+				if (context.dataTransformOptions || props.options) {
+					var options = {};
+					if (context.dataTransformOptions) {
+						Object.keys(context.dataTransformOptions).forEach(function (key) {
+							return options[key] = context.dataTransformOptions[key];
+						});
+					}
+					if (props.options) {
+						Object.keys(props.options).forEach(function (key) {
+							return options[key] = props.options[key];
+						});
+					}
+				}
+	
+				var passThroughProps = transformer(context.data, context.interval, options, context.dataTransformProps);
+				return passThroughProps;
 			}
+		}, {
+			key: "componentWillMount",
+			value: function componentWillMount() {
+				var props = this.props;
+				var context = this.context;
 	
-			var passThroughProps = transformer(context.data, context.interval, options, context.dataTransformProps)
-			return passThroughProps;
-		}});
-		Object.defineProperty(DataTransform.prototype,"componentWillMount",{writable:true,configurable:true,value:function() {
-			var $__0=     this,props=$__0.props,context=$__0.context;
-			var passThroughProps = this.transformData(props, context);
-			this.setState({
-				data: passThroughProps.data,
-				dataTransformOptions: passThroughProps.options,
-				dataTransformProps: passThroughProps.other,
-				interval: context.interval
-			});
-		}});
-		Object.defineProperty(DataTransform.prototype,"componentWillReceiveProps",{writable:true,configurable:true,value:function(props, context) {
-			var passThroughProps = this.transformData(props, context);
-			this.setState({
-				data: passThroughProps.data,
-				dataTransformOptions: passThroughProps.options,
-				dataTransformProps: passThroughProps.other,
-				interval: context.interval
-			});
-		}});
-		Object.defineProperty(DataTransform.prototype,"getChildContext",{writable:true,configurable:true,value:function() {
-			return {
-				data: this.state.data,
-				dataTransformOptions: this.state.dataTransformOptions,
-				dataTransformProps: this.state.dataTransformProps,
-				interval: this.state.interval,
+				var passThroughProps = this.transformData(props, context);
+				this.setState({
+					data: passThroughProps.data,
+					dataTransformOptions: passThroughProps.options,
+					dataTransformProps: passThroughProps.other,
+					interval: context.interval
+				});
 			}
-		}});
-		Object.defineProperty(DataTransform.prototype,"render",{writable:true,configurable:true,value:function() {
-			var children = React.Children.map(this.props.children, function(child)  {
-				var newChild = Utils.isReactVersion13()
-					? React.withContext(this.getChildContext(), function()  {
-						return React.createElement(child.type, Utils.mergeObject({ key: child.key, ref: child.ref}, child.props));
-					})
-					: React.cloneElement(child);
-				return newChild;
-			}.bind(this));
-			return (ChartDataUtil.containsChart(this.props))
-				? React.createElement(EventHandler, null, children)
-				: React.createElement("g", null, children);
-		}});
-	;
+		}, {
+			key: "componentWillReceiveProps",
+			value: function componentWillReceiveProps(props, context) {
+				var passThroughProps = this.transformData(props, context);
+				this.setState({
+					data: passThroughProps.data,
+					dataTransformOptions: passThroughProps.options,
+					dataTransformProps: passThroughProps.other,
+					interval: context.interval
+				});
+			}
+		}, {
+			key: "getChildContext",
+			value: function getChildContext() {
+				return {
+					data: this.state.data,
+					dataTransformOptions: this.state.dataTransformOptions,
+					dataTransformProps: this.state.dataTransformProps,
+					interval: this.state.interval
+				};
+			}
+		}, {
+			key: "render",
+			value: function render() {
+				var _this = this;
+	
+				var children = _react2["default"].Children.map(this.props.children, function (child) {
+					var newChild = _utilsUtils2["default"].isReactVersion13() ? _react2["default"].withContext(_this.getChildContext(), function () {
+						return _react2["default"].createElement(child.type, _utilsUtils2["default"].mergeObject({ key: child.key, ref: child.ref }, child.props));
+					}) : _react2["default"].cloneElement(child);
+					return newChild;
+				});
+				return _utilsChartDataUtil2["default"].containsChart(this.props) ? _react2["default"].createElement(
+					_EventHandler2["default"],
+					null,
+					children
+				) : _react2["default"].createElement(
+					"g",
+					null,
+					children
+				);
+			}
+		}]);
+	
+		return DataTransform;
+	})(_react2["default"].Component);
 	
 	DataTransform.propTypes = {
-		transformType: React.PropTypes.string.isRequired, // stockscale, none
-		options: React.PropTypes.object
-	}
+		transformType: _react2["default"].PropTypes.string.isRequired, // stockscale, none
+		options: _react2["default"].PropTypes.object
+	};
+	
 	DataTransform.contextTypes = {
-		width: React.PropTypes.number.isRequired,
-		height: React.PropTypes.number.isRequired,
-		data: React.PropTypes.object.isRequired,
-		dataTransformOptions: React.PropTypes.object,
-		dataTransformProps: React.PropTypes.object,
-		interval: React.PropTypes.string.isRequired,
-		initialDisplay: React.PropTypes.number.isRequired,
-	}
+		width: _react2["default"].PropTypes.number.isRequired,
+		height: _react2["default"].PropTypes.number.isRequired,
+		data: _react2["default"].PropTypes.object.isRequired,
+		dataTransformOptions: _react2["default"].PropTypes.object,
+		dataTransformProps: _react2["default"].PropTypes.object,
+		interval: _react2["default"].PropTypes.string.isRequired,
+		initialDisplay: _react2["default"].PropTypes.number.isRequired
+	};
+	
 	DataTransform.childContextTypes = {
-		data: React.PropTypes.object,
-		dataTransformOptions: React.PropTypes.object,
-		dataTransformProps: React.PropTypes.object,
-		interval: React.PropTypes.string,
-	}
+		data: _react2["default"].PropTypes.object,
+		dataTransformOptions: _react2["default"].PropTypes.object,
+		dataTransformProps: _react2["default"].PropTypes.object,
+		interval: _react2["default"].PropTypes.string
+	};
+	
 	DataTransform.defaultProps = {
 		namespace: "ReStock.DataTransform",
 		transformType: "none"
-	}
+	};
 	
 	module.exports = DataTransform;
-
 
 /***/ },
 /* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	var React = __webpack_require__(2),
-		d3 = __webpack_require__(3);
+	"use strict";
 	
-	var ____Class1m=React.Component;for(var ____Class1m____Key in ____Class1m){if(____Class1m.hasOwnProperty(____Class1m____Key)){XAxis[____Class1m____Key]=____Class1m[____Class1m____Key];}}var ____SuperProtoOf____Class1m=____Class1m===null?null:____Class1m.prototype;XAxis.prototype=Object.create(____SuperProtoOf____Class1m);XAxis.prototype.constructor=XAxis;XAxis.__superConstructor__=____Class1m;
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _d3 = __webpack_require__(3);
+	
+	var _d32 = _interopRequireDefault(_d3);
+	
+	var XAxis = (function (_React$Component) {
 		function XAxis(props) {
-			____Class1m.call(this,props);
+			_classCallCheck(this, XAxis);
+	
+			_get(Object.getPrototypeOf(XAxis.prototype), "constructor", this).call(this, props);
 			this.updateAxis = this.updateAxis.bind(this);
 		}
-		Object.defineProperty(XAxis.prototype,"componentDidMount",{writable:true,configurable:true,value:function() {
-			this.updateAxis();
-		}});
-		Object.defineProperty(XAxis.prototype,"componentDidUpdate",{writable:true,configurable:true,value:function() {
-			this.updateAxis();
-		}});
-		Object.defineProperty(XAxis.prototype,"updateAxis",{writable:true,configurable:true,value:function() {
-			var axis = d3.svg.axis()
-				.scale(this.context.xScale)
-				.orient(this.props.orient);
 	
-			if (this.props.orient) axis.orient(this.props.orient);
-			if (this.props.innerTickSize) axis.innerTickSize(this.props.innerTickSize);
-			if (this.props.outerTickSize) axis.outerTickSize(this.props.outerTickSize);
-			if (this.props.tickFormat) {
-				if (this.context.xScale.isPolyLinear && this.context.xScale.isPolyLinear())
-					console.warn('Cannot set tickFormat on a poly linear scale, ignoring tickFormat on XAxis');
-				else
-					axis.tickFormat(this.props.tickFormat)
-			};
-			if (this.props.tickPadding) axis.tickPadding(this.props.tickPadding);
-			if (this.props.tickSize) axis.tickSize(this.props.tickSize);
-			if (this.props.ticks) axis.ticks(this.props.ticks);
-			if (this.props.tickValues) axis.tickValues(this.props.tickValues);
-			if (this.props.noTicks) {
-				axis.tickSize(0);
-				axis.tickValues([]);
+		_inherits(XAxis, _React$Component);
+	
+		_createClass(XAxis, [{
+			key: "componentDidMount",
+			value: function componentDidMount() {
+				this.updateAxis();
 			}
-			d3.select(React.findDOMNode(this)).call(axis);
-		}});
-		Object.defineProperty(XAxis.prototype,"render",{writable:true,configurable:true,value:function() {
-			var axisAt = this.props.axisAt
-				, range = this.context.yScale.range();
-			if (this.props.axisAt === 'top') axisAt = Math.min(range[0], range[1]);
-			if (this.props.axisAt === 'bottom') axisAt = Math.max(range[0], range[1]);
-			if (this.props.axisAt === 'middle') axisAt = (range[0] + range[1]) / 2;
+		}, {
+			key: "componentDidUpdate",
+			value: function componentDidUpdate() {
+				this.updateAxis();
+			}
+		}, {
+			key: "updateAxis",
+			value: function updateAxis() {
+				var axis = _d32["default"].svg.axis().scale(this.context.xScale).orient(this.props.orient);
 	
-			return (
-				React.createElement("g", {className: "x axis", transform: 'translate(0, ' + axisAt + ')'})
-			);
-		}});
-	;
+				if (this.props.orient) axis.orient(this.props.orient);
+				if (this.props.innerTickSize) axis.innerTickSize(this.props.innerTickSize);
+				if (this.props.outerTickSize) axis.outerTickSize(this.props.outerTickSize);
+				if (this.props.tickFormat) {
+					if (this.context.xScale.isPolyLinear && this.context.xScale.isPolyLinear()) {
+						console.warn("Cannot set tickFormat on a poly linear scale, ignoring tickFormat on XAxis");
+					} else {
+						axis.tickFormat(this.props.tickFormat);
+					}
+				}
+				if (this.props.tickPadding) axis.tickPadding(this.props.tickPadding);
+				if (this.props.tickSize) axis.tickSize(this.props.tickSize);
+				if (this.props.ticks) axis.ticks(this.props.ticks);
+				if (this.props.tickValues) axis.tickValues(this.props.tickValues);
+				if (this.props.noTicks) {
+					axis.tickSize(0);
+					axis.tickValues([]);
+				}
+				_d32["default"].select(_react2["default"].findDOMNode(this)).call(axis);
+			}
+		}, {
+			key: "render",
+			value: function render() {
+				var axisAt = this.props.axisAt,
+				    range = this.context.yScale.range();
+				if (this.props.axisAt === "top") axisAt = 0;
+				if (this.props.axisAt === "bottom") axisAt = this.context.height;
+				if (this.props.axisAt === "middle") axisAt = this.context.height / 2;
+	
+				return _react2["default"].createElement("g", { className: "x axis", transform: "translate(0, " + axisAt + ")" });
+			}
+		}]);
+	
+		return XAxis;
+	})(_react2["default"].Component);
 	
 	XAxis.propTypes = {
-		axisAt: React.PropTypes.oneOfType([
-					React.PropTypes.oneOf(['top', 'bottom', 'middle'])
-					, React.PropTypes.number
-				]).isRequired,
-		orient: React.PropTypes.oneOf(['top', 'bottom']).isRequired,
-		innerTickSize: React.PropTypes.number,
-		outerTickSize: React.PropTypes.number,
-		tickFormat: React.PropTypes.func,
-		tickPadding: React.PropTypes.number,
-		tickSize: React.PropTypes.number,
-		ticks: React.PropTypes.number,
-		tickValues: React.PropTypes.array
+		axisAt: _react2["default"].PropTypes.oneOfType([_react2["default"].PropTypes.oneOf(["top", "bottom", "middle"]), _react2["default"].PropTypes.number]).isRequired,
+		orient: _react2["default"].PropTypes.oneOf(["top", "bottom"]).isRequired,
+		innerTickSize: _react2["default"].PropTypes.number,
+		outerTickSize: _react2["default"].PropTypes.number,
+		tickFormat: _react2["default"].PropTypes.func,
+		tickPadding: _react2["default"].PropTypes.number,
+		tickSize: _react2["default"].PropTypes.number,
+		ticks: _react2["default"].PropTypes.number,
+		tickValues: _react2["default"].PropTypes.array
 	};
 	XAxis.defaultProps = {
 		namespace: "ReStock.XAxis",
 		showGrid: false
 	};
 	XAxis.contextTypes = {
-		xScale: React.PropTypes.func.isRequired,
-		yScale: React.PropTypes.func.isRequired
+		xScale: _react2["default"].PropTypes.func.isRequired,
+		yScale: _react2["default"].PropTypes.func.isRequired,
+		height: _react2["default"].PropTypes.number.isRequired,
+		width: _react2["default"].PropTypes.number.isRequired
 	};
 	
-	
 	module.exports = XAxis;
-
 
 /***/ },
 /* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	var React = __webpack_require__(2)
-		, d3 = __webpack_require__(3);
+	"use strict";
 	
-	var ____Class10=React.Component;for(var ____Class10____Key in ____Class10){if(____Class10.hasOwnProperty(____Class10____Key)){YAxis[____Class10____Key]=____Class10[____Class10____Key];}}var ____SuperProtoOf____Class10=____Class10===null?null:____Class10.prototype;YAxis.prototype=Object.create(____SuperProtoOf____Class10);YAxis.prototype.constructor=YAxis;YAxis.__superConstructor__=____Class10;
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	
+	var React = __webpack_require__(2),
+	    d3 = __webpack_require__(3);
+	
+	var YAxis = (function (_React$Component) {
 		function YAxis(props) {
-			____Class10.call(this,props);
+			_classCallCheck(this, YAxis);
+	
+			_get(Object.getPrototypeOf(YAxis.prototype), "constructor", this).call(this, props);
 			this.updateAxis = this.updateAxis.bind(this);
 		}
-		Object.defineProperty(YAxis.prototype,"componentDidMount",{writable:true,configurable:true,value:function() {
-			this.updateAxis();
-		}});
-		Object.defineProperty(YAxis.prototype,"componentDidUpdate",{writable:true,configurable:true,value:function() {
-			this.updateAxis();
-		}});
-		Object.defineProperty(YAxis.prototype,"updateAxis",{writable:true,configurable:true,value:function() {
-			var scale = this.context.yScale;
-			if (this.props.percentScale) scale = scale.copy().domain([0, 1]);
 	
-			var axis = d3.svg.axis()
-				.scale(scale)
-				.orient(this.props.orient);
+		_inherits(YAxis, _React$Component);
 	
-			if (this.props.orient) axis.orient(this.props.orient);
-			if (this.props.innerTickSize) axis.innerTickSize(this.props.innerTickSize);
-			if (this.props.outerTickSize) axis.outerTickSize(this.props.outerTickSize);
+		_createClass(YAxis, [{
+			key: "componentDidMount",
+			value: function componentDidMount() {
+				this.updateAxis();
+			}
+		}, {
+			key: "componentDidUpdate",
+			value: function componentDidUpdate() {
+				this.updateAxis();
+			}
+		}, {
+			key: "updateAxis",
+			value: function updateAxis() {
+				var scale = this.context.yScale;
+				if (this.props.percentScale) scale = scale.copy().domain([0, 1]);
 	
-			if (this.context.isCompareSeries) axis.tickFormat(d3.format(".0%"));
-			else if (this.props.tickFormat) axis.tickFormat(this.props.tickFormat);
+				var axis = d3.svg.axis().scale(scale).orient(this.props.orient);
 	
-			if (this.props.tickPadding) axis.tickPadding(this.props.tickPadding);
-			if (this.props.tickSize) axis.tickSize(this.props.tickSize);
-			if (this.props.ticks) axis.ticks(this.props.ticks);
-			if (this.props.tickValues) axis.tickValues(this.props.tickValues);
-			
-			d3.select(React.findDOMNode(this)).call(axis);
-		}});
-		Object.defineProperty(YAxis.prototype,"render",{writable:true,configurable:true,value:function() {
-			var axisAt = this.props.axisAt
-				, range = this.context.xScale.range();
-			if (this.props.axisAt === 'left') axisAt = Math.min(range[0], range[1]) + this.props.axisPadding;
-			if (this.props.axisAt === 'right') axisAt = Math.max(range[0], range[1]) + this.props.axisPadding;
-			if (this.props.axisAt === 'middle') axisAt = (range[0] + range[1]) / 2 + this.props.axisPadding;
+				if (this.props.orient) axis.orient(this.props.orient);
+				if (this.props.innerTickSize) axis.innerTickSize(this.props.innerTickSize);
+				if (this.props.outerTickSize) axis.outerTickSize(this.props.outerTickSize);
 	
-			return (
-				React.createElement("g", {className: "y axis", transform: 'translate(' + axisAt + ', 0)'})
-			);
-		}});
-	;
+				if (this.context.isCompareSeries) axis.tickFormat(d3.format(".0%"));else if (this.props.tickFormat) axis.tickFormat(this.props.tickFormat);
+	
+				if (this.props.tickPadding) axis.tickPadding(this.props.tickPadding);
+				if (this.props.tickSize) axis.tickSize(this.props.tickSize);
+				if (this.props.ticks) axis.ticks(this.props.ticks);
+				if (this.props.tickValues) axis.tickValues(this.props.tickValues);
+	
+				d3.select(React.findDOMNode(this)).call(axis);
+			}
+		}, {
+			key: "render",
+			value: function render() {
+				var axisAt = this.props.axisAt,
+				    range = this.context.xScale.range();
+				if (this.props.axisAt === "left") axisAt = Math.min(range[0], range[1]) + this.props.axisPadding;
+				if (this.props.axisAt === "right") axisAt = Math.max(range[0], range[1]) + this.props.axisPadding;
+				if (this.props.axisAt === "middle") axisAt = (range[0] + range[1]) / 2 + this.props.axisPadding;
+	
+				return React.createElement("g", { className: "y axis", transform: "translate(" + axisAt + ", 0)" });
+			}
+		}]);
+	
+		return YAxis;
+	})(React.Component);
 	
 	YAxis.propTypes = {
-		axisAt: React.PropTypes.oneOfType([
-					React.PropTypes.oneOf(['left', 'right', 'middle'])
-					, React.PropTypes.number
-				]).isRequired,
-		orient: React.PropTypes.oneOf(['left', 'right']).isRequired,
+		axisAt: React.PropTypes.oneOfType([React.PropTypes.oneOf(["left", "right", "middle"]), React.PropTypes.number]).isRequired,
+		orient: React.PropTypes.oneOf(["left", "right"]).isRequired,
 		innerTickSize: React.PropTypes.number,
 		outerTickSize: React.PropTypes.number,
 		tickFormat: React.PropTypes.func,
@@ -1129,848 +1354,1271 @@ return webpackJsonpReStock([0,2],[
 	YAxis.contextTypes = {
 		xScale: React.PropTypes.func.isRequired,
 		yScale: React.PropTypes.func.isRequired,
-		isCompareSeries: React.PropTypes.bool.isRequired,
+		isCompareSeries: React.PropTypes.bool.isRequired
 	};
 	
 	module.exports = YAxis;
-
 
 /***/ },
 /* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
-	var React = __webpack_require__(2),
-		PureComponent = __webpack_require__(110);
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 	
-	var Utils = __webpack_require__(108);
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 	
-	for(var PureComponent____Key in PureComponent){if(PureComponent.hasOwnProperty(PureComponent____Key)){Chart[PureComponent____Key]=PureComponent[PureComponent____Key];}}var ____SuperProtoOfPureComponent=PureComponent===null?null:PureComponent.prototype;Chart.prototype=Object.create(____SuperProtoOfPureComponent);Chart.prototype.constructor=Chart;Chart.__superConstructor__=PureComponent;function Chart(){if(PureComponent!==null){PureComponent.apply(this,arguments);}}
-		Object.defineProperty(Chart.prototype,"getChildContext",{writable:true,configurable:true,value:function() {
-			var chartData = this.context.chartData.filter(function(each)  {return each.id === this.props.id;}.bind(this))[0];
-			return {
-				xScale: chartData.plot.scales.xScale,
-				yScale: chartData.plot.scales.yScale,
-				xAccessor: chartData.config.accessors.xAccessor,
-				yAccessor: chartData.config.accessors.yAccessor,
-				overlays: chartData.config.overlays,
-				compareSeries: chartData.config.compareSeries,
-				isCompareSeries: chartData.config.compareSeries.length > 0
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _libUtilsPureComponent = __webpack_require__(109);
+	
+	var _libUtilsPureComponent2 = _interopRequireDefault(_libUtilsPureComponent);
+	
+	var _utilsUtils = __webpack_require__(108);
+	
+	var _utilsUtils2 = _interopRequireDefault(_utilsUtils);
+	
+	var Chart = (function (_PureComponent) {
+		function Chart() {
+			_classCallCheck(this, Chart);
+	
+			_get(Object.getPrototypeOf(Chart.prototype), "constructor", this).apply(this, arguments);
+		}
+	
+		_inherits(Chart, _PureComponent);
+	
+		_createClass(Chart, [{
+			key: "getChildContext",
+			value: function getChildContext() {
+				var _this = this;
+	
+				var chartData = this.context.chartData.filter(function (each) {
+					return each.id === _this.props.id;
+				})[0];
+				var origin = this.getOrigin();
+	
+				return {
+					xScale: chartData.plot.scales.xScale,
+					yScale: chartData.plot.scales.yScale,
+					xAccessor: chartData.config.accessors.xAccessor,
+					yAccessor: chartData.config.accessors.yAccessor,
+					overlays: chartData.config.overlays,
+					compareSeries: chartData.config.compareSeries,
+					indicatorOptions: chartData.config.indicatorOptions,
+					isCompareSeries: chartData.config.compareSeries.length > 0,
+					width: this.props.width || this.context.width,
+					height: this.props.height || this.context.height
+				};
 			}
-		}});
-		Object.defineProperty(Chart.prototype,"render",{writable:true,configurable:true,value:function() {
-			var origin = typeof this.props.origin === 'function'
-				? this.props.origin(this.context.width, this.context.height)
-				: this.props.origin;
-			var children = React.Children.map(this.props.children, function(child)  {
-				var newChild = Utils.isReactVersion13()
-					? React.withContext(this.getChildContext(), function()  {
-						return React.createElement(child.type, Utils.mergeObject({ key: child.key, ref: child.ref}, child.props));
-					})
-					: React.cloneElement(child);
-				return newChild;
-			}.bind(this));
-			return React.createElement("g", {transform: ("translate(" + origin[0] + ", " + origin[1] + ")")}, children);
-		}});
-	;
+		}, {
+			key: "getOrigin",
+			value: function getOrigin() {
+				var origin = typeof this.props.origin === "function" ? this.props.origin(this.context.width, this.context.height) : this.props.origin;
+				return origin;
+			}
+		}, {
+			key: "render",
+			value: function render() {
+				var _this2 = this;
+	
+				var origin = this.getOrigin();
+				var children = _react2["default"].Children.map(this.props.children, function (child) {
+					var newChild = _utilsUtils2["default"].isReactVersion13() ? _react2["default"].withContext(_this2.getChildContext(), function () {
+						return _react2["default"].createElement(child.type, _utilsUtils2["default"].mergeObject({ key: child.key, ref: child.ref }, child.props));
+					}) : _react2["default"].cloneElement(child);
+					return newChild;
+				});
+				return _react2["default"].createElement(
+					"g",
+					{ transform: "translate(" + origin[0] + ", " + origin[1] + ")" },
+					children
+				);
+			}
+		}]);
+	
+		return Chart;
+	})(_libUtilsPureComponent2["default"]);
 	
 	Chart.propTypes = {
-		height: React.PropTypes.number,
-		width: React.PropTypes.number,
-		origin: React.PropTypes.oneOfType([
-					React.PropTypes.array
-					, React.PropTypes.func
-				]).isRequired,
-		id: React.PropTypes.number.isRequired,
-		xScale: React.PropTypes.func,
-		yScale: React.PropTypes.func,
-		xDomainUpdate: React.PropTypes.bool,
-		yDomainUpdate: React.PropTypes.bool,
-		yMousePointerDisplayLocation: React.PropTypes.oneOf(['left', 'right']),
-		yMousePointerDisplayFormat: React.PropTypes.func,
+		height: _react2["default"].PropTypes.number,
+		width: _react2["default"].PropTypes.number,
+		origin: _react2["default"].PropTypes.oneOfType([_react2["default"].PropTypes.array, _react2["default"].PropTypes.func]).isRequired,
+		id: _react2["default"].PropTypes.number.isRequired,
+		xScale: _react2["default"].PropTypes.func,
+		yScale: _react2["default"].PropTypes.func,
+		xDomainUpdate: _react2["default"].PropTypes.bool,
+		yDomainUpdate: _react2["default"].PropTypes.bool,
+		yMousePointerDisplayLocation: _react2["default"].PropTypes.oneOf(["left", "right"]),
+		yMousePointerDisplayFormat: _react2["default"].PropTypes.func,
+		padding: _react2["default"].PropTypes.object.isRequired
 	};
+	
 	Chart.defaultProps = {
 		namespace: "ReStock.Chart",
 		transformDataAs: "none",
 		yDomainUpdate: true,
-		origin: [0, 0]
+		origin: [0, 0],
+		padding: { top: 0, right: 0, bottom: 0, left: 0 }
 	};
+	
 	Chart.contextTypes = {
-		width: React.PropTypes.number.isRequired,
-		height: React.PropTypes.number.isRequired,
-		chartData: React.PropTypes.array,
+		width: _react2["default"].PropTypes.number.isRequired,
+		height: _react2["default"].PropTypes.number.isRequired,
+		chartData: _react2["default"].PropTypes.array
 	};
+	
 	Chart.childContextTypes = {
-		xScale: React.PropTypes.func.isRequired,
-		yScale: React.PropTypes.func.isRequired,
-		xAccessor: React.PropTypes.func.isRequired,
-		yAccessor: React.PropTypes.func.isRequired,
-		overlays: React.PropTypes.array.isRequired,
-		isCompareSeries: React.PropTypes.bool.isRequired,
-		compareSeries: React.PropTypes.array.isRequired,
+		xScale: _react2["default"].PropTypes.func.isRequired,
+		yScale: _react2["default"].PropTypes.func.isRequired,
+		xAccessor: _react2["default"].PropTypes.func.isRequired,
+		yAccessor: _react2["default"].PropTypes.func.isRequired,
+		overlays: _react2["default"].PropTypes.array.isRequired,
+		indicatorOptions: _react2["default"].PropTypes.object,
+		isCompareSeries: _react2["default"].PropTypes.bool.isRequired,
+		compareSeries: _react2["default"].PropTypes.array.isRequired,
+		width: _react2["default"].PropTypes.number.isRequired,
+		height: _react2["default"].PropTypes.number.isRequired
 	};
+	
 	module.exports = Chart;
-
 
 /***/ },
 /* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
-	var React = __webpack_require__(2);
-	var Utils = __webpack_require__(108);
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 	
-	var ____Class11=React.Component;for(var ____Class11____Key in ____Class11){if(____Class11.hasOwnProperty(____Class11____Key)){DataSeries[____Class11____Key]=____Class11[____Class11____Key];}}var ____SuperProtoOf____Class11=____Class11===null?null:____Class11.prototype;DataSeries.prototype=Object.create(____SuperProtoOf____Class11);DataSeries.prototype.constructor=DataSeries;DataSeries.__superConstructor__=____Class11;function DataSeries(){if(____Class11!==null){____Class11.apply(this,arguments);}}
-		Object.defineProperty(DataSeries.prototype,"render",{writable:true,configurable:true,value:function() {
-			var children = React.Children.map(this.props.children, function(child)  {
-				var newChild = Utils.isReactVersion13()
-					? React.withContext(this.context, function()  {
-						return React.createElement(child.type, Utils.mergeObject({ key: child.key, ref: child.ref}, child.props));
-					})
-					: React.cloneElement(child);
-				return newChild;
-			}.bind(this));
-			return (
-				React.createElement("g", {style: { "clipPath": "url(#chart-area-clip)"}}, children)
-			);
-		}});
-	;
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _utilsUtils = __webpack_require__(108);
+	
+	var _utilsUtils2 = _interopRequireDefault(_utilsUtils);
+	
+	var DataSeries = (function (_React$Component) {
+		function DataSeries() {
+			_classCallCheck(this, DataSeries);
+	
+			_get(Object.getPrototypeOf(DataSeries.prototype), "constructor", this).apply(this, arguments);
+		}
+	
+		_inherits(DataSeries, _React$Component);
+	
+		_createClass(DataSeries, [{
+			key: "render",
+			value: function render() {
+				var _this = this;
+	
+				var children = _react2["default"].Children.map(this.props.children, function (child) {
+					var newChild = _utilsUtils2["default"].isReactVersion13() ? _react2["default"].withContext(_this.context, function () {
+						return _react2["default"].createElement(child.type, _utilsUtils2["default"].mergeObject({ key: child.key, ref: child.ref }, child.props));
+					}) : _react2["default"].cloneElement(child);
+					return newChild;
+				});
+				return _react2["default"].createElement(
+					"g",
+					{ style: { "clipPath": "url(#chart-area-clip)" } },
+					children
+				);
+			}
+		}]);
+	
+		return DataSeries;
+	})(_react2["default"].Component);
 	
 	DataSeries.propTypes = {
-		xAccessor: React.PropTypes.func,
-		yAccessor: React.PropTypes.func,
-	}
+		xAccessor: _react2["default"].PropTypes.func,
+		yAccessor: _react2["default"].PropTypes.func
+	};
 	
 	DataSeries.defaultProps = {
 		namespace: "ReStock.DataSeries",
-		compareBase: function(d)  {return d.close;},
+		compareBase: function compareBase(d) {
+			return d.close;
+		}
 	};
 	
 	module.exports = DataSeries;
-
 
 /***/ },
 /* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	var React = __webpack_require__(2),
-		d3 = __webpack_require__(3);
+	"use strict";
 	
-	var ____Class12=React.Component;for(var ____Class12____Key in ____Class12){if(____Class12.hasOwnProperty(____Class12____Key)){AreaSeries[____Class12____Key]=____Class12[____Class12____Key];}}var ____SuperProtoOf____Class12=____Class12===null?null:____Class12.prototype;AreaSeries.prototype=Object.create(____SuperProtoOf____Class12);AreaSeries.prototype.constructor=AreaSeries;AreaSeries.__superConstructor__=____Class12;
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _d3 = __webpack_require__(3);
+	
+	var _d32 = _interopRequireDefault(_d3);
+	
+	var AreaSeries = (function (_React$Component) {
 		function AreaSeries(props) {
-			____Class12.call(this,props);
+			_classCallCheck(this, AreaSeries);
+	
+			_get(Object.getPrototypeOf(AreaSeries.prototype), "constructor", this).call(this, props);
 			this.getPath = this.getPath.bind(this);
 			this.getArea = this.getArea.bind(this);
 		}
-		Object.defineProperty(AreaSeries.prototype,"getPath",{writable:true,configurable:true,value:function() {
-			var dataSeries = d3.svg.line()
-				.defined(function(d, i)  {return this.context.yAccessor(d) !== undefined;}.bind(this))
-				.x(function(d)  {return this.context.xScale(this.context.xAccessor(d));}.bind(this))
-				.y(function(d)  {return this.context.yScale(this.context.yAccessor(d));}.bind(this));
 	
-			return dataSeries(this.context.plotData);
-		}});
-		Object.defineProperty(AreaSeries.prototype,"getArea",{writable:true,configurable:true,value:function() {
-			var height = this.context.yScale.range()[0];
-			var areaSeries = d3.svg.area()
-				.defined(function(d, i)  {return this.context.yAccessor(d) !== undefined;}.bind(this))
-				.x(function(d)  {return this.context.xScale(this.context.xAccessor(d));}.bind(this))
-				.y0(height - 1)
-				.y1(function(d)  {return this.context.yScale(this.context.yAccessor(d));}.bind(this));
+		_inherits(AreaSeries, _React$Component);
 	
-			return areaSeries(this.context.plotData);
-		}});
-		Object.defineProperty(AreaSeries.prototype,"render",{writable:true,configurable:true,value:function() {
-			return (
-				React.createElement("g", null, 
-					React.createElement("path", {d: this.getPath(), className: "line line-stroke"}), 
-					React.createElement("path", {d: this.getArea(), className: "area"})
-				)
-			);
-		}});
-	;
+		_createClass(AreaSeries, [{
+			key: "getPath",
+			value: function getPath() {
+				var _this = this;
+	
+				var dataSeries = _d32["default"].svg.line().defined(function (d) {
+					return _this.context.yAccessor(d) !== undefined;
+				}).x(function (d) {
+					return _this.context.xScale(_this.context.xAccessor(d));
+				}).y(function (d) {
+					return _this.context.yScale(_this.context.yAccessor(d));
+				});
+	
+				return dataSeries(this.context.plotData);
+			}
+		}, {
+			key: "getArea",
+			value: function getArea() {
+				var _this2 = this;
+	
+				var height = this.context.yScale.range()[0];
+				var areaSeries = _d32["default"].svg.area().defined(function (d) {
+					return _this2.context.yAccessor(d) !== undefined;
+				}).x(function (d) {
+					return _this2.context.xScale(_this2.context.xAccessor(d));
+				}).y0(height - 1).y1(function (d) {
+					return _this2.context.yScale(_this2.context.yAccessor(d));
+				});
+	
+				return areaSeries(this.context.plotData);
+			}
+		}, {
+			key: "render",
+			value: function render() {
+				return _react2["default"].createElement(
+					"g",
+					null,
+					_react2["default"].createElement("path", { d: this.getPath(), className: "line line-stroke" }),
+					_react2["default"].createElement("path", { d: this.getArea(), className: "area" })
+				);
+			}
+		}]);
+	
+		return AreaSeries;
+	})(_react2["default"].Component);
 	
 	AreaSeries.contextTypes = {
-			xScale: React.PropTypes.func.isRequired,
-			yScale: React.PropTypes.func.isRequired,
-			xAccessor: React.PropTypes.func.isRequired,
-			yAccessor: React.PropTypes.func.isRequired,
-			plotData: React.PropTypes.array.isRequired,
-		};
+		xScale: _react2["default"].PropTypes.func.isRequired,
+		yScale: _react2["default"].PropTypes.func.isRequired,
+		xAccessor: _react2["default"].PropTypes.func.isRequired,
+		yAccessor: _react2["default"].PropTypes.func.isRequired,
+		plotData: _react2["default"].PropTypes.array.isRequired
+	};
+	
 	AreaSeries.defaultProps = { namespace: "ReStock.AreaSeries" };
 	
 	module.exports = AreaSeries;
-
 
 /***/ },
 /* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	var React = __webpack_require__(2),
-		d3 = __webpack_require__(3);
+	"use strict";
 	
-	var ____Class13=React.Component;for(var ____Class13____Key in ____Class13){if(____Class13.hasOwnProperty(____Class13____Key)){LineSeries[____Class13____Key]=____Class13[____Class13____Key];}}var ____SuperProtoOf____Class13=____Class13===null?null:____Class13.prototype;LineSeries.prototype=Object.create(____SuperProtoOf____Class13);LineSeries.prototype.constructor=LineSeries;LineSeries.__superConstructor__=____Class13;
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _d3 = __webpack_require__(3);
+	
+	var _d32 = _interopRequireDefault(_d3);
+	
+	var LineSeries = (function (_React$Component) {
 		function LineSeries(props) {
-			____Class13.call(this,props);
+			_classCallCheck(this, LineSeries);
+	
+			_get(Object.getPrototypeOf(LineSeries.prototype), "constructor", this).call(this, props);
 			this.getPath = this.getPath.bind(this);
 		}
-		Object.defineProperty(LineSeries.prototype,"getPath",{writable:true,configurable:true,value:function() {
-			var dataSeries = d3.svg.line()
-				.defined(function(d, i) {return this.context.yAccessor(d) !== undefined;}.bind(this))
-				.x(function(d)  {return this.context.xScale(this.context.xAccessor(d));}.bind(this))
-				.y(function(d)  {return this.context.yScale(this.context.yAccessor(d));}.bind(this));
-			return dataSeries(this.context.plotData);
-		}});
-		Object.defineProperty(LineSeries.prototype,"render",{writable:true,configurable:true,value:function() {
-			var className = this.props.className.concat((this.context.stroke !== undefined) ? '' : ' line-stroke');
-			// console.log('%s, %s, %s', className, this.props.className, this.props.stroke);
-			return (
-				React.createElement("path", {d: this.getPath(), stroke: this.context.stroke, fill: "none", className: className})
-			);
-		}});
-	;
+	
+		_inherits(LineSeries, _React$Component);
+	
+		_createClass(LineSeries, [{
+			key: "getPath",
+			value: function getPath() {
+				var _this = this;
+	
+				var dataSeries = _d32["default"].svg.line().defined(function (d) {
+					return _this.context.yAccessor(d) !== undefined;
+				}).x(function (d) {
+					return _this.context.xScale(_this.context.xAccessor(d));
+				}).y(function (d) {
+					return _this.context.yScale(_this.context.yAccessor(d));
+				});
+				return dataSeries(this.context.plotData);
+			}
+		}, {
+			key: "render",
+			value: function render() {
+				var className = this.props.className.concat(this.context.stroke !== undefined ? "" : " line-stroke");
+				return _react2["default"].createElement("path", { d: this.getPath(), stroke: this.context.stroke, fill: "none", className: className });
+			}
+		}]);
+	
+		return LineSeries;
+	})(_react2["default"].Component);
 	
 	LineSeries.propTypes = {
-		className: React.PropTypes.string,
+		className: _react2["default"].PropTypes.string
 	};
 	LineSeries.defaultProps = {
 		namespace: "ReStock.LineSeries",
 		className: "line "
 	};
 	LineSeries.contextTypes = {
-		xScale: React.PropTypes.func.isRequired,
-		yScale: React.PropTypes.func.isRequired,
-		xAccessor: React.PropTypes.func.isRequired,
-		yAccessor: React.PropTypes.func.isRequired,
-		plotData: React.PropTypes.array.isRequired,
-		stroke: React.PropTypes.string
+		xScale: _react2["default"].PropTypes.func.isRequired,
+		yScale: _react2["default"].PropTypes.func.isRequired,
+		xAccessor: _react2["default"].PropTypes.func.isRequired,
+		yAccessor: _react2["default"].PropTypes.func.isRequired,
+		plotData: _react2["default"].PropTypes.array.isRequired,
+		stroke: _react2["default"].PropTypes.string
 	};
 	
 	module.exports = LineSeries;
-
 
 /***/ },
 /* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	var React = __webpack_require__(2),
-		d3 = __webpack_require__(3);
+	"use strict";
 	
-	var ____Class14=React.Component;for(var ____Class14____Key in ____Class14){if(____Class14.hasOwnProperty(____Class14____Key)){CompareSeries[____Class14____Key]=____Class14[____Class14____Key];}}var ____SuperProtoOf____Class14=____Class14===null?null:____Class14.prototype;CompareSeries.prototype=Object.create(____SuperProtoOf____Class14);CompareSeries.prototype.constructor=CompareSeries;CompareSeries.__superConstructor__=____Class14;
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _d3 = __webpack_require__(3);
+	
+	var _d32 = _interopRequireDefault(_d3);
+	
+	var CompareSeries = (function (_React$Component) {
 		function CompareSeries(props) {
-			____Class14.call(this,props);
+			_classCallCheck(this, CompareSeries);
+	
+			_get(Object.getPrototypeOf(CompareSeries.prototype), "constructor", this).call(this, props);
 			this.getPath = this.getPath.bind(this);
 		}
-		Object.defineProperty(CompareSeries.prototype,"getPath",{writable:true,configurable:true,value:function() {
-			var dataSeries = d3.svg.line()
-				.defined(function(d, i) {return d.compare['compare_' + this.props.id] !== undefined;}.bind(this))
-				.x(function(d)  {return this.context.xScale(this.context.xAccessor(d));}.bind(this))
-				.y(function(d)  {return this.context.yScale(d.compare['compare_' + this.props.id]);}.bind(this));
-			return dataSeries(this.context.plotData);
-		}});
-		Object.defineProperty(CompareSeries.prototype,"render",{writable:true,configurable:true,value:function() {
-			var thisSeries = this.context.compareSeries.filter(function(each)  {return each.id === this.props.id;}.bind(this))[0];
-			var className = this.props.className.concat(' line-stroke');
-			// console.log('%s, %s, %s', className, this.props.className, this.props.stroke);
-			return (
-				React.createElement("path", {d: this.getPath(), stroke: thisSeries.stroke, fill: "none", className: this.props.className})
-			);
-		}});
-	;
+	
+		_inherits(CompareSeries, _React$Component);
+	
+		_createClass(CompareSeries, [{
+			key: "getPath",
+			value: function getPath() {
+				var _this = this;
+	
+				var dataSeries = _d32["default"].svg.line().defined(function (d) {
+					return d.compare["compare_" + _this.props.id] !== undefined;
+				}).x(function (d) {
+					return _this.context.xScale(_this.context.xAccessor(d));
+				}).y(function (d) {
+					return _this.context.yScale(d.compare["compare_" + _this.props.id]);
+				});
+				return dataSeries(this.context.plotData);
+			}
+		}, {
+			key: "render",
+			value: function render() {
+				var _this2 = this;
+	
+				var thisSeries = this.context.compareSeries.filter(function (each) {
+					return each.id === _this2.props.id;
+				})[0];
+	
+				return _react2["default"].createElement("path", { d: this.getPath(), stroke: thisSeries.stroke, fill: "none", className: this.props.className });
+			}
+		}]);
+	
+		return CompareSeries;
+	})(_react2["default"].Component);
 	
 	CompareSeries.propTypes = {
-		className: React.PropTypes.string,
-		stroke: React.PropTypes.string,
-		displayLabel: React.PropTypes.string.isRequired,
-		id: React.PropTypes.number.isRequired,
+		className: _react2["default"].PropTypes.string,
+		stroke: _react2["default"].PropTypes.string,
+		displayLabel: _react2["default"].PropTypes.string.isRequired,
+		id: _react2["default"].PropTypes.number.isRequired
 	};
+	
 	CompareSeries.defaultProps = {
 		namespace: "ReStock.CompareSeries",
 		className: "line "
 	};
+	
 	CompareSeries.contextTypes = {
-		xScale: React.PropTypes.func.isRequired,
-		yScale: React.PropTypes.func.isRequired,
-		xAccessor: React.PropTypes.func.isRequired,
-		plotData: React.PropTypes.array.isRequired,
-		compareSeries: React.PropTypes.array.isRequired,
+		xScale: _react2["default"].PropTypes.func.isRequired,
+		yScale: _react2["default"].PropTypes.func.isRequired,
+		xAccessor: _react2["default"].PropTypes.func.isRequired,
+		plotData: _react2["default"].PropTypes.array.isRequired,
+		compareSeries: _react2["default"].PropTypes.array.isRequired
 	};
 	
 	module.exports = CompareSeries;
-
 
 /***/ },
 /* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	var React = __webpack_require__(2),
-		d3 = __webpack_require__(3);
+	"use strict";
 	
-	var ____Class15=React.Component;for(var ____Class15____Key in ____Class15){if(____Class15.hasOwnProperty(____Class15____Key)){CandlestickSeries[____Class15____Key]=____Class15[____Class15____Key];}}var ____SuperProtoOf____Class15=____Class15===null?null:____Class15.prototype;CandlestickSeries.prototype=Object.create(____SuperProtoOf____Class15);CandlestickSeries.prototype.constructor=CandlestickSeries;CandlestickSeries.__superConstructor__=____Class15;
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var CandlestickSeries = (function (_React$Component) {
 		function CandlestickSeries(props) {
-			____Class15.call(this,props);
+			_classCallCheck(this, CandlestickSeries);
+	
+			_get(Object.getPrototypeOf(CandlestickSeries.prototype), "constructor", this).call(this, props);
 			this.getWicks = this.getWicks.bind(this);
 			this.getCandles = this.getCandles.bind(this);
 		}
-		Object.defineProperty(CandlestickSeries.prototype,"getWicks",{writable:true,configurable:true,value:function() {
-			var wicks = this.context.plotData
-					.filter(function(d)  {return d.close !== undefined;})
-					.map(function(d, idx)  {
-						var ohlc = this.context.isCompareSeries ? this.context.yAccessor(d.compare) : this.context.yAccessor(d);
 	
-						var x1 = Math.round(this.context.xScale(this.context.xAccessor(d))),
-							y1 = this.context.yScale(ohlc.high),
-							x2 = x1,
-							y2 = this.context.yScale(ohlc.low),
-							className = (ohlc.open >= ohlc.close) ? 'up' : 'down';
-						var path = 'M' + x1 + ' ' + y1 + 'L' + x2 + ' ' + y2;
-						//return <path key={idx} d={path} className={className} />
-						/* */
-						return React.createElement("line", {key: idx, 
-										className: className, 
-										x1: x1, 
-										y1: y1, 
-										x2: x2, 
-										y2: y2})
-					}.bind(this), this);
-			return wicks;
-		}});
-		Object.defineProperty(CandlestickSeries.prototype,"getCandles",{writable:true,configurable:true,value:function() {
-			var width = this.context.xScale(this.context.xAccessor(this.context.plotData[this.context.plotData.length - 1]))
-				- this.context.xScale(this.context.xAccessor(this.context.plotData[0]));
-			var cw = (width / (this.context.plotData.length)) * 0.5;
-			var candleWidth = Math.floor(cw) % 2 === 0 ? Math.floor(cw) : Math.round(cw); // 
-			var candles = this.context.plotData
-					.filter(function(d)  {return d.close !== undefined;})
-					.map(function(d, idx)  {
-						var ohlc = this.context.isCompareSeries ? this.context.yAccessor(d.compare) : this.context.yAccessor(d);
-						var x = Math.round(this.context.xScale(this.context.xAccessor(d)))
-								- (candleWidth === 1 ? 0 : 0.5 * candleWidth),
-							y = this.context.yScale(Math.max(ohlc.open, ohlc.close)),
-							height = Math.abs(this.context.yScale(ohlc.open) - this.context.yScale(ohlc.close)),
-							className = (ohlc.open <= ohlc.close) ? 'up' : 'down';
-						if (ohlc.open === ohlc.close) {
-							return React.createElement("line", {key: idx, x1: x, y1: y, x2: x + candleWidth, y2: y})
-						}
-						if (candleWidth <= 1) {
-							return React.createElement("line", {className: className, key: idx, x1: x, y1: y, x2: x, y2: y + height})
-						}
-						return React.createElement("rect", {key: idx, className: className, 
-									x: x, 
-									y: y, 
-									width: candleWidth, 
-									height: height})
-					}.bind(this));
-			return candles;
-		}});
-		Object.defineProperty(CandlestickSeries.prototype,"render",{writable:true,configurable:true,value:function() {
-			return (
-				React.createElement("g", null, 
-					React.createElement("g", {className: "wick", key: "wicks"}, 
+		_inherits(CandlestickSeries, _React$Component);
+	
+		_createClass(CandlestickSeries, [{
+			key: "getWicks",
+			value: function getWicks() {
+				var _this = this;
+	
+				var wicks = this.context.plotData.filter(function (d) {
+					return d.close !== undefined;
+				}).map(function (d, idx) {
+					var ohlc = _this.context.isCompareSeries ? _this.context.yAccessor(d.compare) : _this.context.yAccessor(d);
+	
+					var x1 = Math.round(_this.context.xScale(_this.context.xAccessor(d))),
+					    y1 = _this.context.yScale(ohlc.high),
+					    x2 = x1,
+					    y2 = _this.context.yScale(ohlc.low),
+					    className = ohlc.open >= ohlc.close ? "up" : "down";
+	
+					return _react2["default"].createElement("line", { key: idx,
+						className: className,
+						x1: x1,
+						y1: y1,
+						x2: x2,
+						y2: y2 });
+				});
+				return wicks;
+			}
+		}, {
+			key: "getCandles",
+			value: function getCandles() {
+				var _this2 = this;
+	
+				var width = this.context.xScale(this.context.xAccessor(this.context.plotData[this.context.plotData.length - 1])) - this.context.xScale(this.context.xAccessor(this.context.plotData[0]));
+				var cw = width / this.context.plotData.length * 0.5;
+				var candleWidth = Math.floor(cw) % 2 === 0 ? Math.floor(cw) : Math.round(cw);
+				var candles = this.context.plotData.filter(function (d) {
+					return d.close !== undefined;
+				}).map(function (d, idx) {
+					var ohlc = _this2.context.isCompareSeries ? _this2.context.yAccessor(d.compare) : _this2.context.yAccessor(d);
+					var x = Math.round(_this2.context.xScale(_this2.context.xAccessor(d))) - (candleWidth === 1 ? 0 : 0.5 * candleWidth),
+					    y = _this2.context.yScale(Math.max(ohlc.open, ohlc.close)),
+					    height = Math.abs(_this2.context.yScale(ohlc.open) - _this2.context.yScale(ohlc.close)),
+					    className = ohlc.open <= ohlc.close ? "up" : "down";
+					if (ohlc.open === ohlc.close) {
+						return _react2["default"].createElement("line", { key: idx, x1: x, y1: y, x2: x + candleWidth, y2: y });
+					}
+					if (candleWidth <= 1) {
+						return _react2["default"].createElement("line", { className: className, key: idx, x1: x, y1: y, x2: x, y2: y + height });
+					}
+					return _react2["default"].createElement("rect", { key: idx, className: className,
+						x: x,
+						y: y,
+						width: candleWidth,
+						height: height });
+				});
+				return candles;
+			}
+		}, {
+			key: "render",
+			value: function render() {
+				return _react2["default"].createElement(
+					"g",
+					null,
+					_react2["default"].createElement(
+						"g",
+						{ className: "wick", key: "wicks" },
 						this.getWicks()
-					), 
-					React.createElement("g", {className: "candle", key: "candles"}, 
+					),
+					_react2["default"].createElement(
+						"g",
+						{ className: "candle", key: "candles" },
 						this.getCandles()
 					)
-				)
-			);
-		}});
-	;
+				);
+			}
+		}]);
+	
+		return CandlestickSeries;
+	})(_react2["default"].Component);
 	
 	CandlestickSeries.contextTypes = {
-		xScale: React.PropTypes.func.isRequired,
-		yScale: React.PropTypes.func.isRequired,
-		xAccessor: React.PropTypes.func.isRequired,
-		yAccessor: React.PropTypes.func.isRequired,
-		plotData: React.PropTypes.array.isRequired,
-		isCompareSeries: React.PropTypes.bool.isRequired,
-	}
+		xScale: _react2["default"].PropTypes.func.isRequired,
+		yScale: _react2["default"].PropTypes.func.isRequired,
+		xAccessor: _react2["default"].PropTypes.func.isRequired,
+		yAccessor: _react2["default"].PropTypes.func.isRequired,
+		plotData: _react2["default"].PropTypes.array.isRequired,
+		isCompareSeries: _react2["default"].PropTypes.bool.isRequired
+	};
 	
 	CandlestickSeries.defaultProps = { namespace: "ReStock.CandlestickSeries" };
 	
-	CandlestickSeries.yAccessor = function(d)  {return {open: d.open, high: d.high, low: d.low, close: d.close};};
+	CandlestickSeries.yAccessor = function (d) {
+		return { open: d.open, high: d.high, low: d.low, close: d.close };
+	};
 	
 	module.exports = CandlestickSeries;
-
 
 /***/ },
 /* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
-	var React = __webpack_require__(2);
-	var Utils = __webpack_require__(108);
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 	
-	var ____Class16=React.Component;for(var ____Class16____Key in ____Class16){if(____Class16.hasOwnProperty(____Class16____Key)){OverlaySeries[____Class16____Key]=____Class16[____Class16____Key];}}var ____SuperProtoOf____Class16=____Class16===null?null:____Class16.prototype;OverlaySeries.prototype=Object.create(____SuperProtoOf____Class16);OverlaySeries.prototype.constructor=OverlaySeries;OverlaySeries.__superConstructor__=____Class16;function OverlaySeries(){if(____Class16!==null){____Class16.apply(this,arguments);}}
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 	
-		Object.defineProperty(OverlaySeries.prototype,"getChildContext",{writable:true,configurable:true,value:function() {
-			var overlay = this.context.overlays.filter(function(each)  {return each.id === this.props.id;}.bind(this))[0];
-			return {
-				yAccessor: overlay.yAccessor,
-				stroke: overlay.stroke
-			};
-		}});
-		Object.defineProperty(OverlaySeries.prototype,"render",{writable:true,configurable:true,value:function() {
-			var children = React.Children.map(this.props.children, function(child)  {
-				var newChild = Utils.isReactVersion13()
-					? React.withContext(this.getChildContext(), function()  {
-						return React.createElement(child.type, Utils.mergeObject({ key: child.key, ref: child.ref}, child.props));
-					})
-					: React.cloneElement(child);
-				return newChild;
-			}.bind(this));
-			return (
-				React.createElement("g", null, children)
-			);
-		}});
-	;
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 	
-	OverlaySeries.propTypes = {
-		type: React.PropTypes.oneOf(['sma', 'ema']),
-		options: React.PropTypes.object.isRequired,
-		id: React.PropTypes.number.isRequired,
-		stroke: React.PropTypes.string
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var HistogramSeries = (function (_React$Component) {
+		function HistogramSeries(props) {
+			_classCallCheck(this, HistogramSeries);
+	
+			_get(Object.getPrototypeOf(HistogramSeries.prototype), "constructor", this).call(this, props);
+			this.getBars = this.getBars.bind(this);
+		}
+	
+		_inherits(HistogramSeries, _React$Component);
+	
+		_createClass(HistogramSeries, [{
+			key: "getBars",
+			value: function getBars() {
+				var _this = this;
+	
+				var base = this.props.baseAt === "top" ? 0 : this.props.baseAt === "bottom" ? this.context.yScale.range()[0] : this.props.baseAt === "middle" ? (this.context.yScale.range()[0] + this.context.yScale.range()[1]) / 2 : this.props.baseAt;
+	
+				var dir = this.props.direction === "up" ? -1 : 1;
+	
+				var getClassName = function getClassName() {
+					return _this.props.className;
+				};
+				if (typeof this.props.className === "function") {
+					getClassName = this.props.className;
+				}
+				var width = Math.abs(this.context.xScale.range()[0] - this.context.xScale.range()[1]);
+				var barWidth = width / this.context.plotData.length * 0.5;
+	
+				var bars = this.context.plotData.filter(function (d) {
+					return _this.context.yAccessor(d) !== undefined;
+				}).map(function (d, idx) {
+					var yValue = _this.context.yAccessor(d);
+					var x = Math.round(_this.context.xScale(_this.context.xAccessor(d))) - 0.5 * barWidth,
+					    className = getClassName(d),
+					    y,
+					    height;
+	
+					if (dir > 0) {
+						y = base;
+						height = _this.context.yScale.range()[0] - _this.context.yScale(yValue);
+					} else {
+						y = _this.context.yScale(yValue);
+						height = base - y;
+					}
+	
+					if (height < 0) {
+						y = base;
+						height = -height;
+					}
+	
+					if (Math.round(barWidth) <= 1) {
+						return _react2["default"].createElement("line", { key: idx, className: className,
+							stroke: _this.props.stroke,
+							fill: _this.props.fill,
+							x1: Math.round(x), y1: Math.round(y),
+							x2: Math.round(x), y2: Math.round(y + height) });
+					}
+					return _react2["default"].createElement("rect", { key: idx, className: className,
+						stroke: _this.props.stroke,
+						fill: _this.props.fill,
+						x: Math.round(x),
+						y: Math.round(y),
+						width: Math.round(barWidth),
+						height: Math.round(height) });
+				});
+				return bars;
+			}
+		}, {
+			key: "render",
+			value: function render() {
+				// console.log("HistogramSeries.render()");
+				return _react2["default"].createElement(
+					"g",
+					{ className: "histogram" },
+					this.getBars()
+				);
+			}
+		}]);
+	
+		return HistogramSeries;
+	})(_react2["default"].Component);
+	
+	HistogramSeries.propTypes = {
+		baseAt: _react2["default"].PropTypes.oneOfType([_react2["default"].PropTypes.oneOf(["top", "bottom", "middle"]), _react2["default"].PropTypes.number]).isRequired,
+		direction: _react2["default"].PropTypes.oneOf(["up", "down"]).isRequired,
+		stroke: _react2["default"].PropTypes.string,
+		fill: _react2["default"].PropTypes.string,
+		className: _react2["default"].PropTypes.oneOfType([_react2["default"].PropTypes.func, _react2["default"].PropTypes.string]).isRequired
 	};
-	OverlaySeries.defaultProps = {
-		namespace: "ReStock.OverlaySeries"
+	
+	HistogramSeries.defaultProps = {
+		namespace: "ReStock.HistogramSeries",
+		baseAt: "bottom",
+		direction: "up",
+		className: "bar"
 	};
-	OverlaySeries.contextTypes = {
-		overlays: React.PropTypes.array.isRequired,
+	
+	HistogramSeries.contextTypes = {
+		xScale: _react2["default"].PropTypes.func.isRequired,
+		yScale: _react2["default"].PropTypes.func.isRequired,
+		xAccessor: _react2["default"].PropTypes.func.isRequired,
+		yAccessor: _react2["default"].PropTypes.func.isRequired,
+		plotData: _react2["default"].PropTypes.array.isRequired
 	};
-	OverlaySeries.childContextTypes = {
-		yAccessor: React.PropTypes.func.isRequired,
-		stroke: React.PropTypes.string.isRequired,
-	};
-	module.exports = OverlaySeries;
-
+	
+	module.exports = HistogramSeries;
 
 /***/ },
 /* 89 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	var React = __webpack_require__(2),
-		d3 = __webpack_require__(3);
+	"use strict";
 	
-	var ____Class17=React.Component;for(var ____Class17____Key in ____Class17){if(____Class17.hasOwnProperty(____Class17____Key)){HistogramSeries[____Class17____Key]=____Class17[____Class17____Key];}}var ____SuperProtoOf____Class17=____Class17===null?null:____Class17.prototype;HistogramSeries.prototype=Object.create(____SuperProtoOf____Class17);HistogramSeries.prototype.constructor=HistogramSeries;HistogramSeries.__superConstructor__=____Class17;
-		function HistogramSeries(props) {
-			____Class17.call(this,props);
-			this.getBars = this.getBars.bind(this);
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _d3 = __webpack_require__(3);
+	
+	var _d32 = _interopRequireDefault(_d3);
+	
+	var KagiSeries = (function (_React$Component) {
+		function KagiSeries() {
+			_classCallCheck(this, KagiSeries);
+	
+			_get(Object.getPrototypeOf(KagiSeries.prototype), "constructor", this).apply(this, arguments);
 		}
-		Object.defineProperty(HistogramSeries.prototype,"getBars",{writable:true,configurable:true,value:function() {
-			var base = this.props.baseAt === 'top'
-						? 0
-						: this.props.baseAt === 'bottom'
-							? this.context.yScale.range()[0]
-							: this.props.baseAt === 'middle'
-								? (this.context.yScale.range()[0] + this.context.yScale.range()[1]) / 2
-								: this.props.baseAt;
 	
-			var dir = this.props.direction === 'up' ? -1 : 1;
+		_inherits(KagiSeries, _React$Component);
 	
-			var getClassName = function()  {return this.props.className;}.bind(this);
-			if (typeof this.props.className === 'function') {
-				getClassName = this.props.className;
+		_createClass(KagiSeries, [{
+			key: "render",
+			value: function render() {
+				var _this = this;
+	
+				var kagiLine = [];
+				var kagi = {};
+				for (var i = 0; i < this.context.plotData.length; i++) {
+					var d = this.context.plotData[i];
+					if (d.close === undefined) continue;
+					if (kagi.type === undefined) kagi.type = d.startAs;
+					if (kagi.plot === undefined) kagi.plot = [];
+					var idx = this.context.xAccessor(d);
+					kagi.plot.push([idx, d.open]);
+	
+					if (d.changePoint !== undefined) {
+						kagi.plot.push([idx, d.changePoint]);
+						kagiLine.push(kagi);
+						kagi = {
+							type: d.changeTo,
+							plot: []
+						};
+						kagi.plot.push([idx, d.changePoint]);
+					}
+				}
+	
+				var paths = kagiLine.map(function (each, i) {
+					var dataSeries = _d32["default"].svg.line().x(function (item) {
+						return _this.context.xScale(item[0]);
+					}).y(function (item) {
+						return _this.context.yScale(item[1]);
+					}).interpolate("step-before");
+					return _react2["default"].createElement("path", { key: i, d: dataSeries(each.plot), className: each.type });
+				});
+				return _react2["default"].createElement(
+					"g",
+					null,
+					paths
+				);
 			}
-			var width = Math.abs(this.context.xScale.range()[0] - this.context.xScale.range()[1]);
-			var barWidth = width / (this.context.plotData.length) * 0.5;
+		}]);
 	
+		return KagiSeries;
+	})(_react2["default"].Component);
 	
-			var bars = this.context.plotData
-					.filter(function(d)  {return this.context.yAccessor(d) !== undefined;}.bind(this) )
-					.map(function(d, idx)  {
-						var yValue = this.context.yAccessor(d);
-						var x = Math.round(this.context.xScale(this.context.xAccessor(d))) - 0.5 * barWidth,
-							className = getClassName(d) ,
-							y, height, temp;
-						// console.log(base);
-						if (dir > 0) {
-							y = base;
-							height = this.context.yScale.range()[0] - this.context.yScale(yValue);
-						} else {
-							y = this.context.yScale(yValue);
-							height = base - y;
-						}
-	
-						if (height < 0) {
-							y = base;
-							height = -height;
-						}
-	
-						if (Math.round(barWidth) <= 1) {
-							return React.createElement("line", {key: idx, className: className, 
-										x1: Math.round(x), y1: Math.round(y), 
-										x2: Math.round(x), y2: Math.round(y + height)})
-						}
-						return React.createElement("rect", {key: idx, className: className, 
-									x: Math.round(x), 
-									y: Math.round(y), 
-									width: Math.round(barWidth), 
-									height: Math.round(height)})
-					}.bind(this));
-			return bars;
-		}});
-		Object.defineProperty(HistogramSeries.prototype,"render",{writable:true,configurable:true,value:function() {
-			// console.log('HistogramSeries.render()');
-			return (
-				React.createElement("g", {className: "histogram"}, 
-					this.getBars()
-				)
-			);
-		}});
-	;
-	
-	HistogramSeries.propTypes = {
-		baseAt: React.PropTypes.oneOfType([
-					React.PropTypes.oneOf(['top', 'bottom', 'middle'])
-					, React.PropTypes.number
-				]).isRequired,
-		direction: React.PropTypes.oneOf(['up', 'down']).isRequired,
-		className: React.PropTypes.oneOfType([
-					React.PropTypes.func, React.PropTypes.string
-				]).isRequired,
-	};
-	HistogramSeries.defaultProps = {
-		namespace: "ReStock.HistogramSeries",
-		baseAt: 'bottom',
-		direction: 'up',
-		className: 'bar'
-	};
-	HistogramSeries.contextTypes = {
-		xScale: React.PropTypes.func.isRequired,
-		yScale: React.PropTypes.func.isRequired,
-		xAccessor: React.PropTypes.func.isRequired,
-		yAccessor: React.PropTypes.func.isRequired,
-		plotData: React.PropTypes.array.isRequired,
+	KagiSeries.defaultProps = {
+		namespace: "ReStock.KagiSeries"
 	};
 	
-	module.exports = HistogramSeries;
-
+	KagiSeries.contextTypes = {
+		xScale: _react2["default"].PropTypes.func.isRequired,
+		yScale: _react2["default"].PropTypes.func.isRequired,
+		xAccessor: _react2["default"].PropTypes.func.isRequired,
+		yAccessor: _react2["default"].PropTypes.func.isRequired,
+		plotData: _react2["default"].PropTypes.array.isRequired
+	};
+	
+	KagiSeries.yAccessor = function (d) {
+		return { open: d.open, high: d.high, low: d.low, close: d.close };
+	};
+	
+	module.exports = KagiSeries;
 
 /***/ },
 /* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	var React = __webpack_require__(2),
-		d3 = __webpack_require__(3);
+	"use strict";
 	
-	var ____Class18=React.Component;for(var ____Class18____Key in ____Class18){if(____Class18.hasOwnProperty(____Class18____Key)){KagiSeries[____Class18____Key]=____Class18[____Class18____Key];}}var ____SuperProtoOf____Class18=____Class18===null?null:____Class18.prototype;KagiSeries.prototype=Object.create(____SuperProtoOf____Class18);KagiSeries.prototype.constructor=KagiSeries;KagiSeries.__superConstructor__=____Class18;function KagiSeries(){if(____Class18!==null){____Class18.apply(this,arguments);}}
-		Object.defineProperty(KagiSeries.prototype,"render",{writable:true,configurable:true,value:function() {
-			var kagiLine = new Array();
-			var kagi = {};
-			for (var i = 0; i < this.context.plotData.length; i++) {
-				var d = this.context.plotData[i];
-				if (d.close === undefined) continue;
-				if (kagi.type === undefined) kagi.type = d.startAs;
-				if (kagi.plot === undefined) kagi.plot = new Array();
-				var idx = this.context.xAccessor(d);
-				kagi.plot.push([idx, d.open]);
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 	
-				if (d.changePoint != undefined) {
-					kagi.plot.push([idx, d.changePoint]);
-					kagiLine.push(kagi);
-					kagi = {
-						type: d.changeTo
-						, plot: []
-					};
-					kagi.plot.push([idx, d.changePoint]);
-				}
-			};
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 	
-			var props = this.props;
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 	
-			var paths = kagiLine.map(function(each, i)  {
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-				var dataSeries = d3.svg.line()
-					.x(function(d)  {return this.context.xScale(d[0]);}.bind(this))
-					.y(function(d)  {return this.context.yScale(d[1]);}.bind(this))
-					.interpolate("step-before");
-				return (React.createElement("path", {key: i, d: dataSeries(each.plot), className: each.type}))
-			}.bind(this));
-			return (
-				React.createElement("g", null, 
-					paths
-				)
-			);
-		}});
-	;
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
 	
-	KagiSeries.defaultProps = {
-		namespace: "ReStock.KagiSeries",
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _utilsUtils = __webpack_require__(108);
+	
+	var _utilsUtils2 = _interopRequireDefault(_utilsUtils);
+	
+	var OverlaySeries = (function (_React$Component) {
+		function OverlaySeries() {
+			_classCallCheck(this, OverlaySeries);
+	
+			_get(Object.getPrototypeOf(OverlaySeries.prototype), "constructor", this).apply(this, arguments);
+		}
+	
+		_inherits(OverlaySeries, _React$Component);
+	
+		_createClass(OverlaySeries, [{
+			key: "getChildContext",
+			value: function getChildContext() {
+				var _this = this;
+	
+				var overlay = this.context.overlays.filter(function (each) {
+					return each.id === _this.props.id;
+				})[0];
+				return {
+					yAccessor: overlay.yAccessor,
+					stroke: overlay.stroke
+				};
+			}
+		}, {
+			key: "render",
+			value: function render() {
+				var _this2 = this;
+	
+				var children = _react2["default"].Children.map(this.props.children, function (child) {
+					var newChild = _utilsUtils2["default"].isReactVersion13() ? _react2["default"].withContext(_this2.getChildContext(), function () {
+						return _react2["default"].createElement(child.type, _utilsUtils2["default"].mergeObject({ key: child.key, ref: child.ref }, child.props));
+					}) : _react2["default"].cloneElement(child);
+					return newChild;
+				});
+				return _react2["default"].createElement(
+					"g",
+					null,
+					children
+				);
+			}
+		}]);
+	
+		return OverlaySeries;
+	})(_react2["default"].Component);
+	
+	OverlaySeries.propTypes = {
+		type: _react2["default"].PropTypes.oneOf(["sma", "ema"]),
+		options: _react2["default"].PropTypes.object.isRequired,
+		id: _react2["default"].PropTypes.number.isRequired,
+		stroke: _react2["default"].PropTypes.string
 	};
-	KagiSeries.contextTypes = {
-		xScale: React.PropTypes.func.isRequired,
-		yScale: React.PropTypes.func.isRequired,
-		xAccessor: React.PropTypes.func.isRequired,
-		yAccessor: React.PropTypes.func.isRequired,
-		plotData: React.PropTypes.array.isRequired,
+	OverlaySeries.defaultProps = {
+		namespace: "ReStock.OverlaySeries"
 	};
-	KagiSeries.yAccessor = function(d)  {return {open: d.open, high: d.high, low: d.low, close: d.close};};
-	
-	module.exports = KagiSeries;
-
+	OverlaySeries.contextTypes = {
+		overlays: _react2["default"].PropTypes.array.isRequired
+	};
+	OverlaySeries.childContextTypes = {
+		yAccessor: _react2["default"].PropTypes.func.isRequired,
+		stroke: _react2["default"].PropTypes.string.isRequired
+	};
+	module.exports = OverlaySeries;
 
 /***/ },
 /* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	var React = __webpack_require__(2),
-		d3 = __webpack_require__(3);
+	"use strict";
 	
-	var ____Class19=React.Component;for(var ____Class19____Key in ____Class19){if(____Class19.hasOwnProperty(____Class19____Key)){PointAndFigureSeries[____Class19____Key]=____Class19[____Class19____Key];}}var ____SuperProtoOf____Class19=____Class19===null?null:____Class19.prototype;PointAndFigureSeries.prototype=Object.create(____SuperProtoOf____Class19);PointAndFigureSeries.prototype.constructor=PointAndFigureSeries;PointAndFigureSeries.__superConstructor__=____Class19;function PointAndFigureSeries(){if(____Class19!==null){____Class19.apply(this,arguments);}}
-		Object.defineProperty(PointAndFigureSeries.prototype,"handleClick",{writable:true,configurable:true,value:function(idx) {
-			console.log(this.context.plotData[idx]);
-		}});
-		Object.defineProperty(PointAndFigureSeries.prototype,"render",{writable:true,configurable:true,value:function() {
-			var width = this.context.xScale(this.context.xAccessor(this.context.plotData[this.context.plotData.length - 1]))
-				- this.context.xScale(this.context.xAccessor(this.context.plotData[0]));
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 	
-			var columnWidth = (width / (this.context.plotData.length - 1));
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 	
-			var anyBox, j = 0;
-			while (anyBox === undefined) {
-				if (this.context.plotData[j].close !== undefined) {
-					anyBox= this.context.plotData[j].boxes[0];
-				}
-				j++;
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var debugFlag = false;
+	
+	var PointAndFigureSeries = (function (_React$Component) {
+		function PointAndFigureSeries() {
+			_classCallCheck(this, PointAndFigureSeries);
+	
+			_get(Object.getPrototypeOf(PointAndFigureSeries.prototype), "constructor", this).apply(this, arguments);
+		}
+	
+		_inherits(PointAndFigureSeries, _React$Component);
+	
+		_createClass(PointAndFigureSeries, [{
+			key: "handleClick",
+			value: function handleClick(idx) {
+				console.log(this.context.plotData[idx]);
 			}
+		}, {
+			key: "render",
+			value: function render() {
+				var _this = this;
 	
-			var props = this.props;
-			var boxHeight = Math.abs(this.context.yScale(anyBox.open) - this.context.yScale(anyBox.close));
+				var width = this.context.xScale(this.context.xAccessor(this.context.plotData[this.context.plotData.length - 1])) - this.context.xScale(this.context.xAccessor(this.context.plotData[0]));
 	
-			var columns = this.context.plotData
-					.filter(function(d)  {return d.close !== undefined;})
-					.map(function(d, idx)  {
-						var ohlc = d;
-						var boxes = d.boxes.map(function(box, i)  {
-							var boxshape;
-							if (d.direction > 0) {
-								boxshape = (
-									React.createElement("g", {key: idx + "-" + i}, 
-										React.createElement("line", {className: "point_figure_up", x1: 0, y1: this.context.yScale(box.open), x2: columnWidth, y2: this.context.yScale(box.close)}), 
-										React.createElement("line", {className: "point_figure_up", x1: 0, y1: this.context.yScale(box.close), x2: columnWidth, y2: this.context.yScale(box.open)})
-									)
-									);
-							} else {
-								boxshape = (
-									React.createElement("ellipse", {key: idx + "-" + i, className: "point_figure_down", cx: columnWidth/2, cy: this.context.yScale((box.open + box.close) / 2), 
-										rx: columnWidth/2, ry: boxHeight / 2})
-									);
-							}
-							return boxshape;
-						}.bind(this));
-						var debug = false
-							? React.createElement("rect", {x: 0, y: 0, height: 980, width: columnWidth, style: { opacity: 0.1}, onClick: this.handleClick.bind(this, idx)})
-							: null;
-						var col = (React.createElement("g", {key: idx, 
-										transform: "translate(" + (this.context.xScale(this.context.xAccessor(d)) - (columnWidth / 2)) + ", 0)"}, 
-										boxes, 
-										debug
-									));
-						return col;
-					}.bind(this));
+				var columnWidth = width / (this.context.plotData.length - 1);
 	
-			return (
-				React.createElement("g", null, 
+				var anyBox,
+				    j = 0;
+				while (anyBox === undefined) {
+					if (this.context.plotData[j].close !== undefined) {
+						anyBox = this.context.plotData[j].boxes[0];
+					}
+					j++;
+				}
+	
+				var boxHeight = Math.abs(this.context.yScale(anyBox.open) - this.context.yScale(anyBox.close));
+	
+				var columns = this.context.plotData.filter(function (d) {
+					return d.close !== undefined;
+				}).map(function (d, idx) {
+					var boxes = d.boxes.map(function (box, i) {
+						var boxshape;
+						if (d.direction > 0) {
+							boxshape = _react2["default"].createElement(
+								"g",
+								{ key: idx + "-" + i },
+								_react2["default"].createElement("line", { className: "point_figure_up", x1: 0, y1: _this.context.yScale(box.open), x2: columnWidth, y2: _this.context.yScale(box.close) }),
+								_react2["default"].createElement("line", { className: "point_figure_up", x1: 0, y1: _this.context.yScale(box.close), x2: columnWidth, y2: _this.context.yScale(box.open) })
+							);
+						} else {
+							boxshape = _react2["default"].createElement("ellipse", { key: idx + "-" + i, className: "point_figure_down", cx: columnWidth / 2, cy: _this.context.yScale((box.open + box.close) / 2),
+								rx: columnWidth / 2, ry: boxHeight / 2 });
+						}
+						return boxshape;
+					});
+					var debug = debugFlag ? _react2["default"].createElement("rect", { x: 0, y: 0, height: 980, width: columnWidth, style: { opacity: 0.1 }, onClick: _this.handleClick.bind(_this, idx) }) : null;
+					var col = _react2["default"].createElement(
+						"g",
+						{ key: idx,
+							transform: "translate(" + (_this.context.xScale(_this.context.xAccessor(d)) - columnWidth / 2) + ", 0)" },
+						boxes,
+						debug
+					);
+					return col;
+				});
+	
+				return _react2["default"].createElement(
+					"g",
+					null,
 					columns
-				)
-			);
-		}});
-	;
+				);
+			}
+		}]);
+	
+		return PointAndFigureSeries;
+	})(_react2["default"].Component);
 	
 	PointAndFigureSeries.contextTypes = {
-		xScale: React.PropTypes.func.isRequired,
-		yScale: React.PropTypes.func.isRequired,
-		xAccessor: React.PropTypes.func.isRequired,
-		yAccessor: React.PropTypes.func.isRequired,
-		plotData: React.PropTypes.array.isRequired,
-	}
+		xScale: _react2["default"].PropTypes.func.isRequired,
+		yScale: _react2["default"].PropTypes.func.isRequired,
+		xAccessor: _react2["default"].PropTypes.func.isRequired,
+		yAccessor: _react2["default"].PropTypes.func.isRequired,
+		plotData: _react2["default"].PropTypes.array.isRequired
+	};
 	
 	PointAndFigureSeries.defaultProps = { namespace: "ReStock.PointAndFigureSeries" };
 	
-	PointAndFigureSeries.yAccessor = function(d)  {return {open: d.open, high: d.high, low: d.low, close: d.close};};
+	PointAndFigureSeries.yAccessor = function (d) {
+		return { open: d.open, high: d.high, low: d.low, close: d.close };
+	};
 	
 	module.exports = PointAndFigureSeries;
-
 
 /***/ },
 /* 92 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	var React = __webpack_require__(2),
-		d3 = __webpack_require__(3);
+	"use strict";
 	
-	var ____Class1a=React.Component;for(var ____Class1a____Key in ____Class1a){if(____Class1a.hasOwnProperty(____Class1a____Key)){RenkoSeries[____Class1a____Key]=____Class1a[____Class1a____Key];}}var ____SuperProtoOf____Class1a=____Class1a===null?null:____Class1a.prototype;RenkoSeries.prototype=Object.create(____SuperProtoOf____Class1a);RenkoSeries.prototype.constructor=RenkoSeries;RenkoSeries.__superConstructor__=____Class1a;function RenkoSeries(){if(____Class1a!==null){____Class1a.apply(this,arguments);}}
-		Object.defineProperty(RenkoSeries.prototype,"render",{writable:true,configurable:true,value:function() {
-			var width = this.context.xScale(this.context.xAccessor(this.context.plotData[this.context.plotData.length - 1]))
-				- this.context.xScale(this.context.xAccessor(this.context.plotData[0]));
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 	
-			var candleWidth = (width / (this.context.plotData.length - 1));
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 	
-			var candles = this.context.plotData
-					.filter(function(d)  {return d.close !== undefined;})
-					.map(function(d, idx)  {
-						var ohlc = this.context.yAccessor(d);
-						var x = this.context.xScale(this.context.xAccessor(d)) - 0.5 * candleWidth,
-							y = this.context.yScale(Math.max(ohlc.open, ohlc.close)),
-							height = Math.abs(this.context.yScale(ohlc.open) - this.context.yScale(ohlc.close)),
-							className = (ohlc.open <= ohlc.close) ? 'up' : 'down';
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 	
-						return React.createElement("rect", {key: idx, className: className, 
-									x: x, 
-									y: y, 
-									width: candleWidth, 
-									height: height})
-					}.bind(this));
-			var wicks = this.context.plotData
-					.filter(function(d)  {return d.close !== undefined;})
-					.map(function(d, idx)  {
-						var ohlc = this.context.yAccessor(d);
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-						var x1 = this.context.xScale(this.context.xAccessor(d)),
-							y1 = this.context.yScale(ohlc.high),
-							x2 = x1,
-							y2 = this.context.yScale(ohlc.low),
-							className = (ohlc.open >= ohlc.close) ? 'up' : 'down';
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
 	
-						return React.createElement("line", {key: idx, 
-										className: className, 
-										x1: x1, 
-										y1: y1, 
-										x2: x2, 
-										y2: y2})
-					}.bind(this));
-			return (
-				React.createElement("g", null, 
-					React.createElement("g", {className: "candle"}, 
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var RenkoSeries = (function (_React$Component) {
+		function RenkoSeries() {
+			_classCallCheck(this, RenkoSeries);
+	
+			_get(Object.getPrototypeOf(RenkoSeries.prototype), "constructor", this).apply(this, arguments);
+		}
+	
+		_inherits(RenkoSeries, _React$Component);
+	
+		_createClass(RenkoSeries, [{
+			key: "render",
+			value: function render() {
+				var _this = this;
+	
+				var width = this.context.xScale(this.context.xAccessor(this.context.plotData[this.context.plotData.length - 1])) - this.context.xScale(this.context.xAccessor(this.context.plotData[0]));
+	
+				var candleWidth = width / (this.context.plotData.length - 1);
+	
+				var candles = this.context.plotData.filter(function (d) {
+					return d.close !== undefined;
+				}).map(function (d, idx) {
+					var ohlc = _this.context.yAccessor(d);
+					var x = _this.context.xScale(_this.context.xAccessor(d)) - 0.5 * candleWidth,
+					    y = _this.context.yScale(Math.max(ohlc.open, ohlc.close)),
+					    height = Math.abs(_this.context.yScale(ohlc.open) - _this.context.yScale(ohlc.close)),
+					    className = ohlc.open <= ohlc.close ? "up" : "down";
+	
+					return _react2["default"].createElement("rect", { key: idx, className: className,
+						x: x,
+						y: y,
+						width: candleWidth,
+						height: height });
+				});
+	
+				return _react2["default"].createElement(
+					"g",
+					null,
+					_react2["default"].createElement(
+						"g",
+						{ className: "candle" },
 						candles
 					)
+				);
+			}
+		}]);
 	
-				)
-			);
-		}});
-	;
+		return RenkoSeries;
+	})(_react2["default"].Component);
 	
 	RenkoSeries.contextTypes = {
-		xScale: React.PropTypes.func.isRequired,
-		yScale: React.PropTypes.func.isRequired,
-		xAccessor: React.PropTypes.func.isRequired,
-		yAccessor: React.PropTypes.func.isRequired,
-		plotData: React.PropTypes.array.isRequired,
-	}
+		xScale: _react2["default"].PropTypes.func.isRequired,
+		yScale: _react2["default"].PropTypes.func.isRequired,
+		xAccessor: _react2["default"].PropTypes.func.isRequired,
+		yAccessor: _react2["default"].PropTypes.func.isRequired,
+		plotData: _react2["default"].PropTypes.array.isRequired
+	};
 	
 	RenkoSeries.defaultProps = { namespace: "ReStock.RenkoSeries" };
 	
-	RenkoSeries.yAccessor = function(d)  {return {open: d.open, high: d.high, low: d.low, close: d.close};};
+	RenkoSeries.yAccessor = function (d) {
+		return { open: d.open, high: d.high, low: d.low, close: d.close };
+	};
 	
 	module.exports = RenkoSeries;
-
 
 /***/ },
 /* 93 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	var React = __webpack_require__(2),
-		d3 = __webpack_require__(3);
+	"use strict";
 	
-	var HistogramSeries = __webpack_require__(89);
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 	
-	var ____Class1b=React.Component;for(var ____Class1b____Key in ____Class1b){if(____Class1b.hasOwnProperty(____Class1b____Key)){MACDSeries[____Class1b____Key]=____Class1b[____Class1b____Key];}}var ____SuperProtoOf____Class1b=____Class1b===null?null:____Class1b.prototype;MACDSeries.prototype=Object.create(____SuperProtoOf____Class1b);MACDSeries.prototype.constructor=MACDSeries;MACDSeries.__superConstructor__=____Class1b;
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _d3 = __webpack_require__(3);
+	
+	var _d32 = _interopRequireDefault(_d3);
+	
+	var _HistogramSeries = __webpack_require__(88);
+	
+	var _HistogramSeries2 = _interopRequireDefault(_HistogramSeries);
+	
+	var MACDSeries = (function (_React$Component) {
 		function MACDSeries(props) {
-			____Class1b.call(this,props);
+			_classCallCheck(this, MACDSeries);
+	
+			_get(Object.getPrototypeOf(MACDSeries.prototype), "constructor", this).call(this, props);
 			this.getMACDLine = this.getMACDLine.bind(this);
 			this.getSignalLine = this.getSignalLine.bind(this);
 			this.getHorizontalLine = this.getHorizontalLine.bind(this);
 		}
-		Object.defineProperty(MACDSeries.prototype,"getMACDLine",{writable:true,configurable:true,value:function() {
-			var dataSeries = d3.svg.line()
-				.defined(function(d, i)  {return (this.context.yAccessor(d) && this.context.yAccessor(d).MACDLine) !== undefined;}.bind(this))
-				.x(function(d)  {return this.context.xScale(this.context.xAccessor(d));}.bind(this))
-				.y(function(d)  {return this.context.yScale(this.context.yAccessor(d).MACDLine);}.bind(this));
 	
-			return dataSeries(this.context.plotData);
-		}});
-		Object.defineProperty(MACDSeries.prototype,"getSignalLine",{writable:true,configurable:true,value:function() {
-			var dataSeries = d3.svg.line()
-				.defined(function(d, i)  {return (this.context.yAccessor(d) && this.context.yAccessor(d).signalLine) !== undefined;}.bind(this))
-				.x(function(d)  {return this.context.xScale(this.context.xAccessor(d));}.bind(this))
-				.y(function(d)  {return this.context.yScale(this.context.yAccessor(d).signalLine);}.bind(this));
+		_inherits(MACDSeries, _React$Component);
 	
-			return dataSeries(this.context.plotData);
-		}});
-		Object.defineProperty(MACDSeries.prototype,"getChildContext",{writable:true,configurable:true,value:function() {
-			var yAccess = this.context.yAccessor
-			return {
-				yAccessor: function(d)  {return yAccess(d) && yAccess(d).histogram;},
+		_createClass(MACDSeries, [{
+			key: "getMACDLine",
+			value: function getMACDLine() {
+				var _this = this;
+	
+				var dataSeries = _d32["default"].svg.line().defined(function (d) {
+					return (_this.context.yAccessor(d) && _this.context.yAccessor(d).MACDLine) !== undefined;
+				}).x(function (d) {
+					return _this.context.xScale(_this.context.xAccessor(d));
+				}).y(function (d) {
+					return _this.context.yScale(_this.context.yAccessor(d).MACDLine);
+				});
+	
+				return dataSeries(this.context.plotData);
 			}
-		}});
-		Object.defineProperty(MACDSeries.prototype,"getHorizontalLine",{writable:true,configurable:true,value:function() {
-			var first = this.context.xAccessor(this.context.plotData[0]);
-			var last = this.context.xAccessor(this.context.plotData[this.context.plotData.length - 1]);
+		}, {
+			key: "getSignalLine",
+			value: function getSignalLine() {
+				var _this2 = this;
 	
-			return React.createElement("line", {x1: this.context.xScale(first), 
-				y1: this.context.yScale(0), 
-				x2: this.context.xScale(last), 
-				y2: this.context.yScale(0), className: "horizontal"});
-		}});
-		Object.defineProperty(MACDSeries.prototype,"render",{writable:true,configurable:true,value:function() {
-			return (
-				React.createElement("g", {className: "macd-series"}, 
-					React.createElement("path", {d: this.getMACDLine(), className: "macdline"}), 
-					React.createElement("path", {d: this.getSignalLine(), className: "signalline"}), 
-					React.createElement(HistogramSeries, {baseAt: this.context.yScale(0)}), 
+				var dataSeries = _d32["default"].svg.line().defined(function (d) {
+					return (_this2.context.yAccessor(d) && _this2.context.yAccessor(d).signalLine) !== undefined;
+				}).x(function (d) {
+					return _this2.context.xScale(_this2.context.xAccessor(d));
+				}).y(function (d) {
+					return _this2.context.yScale(_this2.context.yAccessor(d).signalLine);
+				});
+	
+				return dataSeries(this.context.plotData);
+			}
+		}, {
+			key: "getChildContext",
+			value: function getChildContext() {
+				var yAccess = this.context.yAccessor;
+				return {
+					yAccessor: function yAccessor(d) {
+						return yAccess(d) && yAccess(d).histogram;
+					}
+				};
+			}
+		}, {
+			key: "getHorizontalLine",
+			value: function getHorizontalLine() {
+				var first = this.context.xAccessor(this.context.plotData[0]);
+				var last = this.context.xAccessor(this.context.plotData[this.context.plotData.length - 1]);
+	
+				return _react2["default"].createElement("line", { x1: this.context.xScale(first),
+					y1: this.context.yScale(0),
+					x2: this.context.xScale(last),
+					y2: this.context.yScale(0), className: "horizontal" });
+			}
+		}, {
+			key: "render",
+			value: function render() {
+				var indicatorOptions = this.context.indicatorOptions;
+	
+				return _react2["default"].createElement(
+					"g",
+					{ className: "macd-series" },
+					_react2["default"].createElement("path", { d: this.getMACDLine(), stroke: indicatorOptions.stroke.MACDLine, fill: "none" }),
+					_react2["default"].createElement("path", { d: this.getSignalLine(), stroke: indicatorOptions.stroke.signalLine, fill: "none" }),
+					_react2["default"].createElement(_HistogramSeries2["default"], { baseAt: this.context.yScale(0), className: "macd-histogram",
+						stroke: indicatorOptions.stroke.histogram, fill: indicatorOptions.fill.histogram }),
 					this.getHorizontalLine()
-				)
-			);
-		}});
-	;
+				);
+			}
+		}]);
 	
+		return MACDSeries;
+	})(_react2["default"].Component);
+	
+	//  className="macdline"
+	//  className="signalline"
 	MACDSeries.contextTypes = {
-			xScale: React.PropTypes.func.isRequired,
-			yScale: React.PropTypes.func.isRequired,
-			xAccessor: React.PropTypes.func.isRequired,
-			yAccessor: React.PropTypes.func.isRequired,
-			plotData: React.PropTypes.array.isRequired,
-		};
+		xScale: _react2["default"].PropTypes.func.isRequired,
+		yScale: _react2["default"].PropTypes.func.isRequired,
+		xAccessor: _react2["default"].PropTypes.func.isRequired,
+		yAccessor: _react2["default"].PropTypes.func.isRequired,
+		plotData: _react2["default"].PropTypes.array.isRequired,
+		indicatorOptions: _react2["default"].PropTypes.object.isRequired
+	};
+	
 	MACDSeries.childContextTypes = {
-			yAccessor: React.PropTypes.func.isRequired,
-		};
+		yAccessor: _react2["default"].PropTypes.func.isRequired
+	};
 	
 	MACDSeries.defaultProps = { namespace: "ReStock.MACDSeries" };
 	
 	module.exports = MACDSeries;
 
-
 /***/ },
 /* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	var React = __webpack_require__(2);
-	var d3 = __webpack_require__(3);
-	var Utils = __webpack_require__(108);
-	var mousemove = 'mousemove.pan', mouseup = 'mouseup.pan';
+	"use strict";
 	
-	function d3_window(node) {
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _d3 = __webpack_require__(3);
+	
+	var _d32 = _interopRequireDefault(_d3);
+	
+	var _utilsUtils = __webpack_require__(108);
+	
+	var _utilsUtils2 = _interopRequireDefault(_utilsUtils);
+	
+	var mousemove = "mousemove.pan",
+	    mouseup = "mouseup.pan";
+	
+	function d3Window(node) {
 		var d3win = node && (node.ownerDocument && node.ownerDocument.defaultView || node.document && node || node.defaultView);
-		console.log(node, d3win, window, window.top);
-		return d3win.top || d3win;
+		return d3win;
 	}
 	
-	var ____Class1d=React.Component;for(var ____Class1d____Key in ____Class1d){if(____Class1d.hasOwnProperty(____Class1d____Key)){EventCapture[____Class1d____Key]=____Class1d[____Class1d____Key];}}var ____SuperProtoOf____Class1d=____Class1d===null?null:____Class1d.prototype;EventCapture.prototype=Object.create(____SuperProtoOf____Class1d);EventCapture.prototype.constructor=EventCapture;EventCapture.__superConstructor__=____Class1d;
+	var EventCapture = (function (_React$Component) {
 		function EventCapture(props) {
-			____Class1d.call(this,props);
+			_classCallCheck(this, EventCapture);
+	
+			_get(Object.getPrototypeOf(EventCapture.prototype), "constructor", this).call(this, props);
 			this.toggleFocus = this.toggleFocus.bind(this);
 			this.setFocus = this.setFocus.bind(this);
 			this.handleEnter = this.handleEnter.bind(this);
@@ -1981,215 +2629,274 @@ return webpackJsonpReStock([0,2],[
 			this.handlePanEnd = this.handlePanEnd.bind(this);
 			this.handlePan = this.handlePan.bind(this);
 		}
-		Object.defineProperty(EventCapture.prototype,"componentWillMount",{writable:true,configurable:true,value:function() {
-			if (this.context.onFocus) this.context.onFocus(this.props.defaultFocus);
-		}});
-		Object.defineProperty(EventCapture.prototype,"toggleFocus",{writable:true,configurable:true,value:function() {
-			this.setFocus(!this.state.inFocus);
-		}});
-		Object.defineProperty(EventCapture.prototype,"setFocus",{writable:true,configurable:true,value:function(focus) {
-			this.setState({
-				inFocus: focus
-			});
-		}});
-		Object.defineProperty(EventCapture.prototype,"handleEnter",{writable:true,configurable:true,value:function() {
-			if (this.context.onMouseEnter) {
-				this.context.onMouseEnter();
+	
+		_inherits(EventCapture, _React$Component);
+	
+		_createClass(EventCapture, [{
+			key: "componentWillMount",
+			value: function componentWillMount() {
+				if (this.context.onFocus) this.context.onFocus(this.props.defaultFocus);
 			}
-		}});
-		Object.defineProperty(EventCapture.prototype,"handleLeave",{writable:true,configurable:true,value:function() {
-			if (this.context.onMouseLeave) {
-				this.context.onMouseLeave();
+		}, {
+			key: "toggleFocus",
+			value: function toggleFocus() {
+				this.setFocus(!this.state.inFocus);
 			}
-		}});
-		Object.defineProperty(EventCapture.prototype,"handleWheel",{writable:true,configurable:true,value:function(e) {
-			if (this.props.zoom
-					&& this.context.onZoom
-					&& this.context.focus) {
-				e.stopPropagation();
-				e.preventDefault();
-				var zoomDir = e.deltaY > 0 ? this.props.zoomMultiplier : -this.props.zoomMultiplier;
-				var newPos = Utils.mousePosition(e);
-				this.context.onZoom(zoomDir, newPos);
+		}, {
+			key: "setFocus",
+			value: function setFocus(focus) {
+				this.setState({
+					inFocus: focus
+				});
 			}
-		}});
-		Object.defineProperty(EventCapture.prototype,"handleMouseMove",{writable:true,configurable:true,value:function(e) {
-			if (this.context.onMouseMove && this.props.mouseMove) {
-				if (!this.context.panInProgress) {
-					var newPos = Utils.mousePosition(e);
-					this.context.onMouseMove(newPos);
+		}, {
+			key: "handleEnter",
+			value: function handleEnter() {
+				if (this.context.onMouseEnter) {
+					this.context.onMouseEnter();
 				}
 			}
-		}});
-		Object.defineProperty(EventCapture.prototype,"handleMouseDown",{writable:true,configurable:true,value:function(e) {
-			var mouseEvent = e || d3.event;
-			var inFocus = true
-			var chartData = this.context.chartData.filter(function(each)  {return each.id === this.props.mainChart;}.bind(this)) [0];
-			if (this.props.pan && this.context.onPanStart) {
-				var mouseXY = Utils.mousePosition(mouseEvent);
-				this.context.onPanStart(chartData.plot.scales.xScale.domain(), mouseXY)
+		}, {
+			key: "handleLeave",
+			value: function handleLeave() {
+				if (this.context.onMouseLeave) {
+					this.context.onMouseLeave();
+				}
+			}
+		}, {
+			key: "handleWheel",
+			value: function handleWheel(e) {
+				if (this.props.zoom && this.context.onZoom && this.context.focus) {
+					e.stopPropagation();
+					e.preventDefault();
+					var zoomDir = e.deltaY > 0 ? this.props.zoomMultiplier : -this.props.zoomMultiplier;
+					var newPos = _utilsUtils2["default"].mousePosition(e);
+					this.context.onZoom(zoomDir, newPos);
+				}
+			}
+		}, {
+			key: "handleMouseMove",
+			value: function handleMouseMove(e) {
+				if (this.context.onMouseMove && this.props.mouseMove) {
+					if (!this.context.panInProgress) {
+						var newPos = _utilsUtils2["default"].mousePosition(e);
+						this.context.onMouseMove(newPos);
+					}
+				}
+			}
+		}, {
+			key: "handleMouseDown",
+			value: function handleMouseDown(e) {
+				var _this = this;
 	
-				var dx = mouseEvent.pageX - mouseXY[0],
-					dy = mouseEvent.pageY - mouseXY[1];
+				var mouseEvent = e || _d32["default"].event;
 	
-				this.setState({
-					deltaXY: [dx, dy]
+				var chartData = this.context.chartData.filter(function (each) {
+					return each.id === _this.props.mainChart;
+				})[0];
+				if (this.props.pan && this.context.onPanStart) {
+					var mouseXY = _utilsUtils2["default"].mousePosition(mouseEvent);
+					this.context.onPanStart(chartData.plot.scales.xScale.domain(), mouseXY);
+	
+					var dx = mouseEvent.pageX - mouseXY[0],
+					    dy = mouseEvent.pageY - mouseXY[1];
+	
+					this.setState({
+						deltaXY: [dx, dy]
+					});
+					var win = d3Window(_react2["default"].findDOMNode(this.refs.capture));
+					_d32["default"].select(win).on(mousemove, this.handlePan).on(mouseup, this.handlePanEnd);
+				} else {
+					if (!this.context.focus && this.context.onFocus) this.context.onFocus(true);
+				}
+				mouseEvent.preventDefault();
+			}
+		}, {
+			key: "handlePan",
+			value: function handlePan() {
+				var _this2 = this;
+	
+				var deltaXY = this.state.deltaXY;
+				var newPos = [_d32["default"].event.pageX - deltaXY[0], _d32["default"].event.pageY - deltaXY[1]];
+				// console.log("moved from- ", startXY, " to ", newPos);
+				if (this.props.pan && this.context.onPan) {
+					var chartData = this.context.chartData.filter(function (each) {
+						return each.id === _this2.props.mainChart;
+					})[0];
+					this.context.onPan(newPos, chartData.plot.scales.xScale.domain());
+				}
+			}
+		}, {
+			key: "handlePanEnd",
+			value: function handlePanEnd() {
+				var win = d3Window(_react2["default"].findDOMNode(this.refs.capture));
+	
+				_d32["default"].select(win).on(mousemove, null).on(mouseup, null);
+				if (this.props.pan && this.context.onPanEnd) {
+					this.context.onPanEnd();
+				}
+				// e.preventDefault();
+			}
+		}, {
+			key: "render",
+			value: function render() {
+				var className = this.context.panInProgress ? "grabbing" : "crosshair";
+				return _react2["default"].createElement("rect", { ref: "capture",
+					className: className,
+					width: this.context.width, height: this.context.height, style: { opacity: 0 },
+					onMouseEnter: this.handleEnter,
+					onMouseLeave: this.handleLeave,
+					onMouseMove: this.handleMouseMove,
+					onWheel: this.handleWheel,
+					onMouseDown: this.handleMouseDown
 				});
-				var win = d3_window(React.findDOMNode(this.refs.capture));
-				d3.select(win)
-					.on(mousemove, this.handlePan)
-					.on(mouseup, this.handlePanEnd);
-			} else {
-				if (!this.context.focus && this.context.onFocus) this.context.onFocus(true);
 			}
-			mouseEvent.preventDefault();
-		}});
-		Object.defineProperty(EventCapture.prototype,"handlePan",{writable:true,configurable:true,value:function() {
-			var deltaXY = this.state.deltaXY;
-			var newPos = [d3.event.pageX - deltaXY[0], d3.event.pageY - deltaXY[1]];
-			// console.log('moved from- ', startXY, ' to ', newPos);
-			if (this.props.pan && this.context.onPan) {
-				var chartData = this.context.chartData.filter(function(each)  {return each.id === this.props.mainChart;}.bind(this)) [0];
-				this.context.onPan(newPos, chartData.plot.scales.xScale.domain());
-			}
-		}});
-		Object.defineProperty(EventCapture.prototype,"handlePanEnd",{writable:true,configurable:true,value:function() {
-			var win = d3_window(React.findDOMNode(this.refs.capture));
+		}]);
 	
-			d3.select(win)
-				.on(mousemove, null)
-				.on(mouseup, null);
-			if (this.props.pan && this.context.onPanEnd) {
-				this.context.onPanEnd();
-			}
-			// e.preventDefault();
-		}});
-		Object.defineProperty(EventCapture.prototype,"render",{writable:true,configurable:true,value:function() {
-			var className = this.context.panInProgress ? 'grabbing' : 'crosshair';
-			return (
-				React.createElement("rect", {ref: "capture", 
-					className: className, 
-					width: this.context.width, height: this.context.height, style: {opacity: 0}, 
-					onMouseEnter: this.handleEnter, 
-					onMouseLeave: this.handleLeave, 
-					onMouseMove: this.handleMouseMove, 
-					onWheel: this.handleWheel, 
-					onMouseDown: this.handleMouseDown}
-					)
-			);
-		}});
-	;
-	
+		return EventCapture;
+	})(_react2["default"].Component);
 	
 	EventCapture.propTypes = {
-		mainChart: React.PropTypes.number.isRequired,
-		mouseMove: React.PropTypes.bool.isRequired,
-		zoom: React.PropTypes.bool.isRequired,
-		zoomMultiplier: React.PropTypes.number.isRequired,
-		pan: React.PropTypes.bool.isRequired,
-		panSpeedMultiplier: React.PropTypes.number.isRequired,
-		defaultFocus: React.PropTypes.bool.isRequired,
+		mainChart: _react2["default"].PropTypes.number.isRequired,
+		mouseMove: _react2["default"].PropTypes.bool.isRequired,
+		zoom: _react2["default"].PropTypes.bool.isRequired,
+		zoomMultiplier: _react2["default"].PropTypes.number.isRequired,
+		pan: _react2["default"].PropTypes.bool.isRequired,
+		panSpeedMultiplier: _react2["default"].PropTypes.number.isRequired,
+		defaultFocus: _react2["default"].PropTypes.bool.isRequired
 	};
+	
 	EventCapture.defaultProps = {
-		namespace: "ReStock.EventCapture"
-		, mouseMove: false
-		, zoom: false
-		, zoomMultiplier: 1
-		, pan: false
-		, panSpeedMultiplier: 1
-		, className: "crosshair"
-		, defaultFocus: false
+		namespace: "ReStock.EventCapture",
+		mouseMove: false,
+		zoom: false,
+		zoomMultiplier: 1,
+		pan: false,
+		panSpeedMultiplier: 1,
+		className: "crosshair",
+		defaultFocus: false
 	};
+	
 	EventCapture.contextTypes = {
-		width: React.PropTypes.number.isRequired,
-		height: React.PropTypes.number.isRequired,
-		chartData: React.PropTypes.array,
-		onMouseMove: React.PropTypes.func,
-		onMouseEnter: React.PropTypes.func,
-		onMouseLeave: React.PropTypes.func,
-		onZoom: React.PropTypes.func,
-		onPanStart: React.PropTypes.func,
-		onPan: React.PropTypes.func,
-		onPanEnd: React.PropTypes.func,
-		panInProgress: React.PropTypes.bool,
-		focus: React.PropTypes.bool.isRequired,
-		onFocus: React.PropTypes.func,
+		width: _react2["default"].PropTypes.number.isRequired,
+		height: _react2["default"].PropTypes.number.isRequired,
+		chartData: _react2["default"].PropTypes.array,
+		onMouseMove: _react2["default"].PropTypes.func,
+		onMouseEnter: _react2["default"].PropTypes.func,
+		onMouseLeave: _react2["default"].PropTypes.func,
+		onZoom: _react2["default"].PropTypes.func,
+		onPanStart: _react2["default"].PropTypes.func,
+		onPan: _react2["default"].PropTypes.func,
+		onPanEnd: _react2["default"].PropTypes.func,
+		panInProgress: _react2["default"].PropTypes.bool,
+		focus: _react2["default"].PropTypes.bool.isRequired,
+		onFocus: _react2["default"].PropTypes.func
 	};
 	
 	module.exports = EventCapture;
-
 
 /***/ },
 /* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	var React = __webpack_require__(2);
-	var EdgeCoordinate = __webpack_require__(114)
-	var Utils = __webpack_require__(108)
+	"use strict";
 	
-	var ____Class1c=React.Component;for(var ____Class1c____Key in ____Class1c){if(____Class1c.hasOwnProperty(____Class1c____Key)){CrossHair[____Class1c____Key]=____Class1c[____Class1c____Key];}}var ____SuperProtoOf____Class1c=____Class1c===null?null:____Class1c.prototype;CrossHair.prototype=Object.create(____SuperProtoOf____Class1c);CrossHair.prototype.constructor=CrossHair;CrossHair.__superConstructor__=____Class1c;
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _EdgeCoordinate = __webpack_require__(114);
+	
+	var _EdgeCoordinate2 = _interopRequireDefault(_EdgeCoordinate);
+	
+	var CrossHair = (function (_React$Component) {
 		function CrossHair(props) {
-			____Class1c.call(this,props);
+			_classCallCheck(this, CrossHair);
+	
+			_get(Object.getPrototypeOf(CrossHair.prototype), "constructor", this).call(this, props);
 		}
-		Object.defineProperty(CrossHair.prototype,"shouldComponentUpdate",{writable:true,configurable:true,value:function(nextProps, nextState, nextContext) {
-			return nextProps.mouseXY !== this.props.mouseXY
-		}});
-		Object.defineProperty(CrossHair.prototype,"render",{writable:true,configurable:true,value:function() {
-			var x1 = 0, x2 = this.props.width;
-			var edges = this.props.edges.map(function(edge, idx)  {
-				if (edge.at === 'left') {
-					x1 = -this.props.yAxisPad;
-				}
-				if (edge.at === 'right') {
-					x2 = this.props.width + this.props.yAxisPad;
-				}
-				return React.createElement(EdgeCoordinate, {
-					key: idx, 
-					type: "horizontal", 
-					className: "horizontal", 
-					show: true, 
-					x1: 0, y1: this.props.mouseXY[1], 
-					x2: 0, y2: this.props.mouseXY[1], 
-					coordinate: edge.yDisplayValue, 
-					edgeAt: edge.at === 'left' ? x1 : x2, 
-					orient: edge.at, 
-					hideLine: true}
-					);
-			}.bind(this))
-			var line = null;
-			if (this.props.edges.length > 0) {
-				line = React.createElement("line", {className: "cross-hair", 
-						x1: x1, y1: this.props.mouseXY[1], 
-						x2: x2, y2: this.props.mouseXY[1]})
+	
+		_inherits(CrossHair, _React$Component);
+	
+		_createClass(CrossHair, [{
+			key: "shouldComponentUpdate",
+			value: function shouldComponentUpdate(nextProps) {
+				return nextProps.mouseXY !== this.props.mouseXY;
 			}
-			return (
-				React.createElement("g", {className: 'crosshair '}, 
-					line, 
-					edges, 
-					React.createElement(EdgeCoordinate, {
-						type: "vertical", 
-						className: "horizontal", 
-						show: true, 
-						x1: this.props.mouseXY[0], y1: 0, 
-						x2: this.props.mouseXY[0], y2: this.props.height, 
-						coordinate: this.props.xDisplayValue, 
-						edgeAt: this.props.height, 
-						orient: "bottom"}
-						)
-				)
-			);
-		}});
-	;
+		}, {
+			key: "render",
+			value: function render() {
+				var _this = this;
+	
+				var x1 = 0,
+				    x2 = this.props.width;
+				var edges = this.props.edges.map(function (edge, idx) {
+					if (edge.at === "left") {
+						x1 = -_this.props.yAxisPad;
+					}
+					if (edge.at === "right") {
+						x2 = _this.props.width + _this.props.yAxisPad;
+					}
+					return _react2["default"].createElement(_EdgeCoordinate2["default"], {
+						key: idx,
+						type: "horizontal",
+						className: "horizontal",
+						show: true,
+						x1: 0, y1: _this.props.mouseXY[1],
+						x2: 0, y2: _this.props.mouseXY[1],
+						coordinate: edge.yDisplayValue,
+						edgeAt: edge.at === "left" ? x1 : x2,
+						orient: edge.at,
+						hideLine: true
+					});
+				});
+				var line = null;
+				if (this.props.edges.length > 0) {
+					line = _react2["default"].createElement("line", { className: "cross-hair",
+						x1: x1, y1: this.props.mouseXY[1],
+						x2: x2, y2: this.props.mouseXY[1] });
+				}
+				return _react2["default"].createElement(
+					"g",
+					{ className: "crosshair " },
+					line,
+					edges,
+					_react2["default"].createElement(_EdgeCoordinate2["default"], {
+						type: "vertical",
+						className: "horizontal",
+						show: true,
+						x1: this.props.mouseXY[0], y1: 0,
+						x2: this.props.mouseXY[0], y2: this.props.height,
+						coordinate: this.props.xDisplayValue,
+						edgeAt: this.props.height,
+						orient: "bottom"
+					})
+				);
+			}
+		}]);
+	
+		return CrossHair;
+	})(_react2["default"].Component);
 	
 	CrossHair.propTypes = {
-		yAxisPad: React.PropTypes.number.isRequired,
-		height: React.PropTypes.number.isRequired,
-		width: React.PropTypes.number.isRequired,
-		mouseXY: React.PropTypes.array.isRequired,
-		xDisplayValue: React.PropTypes.string.isRequired,
-		edges: React.PropTypes.array.isRequired
+		yAxisPad: _react2["default"].PropTypes.number.isRequired,
+		height: _react2["default"].PropTypes.number.isRequired,
+		width: _react2["default"].PropTypes.number.isRequired,
+		mouseXY: _react2["default"].PropTypes.array.isRequired,
+		xDisplayValue: _react2["default"].PropTypes.string.isRequired,
+		edges: _react2["default"].PropTypes.array.isRequired
 	};
+	
 	CrossHair.defaultProps = {
 		namespace: "ReStock.CrossHair",
 		yAxisPad: 5
@@ -2197,313 +2904,484 @@ return webpackJsonpReStock([0,2],[
 	
 	module.exports = CrossHair;
 
-
 /***/ },
 /* 96 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	var React = __webpack_require__(2);
-	var EdgeCoordinate = __webpack_require__(114)
-	var Utils = __webpack_require__(108)
+	"use strict";
 	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 	
-	var ____Class1e=React.Component;for(var ____Class1e____Key in ____Class1e){if(____Class1e.hasOwnProperty(____Class1e____Key)){VerticalMousePointer[____Class1e____Key]=____Class1e[____Class1e____Key];}}var ____SuperProtoOf____Class1e=____Class1e===null?null:____Class1e.prototype;VerticalMousePointer.prototype=Object.create(____SuperProtoOf____Class1e);VerticalMousePointer.prototype.constructor=VerticalMousePointer;VerticalMousePointer.__superConstructor__=____Class1e;function VerticalMousePointer(){if(____Class1e!==null){____Class1e.apply(this,arguments);}}
-		Object.defineProperty(VerticalMousePointer.prototype,"shouldComponentUpdate",{writable:true,configurable:true,value:function(nextProps, nextState, nextContext) {
-			return nextProps.mouseXY !== this.props.mouseXY
-		}});
-		Object.defineProperty(VerticalMousePointer.prototype,"render",{writable:true,configurable:true,value:function() {
-			return (
-				React.createElement("g", {className: 'crosshair '}, 
-					React.createElement(EdgeCoordinate, {
-						type: "vertical", 
-						className: "horizontal", 
-						show: true, 
-						x1: this.props.mouseXY[0], y1: 0, 
-						x2: this.props.mouseXY[0], y2: this.props.height, 
-						coordinate: this.props.xDisplayValue, 
-						edgeAt: this.props.height, 
-						orient: "bottom"}
-						)
-					
-				)
-			);
-		}});
-	;
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var VerticalMousePointer = (function (_React$Component) {
+		function VerticalMousePointer() {
+			_classCallCheck(this, VerticalMousePointer);
+	
+			_get(Object.getPrototypeOf(VerticalMousePointer.prototype), "constructor", this).apply(this, arguments);
+		}
+	
+		_inherits(VerticalMousePointer, _React$Component);
+	
+		_createClass(VerticalMousePointer, [{
+			key: "shouldComponentUpdate",
+			value: function shouldComponentUpdate(nextProps) {
+				return nextProps.mouseXY !== this.props.mouseXY;
+			}
+		}, {
+			key: "render",
+			value: function render() {
+				return _react2["default"].createElement(
+					"g",
+					{ className: "crosshair " },
+					_react2["default"].createElement(EdgeCoordinate, {
+						type: "vertical",
+						className: "horizontal",
+						show: true,
+						x1: this.props.mouseXY[0], y1: 0,
+						x2: this.props.mouseXY[0], y2: this.props.height,
+						coordinate: this.props.xDisplayValue,
+						edgeAt: this.props.height,
+						orient: "bottom" })
+				);
+			}
+		}]);
+	
+		return VerticalMousePointer;
+	})(_react2["default"].Component);
 	
 	VerticalMousePointer.propTypes = {
-		height: React.PropTypes.number.isRequired,
-		mouseXY: React.PropTypes.array.isRequired,
-		xDisplayValue: React.PropTypes.string.isRequired,
-	}
+		height: _react2["default"].PropTypes.number.isRequired,
+		mouseXY: _react2["default"].PropTypes.array.isRequired,
+		xDisplayValue: _react2["default"].PropTypes.string.isRequired
+	};
 	
 	VerticalMousePointer.defaultProps = { namespace: "ReStock.VerticalMousePointer" };
 	
-	VerticalMousePointer.yAccessor = function(d)  {return {open: d.open, high: d.high, low: d.low, close: d.close};};
+	VerticalMousePointer.yAccessor = function (d) {
+		return { open: d.open, high: d.high, low: d.low, close: d.close };
+	};
 	
 	module.exports = VerticalMousePointer;
-
 
 /***/ },
 /* 97 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	var React = __webpack_require__(2),
-		Utils = __webpack_require__(108);
+	"use strict";
 	
-	var ____Class1f=React.Component;for(var ____Class1f____Key in ____Class1f){if(____Class1f.hasOwnProperty(____Class1f____Key)){CurrentCoordinate[____Class1f____Key]=____Class1f[____Class1f____Key];}}var ____SuperProtoOf____Class1f=____Class1f===null?null:____Class1f.prototype;CurrentCoordinate.prototype=Object.create(____SuperProtoOf____Class1f);CurrentCoordinate.prototype.constructor=CurrentCoordinate;CurrentCoordinate.__superConstructor__=____Class1f;
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var CurrentCoordinate = (function (_React$Component) {
 		function CurrentCoordinate(props) {
-			____Class1f.call(this,props);
+			_classCallCheck(this, CurrentCoordinate);
+	
+			_get(Object.getPrototypeOf(CurrentCoordinate.prototype), "constructor", this).call(this, props);
 		}
-		Object.defineProperty(CurrentCoordinate.prototype,"render",{writable:true,configurable:true,value:function() {
-			var chartData = this.context.chartData.filter(function(each)  {return each.id === this.props.forChart;}.bind(this))[0];
-			var currentItem = this.context.currentItems.filter(function(each)  {return each.id === this.props.forChart;}.bind(this))[0];
-			var item = currentItem ? currentItem.data : undefined;
-			var fill = 'black';
 	
-			if (! this.context.show || item === undefined) return null;
-			var yAccessor =  this.props.yAccessor || chartData.config.accessors.yAccessor;
+		_inherits(CurrentCoordinate, _React$Component);
 	
-			if (this.props.forOverlay !== undefined) {
-				var overlays = chartData.config.overlays
-					.filter(function(each)  {return each.id === this.props.forOverlay;}.bind(this));
+		_createClass(CurrentCoordinate, [{
+			key: "render",
+			value: function render() {
+				var _this = this;
 	
-				if (overlays.length != 1) {
-					console.warn('Unique overlay with id={%s} not found', this.props.forOverlay);
-					throw new Error('Unique overlay not found');
+				var chartData = this.context.chartData.filter(function (each) {
+					return each.id === _this.props.forChart;
+				})[0];
+				var currentItem = this.context.currentItems.filter(function (each) {
+					return each.id === _this.props.forChart;
+				})[0];
+				var item = currentItem ? currentItem.data : undefined;
+				var fill = "black";
+	
+				if (!this.context.show || item === undefined) return null;
+				var yAccessor = this.props.yAccessor || chartData.config.accessors.yAccessor;
+	
+				if (this.props.forOverlay !== undefined) {
+					var overlays = chartData.config.overlays.filter(function (each) {
+						return each.id === _this.props.forOverlay;
+					});
+	
+					if (overlays.length !== 1) {
+						console.warn("Unique overlay with id={%s} not found", this.props.forOverlay);
+						throw new Error("Unique overlay not found");
+					}
+					fill = overlays[0].stroke;
+					yAccessor = overlays[0].yAccessor;
+				} else if (this.props.forCompareSeries !== undefined) {
+					var compSeries = chartData.config.compareSeries.filter(function (each) {
+						return each.id === _this.props.forCompareSeries;
+					});
+	
+					if (compSeries.length !== 1) {
+						console.warn("Unique compareSeries with id={%s} not found", this.props.forCompareSeries);
+						throw new Error("Unique compareSeries not found");
+					}
+					fill = compSeries[0].stroke;
+					yAccessor = compSeries[0].percentYAccessor;
 				}
-				fill = overlays[0].stroke;
-				yAccessor = overlays[0].yAccessor;
-			} else if (this.props.forCompareSeries !== undefined) {
-				var compSeries = chartData.config.compareSeries
-					.filter(function(each)  {return each.id === this.props.forCompareSeries;}.bind(this));
 	
-				if (compSeries.length != 1) {
-					console.warn('Unique compareSeries with id={%s} not found', this.props.forCompareSeries);
-					throw new Error('Unique compareSeries not found');
-				}
-				fill = compSeries[0].stroke;
-				yAccessor = compSeries[0].percentYAccessor;
+				var xValue = chartData.config.accessors.xAccessor(item);
+				var yValue = yAccessor(item);
+	
+				if (yValue === undefined) return null;
+	
+				var x = Math.round(chartData.plot.scales.xScale(xValue)) + chartData.config.origin[0];
+				var y = Math.round(chartData.plot.scales.yScale(yValue)) + chartData.config.origin[1];
+	
+				return _react2["default"].createElement("circle", { className: this.props.className, cx: x, cy: y, r: this.props.r, fill: fill });
 			}
+		}]);
 	
-			var xValue = chartData.config.accessors.xAccessor(item);
-			var yValue = yAccessor(item);
-	
-			if (yValue === undefined) return null;
-	
-			var x = Math.round(chartData.plot.scales.xScale(xValue)) + chartData.config.origin[0];
-			var y = Math.round(chartData.plot.scales.yScale(yValue)) + chartData.config.origin[1];
-	
-			return (
-				React.createElement("circle", {className: this.props.className, cx: x, cy: y, r: this.props.r, fill: fill})
-			);
-		}});
-	;
+		return CurrentCoordinate;
+	})(_react2["default"].Component);
 	
 	CurrentCoordinate.propTypes = {
-		forChart: React.PropTypes.number.isRequired,
-		forOverlay: React.PropTypes.number,
-		forCompareSeries: React.PropTypes.number,
-		yAccessor: React.PropTypes.func,
-		r: React.PropTypes.number.isRequired,
-		className: React.PropTypes.string,
-	}
+		forChart: _react2["default"].PropTypes.number.isRequired,
+		forOverlay: _react2["default"].PropTypes.number,
+		forCompareSeries: _react2["default"].PropTypes.number,
+		yAccessor: _react2["default"].PropTypes.func,
+		r: _react2["default"].PropTypes.number.isRequired,
+		className: _react2["default"].PropTypes.string
+	};
 	
 	CurrentCoordinate.defaultProps = { namespace: "ReStock.CurrentCoordinate", r: 3 };
 	
 	CurrentCoordinate.contextTypes = {
-		show: React.PropTypes.bool.isRequired,
-		currentItems: React.PropTypes.array.isRequired,
-		chartData: React.PropTypes.array.isRequired,
+		show: _react2["default"].PropTypes.bool.isRequired,
+		currentItems: _react2["default"].PropTypes.array.isRequired,
+		chartData: _react2["default"].PropTypes.array.isRequired
 	};
 	
 	module.exports = CurrentCoordinate;
-
 
 /***/ },
 /* 98 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	var React = __webpack_require__(2);
-	var Utils = __webpack_require__(108);
-	var PureComponent = __webpack_require__(110);
+	"use strict";
 	
-	for(var PureComponent____Key in PureComponent){if(PureComponent.hasOwnProperty(PureComponent____Key)){EdgeContainer[PureComponent____Key]=PureComponent[PureComponent____Key];}}var ____SuperProtoOfPureComponent=PureComponent===null?null:PureComponent.prototype;EdgeContainer.prototype=Object.create(____SuperProtoOfPureComponent);EdgeContainer.prototype.constructor=EdgeContainer;EdgeContainer.__superConstructor__=PureComponent;function EdgeContainer(){if(PureComponent!==null){PureComponent.apply(this,arguments);}}
-		Object.defineProperty(EdgeContainer.prototype,"render",{writable:true,configurable:true,value:function() {
-			var children = React.Children.map(this.props.children, function(child)  {
-				var newChild = Utils.isReactVersion13()
-					? React.withContext(this.context, function()  {
-						return React.createElement(child.type, Utils.mergeObject({ key: child.key, ref: child.ref}, child.props));
-					})
-					: React.cloneElement(child);
-				return newChild;
-			}.bind(this));
-			return React.createElement("g", null, children)
-		}});
-	;
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _utilsUtils = __webpack_require__(108);
+	
+	var _utilsUtils2 = _interopRequireDefault(_utilsUtils);
+	
+	var _libUtilsPureComponent = __webpack_require__(109);
+	
+	var _libUtilsPureComponent2 = _interopRequireDefault(_libUtilsPureComponent);
+	
+	var EdgeContainer = (function (_PureComponent) {
+		function EdgeContainer() {
+			_classCallCheck(this, EdgeContainer);
+	
+			_get(Object.getPrototypeOf(EdgeContainer.prototype), "constructor", this).apply(this, arguments);
+		}
+	
+		_inherits(EdgeContainer, _PureComponent);
+	
+		_createClass(EdgeContainer, [{
+			key: "render",
+			value: function render() {
+				var _this = this;
+	
+				var children = _react2["default"].Children.map(this.props.children, function (child) {
+					var newChild = _utilsUtils2["default"].isReactVersion13() ? _react2["default"].withContext(_this.context, function () {
+						return _react2["default"].createElement(child.type, _utilsUtils2["default"].mergeObject({ key: child.key, ref: child.ref }, child.props));
+					}) : _react2["default"].cloneElement(child);
+					return newChild;
+				});
+				return _react2["default"].createElement(
+					"g",
+					null,
+					children
+				);
+			}
+		}]);
+	
+		return EdgeContainer;
+	})(_libUtilsPureComponent2["default"]);
 	
 	EdgeContainer.contextTypes = {
-		chartData: React.PropTypes.array.isRequired,
-		currentItems: React.PropTypes.array.isRequired,
+		chartData: _react2["default"].PropTypes.array.isRequired,
+		currentItems: _react2["default"].PropTypes.array.isRequired
 	};
 	
 	module.exports = EdgeContainer;
-	
-
 
 /***/ },
 /* 99 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	var React = __webpack_require__(2);
-	var Utils = __webpack_require__(108)
-	var EdgeCoordinate = __webpack_require__(114)
-	var ChartDataUtil = __webpack_require__(109);
+	"use strict";
 	
-	var ____Class1g=React.Component;for(var ____Class1g____Key in ____Class1g){if(____Class1g.hasOwnProperty(____Class1g____Key)){EdgeIndicator[____Class1g____Key]=____Class1g[____Class1g____Key];}}var ____SuperProtoOf____Class1g=____Class1g===null?null:____Class1g.prototype;EdgeIndicator.prototype=Object.create(____SuperProtoOf____Class1g);EdgeIndicator.prototype.constructor=EdgeIndicator;EdgeIndicator.__superConstructor__=____Class1g;function EdgeIndicator(){if(____Class1g!==null){____Class1g.apply(this,arguments);}}
-		Object.defineProperty(EdgeIndicator.prototype,"render",{writable:true,configurable:true,value:function() {
-			var chartData = ChartDataUtil.getChartDataForChart(this.props, this.context);
-			var currentItem = ChartDataUtil.getCurrentItemForChart(this.props, this.context);
-			var edge = null, item, yAccessor;
-			// console.log(chartData.config.compareSeries.length);
-			var displayFormat = chartData.config.compareSeries.length > 0 ? d3.format(".0%") : this.props.displayFormat;
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 	
-			if (this.props.forOverlay !== undefined
-					&& chartData.config.overlays.length > 0
-					&& chartData.plot.overlayValues.length > 0) {
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 	
-				var overlay = chartData.config.overlays
-					.filter(function(eachOverlay)  {return eachOverlay.id === this.props.forOverlay;}.bind(this));
-				var overlayValue = chartData.plot.overlayValues
-					.filter(function(eachOverlayValue)  {return eachOverlayValue.id === this.props.forOverlay;}.bind(this));
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 	
-				// console.log(overlay, overlayValue);
-				if (overlay.length !== 1) {
-					console.warn('%s overlays found with id %s, correct the OverlaySeries so there is exactly one for each id', overlay.length, newChild.props.forOverlay)
-					throw new Error('Unable to identify unique Overlay for the id');
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _d3 = __webpack_require__(3);
+	
+	var _d32 = _interopRequireDefault(_d3);
+	
+	var _utilsUtils = __webpack_require__(108);
+	
+	var _utilsUtils2 = _interopRequireDefault(_utilsUtils);
+	
+	var _EdgeCoordinate = __webpack_require__(114);
+	
+	var _EdgeCoordinate2 = _interopRequireDefault(_EdgeCoordinate);
+	
+	var _utilsChartDataUtil = __webpack_require__(110);
+	
+	var _utilsChartDataUtil2 = _interopRequireDefault(_utilsChartDataUtil);
+	
+	var EdgeIndicator = (function (_React$Component) {
+		function EdgeIndicator() {
+			_classCallCheck(this, EdgeIndicator);
+	
+			_get(Object.getPrototypeOf(EdgeIndicator.prototype), "constructor", this).apply(this, arguments);
+		}
+	
+		_inherits(EdgeIndicator, _React$Component);
+	
+		_createClass(EdgeIndicator, [{
+			key: "render",
+			value: function render() {
+				var _this = this;
+	
+				var chartData = _utilsChartDataUtil2["default"].getChartDataForChart(this.props, this.context);
+				var currentItem = _utilsChartDataUtil2["default"].getCurrentItemForChart(this.props, this.context);
+				var edge = null,
+				    item,
+				    yAccessor;
+				// console.log(chartData.config.compareSeries.length);
+				var displayFormat = chartData.config.compareSeries.length > 0 ? _d32["default"].format(".0%") : this.props.displayFormat;
+	
+				if (this.props.forOverlay !== undefined && chartData.config.overlays.length > 0 && chartData.plot.overlayValues.length > 0) {
+	
+					var overlay = chartData.config.overlays.filter(function (eachOverlay) {
+						return eachOverlay.id === _this.props.forOverlay;
+					});
+					var overlayValue = chartData.plot.overlayValues.filter(function (eachOverlayValue) {
+						return eachOverlayValue.id === _this.props.forOverlay;
+					});
+	
+					item = this.props.itemType === "first" ? overlayValue[0].first : this.props.itemType === "last" ? overlayValue[0].last : currentItem;
+					yAccessor = overlay[0].yAccessor;
+	
+					if (item !== undefined) {
+						var yValue = yAccessor(item),
+						    xValue = chartData.config.accessors.xAccessor(item);
+						var x1 = Math.round(chartData.plot.scales.xScale(xValue)),
+						    y1 = Math.round(chartData.plot.scales.yScale(yValue));
+	
+						var edgeX = this.props.edgeAt === "left" ? 0 - this.props.yAxisPad : this.context.width + this.props.yAxisPad;
+	
+						edge = _react2["default"].createElement(_EdgeCoordinate2["default"], {
+							type: this.props.type,
+							className: "edge-coordinate",
+							fill: overlay[0].stroke,
+							show: true,
+							x1: x1 + chartData.config.origin[0], y1: y1 + chartData.config.origin[1],
+							x2: edgeX + chartData.config.origin[0], y2: y1 + chartData.config.origin[1],
+							coordinate: displayFormat(yValue),
+							edgeAt: edgeX,
+							orient: this.props.orient });
+					}
+				} else if (this.props.forOverlay === undefined) {
+					item = this.props.itemType === "first" ? chartData.firstItem : this.props.itemType === "last" ? chartData.lastItem : currentItem;
+					yAccessor = chartData.config.accessors.yAccessor;
+	
+					if (item !== undefined && yAccessor !== null) {
+						var yValue = yAccessor(item);
+						var xValue = chartData.accessors.xAccessor(item);
+	
+						var x1 = Math.round(chartData.plot.scales.xScale(xValue)),
+						    y1 = Math.round(chartData.plot.scales.yScale(yValue));
+						var edgeX = this.props.edgeAt === "left" ? 0 - this.props.yAxisPad : this.context.width + this.props.yAxisPad;
+	
+						edge = _react2["default"].createElement(_EdgeCoordinate2["default"], {
+							type: this.props.type,
+							className: "edge-coordinate",
+							show: true,
+							x1: x1 + chartData.config.origin[0], y1: y1 + chartData.config.origin[1],
+							x2: edgeX + chartData.config.origin[0], y2: y1 + chartData.config.origin[1],
+							coordinate: displayFormat(yValue),
+							edgeAt: edgeX,
+							orient: this.props.orient });
+					}
 				}
-				if (overlayValue.length !== 1 && overlay.length === 1) {
-					console.warn('Something is wrong!!!, There should be 1 overlayValue, report the issue on github');
-				}
-	
-				item = this.props.itemType === 'first'
-					? overlayValue[0].first
-					: this.props.itemType === 'last'
-						? overlayValue[0].last
-						: currentItem;
-				yAccessor = overlay[0].yAccessor;
-	
-				if (item !== undefined) {
-					var yValue = yAccessor(item), xValue = chartData.config.accessors.xAccessor(item);
-					var x1 = Math.round(chartData.plot.scales.xScale(xValue)), y1 = Math.round(chartData.plot.scales.yScale(yValue));
-					var edgeX = this.props.edgeAt === 'left'
-						? 0 - this.props.yAxisPad
-						: this.context.width + this.props.yAxisPad
-	
-					edge = React.createElement(EdgeCoordinate, {
-							type: this.props.type, 
-							className: "edge-coordinate", 
-							fill: overlay[0].stroke, 
-							show: true, 
-							x1: x1 + chartData.config.origin[0], y1: y1 + chartData.config.origin[1], 
-							x2: edgeX + chartData.config.origin[0], y2: y1 + chartData.config.origin[1], 
-							coordinate: displayFormat(yValue), 
-							edgeAt: edgeX, 
-							orient: this.props.orient}
-							)
-				}
-			} else if (this.props.forOverlay === undefined) {
-				item = this.props.itemType === 'first'
-					? chartData.firstItem
-					: this.props.itemType === 'last'
-						? chartData.lastItem
-						: currentItem;
-				yAccessor = chartData.config.accessors.yAccessor;
-	
-				if (item !== undefined && yAccessor !== null) {
-					var yValue = yAccessor(item);
-					var xValue = chartData.accessors.xAccessor(item);
-	
-					var x1 = Math.round(chartData.plot.scales.xScale(xValue)), y1 = Math.round(chartData.plot.scales.yScale(yValue));
-					var edgeX = this.props.edgeAt === 'left'
-						? 0 - this.props.yAxisPad
-						: this.context.width + this.props.yAxisPad
-	
-					edge = React.createElement(EdgeCoordinate, {
-							type: this.props.type, 
-							className: "edge-coordinate", 
-							show: true, 
-							x1: x1 + chartData.config.origin[0], y1: y1 + chartData.config.origin[1], 
-							x2: edgeX + chartData.config.origin[0], y2: y1 + chartData.config.origin[1], 
-							coordinate: displayFormat(yValue), 
-							edgeAt: edgeX, 
-							orient: this.props.orient}
-							)
-				}
+				return edge;
 			}
-			return edge;
-		}});
-	;
+		}]);
+	
+		return EdgeIndicator;
+	})(_react2["default"].Component);
 	
 	EdgeIndicator.contextTypes = {
-		width: React.PropTypes.number.isRequired,
-		chartData: React.PropTypes.array.isRequired,
-		currentItems: React.PropTypes.array.isRequired,
-	}
+		width: _react2["default"].PropTypes.number.isRequired,
+		chartData: _react2["default"].PropTypes.array.isRequired,
+		currentItems: _react2["default"].PropTypes.array.isRequired
+	};
+	
 	EdgeIndicator.propTypes = {
-		type: React.PropTypes.oneOf(['horizontal']).isRequired,
-		className: React.PropTypes.string,
-		itemType: React.PropTypes.oneOf(['first', 'last', 'current']).isRequired,
-		orient: React.PropTypes.oneOf(['left', 'right']),
-		edgeAt: React.PropTypes.oneOf(['left', 'right']),
+		type: _react2["default"].PropTypes.oneOf(["horizontal"]).isRequired,
+		className: _react2["default"].PropTypes.string,
+		itemType: _react2["default"].PropTypes.oneOf(["first", "last", "current"]).isRequired,
+		orient: _react2["default"].PropTypes.oneOf(["left", "right"]),
+		edgeAt: _react2["default"].PropTypes.oneOf(["left", "right"]),
+		forChart: _react2["default"].PropTypes.number.isRequired,
+		forOverlay: _react2["default"].PropTypes.number, // undefined means main Data series of that chart
+		displayFormat: _react2["default"].PropTypes.func.isRequired
+	};
 	
-		forChart: React.PropTypes.number.isRequired,
-		forOverlay: React.PropTypes.number, // undefined means main Data series of that chart
-	
-		displayFormat: React.PropTypes.func.isRequired,
-	}
-	
-	EdgeIndicator.defaultProps = { 
-		type: 'horizontal',
-		orient: 'left',
-		edgeAt: 'left',
-		displayFormat: Utils.displayNumberFormat,
+	EdgeIndicator.defaultProps = {
+		type: "horizontal",
+		orient: "left",
+		edgeAt: "left",
+		displayFormat: _utilsUtils2["default"].displayNumberFormat,
 		yAxisPad: 5,
 		namespace: "ReStock.EdgeIndicator"
 	};
 	
 	module.exports = EdgeIndicator;
 
-
 /***/ },
 /* 100 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
-	var MACalculator = __webpack_require__(115);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 	
+	var _react = __webpack_require__(2);
 	
-	var defaultOptions = { fast: 12, slow: 26, signal: 9, pluck: 'close',  }
+	var _react2 = _interopRequireDefault(_react);
+	
+	var ChartWidthMixin = {
+		getJQuery: function getJQuery() {
+			return window.$;
+		},
+		handleWindowResize: function handleWindowResize() {
+			var $ = this.getJQuery();
+			var w = $(_react2["default"].findDOMNode(this)).parent().width();
+			console.log("width = ", w);
+	
+			this.setState({
+				width: w
+			});
+		},
+		componentWillUnMount: function componentWillUnMount() {
+			window.removeEventListener("resize", this.handleWindowResize);
+		},
+		componentDidMount: function componentDidMount() {
+			window.addEventListener("resize", this.handleWindowResize);
+			var $ = this.getJQuery();
+			var w = $(_react2["default"].findDOMNode(this)).parent().width();
+			this.setState({
+				width: w
+			});
+		}
+	};
+	
+	module.exports = ChartWidthMixin;
+
+/***/ },
+/* 101 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	var _utilsMovingAverageCalculator = __webpack_require__(115);
+	
+	var _utilsMovingAverageCalculator2 = _interopRequireDefault(_utilsMovingAverageCalculator);
+	
+	var _utilsUtilsJs = __webpack_require__(108);
+	
+	var _utilsUtilsJs2 = _interopRequireDefault(_utilsUtilsJs);
+	
+	var defaultOptions = {
+		fast: 12,
+		slow: 26,
+		signal: 9,
+		pluck: "close",
+		fill: {
+			MACDLine: "none",
+			signalLine: "none",
+			histogram: "steelblue"
+		},
+		stroke: {
+			MACDLine: "red",
+			signalLine: "green",
+			histogram: "steelblue"
+		}
+	};
 	
 	function MACDIndicator(options, chartProps) {
-		var name = "MACD";
-		var prefix = 'chart_' + chartProps.id;
-		function MACD() {
-		}
-		MACD.calculate = function(data) {
+	
+		var prefix = "chart_" + chartProps.id;
+		var MACDOption = _utilsUtilsJs2["default"].mergeRecursive(options, defaultOptions);
+		function MACD() {}
+		MACD.options = function () {
+			return MACDOption;
+		};
+		MACD.calculate = function (data) {
 			// console.log(prefix, options);
-			var fastKey = 'ema' + options.fast;
-			var slowKey = 'ema' + options.slow;
-			var source = options.pluck || defaultOptions.pluck;
+			var fastKey = "ema" + MACDOption.fast;
+			var slowKey = "ema" + MACDOption.slow;
+			var source = MACDOption.pluck || defaultOptions.pluck;
 	
-			var newData = MACalculator.calculateEMA(data, options.fast, fastKey, source, prefix);
-			newData = MACalculator.calculateEMA(newData, options.slow, slowKey, source, prefix);
+			var newData = _utilsMovingAverageCalculator2["default"].calculateEMA(data, MACDOption.fast, fastKey, source, prefix);
+			newData = _utilsMovingAverageCalculator2["default"].calculateEMA(newData, MACDOption.slow, slowKey, source, prefix);
 	
-			newData.forEach(function(each)  {
+			newData.forEach(function (each) {
 				if (each[prefix]) {
 					if (each[prefix][slowKey] && each[prefix][fastKey]) {
 						each[prefix].MACDLine = each[prefix][fastKey] - each[prefix][slowKey];
@@ -2511,9 +3389,9 @@ return webpackJsonpReStock([0,2],[
 				}
 			});
 	
-			MACalculator.calculateEMA(newData.slice(options.slow), options.signal, 'signalLine', prefix + '.MACDLine', prefix);
+			_utilsMovingAverageCalculator2["default"].calculateEMA(newData.slice(MACDOption.slow), MACDOption.signal, "signalLine", prefix + ".MACDLine", prefix);
 	
-			newData.forEach(function(each)  {
+			newData.forEach(function (each) {
 				if (each[prefix]) {
 					if (each[prefix].MACDLine && each[prefix].signalLine) {
 						each[prefix].histogram = each[prefix].MACDLine - each[prefix].signalLine;
@@ -2525,389 +3403,635 @@ return webpackJsonpReStock([0,2],[
 			// console.log(newData[newData.length - 3]);
 			return newData;
 		};
-		MACD.yAccessor = function() {
+		MACD.yAccessor = function () {
 			return function (d) {
-				if (d && d[prefix]) return { MACDLine: d[prefix].MACDLine, signalLine: d[prefix].signalLine, histogram: d[prefix].histogram }
-				else return;
+				if (d && d[prefix]) return { MACDLine: d[prefix].MACDLine, signalLine: d[prefix].signalLine, histogram: d[prefix].histogram };
 			};
-		}
+		};
 		return MACD;
 	}
 	
-	module.exports = MACDIndicator
-
-/***/ },
-/* 101 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(2);
-	var Utils = __webpack_require__(108)
-	var ChartDataUtil = __webpack_require__(109);
-	
-	var billion = 1 * 1000 * 1000 * 1000;
-	var million = 1 * 1000 * 1000;
-	var thousand = 1 * 1000;
-	
-	var ____Class1h=React.Component;for(var ____Class1h____Key in ____Class1h){if(____Class1h.hasOwnProperty(____Class1h____Key)){OHLCTooltip[____Class1h____Key]=____Class1h[____Class1h____Key];}}var ____SuperProtoOf____Class1h=____Class1h===null?null:____Class1h.prototype;OHLCTooltip.prototype=Object.create(____SuperProtoOf____Class1h);OHLCTooltip.prototype.constructor=OHLCTooltip;OHLCTooltip.__superConstructor__=____Class1h;function OHLCTooltip(){if(____Class1h!==null){____Class1h.apply(this,arguments);}}
-		Object.defineProperty(OHLCTooltip.prototype,"render",{writable:true,configurable:true,value:function() {
-			var displayDate, fromDate, toDate, open, high, low, close, volume;
-	
-			displayDate = fromDate = toDate = open = high = low = close = volume = "n/a";
-	
-			var item = ChartDataUtil.getCurrentItemForChart(this.props, this.context);
-	
-			if (item !== undefined && item.close !== undefined) {
-				volume = (item.volume / billion > 1)
-					? (item.volume / billion).toFixed(2) + "b"
-					: (item.volume / million > 1)
-						? (item.volume / million).toFixed(2) + "m"
-						: (item.volume / thousand > 1)
-							? (item.volume / thousand).toFixed(2) + "k"
-							: item.volume;
-	
-				displayDate = this.props.xDisplayFormat(item.date);
-				open = Utils.displayNumberFormat(item.open);
-				high = Utils.displayNumberFormat(item.high);
-				low = Utils.displayNumberFormat(item.low);
-				close = Utils.displayNumberFormat(item.close);
-			}
-			var origin = typeof this.props.origin === 'function'
-				? this.props.origin(this.context.width, this.context.height)
-				: this.props.origin;
-			return (
-				React.createElement("g", {transform: "translate(" + origin[0] + ", " + origin[1] + ")"}, 
-					React.createElement("text", {x: 0, y: 0, className: "legend"}, 
-						React.createElement("tspan", {key: "label", x: 0, dy: "5", className: "tooltip-label"}, "Date: "), 
-						React.createElement("tspan", {key: "value"}, displayDate), 
-						React.createElement("tspan", {key: "label_O", className: "tooltip-label"}, " O: "), React.createElement("tspan", {key: "value_O"}, open), 
-						React.createElement("tspan", {key: "label_H", className: "tooltip-label"}, " H: "), React.createElement("tspan", {key: "value_H"}, high), 
-						React.createElement("tspan", {key: "label_L", className: "tooltip-label"}, " L: "), React.createElement("tspan", {key: "value_L"}, low), 
-						React.createElement("tspan", {key: "label_C", className: "tooltip-label"}, " C: "), React.createElement("tspan", {key: "value_C"}, close), 
-						React.createElement("tspan", {key: "label_Vol", className: "tooltip-label"}, " Vol: "), React.createElement("tspan", {key: "value_Vol"}, volume)
-					)
-				)
-			);
-		}});
-	;
-	
-	OHLCTooltip.contextTypes = {
-		chartData: React.PropTypes.array.isRequired,
-		currentItems: React.PropTypes.array.isRequired,
-		width: React.PropTypes.number.isRequired,
-		height: React.PropTypes.number.isRequired,
-	}
-	OHLCTooltip.propTypes = {
-		forChart: React.PropTypes.number.isRequired,
-		accessor: React.PropTypes.func.isRequired,
-		xDisplayFormat: React.PropTypes.func.isRequired,
-		origin: React.PropTypes.oneOfType([
-					React.PropTypes.array
-					, React.PropTypes.func
-				]).isRequired,
-	}
-	
-	OHLCTooltip.defaultProps = { 
-		namespace: "ReStock.OHLCTooltip",
-		accessor: function(d)  {return {date: d.date, open: d.open, high: d.high, low: d.low, close: d.close, volume: d.volume}},
-		xDisplayFormat: Utils.displayDateFormat,
-		origin: [0, 0]
-	};
-	
-	module.exports = OHLCTooltip;
-
+	module.exports = MACDIndicator;
 
 /***/ },
 /* 102 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
-	var React = __webpack_require__(2);
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 	
-	var ChartWidthMixin = {
-		handleWindowResize:function() {
-			var w = $(React.findDOMNode(this)).parent().width();
-			//var w = $(this.getDOMNode()).parent().width();
-			console.log('width = ', w);
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 	
-			this.setState({
-				width: w
-			});
-		},
-		componentWillUnMount:function() {
-			window.removeEventListener("resize", this.handleWindowResize);
-		},
-		componentDidMount:function() {
-			window.addEventListener("resize", this.handleWindowResize);
-			var w = $(React.findDOMNode(this)).parent().width();
-			//var w = $(this.getDOMNode()).parent().width();
-			this.setState({
-				width: w
-			});
-		},
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _utilsUtils = __webpack_require__(108);
+	
+	var _utilsUtils2 = _interopRequireDefault(_utilsUtils);
+	
+	var _utilsChartDataUtil = __webpack_require__(110);
+	
+	var _utilsChartDataUtil2 = _interopRequireDefault(_utilsChartDataUtil);
+	
+	var MACDTooltip = (function (_React$Component) {
+		function MACDTooltip() {
+			_classCallCheck(this, MACDTooltip);
+	
+			_get(Object.getPrototypeOf(MACDTooltip.prototype), "constructor", this).apply(this, arguments);
+		}
+	
+		_inherits(MACDTooltip, _React$Component);
+	
+		_createClass(MACDTooltip, [{
+			key: "render",
+			value: function render() {
+				var chartData = _utilsChartDataUtil2["default"].getChartDataForChart(this.props, this.context);
+				var options = chartData.config.indicatorOptions;
+	
+				var item = _utilsChartDataUtil2["default"].getCurrentItemForChart(this.props, this.context);
+				var macd = item["chart_" + this.props.forChart];
+				var format = chartData.config.mouseCoordinates.format;
+	
+				var MACDLine = macd && format(macd.MACDLine) || "n/a";
+				var signalLine = macd && format(macd.signalLine) || "n/a";
+				var histogram = macd && format(macd.histogram) || "n/a";
+	
+				var origin = typeof this.props.origin === "function" ? this.props.origin(this.context.width, this.context.height) : this.props.origin;
+				return _react2["default"].createElement(
+					"g",
+					{ transform: "translate(" + origin[0] + ", " + origin[1] + ")" },
+					_react2["default"].createElement(
+						"text",
+						{ x: 0, y: 0, className: "legend" },
+						_react2["default"].createElement(
+							"tspan",
+							{ className: "tooltip-label" },
+							"MACD ("
+						),
+						_react2["default"].createElement(
+							"tspan",
+							{ stroke: options.stroke.MACDLine, strokeWidth: 0.5 },
+							options.slow
+						),
+						_react2["default"].createElement(
+							"tspan",
+							{ className: "tooltip-label" },
+							", "
+						),
+						_react2["default"].createElement(
+							"tspan",
+							{ stroke: options.stroke.MACDLine, strokeWidth: 0.5 },
+							options.fast
+						),
+						_react2["default"].createElement(
+							"tspan",
+							{ className: "tooltip-label" },
+							"): "
+						),
+						_react2["default"].createElement(
+							"tspan",
+							null,
+							MACDLine
+						),
+						_react2["default"].createElement(
+							"tspan",
+							{ className: "tooltip-label" },
+							" Signal ("
+						),
+						_react2["default"].createElement(
+							"tspan",
+							{ stroke: options.stroke.signalLine, strokeWidth: 0.5 },
+							options.signal
+						),
+						_react2["default"].createElement(
+							"tspan",
+							{ className: "tooltip-label" },
+							"): "
+						),
+						_react2["default"].createElement(
+							"tspan",
+							null,
+							signalLine
+						),
+						_react2["default"].createElement(
+							"tspan",
+							{ className: "tooltip-label" },
+							" Histogram: "
+						),
+						_react2["default"].createElement(
+							"tspan",
+							null,
+							histogram
+						)
+					)
+				);
+			}
+		}]);
+	
+		return MACDTooltip;
+	})(_react2["default"].Component);
+	
+	MACDTooltip.contextTypes = {
+		chartData: _react2["default"].PropTypes.array.isRequired,
+		currentItems: _react2["default"].PropTypes.array.isRequired,
+		width: _react2["default"].PropTypes.number.isRequired,
+		height: _react2["default"].PropTypes.number.isRequired
 	};
 	
-	module.exports = ChartWidthMixin;
-
+	MACDTooltip.propTypes = {
+		forChart: _react2["default"].PropTypes.number.isRequired,
+		accessor: _react2["default"].PropTypes.func.isRequired,
+		xDisplayFormat: _react2["default"].PropTypes.func.isRequired,
+		origin: _react2["default"].PropTypes.oneOfType([_react2["default"].PropTypes.array, _react2["default"].PropTypes.func]).isRequired
+	};
+	
+	MACDTooltip.defaultProps = {
+		namespace: "ReStock.MACDTooltip",
+		accessor: function accessor(d) {
+			return { date: d.date, open: d.open, high: d.high, low: d.low, close: d.close, volume: d.volume };
+		},
+		xDisplayFormat: _utilsUtils2["default"].displayDateFormat,
+		origin: [0, 0]
+	};
+	
+	module.exports = MACDTooltip;
 
 /***/ },
 /* 103 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	var React = __webpack_require__(2);
-	var Utils = __webpack_require__(108);
-	var PureComponent = __webpack_require__(110);
+	"use strict";
 	
-	for(var PureComponent____Key in PureComponent){if(PureComponent.hasOwnProperty(PureComponent____Key)){TooltipContainer[PureComponent____Key]=PureComponent[PureComponent____Key];}}var ____SuperProtoOfPureComponent=PureComponent===null?null:PureComponent.prototype;TooltipContainer.prototype=Object.create(____SuperProtoOfPureComponent);TooltipContainer.prototype.constructor=TooltipContainer;TooltipContainer.__superConstructor__=PureComponent;function TooltipContainer(){if(PureComponent!==null){PureComponent.apply(this,arguments);}}
-		Object.defineProperty(TooltipContainer.prototype,"render",{writable:true,configurable:true,value:function() {
-			var children = React.Children.map(this.props.children, function(child)  {
-				var newChild = Utils.isReactVersion13()
-					? React.withContext(this.context, function()  {
-						return React.createElement(child.type, Utils.mergeObject({ key: child.key, ref: child.ref}, child.props));
-					})
-					: React.cloneElement(child);
-				return newChild;
-			}.bind(this));
-			return (
-				React.createElement("g", {className: "toottip-hover"}, 
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _utilsUtils = __webpack_require__(108);
+	
+	var _utilsUtils2 = _interopRequireDefault(_utilsUtils);
+	
+	var _libUtilsPureComponent = __webpack_require__(109);
+	
+	var _libUtilsPureComponent2 = _interopRequireDefault(_libUtilsPureComponent);
+	
+	var TooltipContainer = (function (_PureComponent) {
+		function TooltipContainer() {
+			_classCallCheck(this, TooltipContainer);
+	
+			_get(Object.getPrototypeOf(TooltipContainer.prototype), "constructor", this).apply(this, arguments);
+		}
+	
+		_inherits(TooltipContainer, _PureComponent);
+	
+		_createClass(TooltipContainer, [{
+			key: "render",
+			value: function render() {
+				var _this = this;
+	
+				var children = _react2["default"].Children.map(this.props.children, function (child) {
+					var newChild = _utilsUtils2["default"].isReactVersion13() ? _react2["default"].withContext(_this.context, function () {
+						return _react2["default"].createElement(child.type, _utilsUtils2["default"].mergeObject({ key: child.key, ref: child.ref }, child.props));
+					}) : _react2["default"].cloneElement(child);
+					return newChild;
+				});
+				return _react2["default"].createElement(
+					"g",
+					{ className: "toottip-hover" },
 					children
-				)
-			);
-		}});
-	;
+				);
+			}
+		}]);
+	
+		return TooltipContainer;
+	})(_libUtilsPureComponent2["default"]);
 	
 	TooltipContainer.contextTypes = {
-		chartData: React.PropTypes.array.isRequired,
-		currentItems: React.PropTypes.array.isRequired,
-	}
+		chartData: _react2["default"].PropTypes.array.isRequired,
+		currentItems: _react2["default"].PropTypes.array.isRequired
+	};
 	
 	TooltipContainer.defaultProps = { namespace: "ReStock.TooltipContainer" };
 	
 	module.exports = TooltipContainer;
 
-
 /***/ },
 /* 104 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
-	var React = __webpack_require__(2);
-	var Utils = __webpack_require__(108)
-	var ChartDataUtil = __webpack_require__(109);
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _utilsUtils = __webpack_require__(108);
+	
+	var _utilsUtils2 = _interopRequireDefault(_utilsUtils);
+	
+	var _utilsChartDataUtil = __webpack_require__(110);
+	
+	var _utilsChartDataUtil2 = _interopRequireDefault(_utilsChartDataUtil);
 	
 	var billion = 1 * 1000 * 1000 * 1000;
 	var million = 1 * 1000 * 1000;
 	var thousand = 1 * 1000;
 	
-	var ____Class1l=React.Component;for(var ____Class1l____Key in ____Class1l){if(____Class1l.hasOwnProperty(____Class1l____Key)){OHLCTooltip[____Class1l____Key]=____Class1l[____Class1l____Key];}}var ____SuperProtoOf____Class1l=____Class1l===null?null:____Class1l.prototype;OHLCTooltip.prototype=Object.create(____SuperProtoOf____Class1l);OHLCTooltip.prototype.constructor=OHLCTooltip;OHLCTooltip.__superConstructor__=____Class1l;function OHLCTooltip(){if(____Class1l!==null){____Class1l.apply(this,arguments);}}
-		Object.defineProperty(OHLCTooltip.prototype,"render",{writable:true,configurable:true,value:function() {
-			var displayDate, fromDate, toDate, open, high, low, close, volume;
+	var OHLCTooltip = (function (_React$Component) {
+		function OHLCTooltip() {
+			_classCallCheck(this, OHLCTooltip);
 	
-			displayDate = fromDate = toDate = open = high = low = close = volume = "n/a";
+			_get(Object.getPrototypeOf(OHLCTooltip.prototype), "constructor", this).apply(this, arguments);
+		}
 	
-			var item = ChartDataUtil.getCurrentItemForChart(this.props, this.context);
+		_inherits(OHLCTooltip, _React$Component);
 	
-			if (item !== undefined && item.close !== undefined) {
-				volume = (item.volume / billion > 1)
-					? (item.volume / billion).toFixed(2) + "b"
-					: (item.volume / million > 1)
-						? (item.volume / million).toFixed(2) + "m"
-						: (item.volume / thousand > 1)
-							? (item.volume / thousand).toFixed(2) + "k"
-							: item.volume;
+		_createClass(OHLCTooltip, [{
+			key: "render",
+			value: function render() {
+				var displayDate, fromDate, toDate, open, high, low, close, volume;
 	
-				displayDate = this.props.xDisplayFormat(item.date);
-				open = Utils.displayNumberFormat(item.open);
-				high = Utils.displayNumberFormat(item.high);
-				low = Utils.displayNumberFormat(item.low);
-				close = Utils.displayNumberFormat(item.close);
-			}
-			var origin = typeof this.props.origin === 'function'
-				? this.props.origin(this.context.width, this.context.height)
-				: this.props.origin;
-			return (
-				React.createElement("g", {transform: "translate(" + origin[0] + ", " + origin[1] + ")"}, 
-					React.createElement("text", {x: 0, y: 0, className: "legend"}, 
-						React.createElement("tspan", {key: "label", x: 0, dy: "5", className: "tooltip-label"}, "Date: "), 
-						React.createElement("tspan", {key: "value"}, displayDate), 
-						React.createElement("tspan", {key: "label_O", className: "tooltip-label"}, " O: "), React.createElement("tspan", {key: "value_O"}, open), 
-						React.createElement("tspan", {key: "label_H", className: "tooltip-label"}, " H: "), React.createElement("tspan", {key: "value_H"}, high), 
-						React.createElement("tspan", {key: "label_L", className: "tooltip-label"}, " L: "), React.createElement("tspan", {key: "value_L"}, low), 
-						React.createElement("tspan", {key: "label_C", className: "tooltip-label"}, " C: "), React.createElement("tspan", {key: "value_C"}, close), 
-						React.createElement("tspan", {key: "label_Vol", className: "tooltip-label"}, " Vol: "), React.createElement("tspan", {key: "value_Vol"}, volume)
+				displayDate = fromDate = toDate = open = high = low = close = volume = "n/a";
+	
+				var item = _utilsChartDataUtil2["default"].getCurrentItemForChart(this.props, this.context);
+	
+				if (item !== undefined && item.close !== undefined) {
+					volume = item.volume / billion > 1 ? (item.volume / billion).toFixed(2) + "b" : item.volume / million > 1 ? (item.volume / million).toFixed(2) + "m" : item.volume / thousand > 1 ? (item.volume / thousand).toFixed(2) + "k" : item.volume;
+	
+					displayDate = this.props.xDisplayFormat(item.date);
+					open = _utilsUtils2["default"].displayNumberFormat(item.open);
+					high = _utilsUtils2["default"].displayNumberFormat(item.high);
+					low = _utilsUtils2["default"].displayNumberFormat(item.low);
+					close = _utilsUtils2["default"].displayNumberFormat(item.close);
+				}
+				var origin = typeof this.props.origin === "function" ? this.props.origin(this.context.width, this.context.height) : this.props.origin;
+				return _react2["default"].createElement(
+					"g",
+					{ transform: "translate(" + origin[0] + ", " + origin[1] + ")" },
+					_react2["default"].createElement(
+						"text",
+						{ x: 0, y: 0, className: "legend" },
+						_react2["default"].createElement(
+							"tspan",
+							{ key: "label", x: 0, dy: "5", className: "tooltip-label" },
+							"Date: "
+						),
+						_react2["default"].createElement(
+							"tspan",
+							{ key: "value" },
+							displayDate
+						),
+						_react2["default"].createElement(
+							"tspan",
+							{ key: "label_O", className: "tooltip-label" },
+							" O: "
+						),
+						_react2["default"].createElement(
+							"tspan",
+							{ key: "value_O" },
+							open
+						),
+						_react2["default"].createElement(
+							"tspan",
+							{ key: "label_H", className: "tooltip-label" },
+							" H: "
+						),
+						_react2["default"].createElement(
+							"tspan",
+							{ key: "value_H" },
+							high
+						),
+						_react2["default"].createElement(
+							"tspan",
+							{ key: "label_L", className: "tooltip-label" },
+							" L: "
+						),
+						_react2["default"].createElement(
+							"tspan",
+							{ key: "value_L" },
+							low
+						),
+						_react2["default"].createElement(
+							"tspan",
+							{ key: "label_C", className: "tooltip-label" },
+							" C: "
+						),
+						_react2["default"].createElement(
+							"tspan",
+							{ key: "value_C" },
+							close
+						),
+						_react2["default"].createElement(
+							"tspan",
+							{ key: "label_Vol", className: "tooltip-label" },
+							" Vol: "
+						),
+						_react2["default"].createElement(
+							"tspan",
+							{ key: "value_Vol" },
+							volume
+						)
 					)
-				)
-			);
-		}});
-	;
+				);
+			}
+		}]);
+	
+		return OHLCTooltip;
+	})(_react2["default"].Component);
 	
 	OHLCTooltip.contextTypes = {
-		chartData: React.PropTypes.array.isRequired,
-		currentItems: React.PropTypes.array.isRequired,
-		width: React.PropTypes.number.isRequired,
-		height: React.PropTypes.number.isRequired,
-	}
-	OHLCTooltip.propTypes = {
-		forChart: React.PropTypes.number.isRequired,
-		accessor: React.PropTypes.func.isRequired,
-		xDisplayFormat: React.PropTypes.func.isRequired,
-		origin: React.PropTypes.oneOfType([
-					React.PropTypes.array
-					, React.PropTypes.func
-				]).isRequired,
-	}
+		chartData: _react2["default"].PropTypes.array.isRequired,
+		currentItems: _react2["default"].PropTypes.array.isRequired,
+		width: _react2["default"].PropTypes.number.isRequired,
+		height: _react2["default"].PropTypes.number.isRequired
+	};
 	
-	OHLCTooltip.defaultProps = { 
+	OHLCTooltip.propTypes = {
+		forChart: _react2["default"].PropTypes.number.isRequired,
+		accessor: _react2["default"].PropTypes.func.isRequired,
+		xDisplayFormat: _react2["default"].PropTypes.func.isRequired,
+		origin: _react2["default"].PropTypes.oneOfType([_react2["default"].PropTypes.array, _react2["default"].PropTypes.func]).isRequired
+	};
+	
+	OHLCTooltip.defaultProps = {
 		namespace: "ReStock.OHLCTooltip",
-		accessor: function(d)  {return {date: d.date, open: d.open, high: d.high, low: d.low, close: d.close, volume: d.volume}},
-		xDisplayFormat: Utils.displayDateFormat,
+		accessor: function accessor(d) {
+			return { date: d.date, open: d.open, high: d.high, low: d.low, close: d.close, volume: d.volume };
+		},
+		xDisplayFormat: _utilsUtils2["default"].displayDateFormat,
 		origin: [0, 0]
 	};
 	
 	module.exports = OHLCTooltip;
 
-
 /***/ },
 /* 105 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
-	var React = __webpack_require__(2);
-	var Utils = __webpack_require__(108)
-	var ChartDataUtil = __webpack_require__(109);
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 	
-	var ____Class1i=React.Component;for(var ____Class1i____Key in ____Class1i){if(____Class1i.hasOwnProperty(____Class1i____Key)){CompareTooltip[____Class1i____Key]=____Class1i[____Class1i____Key];}}var ____SuperProtoOf____Class1i=____Class1i===null?null:____Class1i.prototype;CompareTooltip.prototype=Object.create(____SuperProtoOf____Class1i);CompareTooltip.prototype.constructor=CompareTooltip;CompareTooltip.__superConstructor__=____Class1i;function CompareTooltip(){if(____Class1i!==null){____Class1i.apply(this,arguments);}}
-		Object.defineProperty(CompareTooltip.prototype,"render",{writable:true,configurable:true,value:function() {
-			var displayValue = "n/a";
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 	
-			var chartData = ChartDataUtil.getChartDataForChart(this.props, this.context);
-			var item = ChartDataUtil.getCurrentItemForChart(this.props, this.context);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 	
-			var thisSeries = chartData.config.compareSeries.filter(function(each)  {return each.id === this.props.forCompareSeries;}.bind(this))[0];
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-			if (item !== undefined && thisSeries.yAccessor(item) !== undefined) {
-				displayValue = thisSeries.yAccessor(item);
-			}
-			return (
-				React.createElement("g", {transform: "translate(" + this.props.origin[0] + ", " + this.props.origin[1] + ")"}, 
-					React.createElement("text", {x: 0, y: 0, className: "legend"}, 
-						React.createElement("tspan", {key: "label", x: 0, dy: "5", className: "tooltip-label"}, thisSeries.displayLabel + ': '), 
-						React.createElement("tspan", {key: "value", stroke: thisSeries.stroke}, displayValue)
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _utilsUtils = __webpack_require__(108);
+	
+	var _utilsUtils2 = _interopRequireDefault(_utilsUtils);
+	
+	var _utilsChartDataUtil = __webpack_require__(110);
+	
+	var _utilsChartDataUtil2 = _interopRequireDefault(_utilsChartDataUtil);
+	
+	var CompareTooltip = (function (_React$Component) {
+		function CompareTooltip() {
+			_classCallCheck(this, CompareTooltip);
+	
+			_get(Object.getPrototypeOf(CompareTooltip.prototype), "constructor", this).apply(this, arguments);
+		}
+	
+		_inherits(CompareTooltip, _React$Component);
+	
+		_createClass(CompareTooltip, [{
+			key: "render",
+			value: function render() {
+				var _this = this;
+	
+				var displayValue = "n/a";
+	
+				var chartData = _utilsChartDataUtil2["default"].getChartDataForChart(this.props, this.context);
+				var item = _utilsChartDataUtil2["default"].getCurrentItemForChart(this.props, this.context);
+	
+				var thisSeries = chartData.config.compareSeries.filter(function (each) {
+					return each.id === _this.props.forCompareSeries;
+				})[0];
+	
+				if (item !== undefined && thisSeries.yAccessor(item) !== undefined) {
+					displayValue = thisSeries.yAccessor(item);
+				}
+				return _react2["default"].createElement(
+					"g",
+					{ transform: "translate(" + this.props.origin[0] + ", " + this.props.origin[1] + ")" },
+					_react2["default"].createElement(
+						"text",
+						{ x: 0, y: 0, className: "legend" },
+						_react2["default"].createElement(
+							"tspan",
+							{ key: "label", x: 0, dy: "5", className: "tooltip-label" },
+							thisSeries.displayLabel + ": "
+						),
+						_react2["default"].createElement(
+							"tspan",
+							{ key: "value", stroke: thisSeries.stroke },
+							displayValue
+						)
 					)
-				)
-			);
-		}});
-	;
+				);
+			}
+		}]);
+	
+		return CompareTooltip;
+	})(_react2["default"].Component);
 	
 	CompareTooltip.contextTypes = {
-		chartData: React.PropTypes.array.isRequired,
-		currentItems: React.PropTypes.array.isRequired,
-	}
-	CompareTooltip.propTypes = {
-		forChart: React.PropTypes.number.isRequired,
-		forCompareSeries: React.PropTypes.number.isRequired,
-		xDisplayFormat: React.PropTypes.func.isRequired,
-		origin: React.PropTypes.array.isRequired,
-	}
+		chartData: _react2["default"].PropTypes.array.isRequired,
+		currentItems: _react2["default"].PropTypes.array.isRequired
+	};
 	
-	CompareTooltip.defaultProps = { 
+	CompareTooltip.propTypes = {
+		forChart: _react2["default"].PropTypes.number.isRequired,
+		forCompareSeries: _react2["default"].PropTypes.number.isRequired,
+		xDisplayFormat: _react2["default"].PropTypes.func.isRequired,
+		origin: _react2["default"].PropTypes.array.isRequired
+	};
+	
+	CompareTooltip.defaultProps = {
 		namespace: "ReStock.CompareTooltip",
-		xDisplayFormat: Utils.displayDateFormat,
+		xDisplayFormat: _utilsUtils2["default"].displayDateFormat,
 		origin: [0, 0]
 	};
 	
 	module.exports = CompareTooltip;
 
-
 /***/ },
 /* 106 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
-	var React = __webpack_require__(2);
-	var Utils = __webpack_require__(108)
-	var ChartDataUtil = __webpack_require__(109);
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 	
-	var ____Class1j=React.Component;for(var ____Class1j____Key in ____Class1j){if(____Class1j.hasOwnProperty(____Class1j____Key)){SingleMAToolTip[____Class1j____Key]=____Class1j[____Class1j____Key];}}var ____SuperProtoOf____Class1j=____Class1j===null?null:____Class1j.prototype;SingleMAToolTip.prototype=Object.create(____SuperProtoOf____Class1j);SingleMAToolTip.prototype.constructor=SingleMAToolTip;SingleMAToolTip.__superConstructor__=____Class1j;function SingleMAToolTip(){if(____Class1j!==null){____Class1j.apply(this,arguments);}}
-		Object.defineProperty(SingleMAToolTip.prototype,"handleClick",{writable:true,configurable:true,value:function(overlay) {
-			if (this.props.onClick) {
-				this.props.onClick(overlay);
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _utilsUtils = __webpack_require__(108);
+	
+	var _utilsUtils2 = _interopRequireDefault(_utilsUtils);
+	
+	var _utilsChartDataUtil = __webpack_require__(110);
+	
+	var _utilsChartDataUtil2 = _interopRequireDefault(_utilsChartDataUtil);
+	
+	var SingleMAToolTip = (function (_React$Component) {
+		function SingleMAToolTip() {
+			_classCallCheck(this, SingleMAToolTip);
+	
+			_get(Object.getPrototypeOf(SingleMAToolTip.prototype), "constructor", this).apply(this, arguments);
+		}
+	
+		_inherits(SingleMAToolTip, _React$Component);
+	
+		_createClass(SingleMAToolTip, [{
+			key: "handleClick",
+			value: function handleClick(overlay) {
+				if (this.props.onClick) {
+					this.props.onClick(overlay);
+				}
 			}
-		}});
-		Object.defineProperty(SingleMAToolTip.prototype,"render",{writable:true,configurable:true,value:function() {
-			var translate = "translate(" + this.props.origin[0] + ", " + this.props.origin[1] + ")";
-			return (
-				React.createElement("g", {transform: translate}, 
-					React.createElement("line", {x1: 0, y1: 2, x2: 0, y2: 28, stroke: this.props.color}), 
-					React.createElement("text", {x: 5, y: 11, className: "legend"}, 
-						React.createElement("tspan", {className: "tooltip-label"}, this.props.displayName), 
-						React.createElement("tspan", {x: "5", dy: "15"}, this.props.value)
-					), 
-					React.createElement("rect", {x: 0, y: 0, width: 55, height: 30, onClick: this.handleClick.bind(this, this.props.overlay)})
-				)
-			);
-		}});
-	;
+		}, {
+			key: "render",
+			value: function render() {
+				var translate = "translate(" + this.props.origin[0] + ", " + this.props.origin[1] + ")";
+				return _react2["default"].createElement(
+					"g",
+					{ transform: translate },
+					_react2["default"].createElement("line", { x1: 0, y1: 2, x2: 0, y2: 28, stroke: this.props.color }),
+					_react2["default"].createElement(
+						"text",
+						{ x: 5, y: 11, className: "legend" },
+						_react2["default"].createElement(
+							"tspan",
+							{ className: "tooltip-label" },
+							this.props.displayName
+						),
+						_react2["default"].createElement(
+							"tspan",
+							{ x: "5", dy: "15" },
+							this.props.value
+						)
+					),
+					_react2["default"].createElement("rect", { x: 0, y: 0, width: 55, height: 30, onClick: this.handleClick.bind(this, this.props.overlay) })
+				);
+			}
+		}]);
+	
+		return SingleMAToolTip;
+	})(_react2["default"].Component);
 	
 	SingleMAToolTip.propTypes = {
-		origin: React.PropTypes.array.isRequired,
-		color: React.PropTypes.string.isRequired,
-		displayName: React.PropTypes.string.isRequired,
-		value: React.PropTypes.string.isRequired,
-		onClick: React.PropTypes.func
+		origin: _react2["default"].PropTypes.array.isRequired,
+		color: _react2["default"].PropTypes.string.isRequired,
+		displayName: _react2["default"].PropTypes.string.isRequired,
+		value: _react2["default"].PropTypes.string.isRequired,
+		onClick: _react2["default"].PropTypes.func
 	};
 	
-	var ____Class1k=React.Component;for(var ____Class1k____Key in ____Class1k){if(____Class1k.hasOwnProperty(____Class1k____Key)){MovingAverageTooltip[____Class1k____Key]=____Class1k[____Class1k____Key];}}var ____SuperProtoOf____Class1k=____Class1k===null?null:____Class1k.prototype;MovingAverageTooltip.prototype=Object.create(____SuperProtoOf____Class1k);MovingAverageTooltip.prototype.constructor=MovingAverageTooltip;MovingAverageTooltip.__superConstructor__=____Class1k;function MovingAverageTooltip(){if(____Class1k!==null){____Class1k.apply(this,arguments);}}
-		Object.defineProperty(MovingAverageTooltip.prototype,"render",{writable:true,configurable:true,value:function() {
-			var chartData = ChartDataUtil.getChartDataForChart(this.props, this.context);
-			var item = ChartDataUtil.getCurrentItemForChart(this.props, this.context);
+	var MovingAverageTooltip = (function (_React$Component2) {
+		function MovingAverageTooltip() {
+			_classCallCheck(this, MovingAverageTooltip);
 	
-			return (
-				React.createElement("g", {transform: "translate(" + this.props.origin[0] + ", " + this.props.origin[1] + ")", className: "ma-container"}, 
-					chartData.config.overlays.map(function(eachOverlay, idx)  {
+			_get(Object.getPrototypeOf(MovingAverageTooltip.prototype), "constructor", this).apply(this, arguments);
+		}
+	
+		_inherits(MovingAverageTooltip, _React$Component2);
+	
+		_createClass(MovingAverageTooltip, [{
+			key: "render",
+			value: function render() {
+				var _this = this;
+	
+				var chartData = _utilsChartDataUtil2["default"].getChartDataForChart(this.props, this.context);
+				var item = _utilsChartDataUtil2["default"].getCurrentItemForChart(this.props, this.context);
+	
+				return _react2["default"].createElement(
+					"g",
+					{ transform: "translate(" + this.props.origin[0] + ", " + this.props.origin[1] + ")", className: "ma-container" },
+					chartData.config.overlays.map(function (eachOverlay, idx) {
 						var yValue = eachOverlay.yAccessor(item);
-						// console.log(yValue);
-						var yDisplayValue = yValue ? this.props.displayFormat(yValue) : "n/a";
-						return React.createElement(SingleMAToolTip, {
-							key: idx, 
-							origin: [this.props.width * idx, 0], 
-							color: eachOverlay.stroke, 
-							displayName: eachOverlay.tooltipLabel, 
-							value: yDisplayValue, 
-							overlay: eachOverlay, 
-							onClick: this.props.onClick})
-					}.bind(this))
-				)
-			);
-		}});
-	;
+	
+						var yDisplayValue = yValue ? _this.props.displayFormat(yValue) : "n/a";
+						return _react2["default"].createElement(SingleMAToolTip, {
+							key: idx,
+							origin: [_this.props.width * idx, 0],
+							color: eachOverlay.stroke,
+							displayName: eachOverlay.tooltipLabel,
+							value: yDisplayValue,
+							overlay: eachOverlay,
+							onClick: _this.props.onClick });
+					})
+				);
+			}
+		}]);
+	
+		return MovingAverageTooltip;
+	})(_react2["default"].Component);
 	
 	MovingAverageTooltip.contextTypes = {
-		chartData: React.PropTypes.array.isRequired,
-		currentItems: React.PropTypes.array.isRequired,
+		chartData: _react2["default"].PropTypes.array.isRequired,
+		currentItems: _react2["default"].PropTypes.array.isRequired
 	};
+	
 	MovingAverageTooltip.propTypes = {
-		forChart: React.PropTypes.number.isRequired,
-		displayFormat: React.PropTypes.func.isRequired,
-		origin: React.PropTypes.array.isRequired,
-		onClick: React.PropTypes.func
+		forChart: _react2["default"].PropTypes.number.isRequired,
+		displayFormat: _react2["default"].PropTypes.func.isRequired,
+		origin: _react2["default"].PropTypes.array.isRequired,
+		onClick: _react2["default"].PropTypes.func
 	};
-	MovingAverageTooltip.defaultProps = { 
+	
+	MovingAverageTooltip.defaultProps = {
 		namespace: "ReStock.MovingAverageTooltip",
-		displayFormat: Utils.displayNumberFormat,
+		displayFormat: _utilsUtils2["default"].displayNumberFormat,
 		origin: [0, 10],
 		width: 65
 	};
 	
-	
 	module.exports = MovingAverageTooltip;
-
+	// console.log(yValue);
 
 /***/ },
 /* 107 */
@@ -2919,244 +4043,361 @@ return webpackJsonpReStock([0,2],[
 /* 108 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
-	var d3 = __webpack_require__(3);
-	var React = __webpack_require__(2);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 	
-	var overlayColors = d3.scale.category10();
+	var _react = __webpack_require__(2);
 	
-	function Utils() {
-	}
+	var _react2 = _interopRequireDefault(_react);
 	
-	Utils.overlayColors = overlayColors;
+	var _d3 = __webpack_require__(3);
 	
-	Utils.isReactVersion13 = function() {
-		var version = React.version.split('.')[1];
-		return version === '13';
-	}
-	Utils.isReactVersion14 = function() {
-		return React.version.split('.')[1] === '14';
-	}
-	Utils.cloneMe = function(obj) {
-		if(obj == null || typeof(obj) !== 'object')
-			return obj;
-		if (obj instanceof Date) {
-			return new Date(obj.getTime());
-		}
-		var temp = {};//obj.constructor(); // changed
+	var _d32 = _interopRequireDefault(_d3);
 	
-		for(var key in obj) {
-			if(obj.hasOwnProperty(key)) {
-				temp[key] = Utils.cloneMe(obj[key]);
+	var overlayColors = _d32["default"].scale.category10();
+	
+	var Utils = {
+		overlayColors: overlayColors,
+		isReactVersion13: function isReactVersion13() {
+			var version = _react2["default"].version.split(".")[1];
+			return version === "13";
+		},
+		isReactVersion14: function isReactVersion14() {
+			return _react2["default"].version.split(".")[1] === "14";
+		},
+		cloneMe: function cloneMe(obj) {
+			if (obj == null || typeof obj !== "object") {
+				return obj;
 			}
-		}
-		return temp;
-	}
+			if (obj instanceof Date) {
+				return new Date(obj.getTime());
+			}
+			var temp = {}; // obj.constructor(); // changed
 	
-	Utils.displayDateFormat = d3.time.format("%Y-%m-%d");
-	Utils.displayNumberFormat = function(x) {
-		return Utils.numberWithCommas(x.toFixed(2));
-	};
-	Utils.numberWithCommas = function(x) {
-		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-	};
-	Utils.isNumeric = function(n) {
-		return !isNaN(parseFloat(n)) && isFinite(n);
-	};
-	Utils.mergeObject = function(a, b) {
-		var newObject = {};
-		Object.keys(a).forEach(function(key)  {
-			if (a[key] != null)
-				newObject[key] = a[key];
-		});
-		Object.keys(b).forEach(function(key)  {
-			if (b[key] != null)
-				newObject[key] = b[key];
-		});
-		return newObject;
-	}
-	Utils.mousePosition = function(e) {
-		var container = e.currentTarget,
-			rect = container.getBoundingClientRect(),
-			x = e.clientX - rect.left - container.clientLeft,
-			y = e.clientY - rect.top - container.clientTop,
-			xy = [ Math.round(x), Math.round(y) ];
-		return xy;
-	}
-	Utils.getValue = function(d) {
-		if (d instanceof Date) {
-			return d.getTime();
-		}
-		return d;
-	}
-	Utils.getClosestItem = function(array, value, accessor) {
-		var lo = 0, hi = array.length - 1;
-		while (hi - lo > 1) {
-			var mid = Math.round((lo + hi)/2);
-			if (accessor(array[mid]) <= value) {
-				lo = mid;
+			for (var key in obj) {
+				if (obj.hasOwnProperty(key)) {
+					temp[key] = this.cloneMe(obj[key]);
+				}
+			}
+			return temp;
+		},
+		displayDateFormat: _d32["default"].time.format("%Y-%m-%d"),
+		displayNumberFormat: function displayNumberFormat(x) {
+			return Utils.numberWithCommas(x.toFixed(2));
+		},
+		numberWithCommas: function numberWithCommas(x) {
+			return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		},
+		isNumeric: function isNumeric(n) {
+			return !isNaN(parseFloat(n)) && isFinite(n);
+		},
+		mergeObject: function mergeObject(a, b) {
+			var newObject = {};
+			Object.keys(a).forEach(function (key) {
+				if (a[key] != null) {
+					newObject[key] = a[key];
+				}
+			});
+			Object.keys(b).forEach(function (key) {
+				if (b[key] != null) {
+					newObject[key] = b[key];
+				}
+			});
+			return newObject;
+		},
+		mergeRecursive: (function (_mergeRecursive) {
+			function mergeRecursive(_x, _x2) {
+				return _mergeRecursive.apply(this, arguments);
+			}
+	
+			mergeRecursive.toString = function () {
+				return _mergeRecursive.toString();
+			};
+	
+			return mergeRecursive;
+		})(function (obj1, obj2) {
+	
+			for (var p in obj2) {
+				try {
+					// Property in destination object set; update its value.
+					if (obj2[p].constructor == Object) {
+						obj1[p] = mergeRecursive(obj1[p], obj2[p]);
+					} else {
+						obj1[p] = obj2[p];
+					}
+				} catch (e) {
+					// Property in destination object not set; create it and set its value.
+					obj1[p] = obj2[p];
+				}
+			}
+	
+			return obj1;
+		}),
+		mousePosition: function mousePosition(e) {
+			var container = e.currentTarget,
+			    rect = container.getBoundingClientRect(),
+			    x = e.clientX - rect.left - container.clientLeft,
+			    y = e.clientY - rect.top - container.clientTop,
+			    xy = [Math.round(x), Math.round(y)];
+			return xy;
+		},
+		getValue: function getValue(d) {
+			if (d instanceof Date) {
+				return d.getTime();
+			}
+			return d;
+		},
+		getClosestItem: function getClosestItem(array, value, accessor) {
+			var lo = 0,
+			    hi = array.length - 1;
+			while (hi - lo > 1) {
+				var mid = Math.round((lo + hi) / 2);
+				if (accessor(array[mid]) <= value) {
+					lo = mid;
+				} else {
+					hi = mid;
+				}
+			}
+			if (accessor(array[lo]) === value) hi = lo;
+			var closest = Math.abs(accessor(array[lo]) - value) < Math.abs(accessor(array[hi]) - value) ? array[lo] : array[hi];
+			// console.log(array[lo], array[hi], closest, lo, hi);
+			return Utils.cloneMe(closest);
+		},
+		getClosestItemIndex: function getClosestItemIndex(array, value, accessor) {
+			var lo = 0,
+			    hi = array.length - 1;
+			while (hi - lo > 1) {
+				var mid = Math.round((lo + hi) / 2);
+				if (accessor(array[mid]) <= value) {
+					lo = mid;
+				} else {
+					hi = mid;
+				}
+			}
+			if (accessor(array[lo]) === value) hi = lo;
+			var closestIndex = Math.abs(accessor(array[lo]) - value) < Math.abs(accessor(array[hi]) - value) ? lo : hi;
+	
+			return closestIndex;
+		},
+		getClosestItemIndexes: function getClosestItemIndexes(array, value, accessor) {
+			var lo = 0,
+			    hi = array.length - 1;
+			while (hi - lo > 1) {
+				var mid = Math.round((lo + hi) / 2);
+				if (accessor(array[mid]) <= value) {
+					lo = mid;
+				} else {
+					hi = mid;
+				}
+			}
+			if (accessor(array[lo]) === value) hi = lo;
+			// console.log(array[lo], array[hi], closestIndex, lo, hi);
+			return { left: lo, right: hi };
+		},
+	
+		pluck: function pluck(array, key) {
+			return array.map(function (each) {
+				return Utils.getter(each, key);
+			});
+		},
+		keysAsArray: function keysAsArray(obj) {
+			return Object.keys(obj).filter(function (key) {
+				return obj[key] !== null;
+			}).map(function (key) {
+				return obj[key];
+			});
+		},
+		sum: function sum(array) {
+			return array.reduce(function (d1, d2) {
+				return d1 + d2;
+			});
+		},
+		setter: function setter(obj, subObjectKey, key, value) {
+			if (subObjectKey) {
+				if (obj[subObjectKey] === undefined) obj[subObjectKey] = {};
+				obj[subObjectKey][key] = value;
 			} else {
-				hi = mid;
+				obj[key] = value;
 			}
+		},
+		getter: function getter(obj, pluckKey) {
+			var keys = pluckKey.split(".");
+			var value;
+			keys.forEach(function (key) {
+				if (!value) value = obj[key];else value = value[key];
+			});
+			return value;
 		}
-		if (accessor(array[lo]) === value) hi = lo;
-		var closest = (Math.abs(accessor(array[lo]) - value) < Math.abs(accessor(array[hi]) - value))
-							? array[lo]
-							: array[hi]
-		//console.log(array[lo], array[hi], closest, lo, hi);
-		return Utils.cloneMe(closest);
-	}
-	Utils.getClosestItemIndex = function(array, value, accessor) {
-		var lo = 0, hi = array.length - 1;
-		while (hi - lo > 1) {
-			var mid = Math.round((lo + hi)/2);
-			if (accessor(array[mid]) <= value) {
-				lo = mid;
-			} else {
-				hi = mid;
-			}
-		}
-		if (accessor(array[lo]) === value) hi = lo;
-		var closestIndex = (Math.abs(accessor(array[lo]) - value) < Math.abs(accessor(array[hi]) - value))
-							? lo
-							: hi
-		//console.log(array[lo], array[hi], closestIndex, lo, hi);
-		return closestIndex;
-	}
-	Utils.getClosestItemIndexes = function(array, value, accessor) {
-		var lo = 0, hi = array.length - 1;
-		while (hi - lo > 1) {
-			var mid = Math.round((lo + hi)/2);
-			if (accessor(array[mid]) <= value) {
-				lo = mid;
-			} else {
-				hi = mid;
-			}
-		}
-		if (accessor(array[lo]) === value) hi = lo;
-		//console.log(array[lo], array[hi], closestIndex, lo, hi);
-		return { left: lo, right: hi };
-	}
-	Utils.pluck = function(array, key) {
-		return array.map(function(each)  {return getter(each, key);})
-	}
-	Utils.keysAsArray = function(obj) {
-		return Object.keys(obj)
-			.filter(function(key)  {return obj[key] !== null;})
-			.map(function(key)  {return obj[key];});
-	}
-	Utils.sum = function(array) {
-		return array.reduce(function(d1, d2)  {return d1 + d2;});
-	}
-	
-	
-	function getter(obj, pluckKey) {
-		var keys = pluckKey.split('.');
-		var value;
-		keys.forEach(function(key)  {
-			if (!value) value = obj[key];
-			else value = value[key];
-		})
-		return value;
-	}
+	};
 	
 	module.exports = Utils;
-
 
 /***/ },
 /* 109 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var React = __webpack_require__(2),
-		d3 = __webpack_require__(3),
-		ScaleUtils = __webpack_require__(117),
-		OverlayUtils = __webpack_require__(116),
-		Utils = __webpack_require__(108),
-		overlayColors = Utils.overlayColors;
-	var pluck = Utils.pluck;
-	var keysAsArray = Utils.keysAsArray;
 	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 	
-	var ChartContainerMixin = {
-		containsChart:function(props) {
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactLibShallowEqual = __webpack_require__(123);
+	
+	var _reactLibShallowEqual2 = _interopRequireDefault(_reactLibShallowEqual);
+	
+	var PureComponent = (function (_React$Component) {
+		function PureComponent() {
+			_classCallCheck(this, PureComponent);
+	
+			_get(Object.getPrototypeOf(PureComponent.prototype), "constructor", this).apply(this, arguments);
+		}
+	
+		_inherits(PureComponent, _React$Component);
+	
+		_createClass(PureComponent, [{
+			key: "shouldComponentUpdate",
+			value: function shouldComponentUpdate(nextProps, nextState, nextContext) {
+				return !(0, _reactLibShallowEqual2["default"])(this.props, nextProps) || !(0, _reactLibShallowEqual2["default"])(this.state, nextState) || !(0, _reactLibShallowEqual2["default"])(this.context, nextContext);
+			}
+		}]);
+	
+		return PureComponent;
+	})(_react2["default"].Component);
+	
+	module.exports = PureComponent;
+
+/***/ },
+/* 110 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _d3 = __webpack_require__(3);
+	
+	var _d32 = _interopRequireDefault(_d3);
+	
+	var _utilsScaleUtils = __webpack_require__(116);
+	
+	var _utilsScaleUtils2 = _interopRequireDefault(_utilsScaleUtils);
+	
+	var _utilsOverlayUtils = __webpack_require__(117);
+	
+	var _utilsOverlayUtils2 = _interopRequireDefault(_utilsOverlayUtils);
+	
+	var _utilsUtils = __webpack_require__(108);
+	
+	var _utilsUtils2 = _interopRequireDefault(_utilsUtils);
+	
+	var overlayColors = _utilsUtils2["default"].overlayColors;
+	var pluck = _utilsUtils2["default"].pluck;
+	var keysAsArray = _utilsUtils2["default"].keysAsArray;
+	
+	var ChartDataUtil = {
+		containsChart: function containsChart(props) {
 			return this.getCharts(props).length > 0;
 		},
-		getCharts:function(props) {
-			return this.getChildren(props.children, /Chart$/)
+		getCharts: function getCharts(props) {
+			return this.getChildren(props.children, /Chart$/);
 		},
-		getChartDataForChart:function(props, context) {
-			var chartData = context.chartData.filter(function(each)  {return each.id === props.forChart;})[0];
+		getChartDataForChart: function getChartDataForChart(props, context) {
+			var chartData = context.chartData.filter(function (each) {
+				return each.id === props.forChart;
+			})[0];
 			return chartData;
 		},
-		getCurrentItemForChart:function(props, context) {
-			var currentItem = context.currentItems.filter(function(each)  {return each.id === props.forChart;})[0];
-			var item = currentItem ? currentItem.data : {}
+		getCurrentItemForChart: function getCurrentItemForChart(props, context) {
+			var currentItem = context.currentItems.filter(function (each) {
+				return each.id === props.forChart;
+			})[0];
+			var item = currentItem ? currentItem.data : {};
 			return item;
 		},
-		getChartData:function(props, context, partialData, fullData, other) {
+		getChartData: function getChartData(props, context, partialData, fullData, other) {
+			var _this = this;
 	
 			var charts = this.getCharts(props);
 			var innerDimensions = this.getInnerDimensions(context, other);
 	
-			return charts.map(function(each)  {
+			return charts.map(function (each) {
 				var chartProps = each.props;
-				var config = this.getChartConfigFor(innerDimensions, chartProps, partialData, fullData, other)
-				var plot = this.getChartPlotFor(config, partialData);
+				var config = _this.getChartConfigFor(innerDimensions, chartProps, partialData, fullData, other);
+				var plot = _this.getChartPlotFor(config, partialData);
 	
 				return {
-					id : each.props.id,
+					id: each.props.id,
 					config: config,
 					plot: plot
 				};
-			}.bind(this));
+			});
 		},
-		getChildren:function(children, regex) {
+		getChildren: function getChildren(children, regex) {
 			var matchingChildren = [];
-			React.Children.forEach(children, function(child)  {
+			_react2["default"].Children.forEach(children, function (child) {
 				if (regex.test(child.props.namespace)) matchingChildren.push(child);
 			});
 			return matchingChildren;
 		},
-		getMainChart:function(children) {
+		getMainChart: function getMainChart(children) {
 			var eventCapture = this.getChildren(children, /EventCapture$/);
 			if (eventCapture.length > 1) throw new Error("only one EventCapture allowed");
 			if (eventCapture.length > 0) return eventCapture[0].props.mainChart;
 		},
-		getClosestItem:function(plotData, mouseXY, chartData) {
+		getClosestItem: function getClosestItem(plotData, mouseXY, chartData) {
 			// console.log(chartData);
 			var xValue = chartData.plot.scales.xScale.invert(mouseXY[0]);
-			var item = Utils.getClosestItem(plotData, xValue, chartData.config.accessors.xAccessor);
+			var item = _utilsUtils2["default"].getClosestItem(plotData, xValue, chartData.config.accessors.xAccessor);
 			return item;
 		},
-		getInnerDimensions:function(ctx, other) {
+		getInnerDimensions: function getInnerDimensions(ctx, other) {
 			// console.log(other);
 			if (other === undefined) other = {};
 			return {
 				width: other.width || ctx.width,
 				height: other.height || ctx.height
-			}
+			};
 		},
-		getDimensions:function(innerDimension, chartProps) {
+		getDimensions: function getDimensions(innerDimension, chartProps, margin) {
 	
+			// console.log(margin);
 			var availableWidth = innerDimension.width;
 			var availableHeight = innerDimension.height;
 	
-			var width = chartProps.width || availableWidth;
-			var height = chartProps.height || availableHeight
+			var fullWidth = chartProps.width || availableWidth;
+			var fullHeight = chartProps.height || availableHeight;
+	
+			/*let width = fullWidth - margin.left - margin.right;
+	  let height = fullHeight - margin.top - margin.bottom;
+	  	console.log(margin, fullWidth, fullHeight, width, height);*/
 	
 			return {
 				availableWidth: availableWidth,
 				availableHeight: availableHeight,
-				width: width,
-				height: height
-			}
+				width: fullWidth,
+				height: fullHeight
+			};
 		},
-		getChartConfigFor:function(innerDimension, chartProps, partialData, fullData, passThroughProps) {
+		getChartConfigFor: function getChartConfigFor(innerDimension, chartProps, partialData, fullData, passThroughProps) {
+			var padding = this.getPaddingForChart(chartProps);
 			var dimensions = this.getDimensions(innerDimension, chartProps);
 			var indicator = this.getIndicator(chartProps, passThroughProps);
-	
 			this.calculateIndicator(fullData, indicator, chartProps);
 	
 			var accessors = this.getXYAccessors(chartProps, passThroughProps, indicator);
@@ -3169,9 +4410,7 @@ return webpackJsonpReStock([0,2],[
 			this.calculateOverlays(fullData, overlaysToAdd);
 			// this.calculateRateOfReturn(fullData, compareSeries, compareBase, accessors.yAccessor);
 	
-			var origin = typeof chartProps.origin === 'function'
-				? chartProps.origin(dimensions.availableWidth, dimensions.availableHeight)
-				: chartProps.origin;
+			var origin = typeof chartProps.origin === "function" ? chartProps.origin(dimensions.availableWidth, dimensions.availableHeight) : chartProps.origin;
 	
 			var scales = this.defineScales(chartProps, partialData, passThroughProps);
 			// ror_1, ror_2, ror_base
@@ -3182,7 +4421,9 @@ return webpackJsonpReStock([0,2],[
 					at: chartProps.yMousePointerDisplayLocation,
 					format: chartProps.yMousePointerDisplayFormat
 				},
+				indicatorOptions: indicator && indicator.options(),
 				origin: origin,
+				padding: padding,
 				accessors: accessors,
 				overlays: overlaysToAdd,
 				compareBase: compareBase,
@@ -3191,40 +4432,36 @@ return webpackJsonpReStock([0,2],[
 			};
 			return config;
 		},
-		getChartPlotFor:function(config, partialData, domainL, domainR) {
-			var overlayYAccessors = pluck(keysAsArray(config.overlays), 'yAccessor');
+		getChartPlotFor: function getChartPlotFor(config, partialData, domainL, domainR) {
+			var overlayYAccessors = pluck(keysAsArray(config.overlays), "yAccessor");
 	
 			var yaccessors;
 	
 			if (config.compareSeries.length > 0) {
 				this.updateComparisonData(partialData, config.compareBase, config.compareSeries);
-				yaccessors = [function(d)  {return d.compare;}]; //this.getCompareYAccessors(config.compareSeries);
+				yaccessors = [function (d) {
+					return d.compare;
+				}];
 				// yaccessors = [config.accessors.yAccessor].concat(overlayYAccessors)
 			} else {
-				yaccessors = [config.accessors.yAccessor].concat(overlayYAccessors)
+				yaccessors = [config.accessors.yAccessor].concat(overlayYAccessors);
 			}
-			var xyValues = ScaleUtils.flattenData(partialData
-					, [config.accessors.xAccessor]
-					, yaccessors);
+			var xyValues = _utilsScaleUtils2["default"].flattenData(partialData, [config.accessors.xAccessor], yaccessors);
 	
-			var overlayValues = this.updateOverlayFirstLast(partialData, config.overlays)
+			var overlayValues = this.updateOverlayFirstLast(partialData, config.overlays);
 	
-			var scales = this.updateScales(
-				xyValues
-				, config.scaleType
-				, partialData
-				, config.width
-				, config.height);
+			var scales = this.updateScales(xyValues, config.scaleType, partialData, config.width /* - config.margin.left - config.margin.right*/
+			, config.height /* - config.margin.top - config.margin.bottom*/
+			, config.padding);
 	
-			if (domainL && domainR) scales.xScale.domain([domainL, domainR])
+			if (domainL && domainR) scales.xScale.domain([domainL, domainR]);
 	
-			//var last = Utils.cloneMe(partialData[partialData.length - 1]);
+			// var last = Utils.cloneMe(partialData[partialData.length - 1]);
 			var last = partialData[partialData.length - 1];
-			//var first = Utils.cloneMe(partialData[0]);
+			// var first = Utils.cloneMe(partialData[0]);
 			var first = partialData[0];
 	
-			var drawableWidth = scales.xScale(config.accessors.xAccessor(partialData[partialData.length - 1]))
-				- scales.xScale(config.accessors.xAccessor(partialData[0]));
+			var drawableWidth = scales.xScale(config.accessors.xAccessor(partialData[partialData.length - 1])) - scales.xScale(config.accessors.xAccessor(partialData[0]));
 	
 			var plot = {
 				drawableWidth: drawableWidth,
@@ -3232,20 +4469,26 @@ return webpackJsonpReStock([0,2],[
 				scales: scales,
 				lastItem: last,
 				firstItem: first
-			}
+			};
 			return plot;
 		},
-		getCompareYAccessors:function(compareWith) {
-			var yAccessors = compareWith.map(function(eachCompare)  {return function(d)  {return d['compare_' + eachCompare.id + '_percent'];};});
-			yAccessors.push(function(d)  {return d.compare_base_percent;});
+		getCompareYAccessors: function getCompareYAccessors(compareWith) {
+			var yAccessors = compareWith.map(function (eachCompare) {
+				return function (d) {
+					return d["compare_" + eachCompare.id + "_percent"];
+				};
+			});
+			yAccessors.push(function (d) {
+				return d.compare_base_percent;
+			});
 			return yAccessors;
 		},
-		updateComparisonData:function(partialData, compareBase, compareSeries) {
+		updateComparisonData: function updateComparisonData(partialData, compareBase, compareSeries) {
 	
 			var first = partialData[0];
 			var base = compareBase(first);
 	
-			partialData.forEach(function(d, i)  {
+			partialData.forEach(function (d) {
 				d.compare = {};
 	
 				d.compare.open = (d.open - base) / base;
@@ -3253,46 +4496,54 @@ return webpackJsonpReStock([0,2],[
 				d.compare.low = (d.low - base) / base;
 				d.compare.close = (d.close - base) / base;
 	
-				compareSeries.forEach(function(eachSeries)  {
-					var key = 'compare_' + eachSeries.id;
+				compareSeries.forEach(function (eachSeries) {
+					var key = "compare_" + eachSeries.id;
 					d.compare[key] = (eachSeries.yAccessor(d) - eachSeries.yAccessor(first)) / eachSeries.yAccessor(first);
 				});
-	
 			});
 	
 			// console.table(partialData);
 			// console.log(partialData[7].temp, partialData[7].compare);
 		},
 	
-		defineScales:function(props, data, passThroughProps) {
+		defineScales: function defineScales(props, data, passThroughProps) {
 			var xScale = props.xScale,
-				yScale = props.yScale;
+			    yScale = props.yScale;
 	
 			if (xScale === undefined && passThroughProps) xScale = passThroughProps.xScale;
 	
 			if (xScale === undefined) {
 				var each = data[0];
-				if (typeof each === 'object') {
-					Object.keys(each).forEach(function(key)  {
-						if (Object.prototype.toString.call(each[key]) === '[object Date]') {
-							xScale = d3.time.scale();
+				if (typeof each === "object") {
+					Object.keys(each).forEach(function (key) {
+						if (Object.prototype.toString.call(each[key]) === "[object Date]") {
+							xScale = _d32["default"].time.scale();
 						}
 					});
 				}
-				if (xScale === undefined) xScale = d3.scale.linear();
-				//xScale = polyLinearTimeScale();
+				if (xScale === undefined) xScale = _d32["default"].scale.linear();
+				// xScale = polyLinearTimeScale();
 			}
 			if (yScale === undefined) {
-				yScale = d3.scale.linear();
+				yScale = _d32["default"].scale.linear();
 			}
 			return { xScale: xScale, yScale: yScale };
 		},
-		getIndicator:function(props, passThroughProps) {
+		getPaddingForChart: function getPaddingForChart(props) {
+			// var margin;
+			/*React.Children.forEach(props.children, (child) => {
+	  	if (["ReStock.DataSeries"]
+	  			.indexOf(child.props.namespace) > -1) {
+	  		margin = props.innerMargin;
+	  	}
+	  });*/
+			return props.padding;
+		},
+		getIndicator: function getIndicator(props) {
 			var indicator;
 	
-			React.Children.forEach(props.children, function(child)  {
-				if (['ReStock.DataSeries']
-						.indexOf(child.props.namespace) > -1) {
+			_react2["default"].Children.forEach(props.children, function (child) {
+				if (["ReStock.DataSeries"].indexOf(child.props.namespace) > -1) {
 					if (child.props && child.props.indicator) {
 						var indicatorProp = child.props.indicator;
 						indicator = indicatorProp(child.props.options, props);
@@ -3301,17 +4552,14 @@ return webpackJsonpReStock([0,2],[
 			});
 			return indicator;
 		},
-		getXYAccessors:function(props, passThroughProps, indicator) {
+		getXYAccessors: function getXYAccessors(props, passThroughProps, indicator) {
 			var accessor = { xAccessor: null, yAccessor: null };
 	
-			React.Children.forEach(props.children, function(child)  {
-				if (['ReStock.DataSeries']
-						.indexOf(child.props.namespace) > -1) {
+			_react2["default"].Children.forEach(props.children, function (child) {
+				if (["ReStock.DataSeries"].indexOf(child.props.namespace) > -1) {
 					if (child.props) {
 	
-						var xAccessor = passThroughProps !== undefined && passThroughProps.stockScale
-							? passThroughProps.xAccessor
-							: child.props.xAccessor
+						var xAccessor = passThroughProps !== undefined && passThroughProps.stockScale ? passThroughProps.xAccessor : child.props.xAccessor;
 						accessor.xAccessor = xAccessor;
 						accessor.yAccessor = child.props.yAccessor;
 					}
@@ -3324,117 +4572,122 @@ return webpackJsonpReStock([0,2],[
 	
 			return accessor;
 		},
-		identifyOverlaysToAdd:function(props) {
+		identifyOverlaysToAdd: function identifyOverlaysToAdd(props) {
 			var overlaysToAdd = [];
-			React.Children.forEach(props.children, function(child)  {
+			_react2["default"].Children.forEach(props.children, function (child) {
 				if (/DataSeries$/.test(child.props.namespace)) {
-					React.Children.forEach(child.props.children, function(grandChild)  {
+					_react2["default"].Children.forEach(child.props.children, function (grandChild) {
 						if (/OverlaySeries$/.test(grandChild.props.namespace)) {
-							var key = OverlayUtils.getYAccessorKey(props.id, grandChild.props);
+							var key = _utilsOverlayUtils2["default"].getYAccessorKey(props.id, grandChild.props);
 							var overlay = {
 								id: grandChild.props.id,
 								chartId: props.id,
 								key: key,
-								yAccessor: function(d)  {return d[key];},
+								yAccessor: function yAccessor(d) {
+									return d[key];
+								},
 								options: grandChild.props.options,
 								type: grandChild.props.type,
-								tooltipLabel: OverlayUtils.getToolTipLabel(grandChild.props),
+								tooltipLabel: _utilsOverlayUtils2["default"].getToolTipLabel(grandChild.props),
 								stroke: grandChild.props.stroke || overlayColors(grandChild.props.id)
 							};
 							overlaysToAdd.push(overlay);
 						}
 					});
 				}
-			})
+			});
 			return overlaysToAdd;
 		},
-		identifyCompareBase:function(props) {
+		identifyCompareBase: function identifyCompareBase(props) {
 			var compareBase;
-			React.Children.forEach(props.children, function(child)  {
+			_react2["default"].Children.forEach(props.children, function (child) {
 				if (/DataSeries$/.test(child.props.namespace)) {
 					compareBase = child.props.compareBase;
 				}
-			})
+			});
 			return compareBase;
 		},
-		identifyCompareSeries:function(props) {
+		identifyCompareSeries: function identifyCompareSeries(props) {
 			var overlaysToAdd = [];
-			React.Children.forEach(props.children, function(child)  {
+			_react2["default"].Children.forEach(props.children, function (child) {
 				if (/DataSeries$/.test(child.props.namespace)) {
-					React.Children.forEach(child.props.children, function(grandChild)  {
+					_react2["default"].Children.forEach(child.props.children, function (grandChild) {
 						if (/CompareSeries$/.test(grandChild.props.namespace)) {
 							overlaysToAdd.push({
 								yAccessor: grandChild.props.yAccessor,
 								id: grandChild.props.id,
 								stroke: grandChild.props.stroke || overlayColors(grandChild.props.id),
 								displayLabel: grandChild.props.displayLabel,
-								percentYAccessor: function(d)  {return d.compare['compare_' + grandChild.props.id];},
+								percentYAccessor: function percentYAccessor(d) {
+									return d.compare["compare_" + grandChild.props.id];
+								}
 							});
 						}
 					});
 				}
-			})
+			});
 			return overlaysToAdd;
 		},
-		calculateOverlays:function(fullData, overlays) {
+		calculateOverlays: function calculateOverlays(fullData, overlays) {
 			if (Array.isArray(fullData)) {
-				overlays
-					.filter(function(eachOverlay)  {return eachOverlay.id !== undefined;})
-					.forEach(function(overlay)  {
-						OverlayUtils.calculateOverlay(fullData, overlay);
-					});
+				overlays.filter(function (eachOverlay) {
+					return eachOverlay.id !== undefined;
+				}).forEach(function (overlay) {
+					_utilsOverlayUtils2["default"].calculateOverlay(fullData, overlay);
+				});
 			} else {
-				Object.keys(fullData)
-					.filter(function(key)  {return ['D', 'W', 'M'].indexOf(key) > -1;})
-					.forEach(function(key)  {
-						overlays
-							.filter(function(eachOverlay)  {return eachOverlay.id !== undefined;})
-							.forEach(function(overlay)  {
-								OverlayUtils.calculateOverlay(fullData[key], overlay);
-							});
-					})
+				Object.keys(fullData).filter(function (key) {
+					return ["D", "W", "M"].indexOf(key) > -1;
+				}).forEach(function (key) {
+					overlays.filter(function (eachOverlay) {
+						return eachOverlay.id !== undefined;
+					}).forEach(function (overlay) {
+						_utilsOverlayUtils2["default"].calculateOverlay(fullData[key], overlay);
+					});
+				});
 			}
 			// console.table(fullData.M);
 			// console.log(overlays);
 		},
-		calculateIndicator:function(fullData, indicator, chartProps) {
-			Object.keys(fullData)
-				.filter(function(key)  {return ['D', 'W', 'M'].indexOf(key) > -1;})
-				.forEach(function(key)  {
-					if (indicator) indicator.calculate(fullData[key]);
-				})
+		calculateIndicator: function calculateIndicator(fullData, indicator) {
+			Object.keys(fullData).filter(function (key) {
+				return ["D", "W", "M"].indexOf(key) > -1;
+			}).forEach(function (key) {
+				if (indicator) indicator.calculate(fullData[key]);
+			});
 		},
-		updateOverlayFirstLast:function(data, overlays) {
-			// console.log('updateOverlayFirstLast');
+		updateOverlayFirstLast: function updateOverlayFirstLast(data, overlays) {
+			// console.log("updateOverlayFirstLast");
 			var overlayValues = [];
 	
-			overlays
-				.forEach(function(eachOverlay, idx)  {
-					// console.log(JSON.stringify(first), Object.keys(first), yAccessor(first));
-					overlayValues.push({
-						id: eachOverlay.id,
-						first: OverlayUtils.firstDefined(data, eachOverlay.yAccessor),
-						last: OverlayUtils.lastDefined(data, eachOverlay.yAccessor)
-					})/**/
-				})
+			overlays.forEach(function (eachOverlay) {
+				// console.log(JSON.stringify(first), Object.keys(first), yAccessor(first));
+				overlayValues.push({
+					id: eachOverlay.id,
+					first: _utilsOverlayUtils2["default"].firstDefined(data, eachOverlay.yAccessor),
+					last: _utilsOverlayUtils2["default"].lastDefined(data, eachOverlay.yAccessor)
+				});
+			});
 			return overlayValues;
 		},
-		updateScales:function(xyValues, scales, data, width, height) {
-			// console.log('updateScales');
-			scales.xScale.range([0, width]);
+		updateScales: function updateScales(xyValues, scales, data, width, height, padding) {
+			// console.log("updateScales");
+			// width = width - margin.left - margin.right/**/
+			// height = height - margin.top - margin.bottom/**/
+	
+			scales.xScale.range([padding.left, width - padding.right]);
 			// if polylinear scale then set data
 			if (scales.xScale.isPolyLinear && scales.xScale.isPolyLinear()) {
 				scales.xScale.data(data);
 			} else {
 				// else set the domain
-				scales.xScale.domain(d3.extent(xyValues.xValues));
+				scales.xScale.domain(_d32["default"].extent(xyValues.xValues));
 			}
 	
-			scales.yScale.range([height, 0]);
+			scales.yScale.range([height - padding.top, padding.bottom]);
 	
-			var domain = d3.extent(xyValues.yValues);
-			//var extraPadding = Math.abs(domain[0] - domain[1]) * 0.05;
-			//yScale.domain([domain[0] - extraPadding, domain[1] + extraPadding]);
+			var domain = _d32["default"].extent(xyValues.yValues);
+	
 			scales.yScale.domain(domain);
 	
 			return {
@@ -3442,26 +4695,25 @@ return webpackJsonpReStock([0,2],[
 				yScale: scales.yScale.copy()
 			};
 		},
-		getCurrentItems:function(chartData, mouseXY, plotData) {
-			return chartData
-				.map(function(eachChartData)  {
-					var xValue = eachChartData.plot.scales.xScale.invert(mouseXY[0]);
-					var item = Utils.getClosestItem(plotData, xValue, eachChartData.config.accessors.xAccessor);
-					return { id: eachChartData.id, data: item };
-				});
+		getCurrentItems: function getCurrentItems(chartData, mouseXY, plotData) {
+			return chartData.map(function (eachChartData) {
+				var xValue = eachChartData.plot.scales.xScale.invert(mouseXY[0]);
+				var item = _utilsUtils2["default"].getClosestItem(plotData, xValue, eachChartData.config.accessors.xAccessor);
+				return { id: eachChartData.id, data: item };
+			});
 		},
-		getDataToPlotForDomain:function(domainL, domainR, data, width, xAccessor) {
-			var threshold = 0.5 // number of datapoints per 1 px
-			var allowedIntervals = ['D', 'W', 'M'];
+		getDataToPlotForDomain: function getDataToPlotForDomain(domainL, domainR, data, width, xAccessor) {
+			var threshold = 0.5; // number of datapoints per 1 px
+			var allowedIntervals = ["D", "W", "M"];
 			// console.log(domainL, domainR, data, width);
 	
 			var dataForInterval, filteredData, interval, leftX, rightX;
-			for (var i=0; i<allowedIntervals.length; i++) {
-				interval = allowedIntervals[i]; 
+			for (var i = 0; i < allowedIntervals.length; i++) {
+				interval = allowedIntervals[i];
 				dataForInterval = data[interval];
 	
-				leftX = Utils.getClosestItemIndexes(dataForInterval, domainL, xAccessor);
-				rightX = Utils.getClosestItemIndexes(dataForInterval, domainR, xAccessor);
+				leftX = _utilsUtils2["default"].getClosestItemIndexes(dataForInterval, domainL, xAccessor);
+				rightX = _utilsUtils2["default"].getClosestItemIndexes(dataForInterval, domainR, xAccessor);
 	
 				filteredData = dataForInterval.slice(leftX.right, rightX.right);
 	
@@ -3469,122 +4721,146 @@ return webpackJsonpReStock([0,2],[
 				if (filteredData.length < width * threshold) break;
 			}
 	
-			// console.log(leftX, rightX,  (dd[leftX.left]), xAccessor(dd[rightX.right])); 
+			// console.log(leftX, rightX,  (dd[leftX.left]), xAccessor(dd[rightX.right]));
 	
 			return {
 				interval: interval,
 				data: filteredData
-			}
+			};
 		}
 	};
 	
-	module.exports = ChartContainerMixin;
-
-
-/***/ },
-/* 110 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(2);
-	var shallowEqual = __webpack_require__(125);
-	
-	var ____Class1n=React.Component;for(var ____Class1n____Key in ____Class1n){if(____Class1n.hasOwnProperty(____Class1n____Key)){PureComponent[____Class1n____Key]=____Class1n[____Class1n____Key];}}var ____SuperProtoOf____Class1n=____Class1n===null?null:____Class1n.prototype;PureComponent.prototype=Object.create(____SuperProtoOf____Class1n);PureComponent.prototype.constructor=PureComponent;PureComponent.__superConstructor__=____Class1n;function PureComponent(){if(____Class1n!==null){____Class1n.apply(this,arguments);}}
-		Object.defineProperty(PureComponent.prototype,"shouldComponentUpdate",{writable:true,configurable:true,value:function(nextProps, nextState, nextContext) {
-			return !shallowEqual(this.props, nextProps)
-				|| !shallowEqual(this.state, nextState)
-				|| !shallowEqual(this.context, nextContext);
-		}});
-	
-	
-	module.exports = PureComponent;
+	module.exports = ChartDataUtil;
 
 /***/ },
 /* 111 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	var React = __webpack_require__(2);
+	"use strict";
 	
-	var ____Class1o=React.Component;for(var ____Class1o____Key in ____Class1o){if(____Class1o.hasOwnProperty(____Class1o____Key)){Canvas[____Class1o____Key]=____Class1o[____Class1o____Key];}}var ____SuperProtoOf____Class1o=____Class1o===null?null:____Class1o.prototype;Canvas.prototype=Object.create(____SuperProtoOf____Class1o);Canvas.prototype.constructor=Canvas;Canvas.__superConstructor__=____Class1o;
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var Canvas = (function (_React$Component) {
 		function Canvas(props) {
-			____Class1o.call(this,props);
-		}/*,
-		componentDidMount() {
-			console.log(this.getCanvas());
-		},
-		getCanvas() {
-			return React.findDOMNode(this.refs.canvas);
-		},*/
-		Object.defineProperty(Canvas.prototype,"render",{writable:true,configurable:true,value:function() {
-			return (
-				React.createElement("canvas", {ref: "canvas", 
-					width: this.props.width, 
-					height: this.props.height, 
-					style: { position: 'absolute', left: this.props.left, top: this.props.top}})
-			);
-		}});
-	;
+			_classCallCheck(this, Canvas);
+	
+			_get(Object.getPrototypeOf(Canvas.prototype), "constructor", this).call(this, props);
+		}
+	
+		_inherits(Canvas, _React$Component);
+	
+		_createClass(Canvas, [{
+			key: "render",
+			value: function render() {
+				return _react2["default"].createElement("canvas", { ref: "canvas",
+					width: this.props.width,
+					height: this.props.height,
+					style: { position: "absolute", left: this.props.left, top: this.props.top } });
+			}
+		}]);
+	
+		return Canvas;
+	})(_react2["default"].Component);
 	
 	Canvas.contextTypes = {
-		width: React.PropTypes.number.isRequired,
-		height: React.PropTypes.number.isRequired,
-		left: React.PropTypes.number.isRequired,
-		top: React.PropTypes.number.isRequired
-	}
+		width: _react2["default"].PropTypes.number.isRequired,
+		height: _react2["default"].PropTypes.number.isRequired,
+		left: _react2["default"].PropTypes.number.isRequired,
+		top: _react2["default"].PropTypes.number.isRequired
+	};
 	
 	module.exports = Canvas;
-
 
 /***/ },
 /* 112 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
-	var StockScaleTransformer = __webpack_require__(118);
-	var HeikinAshiTransformer = __webpack_require__(119);
-	var KagiTransformer = __webpack_require__(120);
-	var PointAndFigureTransformer = __webpack_require__(121);
-	var RenkoTransformer = __webpack_require__(122);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	var _StockscaleTransformer = __webpack_require__(118);
+	
+	var _StockscaleTransformer2 = _interopRequireDefault(_StockscaleTransformer);
+	
+	var _HeikinAshiTransformer = __webpack_require__(119);
+	
+	var _HeikinAshiTransformer2 = _interopRequireDefault(_HeikinAshiTransformer);
+	
+	var _KagiTransformer = __webpack_require__(120);
+	
+	var _KagiTransformer2 = _interopRequireDefault(_KagiTransformer);
+	
+	var _PointAndFigureTransformer = __webpack_require__(121);
+	
+	var _PointAndFigureTransformer2 = _interopRequireDefault(_PointAndFigureTransformer);
+	
+	var _RenkoTransformer = __webpack_require__(122);
+	
+	var _RenkoTransformer2 = _interopRequireDefault(_RenkoTransformer);
 	
 	var ChartTransformer = {
-		getTransformerFor:function(type) {
-			if (type === "none")
-				return function(d)  {return d;};
-			if (type === "stockscale")
-				return StockScaleTransformer;
-			if (type === "heikinashi")
-				return HeikinAshiTransformer;
-			if (type === "kagi")
-				return KagiTransformer;
-			if (type === "pointandfigure")
-				return PointAndFigureTransformer;
-			if (type === "renko")
-				return RenkoTransformer;
+		getTransformerFor: function getTransformerFor(type) {
+			if (type === "none") return function (d) {
+				return d;
+			};
+			if (type === "stockscale") return _StockscaleTransformer2["default"];
+			if (type === "heikinashi") return _HeikinAshiTransformer2["default"];
+			if (type === "kagi") return _KagiTransformer2["default"];
+			if (type === "pointandfigure") return _PointAndFigureTransformer2["default"];
+			if (type === "renko") return _RenkoTransformer2["default"];
 			return false;
 		},
-		filter:function(data, dateAccesor, fromDate, toDate) {
-			var filteredData = data.filter(function(each)  {
-				var filtered = dateAccesor(each).getTime() > fromDate.getTime() && dateAccesor(each).getTime() < toDate.getTime()
+		filter: function filter(data, dateAccesor, fromDate, toDate) {
+			var filteredData = data.filter(function (each) {
+				var filtered = dateAccesor(each).getTime() > fromDate.getTime() && dateAccesor(each).getTime() < toDate.getTime();
 				return filtered;
 			});
 			return filteredData;
 		}
-	}
+	};
 	
 	module.exports = ChartTransformer;
-
 
 /***/ },
 /* 113 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var React = __webpack_require__(2);
-	var Utils = __webpack_require__(108);
-	var ChartDataUtil = __webpack_require__(109);
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _utilsUtils = __webpack_require__(108);
+	
+	var _utilsUtils2 = _interopRequireDefault(_utilsUtils);
+	
+	var _utilsChartDataUtil = __webpack_require__(110);
+	
+	var _utilsChartDataUtil2 = _interopRequireDefault(_utilsChartDataUtil);
 	
 	function getLongValue(value) {
 		if (value instanceof Date) {
@@ -3593,9 +4869,11 @@ return webpackJsonpReStock([0,2],[
 		return value;
 	}
 	
-	var ____Class1q=React.Component;for(var ____Class1q____Key in ____Class1q){if(____Class1q.hasOwnProperty(____Class1q____Key)){EventHandler[____Class1q____Key]=____Class1q[____Class1q____Key];}}var ____SuperProtoOf____Class1q=____Class1q===null?null:____Class1q.prototype;EventHandler.prototype=Object.create(____SuperProtoOf____Class1q);EventHandler.prototype.constructor=EventHandler;EventHandler.__superConstructor__=____Class1q;
+	var EventHandler = (function (_React$Component) {
 		function EventHandler(props, context) {
-			____Class1q.call(this,props, context);
+			_classCallCheck(this, EventHandler);
+	
+			_get(Object.getPrototypeOf(EventHandler.prototype), "constructor", this).call(this, props, context);
 			this.handleMouseMove = this.handleMouseMove.bind(this);
 			this.handleMouseEnter = this.handleMouseEnter.bind(this);
 			this.handleMouseLeave = this.handleMouseLeave.bind(this);
@@ -3610,509 +4888,540 @@ return webpackJsonpReStock([0,2],[
 				currentItems: [],
 				show: false,
 				mouseXY: [0, 0],
-				panInProgress: false,
+				panInProgress: false
 			};
 		}
-		Object.defineProperty(EventHandler.prototype,"componentWillMount",{writable:true,configurable:true,value:function() {
-			var $__0=     this,props=$__0.props,context=$__0.context;
-			var $__1=       context,data=$__1.data,initialDisplay=$__1.initialDisplay,dataTransformProps=$__1.dataTransformProps,interval=$__1.interval;
 	
-			var dataForInterval = data[interval];
-			var mainChart = ChartDataUtil.getMainChart(props.children);
-			var beginIndex = Math.max(dataForInterval.length - initialDisplay, 0);
-			var plotData = dataForInterval.slice(beginIndex);
-			var chartData = ChartDataUtil.getChartData(props, context, plotData, data, dataTransformProps);
+		_inherits(EventHandler, _React$Component);
 	
-			this.setState({
-				plotData: plotData,
-				chartData: chartData,
-				interval: this.context.interval,
-				mainChart: mainChart,
-				currentCharts: [mainChart]
-			});
-		}});
-		Object.defineProperty(EventHandler.prototype,"componentWillReceiveProps",{writable:true,configurable:true,value:function(props, context) {
-			var $__0=      this.state,interval=$__0.interval,chartData=$__0.chartData,plotData=$__0.plotData;
-			var $__1=     context,data=$__1.data,dataTransformProps=$__1.dataTransformProps;
+		_createClass(EventHandler, [{
+			key: "componentWillMount",
+			value: function componentWillMount() {
+				var props = this.props;
+				var context = this.context;
+				var data = context.data;
+				var initialDisplay = context.initialDisplay;
+				var dataTransformProps = context.dataTransformProps;
+				var interval = context.interval;
 	
-			var dataForInterval = data[interval];
-			var mainChart = ChartDataUtil.getMainChart(props.children);
-			var mainChartData = chartData.filter(function(each)  {return each.id === mainChart;})[0];
-			var beginIndex = Utils.getClosestItemIndexes(dataForInterval, mainChartData.config.accessors.xAccessor(plotData[0]), mainChartData.config.accessors.xAccessor).left;
-			var endIndex = Utils.getClosestItemIndexes(dataForInterval, mainChartData.config.accessors.xAccessor(plotData[plotData.length - 1]), mainChartData.config.accessors.xAccessor).right;
+				var dataForInterval = data[interval];
+				var mainChart = _utilsChartDataUtil2["default"].getMainChart(props.children);
+				var beginIndex = Math.max(dataForInterval.length - initialDisplay, 0);
+				var plotData = dataForInterval.slice(beginIndex);
+				var chartData = _utilsChartDataUtil2["default"].getChartData(props, context, plotData, data, dataTransformProps);
 	
-			var plotData = dataForInterval.slice(beginIndex, endIndex);
-			var chartData = ChartDataUtil.getChartData(props, context, plotData, data, dataTransformProps);
-	
-			this.setState({
-				chartData: chartData,
-				plotData: plotData,
-				currentItems: [],
-				show: false,
-				mouseXY: [0, 0],
-				mainChart: mainChart
-			});
-		}});
-		Object.defineProperty(EventHandler.prototype,"getChildContext",{writable:true,configurable:true,value:function() {
-			return {
-				plotData: this.state.plotData,
-				chartData: this.state.chartData,
-				currentItems: this.state.currentItems,
-				mainChart: this.state.mainChart,
-				show: this.state.show,
-				mouseXY: this.state.mouseXY,
-				interval: this.state.interval,
-				currentCharts: this.state.currentCharts,
-	
-				onMouseMove: this.handleMouseMove,
-				onMouseEnter: this.handleMouseEnter,
-				onMouseLeave: this.handleMouseLeave,
-				onZoom: this.handleZoom,
-				onPanStart: this.handlePanStart,
-				onPan: this.handlePan,
-				onPanEnd: this.handlePanEnd,
-				onFocus: this.handleFocus,
-				panInProgress: this.state.panInProgress,
-				focus: this.state.focus
+				this.setState({
+					plotData: plotData,
+					chartData: chartData,
+					interval: this.context.interval,
+					mainChart: mainChart,
+					currentCharts: [mainChart]
+				});
 			}
-		}});
-		Object.defineProperty(EventHandler.prototype,"handleMouseMove",{writable:true,configurable:true,value:function(mouseXY) {
-			// console.log('mouse move - ', mouseXY);
-			var currentItems = ChartDataUtil.getCurrentItems(this.state.chartData, mouseXY, this.state.plotData)
-				// .filter((eachChartData) => eachChartData.id === this.state.mainChart)
-			var currentCharts = this.state.chartData.filter(function(chartData)  {
-				var top = chartData.config.origin[1];
-				var bottom = top + chartData.config.height;
-				return (mouseXY[1] > top && mouseXY[1] < bottom)
-			}).map(function(chartData)  {return chartData.id;});
+		}, {
+			key: "componentWillReceiveProps",
+			value: function componentWillReceiveProps(props, context) {
+				var _state = this.state;
+				var interval = _state.interval;
+				var chartData = _state.chartData;
+				var plotData = _state.plotData;
+				var data = context.data;
+				var dataTransformProps = context.dataTransformProps;
 	
-			// console.log(currentCharts);
+				var dataForInterval = data[interval];
+				var mainChart = _utilsChartDataUtil2["default"].getMainChart(props.children);
+				var mainChartData = chartData.filter(function (each) {
+					return each.id === mainChart;
+				})[0];
+				var beginIndex = _utilsUtils2["default"].getClosestItemIndexes(dataForInterval, mainChartData.config.accessors.xAccessor(plotData[0]), mainChartData.config.accessors.xAccessor).left;
+				var endIndex = _utilsUtils2["default"].getClosestItemIndexes(dataForInterval, mainChartData.config.accessors.xAccessor(plotData[plotData.length - 1]), mainChartData.config.accessors.xAccessor).right;
 	
-			this.setState({
-				mouseXY: mouseXY,
-				currentItems: currentItems,
-				show: true,
-				currentCharts: currentCharts
-			});
-		}});
-		Object.defineProperty(EventHandler.prototype,"handleMouseEnter",{writable:true,configurable:true,value:function() {
-			// console.log('enter');
-			this.setState({
-				show: true
-			});
-		}});
-		Object.defineProperty(EventHandler.prototype,"handleMouseLeave",{writable:true,configurable:true,value:function() {
-			// console.log('leave');
-			this.setState({
-				show: false
-			});
-		}});
-		Object.defineProperty(EventHandler.prototype,"handleZoom",{writable:true,configurable:true,value:function(zoomDirection, mouseXY) {
-			// console.log('zoomDirection ', zoomDirection, ' mouseXY ', mouseXY);
-			var $__0=       this.state,mainChart=$__0.mainChart,chartData=$__0.chartData,plotData=$__0.plotData,interval=$__0.interval;
-			var $__1=    this.context,data=$__1.data;
+				var newPlotData = dataForInterval.slice(beginIndex, endIndex);
+				var newChartData = _utilsChartDataUtil2["default"].getChartData(props, context, plotData, data, dataTransformProps);
 	
-			var chart = chartData.filter(function(eachChart)  {return eachChart.id === mainChart;})[0],
-				item = ChartDataUtil.getClosestItem(plotData, mouseXY, chart),
-				xScale = chart.plot.scales.xScale,
-				domain = xScale.domain(),
-				centerX = chart.config.accessors.xAccessor(item),
-				leftX = centerX - domain[0],
-				rightX = domain[1] - centerX,
-				zoom = Math.pow(1 + Math.abs(zoomDirection)/2 , zoomDirection),
-				domainL = (getLongValue(centerX) - ( leftX * zoom)),
-				domainR = (getLongValue(centerX) + (rightX * zoom)),
-				domainRange = Math.abs(domain[1] - domain[0]),
-				fullData = data[interval],
-				last = fullData[fullData.length - 1],
-				first = fullData[0];
-	
-			domainL = Math.max(getLongValue(chart.config.accessors.xAccessor(first)) - Math.floor(domainRange/3), domainL)
-			domainR = Math.min(getLongValue(chart.config.accessors.xAccessor(last)) + Math.floor(domainRange/3), domainR)
-			// xScale(domainR) - xScale(domainL)
-			var dataToPlot = ChartDataUtil.getDataToPlotForDomain(domainL, domainR, data, chart.config.width, chart.config.accessors.xAccessor);
-			if (dataToPlot.data.length < 10) return;
-			var newChartData = chartData.map(function(eachChart)  {
-				var plot = ChartDataUtil.getChartPlotFor(eachChart.config, dataToPlot.data, domainL, domainR);
+				this.setState({
+					chartData: newChartData,
+					plotData: newPlotData,
+					currentItems: [],
+					show: false,
+					mouseXY: [0, 0],
+					mainChart: mainChart
+				});
+			}
+		}, {
+			key: "getChildContext",
+			value: function getChildContext() {
 				return {
-					id: eachChart.id,
-					config: eachChart.config,
-					plot: plot
-				}
-			});
-			this.setState({
-				chartData: newChartData,
-				plotData: dataToPlot.data,
-				interval: dataToPlot.interval
-			});
-		}});
+					plotData: this.state.plotData,
+					chartData: this.state.chartData,
+					currentItems: this.state.currentItems,
+					mainChart: this.state.mainChart,
+					show: this.state.show,
+					mouseXY: this.state.mouseXY,
+					interval: this.state.interval,
+					currentCharts: this.state.currentCharts,
 	
-		Object.defineProperty(EventHandler.prototype,"handlePanStart",{writable:true,configurable:true,value:function(panStartDomain, panOrigin) {
-			// console.log('panStartDomain - ', panStartDomain, ', panOrigin - ', panOrigin);
-			this.setState({
-				panInProgress: true,
-				panStartDomain: panStartDomain,
-				panOrigin: panOrigin,
-				focus: true,
-			});
-		}});
-		Object.defineProperty(EventHandler.prototype,"handlePan",{writable:true,configurable:true,value:function(mousePosition, startDomain) {
-			// console.log('mousePosition ', mousePosition);
-			var $__0=         this.state,mainChart=$__0.mainChart,chartData=$__0.chartData,plotData=$__0.plotData,interval=$__0.interval,panStartDomain=$__0.panStartDomain,panOrigin=$__0.panOrigin;
-			var $__1=    this.context,data=$__1.data;
-			if (panStartDomain === null) {
-				this.handlePanStart(startDomain, mousePosition);
-			} else {
-				requestAnimationFrame(function()  {
-					var chart = chartData.filter(function(eachChart)  {return eachChart.id === mainChart;})[0],
-						domainRange = panStartDomain[1] - panStartDomain[0],
-						fullData = data[interval],
-						last = fullData[fullData.length - 1],
-						first = fullData[0],
-						dx = mousePosition[0] - panOrigin[0],
-						xAccessor = chart.config.accessors.xAccessor;
-	
-					// console.log('pan -- mouse move - ', mousePosition, ' dragged by ', dx, ' pixels');
-	
-					var domainStart = getLongValue(panStartDomain[0]) - dx/chart.config.width * domainRange
-					if (domainStart < getLongValue(xAccessor(first)) - Math.floor(domainRange/3)) {
-						domainStart = getLongValue(xAccessor(first)) - Math.floor(domainRange/3)
-					} else {
-						domainStart = Math.min(getLongValue(xAccessor(last))
-							+ Math.ceil(domainRange/3), domainStart + domainRange) - domainRange;
-					}
-					var domainL = domainStart, domainR = domainStart + domainRange
-					if (panStartDomain[0] instanceof Date) {
-						domainL = new Date(domainL);
-						domainR = new Date(domainR);
-					}
-	
-					var leftX = Utils.getClosestItemIndexes(fullData, domainL, xAccessor);
-					var rightX = Utils.getClosestItemIndexes(fullData, domainR, xAccessor);
-	
-					var filteredData = fullData.slice(leftX.right, rightX.right);
-	
-					var newChartData = chartData.map(function(eachChart)  {
-						var plot = ChartDataUtil.getChartPlotFor(eachChart.config, filteredData, domainL, domainR);
-						return {
-							id: eachChart.id,
-							config: eachChart.config,
-							plot: plot
-						}
-					});
-					var currentItems = ChartDataUtil.getCurrentItems(newChartData, mousePosition, filteredData);
-	
-					var currentCharts = newChartData.filter(function(chartData)  {
-						var top = chartData.config.origin[1];
-						var bottom = top + chartData.config.height;
-						return (mousePosition[1] > top && mousePosition[1] < bottom)
-					}).map(function(chartData)  {return chartData.id;});
-	
-					this.setState({
-						chartData: newChartData,
-						plotData: filteredData,
-						currentItems: currentItems,
-						// show: true,
-						mouseXY: mousePosition,
-						currentCharts: currentCharts,
-					});
-				}.bind(this));
+					onMouseMove: this.handleMouseMove,
+					onMouseEnter: this.handleMouseEnter,
+					onMouseLeave: this.handleMouseLeave,
+					onZoom: this.handleZoom,
+					onPanStart: this.handlePanStart,
+					onPan: this.handlePan,
+					onPanEnd: this.handlePanEnd,
+					onFocus: this.handleFocus,
+					panInProgress: this.state.panInProgress,
+					focus: this.state.focus
+				};
 			}
-		}});
-		Object.defineProperty(EventHandler.prototype,"handlePanEnd",{writable:true,configurable:true,value:function() {
-			this.setState({
-				panInProgress: false,
-				panStartDomain: null
-			});
-		}});
-		Object.defineProperty(EventHandler.prototype,"handleFocus",{writable:true,configurable:true,value:function(focus) {
-			// console.log(focus);
-			this.setState({
-				focus: focus,
-			});
-		}});
-		Object.defineProperty(EventHandler.prototype,"render",{writable:true,configurable:true,value:function() {
-			var children = React.Children.map(this.props.children, function(child)  {
-				var newChild = Utils.isReactVersion13()
-					? React.withContext(this.getChildContext(), function()  {
-						return React.createElement(child.type, Utils.mergeObject({ key: child.key, ref: child.ref}, child.props));
-					})
-					: React.cloneElement(child);
-				return newChild;
-			}.bind(this));
-			return (
-				React.createElement("g", null, children)
-			);
-		}});
-	;
+		}, {
+			key: "handleMouseMove",
+			value: function handleMouseMove(mouseXY) {
+				// console.log("mouse move - ", mouseXY);
+				var currentItems = _utilsChartDataUtil2["default"].getCurrentItems(this.state.chartData, mouseXY, this.state.plotData);
+				// .filter((eachChartData) => eachChartData.id === this.state.mainChart)
+				var currentCharts = this.state.chartData.filter(function (chartData) {
+					var top = chartData.config.origin[1];
+					var bottom = top + chartData.config.height;
+					return mouseXY[1] > top && mouseXY[1] < bottom;
+				}).map(function (chartData) {
+					return chartData.id;
+				});
+	
+				// console.log(currentCharts);
+	
+				this.setState({
+					mouseXY: mouseXY,
+					currentItems: currentItems,
+					show: true,
+					currentCharts: currentCharts
+				});
+			}
+		}, {
+			key: "handleMouseEnter",
+			value: function handleMouseEnter() {
+				// console.log("enter");
+				this.setState({
+					show: true
+				});
+			}
+		}, {
+			key: "handleMouseLeave",
+			value: function handleMouseLeave() {
+				// console.log("leave");
+				this.setState({
+					show: false
+				});
+			}
+		}, {
+			key: "handleZoom",
+			value: function handleZoom(zoomDirection, mouseXY) {
+				// console.log("zoomDirection ", zoomDirection, " mouseXY ", mouseXY);
+				var _state2 = this.state;
+				var mainChart = _state2.mainChart;
+				var chartData = _state2.chartData;
+				var plotData = _state2.plotData;
+				var interval = _state2.interval;
+				var data = this.context.data;
+	
+				var chart = chartData.filter(function (eachChart) {
+					return eachChart.id === mainChart;
+				})[0],
+				    item = _utilsChartDataUtil2["default"].getClosestItem(plotData, mouseXY, chart),
+				    xScale = chart.plot.scales.xScale,
+				    domain = xScale.domain(),
+				    centerX = chart.config.accessors.xAccessor(item),
+				    leftX = centerX - domain[0],
+				    rightX = domain[1] - centerX,
+				    zoom = Math.pow(1 + Math.abs(zoomDirection) / 2, zoomDirection),
+				    domainL = getLongValue(centerX) - leftX * zoom,
+				    domainR = getLongValue(centerX) + rightX * zoom,
+				    domainRange = Math.abs(domain[1] - domain[0]),
+				    fullData = data[interval],
+				    last = fullData[fullData.length - 1],
+				    first = fullData[0];
+	
+				domainL = Math.max(getLongValue(chart.config.accessors.xAccessor(first)) - Math.floor(domainRange / 3), domainL);
+				domainR = Math.min(getLongValue(chart.config.accessors.xAccessor(last)) + Math.floor(domainRange / 3), domainR);
+				// xScale(domainR) - xScale(domainL)
+				var dataToPlot = _utilsChartDataUtil2["default"].getDataToPlotForDomain(domainL, domainR, data, chart.config.width, chart.config.accessors.xAccessor);
+				if (dataToPlot.data.length < 10) return;
+				var newChartData = chartData.map(function (eachChart) {
+					var plot = _utilsChartDataUtil2["default"].getChartPlotFor(eachChart.config, dataToPlot.data, domainL, domainR);
+					return {
+						id: eachChart.id,
+						config: eachChart.config,
+						plot: plot
+					};
+				});
+				this.setState({
+					chartData: newChartData,
+					plotData: dataToPlot.data,
+					interval: dataToPlot.interval
+				});
+			}
+		}, {
+			key: "handlePanStart",
+			value: function handlePanStart(panStartDomain, panOrigin) {
+				// console.log("panStartDomain - ", panStartDomain, ", panOrigin - ", panOrigin);
+				this.setState({
+					panInProgress: true,
+					panStartDomain: panStartDomain,
+					panOrigin: panOrigin,
+					focus: true
+				});
+			}
+		}, {
+			key: "handlePan",
+			value: function handlePan(mousePosition, startDomain) {
+				var _this = this;
+	
+				// console.log("mousePosition ", mousePosition);
+				/* can also use plotData, use this if you want to pan and show only within that data set*/
+				var _state3 = this.state;
+				var mainChart = _state3.mainChart;
+				var chartData = _state3.chartData;
+				var interval = _state3.interval;
+				var panStartDomain = _state3.panStartDomain;
+				var panOrigin = _state3.panOrigin;
+				var data = this.context.data;
+	
+				if (panStartDomain === null) {
+					this.handlePanStart(startDomain, mousePosition);
+				} else {
+					requestAnimationFrame(function () {
+						var chart = chartData.filter(function (eachChart) {
+							return eachChart.id === mainChart;
+						})[0],
+						    domainRange = panStartDomain[1] - panStartDomain[0],
+						    fullData = data[interval],
+						    last = fullData[fullData.length - 1],
+						    first = fullData[0],
+						    dx = mousePosition[0] - panOrigin[0],
+						    xAccessor = chart.config.accessors.xAccessor;
+	
+						// console.log("pan -- mouse move - ", mousePosition, " dragged by ", dx, " pixels");
+	
+						var domainStart = getLongValue(panStartDomain[0]) - dx / chart.config.width * domainRange;
+						if (domainStart < getLongValue(xAccessor(first)) - Math.floor(domainRange / 3)) {
+							domainStart = getLongValue(xAccessor(first)) - Math.floor(domainRange / 3);
+						} else {
+							domainStart = Math.min(getLongValue(xAccessor(last)) + Math.ceil(domainRange / 3), domainStart + domainRange) - domainRange;
+						}
+						var domainL = domainStart,
+						    domainR = domainStart + domainRange;
+						if (panStartDomain[0] instanceof Date) {
+							domainL = new Date(domainL);
+							domainR = new Date(domainR);
+						}
+	
+						var leftX = _utilsUtils2["default"].getClosestItemIndexes(fullData, domainL, xAccessor);
+						var rightX = _utilsUtils2["default"].getClosestItemIndexes(fullData, domainR, xAccessor);
+	
+						var filteredData = fullData.slice(leftX.right, rightX.right);
+	
+						var newChartData = chartData.map(function (eachChart) {
+							var plot = _utilsChartDataUtil2["default"].getChartPlotFor(eachChart.config, filteredData, domainL, domainR);
+							return {
+								id: eachChart.id,
+								config: eachChart.config,
+								plot: plot
+							};
+						});
+						var currentItems = _utilsChartDataUtil2["default"].getCurrentItems(newChartData, mousePosition, filteredData);
+	
+						var currentCharts = newChartData.filter(function (eachChartData) {
+							var top = eachChartData.config.origin[1];
+							var bottom = top + eachChartData.config.height;
+							return mousePosition[1] > top && mousePosition[1] < bottom;
+						}).map(function (eachChartData) {
+							return eachChartData.id;
+						});
+	
+						_this.setState({
+							chartData: newChartData,
+							plotData: filteredData,
+							currentItems: currentItems,
+							// show: true,
+							mouseXY: mousePosition,
+							currentCharts: currentCharts
+						});
+					});
+				}
+			}
+		}, {
+			key: "handlePanEnd",
+			value: function handlePanEnd() {
+				this.setState({
+					panInProgress: false,
+					panStartDomain: null
+				});
+			}
+		}, {
+			key: "handleFocus",
+			value: function handleFocus(focus) {
+				// console.log(focus);
+				this.setState({
+					focus: focus
+				});
+			}
+		}, {
+			key: "render",
+			value: function render() {
+				var _this2 = this;
+	
+				var children = _react2["default"].Children.map(this.props.children, function (child) {
+					var newChild = _utilsUtils2["default"].isReactVersion13() ? _react2["default"].withContext(_this2.getChildContext(), function () {
+						return _react2["default"].createElement(child.type, _utilsUtils2["default"].mergeObject({ key: child.key, ref: child.ref }, child.props));
+					}) : _react2["default"].cloneElement(child);
+					return newChild;
+				});
+				return _react2["default"].createElement(
+					"g",
+					null,
+					children
+				);
+			}
+		}]);
+	
+		return EventHandler;
+	})(_react2["default"].Component);
 	
 	EventHandler.contextTypes = {
-		width: React.PropTypes.number.isRequired,
-		height: React.PropTypes.number.isRequired,
-		data: React.PropTypes.object,
-		dataTransformOptions: React.PropTypes.object,
-		dataTransformProps: React.PropTypes.object,
-		plotData: React.PropTypes.array,
-		chartData: React.PropTypes.array,
-		initialDisplay: React.PropTypes.number.isRequired,
-		interval: React.PropTypes.string,
-	}
+		width: _react2["default"].PropTypes.number.isRequired,
+		height: _react2["default"].PropTypes.number.isRequired,
+		data: _react2["default"].PropTypes.object,
+		dataTransformOptions: _react2["default"].PropTypes.object,
+		dataTransformProps: _react2["default"].PropTypes.object,
+		plotData: _react2["default"].PropTypes.array,
+		chartData: _react2["default"].PropTypes.array,
+		initialDisplay: _react2["default"].PropTypes.number.isRequired,
+		interval: _react2["default"].PropTypes.string
+	};
+	
 	EventHandler.childContextTypes = {
-		plotData: React.PropTypes.array,
-		chartData: React.PropTypes.array,
-		currentItems: React.PropTypes.array,
-		show: React.PropTypes.bool,
-		mouseXY: React.PropTypes.array,
-		interval: React.PropTypes.string,
-		currentCharts: React.PropTypes.array,
-		mainChart: React.PropTypes.number,
+		plotData: _react2["default"].PropTypes.array,
+		chartData: _react2["default"].PropTypes.array,
+		currentItems: _react2["default"].PropTypes.array,
+		show: _react2["default"].PropTypes.bool,
+		mouseXY: _react2["default"].PropTypes.array,
+		interval: _react2["default"].PropTypes.string,
+		currentCharts: _react2["default"].PropTypes.array,
+		mainChart: _react2["default"].PropTypes.number,
 	
-	
-		onMouseMove: React.PropTypes.func,
-		onMouseEnter: React.PropTypes.func,
-		onMouseLeave: React.PropTypes.func,
-		onZoom: React.PropTypes.func,
-		onPanStart: React.PropTypes.func,
-		onPan: React.PropTypes.func,
-		onPanEnd: React.PropTypes.func, 
-		panInProgress: React.PropTypes.bool.isRequired,
-		focus: React.PropTypes.bool.isRequired,
-		onFocus: React.PropTypes.func,
-	}
+		onMouseMove: _react2["default"].PropTypes.func,
+		onMouseEnter: _react2["default"].PropTypes.func,
+		onMouseLeave: _react2["default"].PropTypes.func,
+		onZoom: _react2["default"].PropTypes.func,
+		onPanStart: _react2["default"].PropTypes.func,
+		onPan: _react2["default"].PropTypes.func,
+		onPanEnd: _react2["default"].PropTypes.func,
+		panInProgress: _react2["default"].PropTypes.bool.isRequired,
+		focus: _react2["default"].PropTypes.bool.isRequired,
+		onFocus: _react2["default"].PropTypes.func
+	};
 	
 	module.exports = EventHandler;
-
 
 /***/ },
 /* 114 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	var React = __webpack_require__(2);
+	"use strict";
 	
-	var ____Class1p=React.Component;for(var ____Class1p____Key in ____Class1p){if(____Class1p.hasOwnProperty(____Class1p____Key)){EdgeCoordinate[____Class1p____Key]=____Class1p[____Class1p____Key];}}var ____SuperProtoOf____Class1p=____Class1p===null?null:____Class1p.prototype;EdgeCoordinate.prototype=Object.create(____SuperProtoOf____Class1p);EdgeCoordinate.prototype.constructor=EdgeCoordinate;EdgeCoordinate.__superConstructor__=____Class1p;function EdgeCoordinate(){if(____Class1p!==null){____Class1p.apply(this,arguments);}}
-		Object.defineProperty(EdgeCoordinate.prototype,"render",{writable:true,configurable:true,value:function() {
-			if (!this.props.show) return null;
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 	
-			var displayCoordinate = this.props.coordinate;
-			var rectWidth = this.props.rectWidth
-				? this.props.rectWidth
-				: (this.props.type === 'horizontal')
-					? 60
-					: 100,
-				rectHeight = 20;
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 	
-			var edgeXRect, edgeYRect, edgeXText, edgeYText;
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 	
-			if (this.props.type === 'horizontal') {
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-				edgeXRect = (this.props.orient === 'right') ? this.props.edgeAt + 1 : this.props.edgeAt - rectWidth - 1;
-				edgeYRect = this.props.y1 - (rectHeight / 2);
-				edgeXText = (this.props.orient === 'right') ? this.props.edgeAt + (rectWidth / 2) : this.props.edgeAt - (rectWidth / 2);
-				edgeYText = this.props.y1;
-			} else {
-				edgeXRect = this.props.x1 - (rectWidth / 2);
-				edgeYRect = (this.props.orient === 'bottom') ? this.props.edgeAt : this.props.edgeAt - rectHeight;
-				edgeXText = this.props.x1;
-				edgeYText = (this.props.orient === 'bottom') ? this.props.edgeAt + (rectHeight / 2) : this.props.edgeAt - (rectHeight / 2);
-			}
-			var coordinateBase = null, coordinate = null;
-			if (displayCoordinate !== undefined) {
-					coordinateBase = (React.createElement("rect", {key: 1, className: "textbg", 
-										x: edgeXRect, 
-										y: edgeYRect, 
-										height: rectHeight, width: rectWidth, fill: this.props.fill}));
-					coordinate = (React.createElement("text", {key: 2, x: edgeXText, 
-										y: edgeYText, 
-										style: {"textAnchor": "middle"}, 
-										dy: ".32em"}, displayCoordinate));
-			}
-			var line = this.props.hideLine ? null : React.createElement("line", {className: "cross-hair", 
-						x1: this.props.x1, y1: this.props.y1, 
-						x2: this.props.x2, y2: this.props.y2})
-			return (
-				React.createElement("g", {className: (this.props.show ? 'show ' : 'hide ') + this.props.className}, 
-					line, 
-					coordinateBase, 
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var EdgeCoordinate = (function (_React$Component) {
+		function EdgeCoordinate() {
+			_classCallCheck(this, EdgeCoordinate);
+	
+			_get(Object.getPrototypeOf(EdgeCoordinate.prototype), "constructor", this).apply(this, arguments);
+		}
+	
+		_inherits(EdgeCoordinate, _React$Component);
+	
+		_createClass(EdgeCoordinate, [{
+			key: "render",
+			value: function render() {
+				if (!this.props.show) return null;
+	
+				var displayCoordinate = this.props.coordinate;
+				var rectWidth = this.props.rectWidth ? this.props.rectWidth : this.props.type === "horizontal" ? 60 : 100,
+				    rectHeight = 20;
+	
+				var edgeXRect, edgeYRect, edgeXText, edgeYText;
+	
+				if (this.props.type === "horizontal") {
+	
+					edgeXRect = this.props.orient === "right" ? this.props.edgeAt + 1 : this.props.edgeAt - rectWidth - 1;
+					edgeYRect = this.props.y1 - rectHeight / 2;
+					edgeXText = this.props.orient === "right" ? this.props.edgeAt + rectWidth / 2 : this.props.edgeAt - rectWidth / 2;
+					edgeYText = this.props.y1;
+				} else {
+					edgeXRect = this.props.x1 - rectWidth / 2;
+					edgeYRect = this.props.orient === "bottom" ? this.props.edgeAt : this.props.edgeAt - rectHeight;
+					edgeXText = this.props.x1;
+					edgeYText = this.props.orient === "bottom" ? this.props.edgeAt + rectHeight / 2 : this.props.edgeAt - rectHeight / 2;
+				}
+				var coordinateBase = null,
+				    coordinate = null;
+				if (displayCoordinate !== undefined) {
+					coordinateBase = _react2["default"].createElement("rect", { key: 1, className: "textbg",
+						x: edgeXRect,
+						y: edgeYRect,
+						height: rectHeight, width: rectWidth, fill: this.props.fill });
+					coordinate = _react2["default"].createElement(
+						"text",
+						{ key: 2, x: edgeXText,
+							y: edgeYText,
+							style: { "textAnchor": "middle" },
+							dy: ".32em" },
+						displayCoordinate
+					);
+				}
+				var line = this.props.hideLine ? null : _react2["default"].createElement("line", { className: "cross-hair",
+					x1: this.props.x1, y1: this.props.y1,
+					x2: this.props.x2, y2: this.props.y2 });
+				return _react2["default"].createElement(
+					"g",
+					{ className: (this.props.show ? "show " : "hide ") + this.props.className },
+					line,
+					coordinateBase,
 					coordinate
-				)
-			);
-		}});
-	;
+				);
+			}
+		}]);
+	
+		return EdgeCoordinate;
+	})(_react2["default"].Component);
 	
 	EdgeCoordinate.propTypes = {
-		type: React.PropTypes.oneOf(['vertical', 'horizontal']).isRequired,
-		coordinate: React.PropTypes.any.isRequired,
-		x1: React.PropTypes.number.isRequired,
-		y1: React.PropTypes.number.isRequired,
-		x2: React.PropTypes.number.isRequired,
-		y2: React.PropTypes.number.isRequired,
-		orient: React.PropTypes.oneOf(['bottom', 'top', 'left', 'right']),
-		rectWidth: React.PropTypes.number,
-		hideLine: React.PropTypes.bool,
+		type: _react2["default"].PropTypes.oneOf(["vertical", "horizontal"]).isRequired,
+		coordinate: _react2["default"].PropTypes.any.isRequired,
+		x1: _react2["default"].PropTypes.number.isRequired,
+		y1: _react2["default"].PropTypes.number.isRequired,
+		x2: _react2["default"].PropTypes.number.isRequired,
+		y2: _react2["default"].PropTypes.number.isRequired,
+		orient: _react2["default"].PropTypes.oneOf(["bottom", "top", "left", "right"]),
+		rectWidth: _react2["default"].PropTypes.number,
+		hideLine: _react2["default"].PropTypes.bool
 	};
 	EdgeCoordinate.defaultProps = {
 		namespace: "ReStock.EdgeCoordinate",
-		orient: 'left',
-		hideLine: false,
+		orient: "left",
+		hideLine: false
 	};
 	module.exports = EdgeCoordinate;
-
 
 /***/ },
 /* 115 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
-	var Utils = __webpack_require__(108);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 	
-	var pluck = Utils.pluck;
-	var sum = Utils.sum;
+	var _utils = __webpack_require__(108);
 	
-	function MACalculator() {
+	var _utils2 = _interopRequireDefault(_utils);
 	
-	};
-	MACalculator.calculateSMA = function(data, period, key, pluckKey, subObjectKey) {
-		// console.log('calculateSMA');
+	var pluck = _utils2["default"].pluck;
+	var sum = _utils2["default"].sum;
 	
-		var l = data.length - 1;//, key = 'sma' + period;
+	var MACalculator = {
+		calculateSMA: function calculateSMA(data, period, key, pluckKey, subObjectKey) {
+			// console.log("calculateSMA");
 	
-		data.map(function(each, i)  {return data.slice(i - period, i);})
-			.filter(function(array)  {return array.length === period && array.length > 0;})
-			.map(function(array)  {return pluck(array, pluckKey);})
-			.map(function(array)  {return sum(array);})
-			.map(function(sum)  {return sum / period;})
-			.reverse()
-			.forEach(function(avg, i)  {
+			var l = data.length - 1;
+	
+			data.map(function (each, i) {
+				return data.slice(i - period, i);
+			}).filter(function (array) {
+				return array.length === period && array.length > 0;
+			}).map(function (array) {
+				return pluck(array, pluckKey);
+			}).map(function (array) {
+				return sum(array);
+			}).map(function (total) {
+				return total / period;
+			}).reverse().forEach(function (avg, i) {
 				// data[l - i][key] = avg;
-				setter(data[l - i], subObjectKey, key, avg);
-			})
+				_utils2["default"].setter(data[l - i], subObjectKey, key, avg);
+			});
 	
-		return data;
-	}
+			return data;
+		},
+		calculateEMA: function calculateEMA(data, period, key, pluckKey, subObjectKey) {
+			// console.log("calculating EMA", period, key, pluckKey);
+			/*
+	  EMA = Price(t) * k + EMA(y) * (1 – k)
+	  t = today, y = yesterday, N = number of days in EMA (or period), k = 2/(N+1)
+	  */
+			if (data.length > period) {
+				var firstSMA = data.slice(0, period).map(function (each) {
+					return _utils2["default"].getter(each, pluckKey);
+				}).reduce(function (a, b) {
+					return a + b;
+				}) / period;
 	
-	MACalculator.calculateEMA = function (data, period, key, pluckKey, subObjectKey) {
-		// console.log('calculating EMA', period, key, pluckKey);
-		/*
-		EMA = Price(t) * k + EMA(y) * (1 – k)
-		t = today, y = yesterday, N = number of days in EMA (or period), k = 2/(N+1)
-		*/
-		if (data.length > period) {
-			var firstSMA = data.slice(0, period)
-				.map(function(each)  {return getter(each, pluckKey);})
-				//.map((each) => each[pluckKey])
-				.reduce(function(a, b)  {return a + b;}) / period;
+				_utils2["default"].setter(data[period], subObjectKey, key, firstSMA);
 	
-			setter(data[period], subObjectKey, key, firstSMA)
+				// console.log(period, key, pluckKey, subObjectKey, firstSMA);
+				var k = 2 / (period + 1),
+				    prevEMA = firstSMA,
+				    ema;
 	
-			// console.log(period, key, pluckKey, subObjectKey, firstSMA);
-			var k = 2 / (period + 1), prevEMA = firstSMA, ema;
+				for (var i = period; i < data.length; i++) {
+					ema = _utils2["default"].getter(data[i], pluckKey) * k + prevEMA * (1 - k);
+					_utils2["default"].setter(data[i], subObjectKey, key, ema);
 	
-			for (var i = period; i < data.length; i++) {
-				ema = getter(data[i], pluckKey) * k + prevEMA * (1 - k);
-				setter(data[i], subObjectKey, key, ema);
-	
-				prevEMA = ema;
+					prevEMA = ema;
+				}
 			}
+			return data;
 		}
-		return data;
-	}
-	
+	};
+	/*
 	function setter(obj, subObjectKey, key, value) {
 		if (subObjectKey) {
 			if (obj[subObjectKey] === undefined) obj[subObjectKey] = {};
 			obj[subObjectKey][key] = value;
-		} else
+		} else {
 			obj[key] = value;
+		}
 	}
 	
 	function getter(obj, pluckKey) {
-		var keys = pluckKey.split('.');
+		var keys = pluckKey.split(".");
 		var value;
-		keys.forEach(function(key)  {
+		keys.forEach(key => {
 			if (!value) value = obj[key];
 			else value = value[key];
 		})
 		return value;
 	}
-	
+	*/
 	module.exports = MACalculator;
-
 
 /***/ },
 /* 116 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	
-	var Utils = __webpack_require__(108);
-	var MACalculator = __webpack_require__(115);
-	
-	var OverlayUtils = {
-		getToolTipLabel:function(props) {
-			if (props.type === "sma" || props.type === "ema") {
-				var tooltip = props.type.toUpperCase() + '(' + props.options.period + ')';
-				return tooltip;
-			}
-			return 'N/A';
-		},/*
-		getYAccessor(chartId, props) {
-			if (props.type === "sma" || props.type === "ema") {
-				var key = props.type + props.options.period + '_chart_' + chartId;
-				return (d) => d[key];
-			}
-			return false;
-		},*/
-		getYAccessorKey:function(chartId, props) {
-			if (props.type === "sma" || props.type === "ema") {
-				var key = props.type + props.options.period + '_chart_' + chartId;
-				return key;
-			}
-			return false;
-		},
-		calculateOverlay:function(data, overlay) {
-			// console.log(overlay);
-			if (overlay.type === 'sma') {
-				data = MACalculator.calculateSMA(data, overlay.options.period, overlay.key, overlay.options.pluck || 'close');
-			} else if (overlay.type === 'ema') {
-				data = MACalculator.calculateEMA(data, overlay.options.period, overlay.key, overlay.options.pluck || 'close');
-			}
-			return data;
-		},
-		firstDefined:function(data, accessor) {
-			var each;
-			for (var i = 0; i < data.length; i++) {
-				if (accessor(data[i]) === undefined) continue;
-				each = data[i];
-				// console.log(i, each, accessor(each));
-				break;
-			};
-			return Utils.cloneMe(each);
-		},
-		lastDefined:function(data, accessor) {
-			var each;
-			for (var i = data.length - 1; i >= 0; i--) {
-				if (accessor(data[i]) === undefined) continue;
-				each = data[i];
-				// console.log(i, each, accessor(each));
-				break;
-			};
-			return Utils.cloneMe(each);
-		}
-	}
-	
-	module.exports = OverlayUtils;
-
-
-/***/ },
-/* 117 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
+	"use strict";
 	
 	function pushToValues(values, eachValue) {
-		if (typeof eachValue === 'object' && Object.keys(eachValue).length > 0) {
+		if (typeof eachValue === "object" && Object.keys(eachValue).length > 0) {
 			Object.keys(eachValue).forEach(function (key) {
 				if (!isNaN(eachValue[key])) {
 					values.push(eachValue[key]);
@@ -4126,113 +5435,141 @@ return webpackJsonpReStock([0,2],[
 	}
 	
 	var ScaleUtils = {
-		flattenData:function(data, xAccessors, yAccessors) {
+		flattenData: function flattenData(data, xAccessors, yAccessors) {
 			// console.log(xAccessors, yAccessors);
 			var xValues = [];
 			var yValues = [];
-			data.forEach( function(row)  {
-				xAccessors.forEach( function(xAccessor)  {
+			data.forEach(function (row) {
+				xAccessors.forEach(function (xAccessor) {
 					var x = xAccessor(row);
 					if (x !== undefined) {
 						pushToValues(xValues, x);
 					}
 				});
-				yAccessors.forEach( function(yAccessor)  {
+				yAccessors.forEach(function (yAccessor) {
 					var y = yAccessor(row);
 					if (y !== undefined) {
 						pushToValues(yValues, y);
 					}
 				});
-			})
+			});
 			return {
 				xValues: xValues,
 				yValues: yValues
 			};
 		}
-	}
+	};
+	
 	module.exports = ScaleUtils;
 
+/***/ },
+/* 117 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	var _utils = __webpack_require__(108);
+	
+	var _utils2 = _interopRequireDefault(_utils);
+	
+	var _MovingAverageCalculator = __webpack_require__(115);
+	
+	var _MovingAverageCalculator2 = _interopRequireDefault(_MovingAverageCalculator);
+	
+	var OverlayUtils = {
+		getToolTipLabel: function getToolTipLabel(props) {
+			if (props.type === "sma" || props.type === "ema") {
+				var tooltip = props.type.toUpperCase() + "(" + props.options.period + ")";
+				return tooltip;
+			}
+			return "N/A";
+		}, /*
+	    getYAccessor(chartId, props) {
+	    if (props.type === "sma" || props.type === "ema") {
+	    var key = props.type + props.options.period + "_chart_" + chartId;
+	    return (d) => d[key];
+	    }
+	    return false;
+	    },*/
+		getYAccessorKey: function getYAccessorKey(chartId, props) {
+			if (props.type === "sma" || props.type === "ema") {
+				var key = props.type + props.options.period + "_chart_" + chartId;
+				return key;
+			}
+			return false;
+		},
+		calculateOverlay: function calculateOverlay(data, overlay) {
+			// console.log(overlay);
+			if (overlay.type === "sma") {
+				data = _MovingAverageCalculator2["default"].calculateSMA(data, overlay.options.period, overlay.key, overlay.options.pluck || "close");
+			} else if (overlay.type === "ema") {
+				data = _MovingAverageCalculator2["default"].calculateEMA(data, overlay.options.period, overlay.key, overlay.options.pluck || "close");
+			}
+			return data;
+		},
+		firstDefined: function firstDefined(data, accessor) {
+			var each;
+			for (var i = 0; i < data.length; i++) {
+				if (accessor(data[i]) === undefined) continue;
+				each = data[i];
+				// console.log(i, each, accessor(each));
+				break;
+			}
+			return _utils2["default"].cloneMe(each);
+		},
+		lastDefined: function lastDefined(data, accessor) {
+			var each;
+			for (var i = data.length - 1; i >= 0; i--) {
+				if (accessor(data[i]) === undefined) continue;
+				each = data[i];
+				// console.log(i, each, accessor(each));
+				break;
+			}
+			return _utils2["default"].cloneMe(each);
+		}
+	};
+	
+	module.exports = OverlayUtils;
 
 /***/ },
 /* 118 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
-	var stockScale = __webpack_require__(123);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	var _scalePolylineartimescale = __webpack_require__(125);
+	
+	var _scalePolylineartimescale2 = _interopRequireDefault(_scalePolylineartimescale);
 	
 	var defaultOptions = {
-		dateAccessor: function(d)  {return d.date;},
-		indexAccessor: function(d)  {return d._idx;},
-		dateMutator: function(d, date)  {d.date = date},
-		indexMutator: function(d, i)  {d._idx = i;}
-	}
-	
-	function StockScaleTransformer(data, interval, options) {
-		var newOptions = {};
-		Object.keys(defaultOptions).forEach(function(key)  {return newOptions[key] = defaultOptions[key];});
-	
-		if (options) Object.keys(options).forEach(function(key)  {return newOptions[key] = options[key];});
-	
-		var $__0=       newOptions,dateAccessor=$__0.dateAccessor,dateMutator=$__0.dateMutator,indexAccessor=$__0.indexAccessor,indexMutator=$__0.indexMutator;
-	
-		var prevDate;
-		var responseData = {}
-		var dd = data[interval];
-		responseData.D = dd
-			//.filter((each) => Math.random() > 0.9)
-			.map(function(each, i)  {
-				var row = {};
-				Object.keys(each)
-					.forEach(function(key)  {
-						row[key] = each[key];
-					});
-				indexMutator(row,  i);
-	
-				row.startOfWeek = false;
-				row.startOfMonth = false;
-				row.startOfQuarter = false;
-				row.startOfYear = false;
-				var date = dateAccessor(row);
-				//row.displayDate = dateFormat(date);
-				if (prevDate !== undefined) {
-					// According to ISO calendar
-					// Sunday = 0, Monday = 1, ... Saturday = 6
-					// day of week of today < day of week of yesterday then today is start of week
-					row.startOfWeek = date.getDay() < prevDate.getDay();
-					// month of today != month of yesterday then today is start of month
-					row.startOfMonth = date.getMonth() != prevDate.getMonth();
-					//if start of month and month % 3 === 0 then it is start of quarter
-					row.startOfQuarter = row.startOfMonth && date.getMonth() % 3 === 0;
-					// year of today != year of yesterday then today is start of year
-					row.startOfYear = date.getYear() != prevDate.getYear();
-				}
-				prevDate = date;
-				return row;
-			});
-		// console.table(responseData);
-		responseData.W = buildWeeklyData(responseData.D, indexMutator, dateAccessor, dateMutator);
-		responseData.M = buildMonthlyData(responseData.D, indexMutator, dateAccessor, dateMutator);
-	
-		// console.table(responseData.W);
-	
-		return {
-				data: responseData,
-				other: {
-					xScale: stockScale(newOptions.indexAccessor),
-					xAccessor: newOptions.indexAccessor,
-					stockScale: true,
-				},
-				options: newOptions
-			};
-	}
+		dateAccessor: function dateAccessor(d) {
+			return d.date;
+		},
+		indexAccessor: function indexAccessor(d) {
+			return d.idx;
+		},
+		dateMutator: function dateMutator(d, date) {
+			d.date = date;
+		},
+		indexMutator: function indexMutator(d, i) {
+			d.idx = i;
+		}
+	};
 	
 	function buildWeeklyData(daily, indexMutator, dateAccesor, dateMutator) {
-		var weekly = [], prevWeek, eachWeek = {};
+		var weekly = [],
+		    prevWeek,
+		    eachWeek = {};
+	
 		for (var i = 0; i < daily.length; i++) {
+	
 			var d = daily[i];
 	
-			if (dateAccesor(eachWeek)) indexMutator(eachWeek,  i);
+			if (dateAccesor(eachWeek)) indexMutator(eachWeek, i);
 	
 			dateMutator(eachWeek, dateAccesor(d));
 	
@@ -4253,23 +5590,17 @@ return webpackJsonpReStock([0,2],[
 			if (!eachWeek.volume) eachWeek.volume = 0;
 			eachWeek.volume += d.volume;
 	
-			Object.keys(d)
-				//.filter((key) => ['open', 'high', 'low', 'close', 'volume', date])
-				//.filter((key) => Object.keys(eachWeek).indexOf(key) <= -1)
-				.filter(function(key)  {return !eachWeek.hasOwnProperty(key);})
-				.forEach(function(key)  {
+			for (var key in d) {
+				if (!eachWeek.hasOwnProperty(key)) {
 					eachWeek[key] = d[key];
-				});
+				}
+			}
 	
 			if (d.startOfWeek) {
 				if (prevWeek) {
-					eachWeek.trueRange = Math.max(
-						eachWeek.high - eachWeek.low
-						, eachWeek.high - prevWeek.close
-						, eachWeek.low - prevWeek.close
-					);
+					eachWeek.trueRange = Math.max(eachWeek.high - eachWeek.low, eachWeek.high - prevWeek.close, eachWeek.low - prevWeek.close);
 				}
-				prevWeek = eachWeek
+				prevWeek = eachWeek;
 				weekly.push(eachWeek);
 				eachWeek = {};
 			}
@@ -4278,11 +5609,13 @@ return webpackJsonpReStock([0,2],[
 	}
 	
 	function buildMonthlyData(daily, indexMutator, dateAccesor) {
-		var monthly = [], prevMonth, eachMonth = {};
+		var monthly = [],
+		    prevMonth,
+		    eachMonth = {};
 		for (var i = 0; i < daily.length; i++) {
 			var d = daily[i];
 	
-			if (!eachMonth.date) indexMutator(eachMonth,  i);
+			if (!eachMonth.date) indexMutator(eachMonth, i);
 	
 			eachMonth.date = dateAccesor(d);
 	
@@ -4302,66 +5635,104 @@ return webpackJsonpReStock([0,2],[
 			if (!eachMonth.volume) eachMonth.volume = 0;
 			eachMonth.volume += d.volume;
 	
-			Object.keys(d)
-				//.filter((key) => ['open', 'high', 'low', 'close', 'volume', date])
-				.filter(function(key)  {return !eachMonth.hasOwnProperty(key);})
-				.forEach(function(key)  {
+			for (var key in d) {
+				if (!eachMonth.hasOwnProperty(key)) {
 					eachMonth[key] = d[key];
-				});
+				}
+			}
 	
 			if (d.startOfMonth) {
 				eachMonth.startOfWeek = d.startOfWeek;
 				if (prevMonth) {
-					eachMonth.trueRange = Math.max(
-						eachMonth.high - eachMonth.low
-						, eachMonth.high - prevMonth.close
-						, eachMonth.low - prevMonth.close
-					);
+					eachMonth.trueRange = Math.max(eachMonth.high - eachMonth.low, eachMonth.high - prevMonth.close, eachMonth.low - prevMonth.close);
 				}
-				prevMonth = eachMonth
+				prevMonth = eachMonth;
 				monthly.push(eachMonth);
 				eachMonth = {};
 			}
-	
 		}
 		return monthly;
 	}
 	
+	function StockScaleTransformer(data, interval, options) {
+		var newOptions = {};
+		Object.keys(defaultOptions).forEach(function (key) {
+			return newOptions[key] = defaultOptions[key];
+		});
+	
+		if (options) Object.keys(options).forEach(function (key) {
+			return newOptions[key] = options[key];
+		});
+	
+		var dateAccessor = newOptions.dateAccessor;
+		var dateMutator = newOptions.dateMutator;
+		var indexMutator = newOptions.indexMutator;
+	
+		var prevDate;
+		var responseData = {};
+		var dd = data[interval];
+		responseData.D = dd.map(function (each, i) {
+			var row = {};
+			Object.keys(each).forEach(function (key) {
+				row[key] = each[key];
+			});
+			indexMutator(row, i);
+	
+			row.startOfWeek = false;
+			row.startOfMonth = false;
+			row.startOfQuarter = false;
+			row.startOfYear = false;
+			var date = dateAccessor(row);
+	
+			if (prevDate !== undefined) {
+				// According to ISO calendar
+				// Sunday = 0, Monday = 1, ... Saturday = 6
+				// day of week of today < day of week of yesterday then today is start of week
+				row.startOfWeek = date.getDay() < prevDate.getDay();
+				// month of today != month of yesterday then today is start of month
+				row.startOfMonth = date.getMonth() !== prevDate.getMonth();
+				// if start of month and month % 3 === 0 then it is start of quarter
+				row.startOfQuarter = row.startOfMonth && date.getMonth() % 3 === 0;
+				// year of today != year of yesterday then today is start of year
+				row.startOfYear = date.getYear() !== prevDate.getYear();
+			}
+			prevDate = date;
+			return row;
+		});
+		// console.table(responseData);
+		responseData.W = buildWeeklyData(responseData.D, indexMutator, dateAccessor, dateMutator);
+		responseData.M = buildMonthlyData(responseData.D, indexMutator, dateAccessor, dateMutator);
+	
+		// console.table(responseData.W);
+	
+		return {
+			data: responseData,
+			other: {
+				xScale: (0, _scalePolylineartimescale2["default"])(newOptions.indexAccessor),
+				xAccessor: newOptions.indexAccessor,
+				stockScale: true
+			},
+			options: newOptions
+		};
+	}
+	
 	module.exports = StockScaleTransformer;
-
 
 /***/ },
 /* 119 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	
-	function HeikinAshiTransformer(data, interval, options, other) {
-	
-		var $__0=       options,dateAccessor=$__0.dateAccessor,dateMutator=$__0.dateMutator,indexAccessor=$__0.indexAccessor,indexMutator=$__0.indexMutator;
-		// console.log(data, options);
-	
-		var haData = {};
-		Object.keys(data)
-			.forEach(function(key)  {return haData[key] = buildHA(data[key], indexAccessor, indexMutator, dateAccessor, dateMutator);});
-	
-		return {
-			data: haData,
-			other: other,
-			options: options
-		};
-	}
+	"use strict";
 	
 	function buildHA(data, indexAccessor, indexMutator, dateAccessor, dateMutator) {
 		var prevEach;
 	
-		var haData = data.map(function (d, i) {
+		var haData = data.map(function (d) {
 			var each = {};
 			indexMutator(each, indexAccessor(d));
 			each.close = (d.open + d.high + d.low + d.close) / 4;
 	
 			dateMutator(each, dateAccessor(d));
-			//each.displayDate = d.displayDate;
 	
 			if (!prevEach) {
 				each.open = d.open;
@@ -4371,11 +5742,7 @@ return webpackJsonpReStock([0,2],[
 				each.open = (prevEach.open + prevEach.close) / 2;
 				each.high = Math.max(each.open, d.high, each.close);
 				each.low = Math.min(each.open, d.low, each.close);
-				each.trueRange = Math.max(
-						d.high - d.low
-						, d.high - prevEach.close
-						, d.low - prevEach.close
-					);
+				each.trueRange = Math.max(d.high - d.low, d.high - prevEach.close, d.low - prevEach.close);
 			}
 			each.volume = d.volume;
 	
@@ -4389,44 +5756,76 @@ return webpackJsonpReStock([0,2],[
 		});
 		// console.table(haData);
 		return haData;
-	};
+	}
+	
+	function HeikinAshiTransformer(data, interval, options, other) {
+		var dateAccessor = options.dateAccessor;
+		var dateMutator = options.dateMutator;
+		var indexAccessor = options.indexAccessor;
+		var indexMutator = options.indexMutator;
+	
+		// console.log(data, options);
+	
+		var haData = {};
+		Object.keys(data).forEach(function (key) {
+			return haData[key] = buildHA(data[key], indexAccessor, indexMutator, dateAccessor, dateMutator);
+		});
+	
+		return {
+			data: haData,
+			other: other,
+			options: options
+		};
+	}
 	
 	module.exports = HeikinAshiTransformer;
-
 
 /***/ },
 /* 120 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
-	var pricingMethod = function (d) { return { high: d.high, low: d.low }; };
-	var usePrice = function (d) { return d.close; };
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 	
-	var calculateATR = __webpack_require__(124);
+	var _ATRCalculator = __webpack_require__(124);
+	
+	var _ATRCalculator2 = _interopRequireDefault(_ATRCalculator);
+	
+	// var pricingMethod = function (d) { return { high: d.high, low: d.low }; };
+	var usePrice = function usePrice(d) {
+		return d.close;
+	};
 	
 	function KagiTransformer(data, interval, options, other) {
 		if (options === undefined) options = {};
 	
 		var period = options.period || 14;
 	
-		calculateATR(data.D, period);
-		var reversalThreshold = function (d) { return d["atr" + period] }
+		(0, _ATRCalculator2["default"])(data.D, period);
+		var reversalThreshold = function reversalThreshold(d) {
+			return d["atr" + period];
+		};
 	
-		var $__0=       options,dateAccessor=$__0.dateAccessor,dateMutator=$__0.dateMutator,indexAccessor=$__0.indexAccessor,indexMutator=$__0.indexMutator;
+		var dateAccessor = options.dateAccessor;
+		var dateMutator = options.dateMutator;
+		var indexMutator = options.indexMutator;
 	
-		var kagiData = new Array();
+		var kagiData = [];
 	
-		var index = 0, prevPeak, prevTrough, direction;
+		var index = 0,
+		    prevPeak,
+		    prevTrough,
+		    direction;
 		var line = {};
 	
-		data.D.forEach( function (d) {
+		data.D.forEach(function (d) {
 			if (line.from === undefined) {
 				indexMutator(line, index++);
 				dateMutator(line, dateAccessor(d));
 				/*line.displayDate = d.displayDate;
-				line.fromDate = d.displayDate;
-				line.toDate = d.displayDate;*/
+	   line.fromDate = d.displayDate;
+	   line.toDate = d.displayDate;*/
 				line.from = dateAccessor(d);
 	
 				if (!line.open) line.open = d.open;
@@ -4437,7 +5836,6 @@ return webpackJsonpReStock([0,2],[
 				line.startOfQuarter = d.startOfQuarter;
 				line.startOfMonth = d.startOfMonth;
 				line.startOfWeek = d.startOfWeek;
-				//line.tempClose = d.close;
 			}
 	
 			if (!line.startOfYear) {
@@ -4474,42 +5872,40 @@ return webpackJsonpReStock([0,2],[
 			line.high = Math.max(line.high, d.high);
 			line.low = Math.min(line.low, d.low);
 			line.to = dateAccessor(d);
-			//line.toDate = d.displayDate;
-			var priceMovement = (usePrice(d) - line.close);
 	
-			if ((line.close > line.open /* going up */ && priceMovement > 0 /* and moving in same direction */)
-					|| (line.close < line.open /* going down */ && priceMovement < 0 /* and moving in same direction */)) {
+			var priceMovement = usePrice(d) - line.close;
+	
+			if (line.close > line.open /* going up */ && priceMovement > 0 /* and moving in same direction */ || line.close < line.open /* going down */ && priceMovement < 0 /* and moving in same direction */) {
 				line.close = usePrice(d);
 				if (prevTrough && line.close < prevTrough) {
 					// going below the prevTrough, so change from yang to yin
 					// A yin line forms when a Kagi line breaks below the prior trough.
 					line.changePoint = prevTrough;
-					if (line.startAs != 'yin') {
-						line.changeTo = 'yin';
-						// line.startAs = 'yang';
+					if (line.startAs !== "yin") {
+						line.changeTo = "yin";
+						// line.startAs = "yang";
 					}
 				}
 				if (prevPeak && line.close > prevPeak) {
 					// going above the prevPeak, so change from yin to yang
 					// A yang line forms when a Kagi line breaks above the prior peak
 					line.changePoint = prevPeak;
-					if (line.startAs != 'yang') {
-						line.changeTo = 'yang';
-						// line.startAs = 'yin';
+					if (line.startAs !== "yang") {
+						line.changeTo = "yang";
+						// line.startAs = "yin";
 					}
 				}
-			} else if ((line.close > line.open /* going up */
-							&& priceMovement < 0 /* and moving in other direction */
-							&& Math.abs(priceMovement) > reversalThreshold(d) /* and the movement is big enough for reversal */) //d.atr
-					|| (line.close < line.open /* going down */
-							&& priceMovement > 0 /* and moving in other direction */
-							&& Math.abs(priceMovement) > reversalThreshold(d) /* and the movement is big enough for reversal */)) {
+			} else if (line.close > line.open /* going up */
+			 && priceMovement < 0 /* and moving in other direction */
+			 && Math.abs(priceMovement) > reversalThreshold(d) /* and the movement is big enough for reversal */ || line.close < line.open /* going down */
+			 && priceMovement > 0 /* and moving in other direction */
+			 && Math.abs(priceMovement) > reversalThreshold(d) /* and the movement is big enough for reversal */) {
 				// reverse direction
 				var nextLineOpen = line.close;
 	
 				direction = (line.close - line.open) / Math.abs(line.close - line.open);
 				/*line.prevPeak = prevPeak;
-				line.prevTrough = prevTrough;*/
+	   line.prevTrough = prevTrough;*/
 				var nextChangePoint, nextChangeTo;
 				if (direction < 0 /* if direction so far has been -ve*/) {
 					// compare with line.close becomes prevTrough
@@ -4517,71 +5913,68 @@ return webpackJsonpReStock([0,2],[
 					prevTrough = line.close;
 					if (usePrice(d) > prevPeak) {
 						nextChangePoint = prevPeak;
-						nextChangeTo = 'yang';
+						nextChangeTo = "yang";
 					}
 				} else {
 					if (prevTrough === undefined) prevTrough = line.open;
 					prevPeak = line.close;
 					if (usePrice(d) < prevTrough) {
 						nextChangePoint = prevTrough;
-						nextChangeTo = 'yin';
+						nextChangeTo = "yin";
 					}
 				}
 				if (line.startAs === undefined) {
-					line.startAs = direction > 0 ? 'yang' : 'yin';
+					line.startAs = direction > 0 ? "yang" : "yin";
 				}
 	
 				var startAs = line.changeTo || line.startAs;
 				kagiData.push(line);
-				direction = -1 * direction; //direction is reversed
+				direction = -1 * direction; // direction is reversed
 	
 				line = {
-					open: nextLineOpen
-					, close: usePrice(d)
-					, startAs: startAs
-					, changePoint: nextChangePoint
-					, changeTo: nextChangeTo
+					open: nextLineOpen,
+					close: usePrice(d),
+					startAs: startAs,
+					changePoint: nextChangePoint,
+					changeTo: nextChangeTo
 				};
-			} else {
-	
 			}
 		});
 	
 		return {
-			data: {'D': kagiData},
+			data: { "D": kagiData },
 			other: other,
 			options: options
 		};
 	}
 	
-	
 	module.exports = KagiTransformer;
-
 
 /***/ },
 /* 121 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
-	var pricingMethod = function (d) { return { high: d.high, low: d.low }; };
-	var usePrice = function (d) { return { high: d.high, low: d.low }; };
+	// var pricingMethod = (d) => ({ high: d.high, low: d.low });
+	var usePrice = function usePrice(d) {
+		return { high: d.high, low: d.low };
+	};
 	
 	var defaultOptions = {
 		boxSize: 0.5,
-		reversal: 3,
-	}
+		reversal: 3
+	};
 	
 	function createBox(d, dateAccessor, dateMutator) {
 		var box = {
-			open: d.open
-			, fromDate: dateAccessor(d)
-			, toDate: dateAccessor(d)
-			//, displayDate: d.displayDate
-			, startOfYear: d.startOfYear
-			, startOfQuarter: d.startOfQuarter
-			, startOfMonth: d.startOfMonth
-			, startOfWeek: d.startOfWeek
+			open: d.open,
+			fromDate: dateAccessor(d),
+			toDate: dateAccessor(d),
+			startOfYear: d.startOfYear,
+			startOfQuarter: d.startOfQuarter,
+			startOfMonth: d.startOfMonth,
+			startOfWeek: d.startOfWeek
 		};
 		dateMutator(box, dateAccessor(d));
 		return box;
@@ -4589,15 +5982,15 @@ return webpackJsonpReStock([0,2],[
 	
 	function updateColumns(columnData, dateAccessor, dateMutator) {
 	
-		columnData.forEach(function (d, i) {
-			var lastBox = d.boxes[d.boxes.length - 1];
+		columnData.forEach(function (d) {
+			// var lastBox = d.boxes[d.boxes.length - 1];
 	
 			d.startOfYear = false;
 			d.startOfQuarter = false;
 			d.startOfMonth = false;
 			d.startOfWeek = false;
 	
-			d.boxes.forEach(function(eachBox) {
+			d.boxes.forEach(function (eachBox) {
 				if (d.open === undefined) d.open = eachBox.open;
 				d.close = eachBox.close;
 				d.high = Math.max(d.open, d.close);
@@ -4613,7 +6006,7 @@ return webpackJsonpReStock([0,2],[
 					d.startOfQuarter = eachBox.startOfQuarter;
 					d.startOfMonth = eachBox.startOfMonth;
 					d.startOfWeek = eachBox.startOfWeek;
-					//d.displayDate = eachBox.displayDate;
+	
 					dateMutator(d, dateAccessor(eachBox));
 				}
 				if (d.startOfQuarter !== true && eachBox.startOfQuarter) {
@@ -4635,35 +6028,43 @@ return webpackJsonpReStock([0,2],[
 					dateMutator(d, dateAccessor(eachBox));
 				}
 			});
-	
 		});
 	
 		// console.table(columnData);
 		// console.table(rawData);
 		return columnData;
-	};
+	}
 	
 	function PointAndFigureTransformer(rawData, interval, options, other) {
 	
 		var newOptions = {};
-		Object.keys(defaultOptions).forEach(function(key)  {return newOptions[key] = defaultOptions[key];});
+		Object.keys(defaultOptions).forEach(function (key) {
+			return newOptions[key] = defaultOptions[key];
+		});
 	
-		if (options) Object.keys(options).forEach(function(key)  {return newOptions[key] = options[key];});
+		if (options) Object.keys(options).forEach(function (key) {
+			return newOptions[key] = options[key];
+		});
 	
-		var $__0=         newOptions,dateAccessor=$__0.dateAccessor,dateMutator=$__0.dateMutator,indexAccessor=$__0.indexAccessor,indexMutator=$__0.indexMutator,reversal=$__0.reversal,boxSize=$__0.boxSize;
+		var dateAccessor = newOptions.dateAccessor;
+		var dateMutator = newOptions.dateMutator;
+		var indexAccessor = newOptions.indexAccessor;
+		var indexMutator = newOptions.indexMutator;
+		var reversal = newOptions.reversal;
+		var boxSize = newOptions.boxSize;
 	
-		var columnData = new Array();
+		var columnData = [];
 	
-		var index = 0, direction;
 		var column = {
 			boxes: [],
 			open: rawData.D[0].open
-		}, box = createBox(rawData.D[0], dateAccessor, dateMutator);
+		},
+		    box = createBox(rawData.D[0], dateAccessor, dateMutator);
 	
 		indexMutator(column, 0);
 		columnData.push(column);
 	
-		rawData.D.forEach( function (d) {
+		rawData.D.forEach(function (d) {
 			column.volume = column.volume || 0;
 			column.volume += d.volume;
 	
@@ -4699,46 +6100,41 @@ return webpackJsonpReStock([0,2],[
 			}
 	
 			if (columnData.length === 1 && column.boxes.length === 0) {
-				var upwardMovement = (Math.max((usePrice(d).high - column.open), 0)) //upward movement
-				var downwardMovement = Math.abs(Math.min((column.open - usePrice(d).low), 0)) // downward movement
+				var upwardMovement = Math.max(usePrice(d).high - column.open, 0); // upward movement
+				var downwardMovement = Math.abs(Math.min(column.open - usePrice(d).low, 0)); // downward movement
 				column.direction = upwardMovement > downwardMovement ? 1 : -1;
-				if (boxSize * reversal < upwardMovement
-					|| boxSize * reversal < downwardMovement) {
+				if (boxSize * reversal < upwardMovement || boxSize * reversal < downwardMovement) {
 					// enough movement to trigger a reversal
 					box.toDate = dateAccessor(d);
 					box.open = column.open;
-					var noOfBoxes = column.direction > 0
-										? Math.floor(upwardMovement / boxSize)
-										: Math.floor(downwardMovement / boxSize);
+					var noOfBoxes = column.direction > 0 ? Math.floor(upwardMovement / boxSize) : Math.floor(downwardMovement / boxSize);
 					for (var i = 0; i < noOfBoxes; i++) {
 						box.close = box.open + column.direction * boxSize;
-						var prevBoxClose = box.close;
+						var _prevBoxClose = box.close;
 						column.boxes.push(box);
 						box = createBox(box, dateAccessor, dateMutator);
 						// box = cloneMe(box);
-						box.open = prevBoxClose;
+						box.open = _prevBoxClose;
 					}
 					box.fromDate = dateAccessor(d);
 					box.date = dateAccessor(d);
 				}
 			} else {
 				// one or more boxes already formed in the current column
-				var upwardMovement = (Math.max((usePrice(d).high - box.open), 0)) //upward movement
-				var downwardMovement = Math.abs(Math.min((usePrice(d).low - box.open), 0)) // downward movement
+				var upwardMovement = Math.max(usePrice(d).high - box.open, 0); // upward movement
+				var downwardMovement = Math.abs(Math.min(usePrice(d).low - box.open, 0)); // downward movement
 	
-				if ((column.direction > 0 && upwardMovement > boxSize) /* rising column AND box can be formed */
-						|| (column.direction < 0 && downwardMovement > boxSize) /* falling column AND box can be formed */ ) {
+				if (column.direction > 0 && upwardMovement > boxSize || column.direction < 0 && downwardMovement > boxSize /* falling column AND box can be formed */) {
 					// form another box
 					box.close = box.open + column.direction * boxSize;
 					box.toDate = dateAccessor(d);
-					var prevBoxClose = box.close;
+					var _prevBoxClose2 = box.close;
 					column.boxes.push(box);
 					box = createBox(d, dateAccessor, dateMutator);
-					box.open = prevBoxClose;
+					box.open = _prevBoxClose2;
 					box.fromDate = dateAccessor(d);
 					dateMutator(box, dateAccessor(d));
-				} else if ((column.direction > 0 && downwardMovement > boxSize * reversal) /* rising column and there is downward movement to trigger a reversal */
-						|| (column.direction < 0 && upwardMovement > boxSize * reversal)/* falling column and there is downward movement to trigger a reversal */) {
+				} else if (column.direction > 0 && downwardMovement > boxSize * reversal || column.direction < 0 && upwardMovement > boxSize * reversal /* falling column and there is downward movement to trigger a reversal */) {
 					// reversal
 	
 					box.open = box.open + -1 * column.direction * boxSize;
@@ -4753,13 +6149,11 @@ return webpackJsonpReStock([0,2],[
 					var idx = indexAccessor(column) + 1;
 					column = {
 						boxes: [],
-						//, index: column.index + 1
+	
 						direction: -1 * column.direction
 					};
 					indexMutator(column, idx);
-					var noOfBoxes = column.direction > 0
-										? Math.floor(upwardMovement / boxSize)
-										: Math.floor(downwardMovement / boxSize);
+					var noOfBoxes = column.direction > 0 ? Math.floor(upwardMovement / boxSize) : Math.floor(downwardMovement / boxSize);
 					for (var i = 0; i < noOfBoxes; i++) {
 						box.close = box.open + column.direction * boxSize;
 						var prevBoxClose = box.close;
@@ -4775,50 +6169,71 @@ return webpackJsonpReStock([0,2],[
 		updateColumns(columnData, dateAccessor, dateMutator);
 	
 		return {
-			data: {'D': columnData},
+			data: { "D": columnData },
 			other: other,
 			options: newOptions
 		};
 	}
 	
 	module.exports = PointAndFigureTransformer;
-
+	/* rising column AND box can be formed */
+	/* rising column and there is downward movement to trigger a reversal */
 
 /***/ },
 /* 122 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
-	var pricingMethod = function (d) { return { high: d.high, low: d.low }; };
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
 	// var pricingMethod = function (d) { return { high: d.close, low: d.close }; };
 	// var usePrice = function (d) { return d.close; };
-	var calculateATR = __webpack_require__(124);
+	
+	var _ATRCalculator = __webpack_require__(124);
+	
+	var _ATRCalculator2 = _interopRequireDefault(_ATRCalculator);
+	
+	var pricingMethod = function pricingMethod(d) {
+		return { high: d.high, low: d.low };
+	};
 	
 	var defaultOptions = {
 		boxSize: 0.5,
 		reversal: 3,
 		period: 14
-	}
+	};
 	
 	function RenkoTransformer(rawData, interval, options, other) {
 		var newOptions = {};
-		Object.keys(defaultOptions).forEach(function(key)  {return newOptions[key] = defaultOptions[key];});
+		Object.keys(defaultOptions).forEach(function (key) {
+			return newOptions[key] = defaultOptions[key];
+		});
 	
-		if (options) Object.keys(options).forEach(function(key)  {return newOptions[key] = options[key];});
+		if (options) Object.keys(options).forEach(function (key) {
+			return newOptions[key] = options[key];
+		});
 	
-		var $__0=          newOptions,dateAccessor=$__0.dateAccessor,dateMutator=$__0.dateMutator,indexAccessor=$__0.indexAccessor,indexMutator=$__0.indexMutator,reversal=$__0.reversal,boxSize=$__0.boxSize,period=$__0.period;
+		var dateAccessor = newOptions.dateAccessor;
+		var dateMutator = newOptions.dateMutator;
+		var indexAccessor = newOptions.indexAccessor;
+		var indexMutator = newOptions.indexMutator;
+		var period = newOptions.period;
 	
-		calculateATR(rawData.D, period);
-		var brickSize = function (d) { return d["atr" + period]}
+		(0, _ATRCalculator2["default"])(rawData.D, period);
+		var brickSize = function brickSize(d) {
+			return d["atr" + period];
+		};
 	
-		var renkoData = new Array();
+		var renkoData = [];
 	
-		var index = 0, prevBrickClose = rawData.D[index].open, prevBrickOpen = rawData.D[index].open;
-		var brick = {}, direction = 0;
+		var index = 0,
+		    prevBrickClose = rawData.D[index].open,
+		    prevBrickOpen = rawData.D[index].open;
+		var brick = {},
+		    direction = 0;
 	
-	
-		rawData.D.forEach( function (d) {
+		rawData.D.forEach(function (d) {
 			if (brick.from === undefined) {
 				// brick.index = index++;
 				// brick.date = d.date;
@@ -4831,7 +6246,7 @@ return webpackJsonpReStock([0,2],[
 				brick.startOfQuarter = d.startOfQuarter;
 				brick.startOfMonth = d.startOfMonth;
 				brick.startOfWeek = d.startOfWeek;
-				//brick.tempClose = d.close;
+	
 				brick.from = indexAccessor(d);
 				brick.fromDate = dateAccessor(d);
 				indexMutator(brick, index++);
@@ -4839,16 +6254,11 @@ return webpackJsonpReStock([0,2],[
 			}
 			brick.volume = (brick.volume || 0) + d.volume;
 	
-			var prevCloseToHigh = (prevBrickClose - pricingMethod(d).high),
-				prevCloseToLow = (prevBrickClose - pricingMethod(d).low),
-				prevOpenToHigh = (prevBrickOpen - pricingMethod(d).high),
-				prevOpenToLow = (prevBrickOpen - pricingMethod(d).low),
-				priceMovement = Math.min(
-					Math.abs(prevCloseToHigh),
-					Math.abs(prevCloseToLow),
-					Math.abs(prevOpenToHigh),
-					Math.abs(prevOpenToLow));
-	
+			var prevCloseToHigh = prevBrickClose - pricingMethod(d).high,
+			    prevCloseToLow = prevBrickClose - pricingMethod(d).low,
+			    prevOpenToHigh = prevBrickOpen - pricingMethod(d).high,
+			    prevOpenToLow = prevBrickOpen - pricingMethod(d).low,
+			    priceMovement = Math.min(Math.abs(prevCloseToHigh), Math.abs(prevCloseToLow), Math.abs(prevOpenToHigh), Math.abs(prevOpenToLow));
 	
 			brick.high = Math.max(brick.high, d.high);
 			brick.low = Math.min(brick.low, d.low);
@@ -4884,21 +6294,15 @@ return webpackJsonpReStock([0,2],[
 				}
 			}
 	
-			//d.brick = JSON.stringify(brick);
+			// d.brick = JSON.stringify(brick);
 			if (brickSize(d)) {
-				var noOfBricks = Math.floor(priceMovement / brickSize(d))
+				var noOfBricks = Math.floor(priceMovement / brickSize(d));
 	
-				brick.open = (Math.abs(prevCloseToHigh) < Math.abs(prevOpenToHigh)
-				 || Math.abs(prevCloseToLow) < Math.abs(prevOpenToLow))
-								? prevBrickClose
-								: prevBrickOpen;
+				brick.open = Math.abs(prevCloseToHigh) < Math.abs(prevOpenToHigh) || Math.abs(prevCloseToLow) < Math.abs(prevOpenToLow) ? prevBrickClose : prevBrickOpen;
 	
 				if (noOfBricks >= 1) {
 					for (var j = 0; j < noOfBricks; j++) {
-						brick.close = (brick.open < pricingMethod(d).high)
-										// if brick open is less than current price it means it is green/hollow brick
-											? brick.open + brickSize(d)
-											: brick.open - brickSize(d);
+						brick.close = brick.open < pricingMethod(d).high ? brick.open + brickSize(d) : brick.open - brickSize(d);
 						direction = brick.close > brick.open ? 1 : -1;
 						brick.direction = direction;
 						brick.to = indexAccessor(d);
@@ -4912,18 +6316,13 @@ return webpackJsonpReStock([0,2],[
 						prevBrickOpen = brick.open;
 	
 						var newBrick = {
-							// index : index + j
-							// , date : d.date
-							// , displayDate : d.displayDate
-							//, from : d.index
-							high : brick.high
-							, low : brick.low
-							, open : brick.close
-							// , fromDate : d.displayDate
-							, startOfYear : false
-							, startOfMonth : false
-							, startOfQuarter : false
-							, startOfWeek : false
+							high: brick.high,
+							low: brick.low,
+							open: brick.close,
+							startOfYear: false,
+							startOfMonth: false,
+							startOfQuarter: false,
+							startOfWeek: false
 						};
 						brick = newBrick;
 						brick.from = indexAccessor(d);
@@ -4946,216 +6345,20 @@ return webpackJsonpReStock([0,2],[
 					}
 				}
 			}
-	
 		});
 		return {
-			data: {'D': renkoData},
+			data: { "D": renkoData },
 			other: other,
 			options: newOptions
 		};
 	}
 	
 	module.exports = RenkoTransformer;
-
+	
+	// if brick open is less than current price it means it is green/hollow brick
 
 /***/ },
 /* 123 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var d3 = __webpack_require__(3);
-	
-	var polylineartimescale = function(indexAccessor) {
-		return guided_scale([0, 1], indexAccessor, d3.scale.linear());
-	};
-	
-	function guided_scale(drawableData, indexAccessor, backingLinearScale) {
-		//var  = 'week'; //valid values 'day', 'week', 'month'
-	
-		var d3_time_scaleSteps = [
-			{ step: 864e5, f: function (d, i) {return d.date !== undefined && true ;}},  // 1-day
-			{ step: 1728e5, f: function (d, i) {return d.date !== undefined && (i % 2 == 0) ;}},  // 2-day
-			{ step: 8380e5, f: function (d, i, arr) {
-					if (d.startOfMonth) return true;
-					var list = [];
-					if ((i - 2) >= 0) list.push(arr[i - 2]);
-					if ((i - 1) >= 0) list.push(arr[i - 1]);
-					list.push(arr[i]);
-					if ((i + 1) <= arr.length - 1) list.push(arr[i + 1]);
-					if ((i + 2) <= arr.length - 1) list.push(arr[i + 2]);
-					var sm = list
-								.map(function (d) { return d.startOfMonth; })
-								.reduce(function(prev, curr) {
-										return prev || curr;
-									});
-					return sm ? false : d.startOfWeek;
-				}},  // 1-week
-			{ step: 3525e6, f: function (d) {return d.startOfMonth; }},  // 1-month
-			{ step: 7776e6, f: function (d) {return d.startOfQuarter; }},  // 3-month
-			{ step: 31536e6, f: function (d) {return d.startOfYear; }},  // 1-year
-			{ step: 91536e15, f: function (d) {return d.date !== undefined && (d.startOfYear && d.date.getFullYear() % 2 == 0); }}  // 2-year
-		];
-		var timeScaleStepsBisector = d3.bisector(function(d) { return d.step; }).left;
-		var __BISECT = d3.bisector(function(d) { return indexAccessor(d); }).left;
-		var tickFormat = [
-			[d3.time.format("%Y"), function(d) { return d.startOfYear; }],
-			[d3.time.format("%b %Y"), function(d) { return d.startOfQuarter; }],
-			[d3.time.format("%b"), function(d) { return d.startOfMonth; }],
-			[d3.time.format("%d %b"), function(d) { return d.startOfWeek; }],
-			[d3.time.format("%a %d "), function(d) { return true; }]
-		];
-		function formater(d) {
-			var i = 0, format = tickFormat[i];
-			while (!format[1](d)) format = tickFormat[++i];
-			var tickDisplay = format[0](d.date);
-			// console.log(tickDisplay);
-			return tickDisplay;
-		};
-	
-		var ticks;
-	
-		function scale(x) {
-			return backingLinearScale(x);
-		};
-		scale.isPolyLinear = function() {
-			return true;
-		}
-		scale.invert = function(x) {
-			return backingLinearScale.invert(x);
-		};
-		scale.data = function(x) {
-			if (!arguments.length) {
-				return drawableData;
-			} else {
-				drawableData = x;
-				//this.domain([drawableData.first().index, drawableData.last().index]);
-				this.domain([indexAccessor(drawableData[0]), indexAccessor(drawableData[drawableData.length - 1])]);
-				return scale;
-			}
-		};
-		scale.domain = function(x) {
-			if (!arguments.length) return backingLinearScale.domain();
-			//console.log("before = %s, after = %s", JSON.stringify(backingLinearScale.domain()), JSON.stringify(x))
-			//var d = [Math.floor(x[0]), Math.ceil(x[1])]
-			var d = [x[0], x[1]]
-			//console.log(d);
-			backingLinearScale.domain(d);
-			return scale;
-		};
-		scale.range = function(x) {
-			if (!arguments.length) return backingLinearScale.range();
-			backingLinearScale.range(x);
-			return scale;
-		};
-		scale.rangeRound = function(x) {
-			return backingLinearScale.range(x);
-		};
-		scale.clamp = function(x) {
-			if (!arguments.length) return backingLinearScale.clamp();
-			backingLinearScale.clamp(x);
-			return scale;
-		};
-		scale.interpolate = function(x) {
-			if (!arguments.length) return backingLinearScale.interpolate();
-			backingLinearScale.interpolate(x);
-			return scale;
-		};
-	
-		scale.ticks = function(m) {
-	
-			var start, end, count = 0;
-			drawableData.forEach(function (d, i) {
-				if (d.date !== undefined) {
-					if (start === undefined) start = d;
-					end = d;
-					count++;
-				}
-			});
-			m = (count/drawableData.length) * m;
-			var span = (end.date.getTime() - start.date.getTime());
-			var target = span/m;
-			/*
-			console.log(drawableData[drawableData.length - 1].date
-				, drawableData[0].date
-				, span
-				, m
-				, target
-				, timeScaleStepsBisector(d3_time_scaleSteps, target)
-				);
-			*/
-			var ticks = drawableData
-							.filter(d3_time_scaleSteps[timeScaleStepsBisector(d3_time_scaleSteps, target)].f)
-							.map(function(d, i) {return indexAccessor(d);})
-							;
-			// return the index of all the ticks to be displayed,
-			//console.log(target, span, m, ticks);
-			return ticks;
-		};
-		scale.tickFormat = function(ticks) {
-			return function(d) {
-				// for each index received from ticks() function derive the formatted output
-				var tickIndex = __BISECT(drawableData, d);
-				return formater(drawableData[tickIndex]) ;
-				//return formater(d) ;
-			};
-		}
-	
-		scale.nice = function(m) {
-			backingLinearScale.nice(m);
-			return scale;
-		};
-		scale.copy = function() {
-			return guided_scale(drawableData, indexAccessor, backingLinearScale.copy());
-		};
-		return scale;
-	}
-	
-	
-	module.exports = polylineartimescale
-
-/***/ },
-/* 124 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	function sumOf(array, offset, length) {
-		var sum = 0;
-		for (var i = offset; i < offset + length; i++) {
-			sum += array[i].trueRange;
-		};
-		return sum;
-	}
-	
-	function calculateTR(rawData) {
-		var prev = rawData[0];
-		rawData
-			.filter(function(d, idx)  {return idx > 0;})
-			.forEach(function(d, idx) {
-				d.trueRange = Math.max(d.high - d.low,
-					d.high - prev.close,
-					d.low - prev.close)
-				prev = rawData[idx];
-			});
-	}
-	
-	function calculateATR(rawData, period) {
-		calculateTR(rawData);
-	
-		rawData.forEach(function(d, index) {
-			if (index > period) { // trueRange starts from index 1 so ATR starts from period (not period -1)
-				var num = (sumOf(rawData, index - period, period) / period)
-				d["atr" + period] = (Math.round(num * 100) / 100);
-			}
-		});
-	}
-	
-	module.exports = calculateATR;
-
-
-/***/ },
-/* 125 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -5201,6 +6404,217 @@ return webpackJsonpReStock([0,2],[
 	
 	module.exports = shallowEqual;
 
+
+/***/ },
+/* 124 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	function sumOf(array, offset, length) {
+		var sum = 0;
+		for (var i = offset; i < offset + length; i++) {
+			sum += array[i].trueRange;
+		}
+		return sum;
+	}
+	
+	function calculateTR(rawData) {
+		var prev = rawData[0];
+		rawData.filter(function (d, idx) {
+			return idx > 0;
+		}).forEach(function (d, idx) {
+			d.trueRange = Math.max(d.high - d.low, d.high - prev.close, d.low - prev.close);
+			prev = rawData[idx];
+		});
+	}
+	
+	function calculateATR(rawData, period) {
+		calculateTR(rawData);
+	
+		rawData.forEach(function (d, index) {
+			if (index > period) {
+				// trueRange starts from index 1 so ATR starts from period (not period -1)
+				var num = sumOf(rawData, index - period, period) / period;
+				d["atr" + period] = Math.round(num * 100) / 100;
+			}
+		});
+	}
+	
+	module.exports = calculateATR;
+
+/***/ },
+/* 125 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	
+	var _d3 = __webpack_require__(3);
+	
+	var _d32 = _interopRequireDefault(_d3);
+	
+	function financeTimeScale(drawableData, indexAccessor, backingLinearScale) {
+	
+		var timeScaleSteps = [{ step: 864e5, f: function f(d) {
+				return d.date !== undefined && true;
+			} }, // 1-day
+		{ step: 1728e5, f: function f(d, i) {
+				return d.date !== undefined && i % 2 === 0;
+			} }, // 2-day
+		{ step: 8380e5, f: function f(d, i, arr) {
+				if (d.startOfMonth) return true;
+				var list = [];
+				if (i - 2 >= 0) list.push(arr[i - 2]);
+				if (i - 1 >= 0) list.push(arr[i - 1]);
+				list.push(arr[i]);
+				if (i + 1 <= arr.length - 1) list.push(arr[i + 1]);
+				if (i + 2 <= arr.length - 1) list.push(arr[i + 2]);
+				var sm = list.map(function (each) {
+					return each.startOfMonth;
+				}).reduce(function (prev, curr) {
+					return prev || curr;
+				});
+				return sm ? false : d.startOfWeek;
+			} }, // 1-week
+		{ step: 3525e6, f: function f(d) {
+				return d.startOfMonth;
+			} }, // 1-month
+		{ step: 7776e6, f: function f(d) {
+				return d.startOfQuarter;
+			} }, // 3-month
+		{ step: 31536e6, f: function f(d) {
+				return d.startOfYear;
+			} }, // 1-year
+		{ step: 91536e15, f: function f(d) {
+				return d.date !== undefined && (d.startOfYear && d.date.getFullYear() % 2 === 0);
+			} } // 2-year
+		];
+		var timeScaleStepsBisector = _d32["default"].bisector(function (d) {
+			return d.step;
+		}).left;
+		var bisectByIndex = _d32["default"].bisector(function (d) {
+			return indexAccessor(d);
+		}).left;
+		var tickFormat = [[_d32["default"].time.format("%Y"), function (d) {
+			return d.startOfYear;
+		}], [_d32["default"].time.format("%b %Y"), function (d) {
+			return d.startOfQuarter;
+		}], [_d32["default"].time.format("%b"), function (d) {
+			return d.startOfMonth;
+		}], [_d32["default"].time.format("%d %b"), function (d) {
+			return d.startOfWeek;
+		}], [_d32["default"].time.format("%a %d "), function (d) {
+			return true;
+		}]];
+		function formater(d) {
+			var i = 0,
+			    format = tickFormat[i];
+			while (!format[1](d)) format = tickFormat[++i];
+			var tickDisplay = format[0](d.date);
+			// console.log(tickDisplay);
+			return tickDisplay;
+		}
+	
+		function scale(x) {
+			return backingLinearScale(x);
+		}
+		scale.isPolyLinear = function () {
+			return true;
+		};
+		scale.invert = function (x) {
+			return backingLinearScale.invert(x);
+		};
+		scale.data = function (x) {
+			if (!arguments.length) {
+				return drawableData;
+			} else {
+				drawableData = x;
+				// this.domain([drawableData.first().index, drawableData.last().index]);
+				this.domain([indexAccessor(drawableData[0]), indexAccessor(drawableData[drawableData.length - 1])]);
+				return scale;
+			}
+		};
+		scale.domain = function (x) {
+			if (!arguments.length) return backingLinearScale.domain();
+			// console.log("before = %s, after = %s", JSON.stringify(backingLinearScale.domain()), JSON.stringify(x))
+	
+			var d = [x[0], x[1]];
+			// console.log(d);
+			backingLinearScale.domain(d);
+			return scale;
+		};
+		scale.range = function (x) {
+			if (!arguments.length) return backingLinearScale.range();
+			backingLinearScale.range(x);
+			return scale;
+		};
+		scale.rangeRound = function (x) {
+			return backingLinearScale.range(x);
+		};
+		scale.clamp = function (x) {
+			if (!arguments.length) return backingLinearScale.clamp();
+			backingLinearScale.clamp(x);
+			return scale;
+		};
+		scale.interpolate = function (x) {
+			if (!arguments.length) return backingLinearScale.interpolate();
+			backingLinearScale.interpolate(x);
+			return scale;
+		};
+		scale.ticks = function (m) {
+			var start,
+			    end,
+			    count = 0;
+			drawableData.forEach(function (d) {
+				if (d.date !== undefined) {
+					if (start === undefined) start = d;
+					end = d;
+					count++;
+				}
+			});
+			m = count / drawableData.length * m;
+			var span = end.date.getTime() - start.date.getTime();
+			var target = span / m;
+			/*
+	  console.log(drawableData[drawableData.length - 1].date
+	  	, drawableData[0].date
+	  	, span
+	  	, m
+	  	, target
+	  	, timeScaleStepsBisector(d3_time_scaleSteps, target)
+	  	);
+	  */
+			var ticks = drawableData.filter(timeScaleSteps[timeScaleStepsBisector(timeScaleSteps, target)].f).map(function (d) {
+				return indexAccessor(d);
+			});
+			// return the index of all the ticks to be displayed,
+			// console.log(target, span, m, ticks);
+			return ticks;
+		};
+		scale.tickFormat = function (ticks) {
+			return function (d) {
+				// for each index received from ticks() function derive the formatted output
+				var tickIndex = bisectByIndex(drawableData, d);
+				return formater(drawableData[tickIndex]);
+			};
+		};
+		scale.nice = function (m) {
+			backingLinearScale.nice(m);
+			return scale;
+		};
+		scale.copy = function () {
+			return financeTimeScale(drawableData, indexAccessor, backingLinearScale.copy());
+		};
+		return scale;
+	}
+	
+	var defaultFinanceDateTimeScale = function defaultFinanceDateTimeScale(indexAccessor) {
+		return financeTimeScale([0, 1], indexAccessor, _d32["default"].scale.linear());
+	};
+	
+	module.exports = defaultFinanceDateTimeScale;
 
 /***/ }
 ])
