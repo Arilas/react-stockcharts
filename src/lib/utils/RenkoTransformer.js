@@ -3,7 +3,7 @@
 var pricingMethod = function (d) { return { high: d.high, low: d.low }; };
 // var pricingMethod = function (d) { return { high: d.close, low: d.close }; };
 // var usePrice = function (d) { return d.close; };
-import calculateATR from "./ATRCalculator.jsx";
+import calculateATR from "./ATRCalculator.js";
 
 var defaultOptions = {
 	boxSize: 0.5,

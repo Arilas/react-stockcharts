@@ -1,8 +1,8 @@
 "use strict";
 
 import React from "react";
-import PureComponent from "./utils/PureComponent.jsx";
-import Utils from "./utils/utils.jsx";
+import PureComponent from "./utils/PureComponent.js;
+import Utils from "./utils/utils.js;
 
 class Chart extends PureComponent {
 	getChildContext() {

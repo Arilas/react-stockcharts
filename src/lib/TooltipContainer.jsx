@@ -1,8 +1,8 @@
 "use strict";
 
 import React from "react";
-import Utils from "./utils/utils.jsx";
-import PureComponent from "./utils/PureComponent.jsx";
+import Utils from "./utils/utils.js;
+import PureComponent from "./utils/PureComponent.js;
 
 class TooltipContainer extends PureComponent {
 	render() {

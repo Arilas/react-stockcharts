@@ -1,7 +1,7 @@
 "use strict";
 
 import React from "react";
-import Utils from "./utils/utils.jsx";
+import Utils from "./utils/utils.js;
 
 class OverlaySeries extends React.Component {
 

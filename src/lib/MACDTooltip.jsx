@@ -2,8 +2,8 @@
 
 import React from "react";
 
-import Utils from "./utils/utils.jsx";
-import ChartDataUtil from "./utils/ChartDataUtil.jsx";
+import Utils from "./utils/utils.js;
+import ChartDataUtil from "./utils/ChartDataUtil.js;
 
 class MACDTooltip extends React.Component {
 	render() {

@@ -36,16 +36,16 @@ exports.helper = {};
 exports.helper.ChartWidthMixin = require("./lib/helper/ChartWidthMixin.jsx");
 
 exports.indicator = {
-	MACD: require("./lib/indicators/MACDIndicator")
+	MACD: require("./lib/indicators/MACDIndicator.js")
 };
 
 // Tooltips
 exports.tooltip = {
-	MACDTooltip: require("./lib/MACDTooltip"),
-	TooltipContainer: require("./lib/TooltipContainer"),
-	OHLCTooltip: require("./lib/OHLCTooltip"),
-	CompareTooltip: require("./lib/CompareTooltip"),
-	MovingAverageTooltip: require("./lib/MovingAverageTooltip"),
+	MACDTooltip: require("./lib/MACDTooltip.jsx"),
+	TooltipContainer: require("./lib/TooltipContainer.jsx"),
+	OHLCTooltip: require("./lib/OHLCTooltip.jsx"),
+	CompareTooltip: require("./lib/CompareTooltip.jsx"),
+	MovingAverageTooltip: require("./lib/MovingAverageTooltip.jsx"),
 };
 
 exports.TooltipContainer = require("./lib/TooltipContainer.jsx");
