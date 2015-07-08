@@ -3,7 +3,7 @@
 import React from "react";
 import d3 from "d3";
 import ScaleUtils from "./ScaleUtils.js";
-import OverlayUtils from "../OverlayUtils.js";
+import OverlayUtils from "./OverlayUtils.js";
 import Utils from "./utils.js";
 
 var { overlayColors, pluck, keysAsArray } = Utils;
