@@ -59,6 +59,11 @@
     "webpack": "^1.9.6",
     "webpack-dev-server": "^1.8.2"
   },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
   "scripts": {
     "test": "echo 'test'",
     "publish": "echo 'publish'"
