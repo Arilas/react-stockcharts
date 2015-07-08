@@ -2,10 +2,10 @@
 
 import React from "react";
 
-import ChartDataUtil from "./utils/ChartDataUtil";
-import ChartTransformer from "./utils/ChartTransformer";
-import EventHandler from "./EventHandler";
-import Utils from "./utils/utils";
+import ChartDataUtil from "./utils/ChartDataUtil.jsx";
+import ChartTransformer from "./utils/ChartTransformer.jsx";
+import EventHandler from "./EventHandler.jsx";
+import Utils from "./utils/utils.jsx";
 
 class DataTransform extends React.Component {
 	transformData(props, context) {

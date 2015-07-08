@@ -3,7 +3,7 @@
 import React from "react";
 import d3 from "d3";
 
-import HistogramSeries from "./HistogramSeries";
+import HistogramSeries from "./HistogramSeries.jsx";
 
 class MACDSeries extends React.Component {
 	constructor(props) {

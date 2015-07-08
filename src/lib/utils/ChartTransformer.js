@@ -1,10 +1,10 @@
 "use strict";
 
-import StockScaleTransformer from "./StockscaleTransformer";
-import HeikinAshiTransformer from "./HeikinAshiTransformer";
-import KagiTransformer from "./KagiTransformer";
-import PointAndFigureTransformer from "./PointAndFigureTransformer";
-import RenkoTransformer from "./RenkoTransformer";
+import StockScaleTransformer from "./StockscaleTransformer.jsx";
+import HeikinAshiTransformer from "./HeikinAshiTransformer.jsx";
+import KagiTransformer from "./KagiTransformer.jsx";
+import PointAndFigureTransformer from "./PointAndFigureTransformer.jsx";
+import RenkoTransformer from "./RenkoTransformer.jsx";
 
 var ChartTransformer = {
 	getTransformerFor(type) {

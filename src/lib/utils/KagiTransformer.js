@@ -3,7 +3,7 @@
 // var pricingMethod = function (d) { return { high: d.high, low: d.low }; };
 var usePrice = function (d) { return d.close; };
 
-import calculateATR from "./ATRCalculator";
+import calculateATR from "./ATRCalculator.jsx";
 
 function KagiTransformer(data, interval, options, other) {
 	if (options === undefined) options = {};

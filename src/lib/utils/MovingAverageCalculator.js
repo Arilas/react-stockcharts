@@ -1,6 +1,6 @@
 "use strict";
 
-import Utils from "./utils";
+import Utils from "./utils.jsx";
 
 var pluck = Utils.pluck;
 var sum = Utils.sum;

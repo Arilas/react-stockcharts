@@ -1,7 +1,7 @@
 "use strict";
 
 import React from "react";
-import EdgeCoordinate from "./EdgeCoordinate";
+import EdgeCoordinate from "./EdgeCoordinate.jsx";
 
 class CrossHair extends React.Component {
 	constructor(props) {

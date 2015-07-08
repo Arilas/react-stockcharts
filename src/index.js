@@ -1,39 +1,39 @@
 "use strict";
 
 // common components
-exports.ChartCanvas = require("./lib/ChartCanvas");
-exports.DataTransform = require("./lib/DataTransform");
+exports.ChartCanvas = require("./lib/ChartCanvas.jsx");
+exports.DataTransform = require("./lib/DataTransform.jsx");
 
-exports.XAxis = require("./lib/XAxis");
-exports.YAxis = require("./lib/YAxis");
-exports.Chart = require("./lib/Chart");
-exports.DataSeries = require("./lib/DataSeries");
+exports.XAxis = require("./lib/XAxis.jsx");
+exports.YAxis = require("./lib/YAxis.jsx");
+exports.Chart = require("./lib/Chart.jsx");
+exports.DataSeries = require("./lib/DataSeries.jsx");
 
 // chart types & Series
-exports.AreaSeries = require("./lib/AreaSeries");
-exports.LineSeries = require("./lib/LineSeries");
-exports.CompareSeries = require("./lib/CompareSeries");
-exports.CandlestickSeries = require("./lib/CandleStickSeries");
-exports.OverlaySeries = require("./lib/OverlaySeries");
-exports.HistogramSeries = require("./lib/HistogramSeries");
-exports.KagiSeries = require("./lib/KagiSeries");
-exports.PointAndFigureSeries = require("./lib/PointAndFigureSeries");
-exports.RenkoSeries = require("./lib/RenkoSeries");
-exports.MACDSeries = require("./lib/MACDSeries");
+exports.AreaSeries = require("./lib/AreaSeries.jsx");
+exports.LineSeries = require("./lib/LineSeries.jsx");
+exports.CompareSeries = require("./lib/CompareSeries.jsx");
+exports.CandlestickSeries = require("./lib/CandleStickSeries.jsx");
+exports.OverlaySeries = require("./lib/OverlaySeries.jsx");
+exports.HistogramSeries = require("./lib/HistogramSeries.jsx");
+exports.KagiSeries = require("./lib/KagiSeries.jsx");
+exports.PointAndFigureSeries = require("./lib/PointAndFigureSeries.jsx");
+exports.RenkoSeries = require("./lib/RenkoSeries.jsx");
+exports.MACDSeries = require("./lib/MACDSeries.jsx");
 
 // interaction components
-exports.EventCapture = require("./lib/EventCapture");
-exports.MouseCoordinates = require("./lib/MouseCoordinates");
-exports.CrossHair = require("./lib/CrossHair");
-exports.VerticalMousePointer = require("./lib/VerticalMousePointer");
-exports.CurrentCoordinate = require("./lib/CurrentCoordinate");
+exports.EventCapture = require("./lib/EventCapture.jsx");
+exports.MouseCoordinates = require("./lib/MouseCoordinates.jsx");
+exports.CrossHair = require("./lib/CrossHair.jsx");
+exports.VerticalMousePointer = require("./lib/VerticalMousePointer.jsx");
+exports.CurrentCoordinate = require("./lib/CurrentCoordinate.jsx");
 
 // misc
-exports.EdgeContainer = require("./lib/EdgeContainer");
-exports.EdgeIndicator = require("./lib/EdgeIndicator");
+exports.EdgeContainer = require("./lib/EdgeContainer.jsx");
+exports.EdgeIndicator = require("./lib/EdgeIndicator.jsx");
 
 exports.helper = {};
-exports.helper.ChartWidthMixin = require("./lib/helper/ChartWidthMixin");
+exports.helper.ChartWidthMixin = require("./lib/helper/ChartWidthMixin.jsx");
 
 exports.indicator = {
 	MACD: require("./lib/indicators/MACDIndicator")
@@ -48,7 +48,7 @@ exports.tooltip = {
 	MovingAverageTooltip: require("./lib/MovingAverageTooltip"),
 };
 
-exports.TooltipContainer = require("./lib/TooltipContainer");
-exports.OHLCTooltip = require("./lib/OHLCTooltip");
-exports.CompareTooltip = require("./lib/CompareTooltip");
-exports.MovingAverageTooltip = require("./lib/MovingAverageTooltip");
+exports.TooltipContainer = require("./lib/TooltipContainer.jsx");
+exports.OHLCTooltip = require("./lib/OHLCTooltip.jsx");
+exports.CompareTooltip = require("./lib/CompareTooltip.jsx");
+exports.MovingAverageTooltip = require("./lib/MovingAverageTooltip.jsx");

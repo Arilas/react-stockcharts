@@ -1,9 +1,9 @@
 "use strict";
 
 import React from "react";
-import ChartDataUtil from "./utils/ChartDataUtil";
-import Canvas from "./Canvas";
-import Utils from "./utils/utils";
+import ChartDataUtil from "./utils/ChartDataUtil.jsx";
+import Canvas from "./Canvas.jsx";
+import Utils from "./utils/utils.jsx";
 
 class ChartCanvas extends React.Component {
 	getAvailableHeight(props) {

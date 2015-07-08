@@ -1,7 +1,7 @@
 "use strict";
 
-import Utils from "./utils";
-import MACalculator from "./MovingAverageCalculator";
+import Utils from "./utils.jsx";
+import MACalculator from "./MovingAverageCalculator.jsx";
 
 var OverlayUtils = {
 	getToolTipLabel(props) {

@@ -1,7 +1,7 @@
 "use strict";
 
-import MACalculator from "../utils/MovingAverageCalculator";
-import Utils from "../utils/utils.js";
+import MACalculator from "../utils/MovingAverageCalculator.jsx";
+import Utils from "../utils/utils.js.jsx";
 
 var defaultOptions = {
 	fast: 12,

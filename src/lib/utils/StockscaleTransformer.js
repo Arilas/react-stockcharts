@@ -1,6 +1,6 @@
 "use strict";
 
-import stockScale from "../scale/polylineartimescale";
+import stockScale from "../scale/polylineartimescale.jsx";
 
 var defaultOptions = {
 	dateAccessor: (d) => d.date,

@@ -2,8 +2,8 @@
 
 import React from "react";
 
-import Utils from "./utils/utils";
-import ChartDataUtil from "./utils/ChartDataUtil";
+import Utils from "./utils/utils.jsx";
+import ChartDataUtil from "./utils/ChartDataUtil.jsx";
 
 
 var billion = 1 * 1000 * 1000 * 1000;
