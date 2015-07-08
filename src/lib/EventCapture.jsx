@@ -3,7 +3,7 @@
 import React from "react";
 import d3 from "d3";
 
-import Utils from "./utils/utils.js;
+import Utils from "./utils/utils.js";
 
 var mousemove = "mousemove.pan", mouseup = "mouseup.pan";
 

@@ -2,8 +2,8 @@
 
 import React from "react";
 
-import Utils from "./utils/utils.js;
-import ChartDataUtil from "./utils/ChartDataUtil.js;
+import Utils from "./utils/utils.js";
+import ChartDataUtil from "./utils/ChartDataUtil.js";
 
 
 class SingleMAToolTip extends React.Component {

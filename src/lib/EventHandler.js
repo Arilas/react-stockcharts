@@ -1,8 +1,8 @@
 "use strict";
 
 import React from "react";
-import Utils from "./utils/utils.js;
-import ChartDataUtil from "./utils/ChartDataUtil.js;
+import Utils from "./utils/utils.js";
+import ChartDataUtil from "./utils/ChartDataUtil.js";
 
 function getLongValue(value) {
 	if (value instanceof Date) {

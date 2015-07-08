@@ -1,7 +1,7 @@
 "use strict";
 
 import React from "react";
-import Utils from "./utils/utils.js;
+import Utils from "./utils/utils.js";
 
 class DataSeries extends React.Component {
 	render() {

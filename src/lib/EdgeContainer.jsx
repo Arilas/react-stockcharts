@@ -1,9 +1,9 @@
 "use strict";
 
 import React from "react";
-import Utils from "./utils/utils.js;
+import Utils from "./utils/utils.js";
 
-import PureComponent from "./utils/PureComponent.js;
+import PureComponent from "./utils/PureComponent.js";
 
 class EdgeContainer extends PureComponent {
 	render() {

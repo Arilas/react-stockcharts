@@ -1,8 +1,8 @@
 "use strict";
 
 import React from "react";
-import Utils from "./utils/utils.js;
-import PureComponent from "./utils/PureComponent.js;
+import Utils from "./utils/utils.js";
+import PureComponent from "./utils/PureComponent.js";
 import CrossHair from "./CrossHair.jsx";
 
 class MouseCoordinates extends PureComponent {
