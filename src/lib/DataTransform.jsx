@@ -4,7 +4,7 @@ import React from "react";
 
 import ChartDataUtil from "./utils/ChartDataUtil.js";
 import ChartTransformer from "./utils/ChartTransformer.js";
-import EventHandler from "./EventHandler.jsx";
+import EventHandler from "./EventHandler.js";
 import Utils from "./utils/utils.js";
 
 class DataTransform extends React.Component {
